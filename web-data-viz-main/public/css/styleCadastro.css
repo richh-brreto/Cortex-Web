@@ -8,7 +8,7 @@ body {
 }
 
 :root {
-  --tamanho-header: 80px;
+  --tamanho-header: 90px;
   --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
@@ -32,5 +32,80 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+}
+
+.titulo {
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.navbar {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  gap: 25px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #E2E8F0;
+  position: relative;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: color, all 0.3s ease;
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #B74C4C;
+  transition: width 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #006E66;
+  letter-spacing: 2.5px;
+}
+
+.navbar a:hover::after {
+  width: 100%;
+}
+ 
+.btn-navbar {
+  padding: 15px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: #E2E8F0;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  gap: 20px;
+  transition: all 0.5s ease;
+}
+
+.btn-navbar:hover {
+  letter-spacing: 3px;
+  background-color: #006E66;
+  color: #E2E8F0;
+}
+
+.btn-navbar:active {
+  letter-spacing: 3px;
+  background-color: #006E66;
+  color: #E2E8F0;
+  transform: translateY(10px);
+  transition: 100ms;
 }
 
