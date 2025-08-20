@@ -109,3 +109,46 @@ body {
   transition: 100ms;
 }
 
+.login .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 100px;
+}
+
+.card {
+  width: 80%;
+  background-color: #e5e5e5;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: palevioletred;
+  flex-direction: column;
+  height: fit-content;
+  padding: 20px 0;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.footer {
+  background-color: #040404;
+  border-top: 5px solid #B74C4C;
+  height: 90px;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  font-size: 15px;
+}
+
+.footer .container {
+  justify-content: center;
+  text-align: center;
+}
+
+.footer .container .version {
+  font-size: 12px;
+}
