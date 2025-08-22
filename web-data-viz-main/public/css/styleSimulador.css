@@ -1,17 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
   background: linear-gradient(#0A202D, #006E66);
 }
 
 :root {
   --tamanho-header: 90px;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-footer: 65px;
 }
 
@@ -38,15 +36,16 @@ body {
   font-size: 40px;
   font-weight: bold;
   letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-  width: 250px;
+  width: 275px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   list-style: none;
-  gap: 25px;
+  gap: 30px;
 }
 
 .navbar a {
@@ -60,6 +59,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 1.5px;
   transition: color, all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar a::after {
@@ -93,6 +93,7 @@ body {
   font-size: 15px;
   gap: 20px;
   transition: all 0.5s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-navbar:hover {
@@ -105,7 +106,7 @@ body {
   letter-spacing: 3px;
   background-color: #006E66;
   color: #E2E8F0;
-  transform: translateY(10px);
+  transform: translateY(5px);
   transition: 100ms;
 }
 
@@ -133,12 +134,13 @@ body {
 .calculadora h2 {
   margin-bottom: 25px;
   font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .form-financeira {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 30px;
 }
 
 .form-financeira input {
@@ -164,12 +166,12 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-enviar:hover {
   background: #009f8c;
 }
-
 
 .footer {
   background-color: #040404;
@@ -179,6 +181,7 @@ body {
   color: #fff;
   display: flex;
   font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .footer .container {
