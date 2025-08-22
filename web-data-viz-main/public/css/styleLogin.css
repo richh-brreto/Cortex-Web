@@ -118,7 +118,7 @@ body {
 
 .container-cadastro {
   width: 900px;
-  height: 650px;
+  height: 500px;
   display: flex;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;

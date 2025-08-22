@@ -46,11 +46,9 @@
     </div>
     <div class="container-cadastro">
       <div class="lado-esquerdo">
-        <h1>Bem-vindo <br> a <br> <strong>Cortex IA</strong> </h1>
-        <div class="cadastro-ja-feito">    
+        <h1>Bem-vindo <br> a <br> <strong>Cortex AI</strong> </h1>   
           <p>Já possui cadastro? <br> Faça seu login!</p>
-          <button class="btn-login"> Fazer login </button>
-        </div>
+          <button class="btn-login" onclick="location.href='login.html';"> Fazer login </button>
       </div>
       <hr class="linha">
       <div class="lado-direito">
@@ -65,11 +63,14 @@
             <input id="email_input" type="text" placeholder="meuemail@gmail.com" />
           </div>
           <div class="campo">
+            <label> CNPJ: </label>
+            <input id="email_input" type="text" placeholder="__.___.___/____-__" />
+          </div>
+          <div class="campo">
             <label> Senha: </label>
             <input id="senha_input" type="password" placeholder="*******" />
           </div>
           <button class="btn-cadastro" onclick="cadastrar()"> Cadastrar-se </button>
-          <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
         </div>
       </div>
     </div>

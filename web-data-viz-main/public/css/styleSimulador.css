@@ -5,14 +5,11 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
 }
 
 :root {
   --tamanho-header: 90px;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-footer: 65px;
 }
 
@@ -46,15 +43,16 @@ html, body {
   font-size: 40px;
   font-weight: bold;
   letter-spacing: 1px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar {
-  width: 250px;
+  width: 275px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   list-style: none;
-  gap: 25px;
+  gap: 30px;
 }
 
 .navbar a {
@@ -68,6 +66,7 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 1.5px;
   transition: color, all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .navbar a::after {
@@ -101,6 +100,7 @@ html, body {
   font-size: 15px;
   gap: 20px;
   transition: all 0.5s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-navbar:hover {
@@ -113,7 +113,7 @@ html, body {
   letter-spacing: 3px;
   background-color: #006E66;
   color: #E2E8F0;
-  transform: translateY(10px);
+  transform: translateY(5px);
   transition: 100ms;
 }
 
@@ -150,6 +150,7 @@ html, body {
 .calculadora h2 {
   margin-bottom: 25px;
   font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .form-financeira {
@@ -169,6 +170,12 @@ html, body {
 .form-financeira input:focus {
   border-color: #006E66;
   box-shadow: 0px 0px 8px rgba(0, 110, 102, 0.4);
+}
+
+.form-financeira input::placeholder {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  color: #666666;
 }
 
 .btn-enviar {
@@ -229,6 +236,7 @@ html, body {
   color: #fff;
   display: flex;
   font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .footer .container {
