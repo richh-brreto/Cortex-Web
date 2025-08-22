@@ -20,16 +20,13 @@
                 <li>
                     <a href="index.html">Sobre nós</a>
                 </li>
-                <li>
-                    <a href="#">Simulador</a>
-                </li>
             </ul>
             <ul class="navbar">
                 <li>
-                    <button class="btn-navbar" onclick="location.href='login.html'">Login</button>
+                    <button class="btn-navbar" href="login.html">Login</button>
                 </li>
                 <li>
-                    <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
+                    <button class="btn-navbar" href="cadastro.html">Cadastro</button>
                 </li>
             </ul>
         </div>
@@ -39,22 +36,53 @@
             <section class="calculadora">
                 <h2>Calculadora financeira</h2>
                 <form class="form-financeira">
-                    <input type="text" placeholder="Valor atual (R$) com falhas de hardware">
-                    <input type="text" placeholder="Valor anual de software">
-                    <input type="text" placeholder="Prejuízos em processos por ano">
-                    <input type="text" placeholder="Horas de inatividade de sistemas por ano">
-                    <input type="text" placeholder="Insira a margem que deseja aplicar sobre o cálculo (%)">
-                    <button type="submit" class="btn-enviar">Enviar</button>
+                    <input id="ipt_downtime" type="text" placeholder="Insira o custo de uma hora de downtime">
+                    <input id="ipt_hardware" type="text" placeholder="Insira o custo do hardware">
+                    <input id="ipt_incidente" type="text" placeholder="Frequência de incidentes por ano">
+                    <input id="ipt_trabalho" type="text" placeholder="O valor da hora de trabalho dos envolvidos">
+                    <input id="ipt_tempo" type="text"
+                        placeholder="Insira o tempo que leva para diagnosticar e resolver o problema">
+                    <button type="button" class="btn-enviar" onclick="enviar()">Enviar</button>
                 </form>
+            </section>
+            <section class="resultado" id="resultado">
+
             </section>
         </div>
     </div>
+
     <div class="footer">
         <div class="container">
-            <h4>Feito por: Devs da &copy; <strong>Cortex AI</strong> &copy;</h4>
+            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
             <span class="version">v1.0.0</span>
         </div>
     </div>
 </body>
 
 </html>
+<script>
+    function enviar() {
+        var downtime = Number(ipt_downtime.value)
+        var hardware = Number(ipt_hardware.value)
+        var incidentes = Number(ipt_incidente.value)
+        var trabalho = Number(ipt_trabalho.value)
+        var tempo = Number(ipt_tempo.value)
+
+        var perda = (downtime * tempo * incidentes) + (hardware * incidentes) + (trabalho * tempo * incidentes)
+
+        var perdaFormatada = perda.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+        resultado.innerHTML = `<div class="card-resultado">
+        <div class="icon-check"><img src="./assets/imgs/certo.png"></div>
+        <h3>Com a Cortex AI</h3>
+        <p>
+          Com a Cortex, você pode reduzir drasticamente o número de incidentes por ano de ${incidentes} para quase zero, 
+          economizando uma estimativa de ${perdaFormatada} por ano em potenciais falhas de hardware.
+        </p>
+      </div>`
+
+    }
+</script>
