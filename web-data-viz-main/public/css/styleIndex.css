@@ -11,7 +11,7 @@ body {
   --tamanho-header: 15vh;
   --tamanho-footer: 10vh;
   --tamanho-divisao: 25vh;
-  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-banner: calc(125vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --branco-gelo: #E2E8F0;
@@ -145,11 +145,12 @@ body {
   width: 40%;
   margin: 0;  
   padding: 0;
-  font-size: 2.3rem;
+  font-size: 50px;
   font-family: 'Lato', sans-serif;
 }
 
 .banner .container span {
+  font-size: 50px;
   font-weight: 800;
 }
 
@@ -194,12 +195,13 @@ body {
 /* BANNER - div-page */
 
 .div-page {
-  height: var(--tamanho-banner);
+  height: var(--tamanho-banner);;
   color: var(--branco-gelo);
   background: linear-gradient(var(--verde-petroleo), var(--ciano-escuro), var(--verde-petroleo));
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .div-page .container {
@@ -213,10 +215,10 @@ body {
 
 .div-page .container a {
   text-align: center;
-  width: 40%;
+  width: 60%;
   margin: 0;  
   padding: 0;
-  font-size: 2rem;
+  font-size: 4rem;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -224,6 +226,7 @@ body {
   text-align: center;
   font-family: 'Lato', sans-serif;
   width: 30%;
+  font-size: 20px;
 }
 
 .div-page .container .boxes{
@@ -239,20 +242,21 @@ body {
   align-items: center;
   background-color: var(--branco-gelo);
   color: #040404;
-  width: 70%;
-  height: 2rem;
+  width: 90%;
+  height: 5rem;
   padding: 1rem;
   gap: 0.5rem;
   border-radius: 1rem;
 }
 
 .div-page .container .boxes .box img{
-  width: 15%;
+  padding: 30px;
+  width: 25%;
   border-radius: 0.5rem;
 }
 
 .div-page .container .boxes .box a{
-  font-size: 0.58rem;
+  font-size: 1rem;
   width: 80%;
   font-weight: 600;
   text-align: start;
@@ -270,12 +274,14 @@ body {
 
 .div-objetivos .container {
   width: 100%;
+  height: 70%;
   gap: 1rem;
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 .div-objetivos .container a {
@@ -284,7 +290,7 @@ body {
   width: 40%;
   margin: 0;  
   padding: 0;
-  font-size: 2rem;
+  font-size: 4rem;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -298,7 +304,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
-  width: 80%;
+  width: 100%;
 }
 
 .div-objetivos .container .boxes .box{
@@ -307,7 +313,7 @@ body {
   align-items: center;
   background-color: #EBF4F8;
   color: #040404;
-  width: 50%;
+  width: 75%;
   height: 17rem;
   padding: 1rem;
   gap: 0.5rem;
@@ -330,7 +336,7 @@ body {
 }
 
 .div-objetivos .container .boxes .box p{
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #0A202D;
   width: 90%;
   text-align: justify;
@@ -369,16 +375,17 @@ body {
 /*Página do serviço*/
 
 .div-checkmat::before {
-  margin-left: 1rem;
+  margin-left: 1.7rem;
   content: "";
   position: absolute;
-  top: 110px; 
-  bottom: 170px; 
+  top: 27%; 
+  bottom: 27%; 
   left: 20%; 
   width: 2px;
   background-color: white;
   box-shadow: 0 0 10px #00e0dc;
   z-index: 0;
+  
 }
 
 
@@ -387,28 +394,30 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 0;
+  height: var(--tamanho-banner);;
   gap: 80px;
   width: 100%;
-    position: relative;
+  position: relative;
+  justify-content: center;
+  
 }
 
  .div-checkmat .etapa{ 
+  align-items: center;
   display: flex;
   background-color: #0A202D;
   width: 60%;
   height: 6rem;
   justify-content: space-between;
-  padding: 30px;
+  padding: 40px;
   gap: 30px;
 
   
 }
 
 .div-checkmat .etapa .bolas {
-  margin-top: 15px;
-  width: 60px;
-  height: 50px;
+  width: 80px;
+  height: 55px;
   background-color: #00e0dc;
   border-radius:50%;
   box-shadow: 0 0 10px #00e0dc;
@@ -419,13 +428,15 @@ body {
 
 .div-checkmat .etapa h2{
   margin: 0;
+  font-size: 28px;
+  margin: 0;
   color: white;;
   font-family: 'Lato', sans-serif;
   position: relative;
   
 }
 .div-checkmat .etapa p {
-  font-size: 20px;
+  font-size: 21px;
   margin-top: 15px;
   color: white;;
   font-family: 'Lato', sans-serif;
