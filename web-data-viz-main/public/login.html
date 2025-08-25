@@ -8,7 +8,7 @@
 
     <title>AquaTech | Login</title>
 
-    <script src="./js/sessao.js"></script>
+ 
 
     <link rel="stylesheet" href="./css/styleLogin.css">
     <link rel="icon" href="./assets/icon/favicon2.ico">
@@ -113,21 +113,21 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
                 console.log(resposta);
 
                 resposta.json().then(json => {
-                    console.log(json);
+                          const usuario = json[0]
                     console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
-
-
+                    sessionStorage.EMAIL_USUARIO = usuario.email;
+                    sessionStorage.NOME_USUARIO = usuario.nome;
+                    sessionStorage.ID_USUARIO = usuario.id;
+                    sessionStorage.CNPJ_USUARIO = usuario.cnpj;
+                    console.log(sessionStorage)
+                  
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                      location.href='./dashboard/dashboard.html';
                     }, 1000); // apenas para exibir o loading
 
                 });
