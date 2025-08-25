@@ -366,6 +366,76 @@ body {
   letter-spacing: 0.1rem;
 }
 
+/*Página do serviço*/
+
+.div-checkmat::before {
+  margin-left: 1rem;
+  content: "";
+  position: absolute;
+  top: 110px; 
+  bottom: 170px; 
+  left: 20%; 
+  width: 2px;
+  background-color: white;
+  box-shadow: 0 0 10px #00e0dc;
+  z-index: 0;
+}
+
+
+  .div-checkmat {
+  background-color: #0A202D;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  gap: 80px;
+  width: 100%;
+    position: relative;
+}
+
+ .div-checkmat .etapa{ 
+  display: flex;
+  background-color: #0A202D;
+  width: 60%;
+  height: 6rem;
+  justify-content: space-between;
+  padding: 30px;
+  gap: 30px;
+
+  
+}
+
+.div-checkmat .etapa .bolas {
+  margin-top: 15px;
+  width: 60px;
+  height: 50px;
+  background-color: #00e0dc;
+  border-radius:50%;
+  box-shadow: 0 0 10px #00e0dc;
+  position: relative;
+  z-index: 1;
+  
+}
+
+.div-checkmat .etapa h2{
+  margin: 0;
+  color: white;;
+  font-family: 'Lato', sans-serif;
+  position: relative;
+  
+}
+.div-checkmat .etapa p {
+  font-size: 20px;
+  margin-top: 15px;
+  color: white;;
+  font-family: 'Lato', sans-serif;
+   width: 80%;
+  
+}
+
+
+
+
 /* FOOTER */
 
 .footer {
