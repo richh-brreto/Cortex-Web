@@ -14,7 +14,18 @@ function cadastrar(nome, email, cnpj, senha) {
 }
 
 
+function login(email, senha) {
+
+    var instrucaoSql = `
+    select email,nome,id,cnpj from usuario
+    where email = '${email}' and senha = '${senha}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
-    cadastrar
+    cadastrar,
+    login
 };

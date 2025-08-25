@@ -63,7 +63,7 @@
                 <label> Senha: </label>
                 <input id="senha_input" type="password" placeholder="*******" />
               </div>
-              <button class="btn-cadastro" onclick="cadastrar()"> Entrar </button>
+              <button class="btn-cadastro" onclick="login()"> Entrar </button>
               <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
             </div>
           </div>
@@ -85,9 +85,8 @@
 <script>
 
 
-    function entrar() {
-        aguardar();
-
+    function login() {
+  
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
@@ -104,7 +103,7 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuarios/autenticar", {
+        fetch("/usuario/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -125,7 +124,7 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
 
                     setTimeout(function () {
                         window.location = "./dashboard/cards.html";
