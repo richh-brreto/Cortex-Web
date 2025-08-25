@@ -7,7 +7,7 @@ var database = require("../database/config")
 function cadastrar(nome, email, cnpj, senha) {
 
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, cnpj, senha) VALUES ('${nome}', '${email}', '${cnpj}', '${senha}');
+        INSERT INTO empresa (nome, email, cnpj, senha) VALUES ('${nome}', '${email}', '${cnpj}', '${senha}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -17,7 +17,7 @@ function cadastrar(nome, email, cnpj, senha) {
 function login(email, senha) {
 
     var instrucaoSql = `
-    select email,nome,id,cnpj from usuario
+    select email, nome, idusuario, cnpj from usuario
     where email = '${email}' and senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

@@ -1,30 +1,17 @@
+drop database CORTEX;
 create database CORTEX;
 use CORTEX;
 
-CREATE TABLE endereco (
-    idendereco INT PRIMARY KEY AUTO_INCREMENT,
-    logradouro VARCHAR(100),
-    numero VARCHAR(10),
-    complemento VARCHAR(50),
-    bairro VARCHAR(50),
-    cidade VARCHAR(50),
-    estado CHAR,
-    cep VARCHAR(9)
-);
-
 CREATE TABLE empresa (
     idempresa INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100),
     CNPJ VARCHAR(18),
-    telefone VARCHAR(20),
-    ativo TINYINT,
-    fkendereco INT,
-    FOREIGN KEY (fkendereco) REFERENCES endereco(idendereco)
+    ativo TINYINT
 );
 
 CREATE TABLE usuario (
     idusuario INT PRIMARY KEY AUTO_INCREMENT,
     idempresa INT,
+    nome VARCHAR(100),
     email VARCHAR(100),
     senha VARCHAR(20),
     administrador BOOLEAN DEFAULT TRUE,
@@ -34,10 +21,24 @@ CREATE TABLE usuario (
 
 CREATE TABLE datacenter (
     iddatacenter INT PRIMARY KEY AUTO_INCREMENT,
-    idendereco INT,
     identificacao VARCHAR(80),
-    FOREIGN KEY (idendereco) REFERENCES endereco(idendereco)
+    cep varchar(9),
+    complemento varchar(100),
+    numero varchar(20)
 );
+
+CREATE TABLE rack (
+	idRack int primary key auto_increment,
+	fkDatacenter int,
+	constraint foreign key (fkDatacenter) references datacenter(iddatacenter)
+    );
+
+CREATE TABLE servidor (
+	fkRack int,
+    identificacao VARCHAR(80),
+    constraint foreign key (fkRack) references rack(idRack)
+    );
+    
 
 CREATE TABLE alerta (
     idAlerta INT PRIMARY KEY AUTO_INCREMENT,
