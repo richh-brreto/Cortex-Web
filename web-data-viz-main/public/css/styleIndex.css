@@ -375,7 +375,7 @@ body {
 /*Página do serviço*/
 
 .div-checkmat::before {
-  margin-left: 1.7rem;
+  margin-left: 2rem;
   content: "";
   position: absolute;
   top: 27%; 
@@ -416,8 +416,8 @@ body {
 }
 
 .div-checkmat .etapa .bolas {
-  width: 80px;
-  height: 55px;
+  width: 65px;
+  height: 65px;
   background-color: #00e0dc;
   border-radius:50%;
   box-shadow: 0 0 10px #00e0dc;
@@ -425,6 +425,11 @@ body {
   z-index: 1;
   
 }
+
+.div-checkmat .etapa .topico{
+  width: 90%;
+}
+
 
 .div-checkmat .etapa h2{
   margin: 0;
@@ -443,7 +448,6 @@ body {
    width: 80%;
   
 }
-
 
 
 
