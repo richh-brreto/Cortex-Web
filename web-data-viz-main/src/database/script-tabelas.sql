@@ -1,10 +1,11 @@
-drop database CORTEX;
-create database CORTEX;
-use CORTEX;
+drop database cortex;
+create database cortex;
+use cortex;
 
 CREATE TABLE empresa (
     idempresa INT PRIMARY KEY AUTO_INCREMENT,
-    CNPJ VARCHAR(18),
+    nome VARCHAR(100),
+    cnpj VARCHAR(18) unique,
     ativo TINYINT
 );
 

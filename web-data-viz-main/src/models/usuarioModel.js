@@ -4,10 +4,30 @@ var database = require("../database/config")
 
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, cnpj, senha) {
+function cadastrarUsuario(idEmpresa,nome, email, senha) {
 
     var instrucaoSql = `
-        INSERT INTO empresa (nome, email, cnpj, senha) VALUES ('${nome}', '${email}', '${cnpj}', '${senha}');
+        INSERT INTO usuario (idempresa,nome,email,senha) VALUES ('${idEmpresa}','${nome}','${email}','${senha}');
+        
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function cadastrarEmpresa(cnpj,nome){
+    var instrucaoSql = `
+        INSERT INTO empresa (cnpj,nome) VALUES ('${cnpj}','${nome}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function buscarId(cnpj) {
+
+    var instrucaoSql = `
+    select idempresa from empresa
+    where cnpj = '${cnpj}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -17,7 +37,7 @@ function cadastrar(nome, email, cnpj, senha) {
 function login(email, senha) {
 
     var instrucaoSql = `
-    select email, nome, idusuario, cnpj from usuario
+    select email, nome, idusuario, administrador from usuario
     where email = '${email}' and senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -26,6 +46,8 @@ function login(email, senha) {
 
 
 module.exports = {
-    cadastrar,
+    cadastrarEmpresa,
+    buscarId,
+    cadastrarUsuario,
     login
 };
