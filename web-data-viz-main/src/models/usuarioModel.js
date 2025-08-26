@@ -14,9 +14,9 @@ function cadastrarUsuario(idEmpresa,nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
-function cadastrarEmpresa(cnpj,nome){
+function cadastrarEmpresa(cnpj,nomeEmpresa){
     var instrucaoSql = `
-        INSERT INTO empresa (cnpj,nome) VALUES ('${cnpj}','${nome}');
+        INSERT INTO empresa (cnpj,nome) VALUES ('${cnpj}','${nomeEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

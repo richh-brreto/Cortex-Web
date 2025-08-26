@@ -6,8 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title> Cortex AI | Cadastro </title>
+  <title> Cortex | Cadastro </title>
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.all.min.js"></script>
 
   <link rel="stylesheet" href="./css/styleCadastro.css" />
   <link rel="icon" href="./assets/icon/favicon2.ico" />
@@ -17,7 +19,7 @@
 <body>
   <div class="header">
     <div class="container">
-      <h1 class="titulo">Cortex AI</h1>
+      <h1 class="titulo">Cortex </h1>
       <ul class="navbar">
         <li>
           <a href="index.html">Sobre nós</a>
@@ -45,9 +47,9 @@
     </div>
     <div class="container-cadastro">
       <div class="lado-esquerdo">
-        <h1>Bem-vindo <br> a <br> <strong>Cortex AI</strong> </h1>   
-          <p>Já possui cadastro? <br> Faça seu login!</p>
-          <button class="btn-login" onclick="location.href='login.html';"> Fazer login </button>
+        <h1>Bem-vindo <br> a <br> <strong>Cortex</strong> </h1>
+        <p>Já possui cadastro? <br> Faça seu login!</p>
+        <button class="btn-login" onclick="location.href='login.html';"> Fazer login </button>
       </div>
       <hr class="linha">
       <div class="lado-direito">
@@ -69,7 +71,7 @@
             <label> Senha: </label>
             <input id="senha_input" type="password" placeholder="*******" />
           </div>
-           <div class="campo">
+          <div class="campo">
             <label> Confirmar Senha: </label>
             <input id="confirmacao_senha_input" type="password" placeholder="*******" />
           </div>
@@ -95,17 +97,21 @@
   let listaEmpresasCadastradas = [];
 
   function cadastrarEmpresa() {
-    
+
     var cnpjVar = cnpj_input.value;
-     var nomeVar = nome_input.value;
+    var nomeEmpresaVar = nome_input.value;
 
     if (
       cnpjVar == "" ||
-      nomeVar == ""
+      nomeEmpresaVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        Swal.fire({
+          icon: "error",
+          title: "Erro no cadastro",
+          text: "Alguns dos campos está vazio!"
+        });
 
       return false;
     } else {
@@ -118,9 +124,9 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nomeServer: nomeVar,
+        nomeEmpresaServer: nomeEmpresaVar,
         cnpjServer: cnpjVar
-        
+
       }),
     })
       .then(function (resposta) {
@@ -128,14 +134,14 @@
 
         if (resposta.ok) {
           cardErro.style.display = "block";
-            buscarId();     
+          buscarId();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-       
+
       });
 
     return false;
@@ -143,43 +149,48 @@
 
 
 
-   function buscarId() {
+  function buscarId() {
     var cnpjVar = cnpj_input.value;
 
-
     fetch(`/usuario/buscarId/${cnpjVar}`)
-     .then(function (resposta) {
+      .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-           resposta.json().then(function (resposta){
-           let idEmpresa = resposta.map(idsRecuperados => idsRecuperados.idempresa);
-          cadastrarUsuario(idEmpresa)
+          resposta.json().then(function (resposta) {
+            let idEmpresa = resposta.map(idsRecuperados => idsRecuperados.idempresa);
+            cadastrarUsuario(idEmpresa)
           });
-      }})
-      };
+        }
+      })
+  };
 
 
 
-  
-   function cadastrarUsuario(idEmpresa) {
+
+  function cadastrarUsuario(idEmpresa) {
 
     var idEmpresaVar = idEmpresa
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar =  confirmacao_senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
-      console.log(emailVar)
-      console.log(senhaVar)
-      console.log(idEmpresaVar)
+    console.log(emailVar)
+    console.log(senhaVar)
+    console.log(idEmpresaVar)
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" 
+      confirmacaoSenhaVar == ""
     ) {
       cardErro.style.display = "block";
+      Swal.fire({
+            icon: "error",
+            title: "Erro no cadastro",
+            text: "Algum dos campos está em branco!"
+          });
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
@@ -203,21 +214,24 @@
         if (resposta.ok) {
           cardErro.style.display = "block";
 
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          Swal.fire({
+            icon: "success",
+            title: "Cadastro realizado",
+            text: "Redirecionando para a página de login"
+          });
 
           setTimeout(() => {
-               window.location = "login.html";
-          }, "1000");
+            window.location = "login.html";
+          }, "3000");
 
-         
+
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-       
+
       });
 
     return false;

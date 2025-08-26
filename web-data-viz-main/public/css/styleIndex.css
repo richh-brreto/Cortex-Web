@@ -42,7 +42,7 @@ body {
 }
 
 .titulo {
-  font-size: 200%;
+  font-size: 40px;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.1rem;
@@ -63,7 +63,7 @@ body {
   position: relative;
   text-decoration: none;
   font-weight: 600;
-  font-size: 100%;
+  font-size: 16px;
   padding: 0.2rem 0;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
@@ -83,8 +83,8 @@ body {
 }
 
 .navbar a:hover {
-  color: var(--ciano);
-  letter-spacing: 0.1rem;
+  color: var(--ciano-escuro);
+  letter-spacing: 2.5px;
 }
 
 .navbar a:hover::after {
@@ -108,7 +108,7 @@ body {
 
 .btn-navbar:hover {
   letter-spacing: 3px;
-  background-color: var(--ciano);
+  background-color: var(--ciano-escuro);
   color: var(--branco-gelo);
 }
 

@@ -2,81 +2,82 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AquaTech | Login</title>
+  <title> Cortex | Login</title>
 
- 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.all.min.js"></script>
 
-    <link rel="stylesheet" href="./css/styleLogin.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="./css/styleLogin.css">
+  <link rel="icon" href="./assets/icon/favicon2.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
 <body>
 
-    <div class="header">
-        <div class="container">
-          <h1 class="titulo">Cortex AI</h1>
-          <ul class="navbar">
-            <li>
-              <a href="index.html">Sobre nós</a>
-            </li>
-            <li>
-              <a href="simulador.html">Simulador</a>
-            </li>
-          </ul>
-          <ul class="navbar">
-            <li>
-              <button class="btn-navbar" onclick="location.href='#';">Login</button>
-            </li>
-            <li>
-              <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
-            </li>
-          </ul>
+  <div class="header">
+    <div class="container">
+      <h1 class="titulo">Cortex </h1>
+      <ul class="navbar">
+        <li>
+          <a href="index.html">Sobre nós</a>
+        </li>
+        <li>
+          <a href="simulador.html">Simulador</a>
+        </li>
+      </ul>
+      <ul class="navbar">
+        <li>
+          <button class="btn-navbar" onclick="location.href='#';">Login</button>
+        </li>
+        <li>
+          <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cadastro">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+    <div class="container-cadastro">
+      <div class="lado-esquerdo">
+        <h1>Bem-vindo <br> a <br> <strong>Cortex</strong> </h1>
+        <p>Não possui cadastro? <br> Realize-o abaixo!</p>
+        <button class="btn-login" onclick="location.href='cadastro.html';"> Fazer cadastro </button>
+      </div>
+      <hr class="linha">
+      <div class="lado-direito">
+        <h2>REALIZAR LOGIN</h2>
+        <div class="formulario">
+          <div class="campo">
+            <label> Email: </label>
+            <input id="email_input" type="text" placeholder="meuemail@gmail.com" />
+          </div>
+          <div class="campo">
+            <label> Senha: </label>
+            <input id="senha_input" type="password" placeholder="*******" />
+          </div>
+          <button class="btn-cadastro" onclick="login()"> Entrar </button>
+          <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
         </div>
       </div>
-    
-      <div class="cadastro">
-        <div class="alerta_erro">
-          <div class="card_erro" id="cardErro">
-            <span id="mensagem_erro"></span>
-          </div>
-        </div>
-        <div class="container-cadastro">
-          <div class="lado-esquerdo">
-            <h1>Bem-vindo <br> a <br> <strong>Cortex AI</strong> </h1>   
-              <p>Não possui cadastro? <br> Realize-o abaixo!</p>
-              <button class="btn-login" onclick="location.href='cadastro.html';"> Fazer cadastro </button>
-          </div>
-          <hr class="linha">
-          <div class="lado-direito">
-            <h2>REALIZAR LOGIN</h2>
-            <div class="formulario">
-              <div class="campo">
-                <label> Email: </label>
-                <input id="email_input" type="text" placeholder="meuemail@gmail.com" />
-              </div>
-              <div class="campo">
-                <label> Senha: </label>
-                <input id="senha_input" type="password" placeholder="*******" />
-              </div>
-              <button class="btn-cadastro" onclick="login()"> Entrar </button>
-              <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-      <div class="footer">
-        <div class="container">
-          <h4>Feito por: Devs da &copy; <strong>Cortex AI</strong> &copy;</h4>
-          <span class="version">v1.0.0</span>
-        </div>
-      </div>
-    
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <h4>Feito por: Devs da &copy; <strong>Cortex AI</strong> &copy;</h4>
+      <span class="version">v1.0.0</span>
+    </div>
+  </div>
+
 
 </body>
 
@@ -85,72 +86,85 @@
 <script>
 
 
-    function login() {
-  
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+  function login() {
 
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
-        fetch("/usuario/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                          const usuario = json[0]
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = usuario.email;
-                    sessionStorage.NOME_USUARIO = usuario.nome;
-                    sessionStorage.ID_USUARIO = usuario.id;
-                    sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
-                    console.log(sessionStorage)
-                  
-                    setTimeout(function () {
-                      location.href='./dashboard/dashboard.html';
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
+    if (emailVar == "" || senhaVar == "") {
+      Swal.fire({
+        icon: "error",
+        title: "Erro no login",
+        text: "Algum dos campos está em branco!"
+      });
+      finalizarAguardar();
+      return false;
+    }
+    else {
+      setInterval(sumirMensagem, 5000)
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuario/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          const usuario = json[0]
+          console.log(JSON.stringify(json));
+          sessionStorage.EMAIL_USUARIO = usuario.email;
+          sessionStorage.NOME_USUARIO = usuario.nome;
+          sessionStorage.ID_USUARIO = usuario.id;
+          sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
+          console.log(sessionStorage)
+
+          Swal.fire({
+            icon: "success",
+            title: "Login realizado",
+            text: "Redirecionando para a dashboard"
+          });
+
+          setTimeout(function () {
+            location.href = './dashboard/dashboard.html';
+          }, 3000); 
+
+        });
+
+      } else {
+
+        Swal.fire({
+          icon: "error",
+          title: "Erro no login",
+          text: "Algo ocorreu inesperadamente, volte mais tarde!!"
+        });
+
+        resposta.text().then(texto => {
+          console.error(texto);
+          finalizarAguardar(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none"
+  }
 
 </script>

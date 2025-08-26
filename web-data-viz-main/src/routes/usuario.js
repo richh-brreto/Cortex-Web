@@ -11,7 +11,6 @@ router.post("/cadastrarEmpresa", function (req, res) {
     usuarioController.cadastrarEmpresa(req, res);
 })
 
-
 router.get("/buscarId/:cnpjVar", function (req, res) {
     usuarioController.buscarId(req, res);
 })

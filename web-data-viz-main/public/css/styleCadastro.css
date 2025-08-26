@@ -110,6 +110,23 @@ body {
   transition: 100ms;
 }
 
+.swal2-title {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.swal2-html-container {
+  font-family: 'Lato', sans-serif;
+}
+
+.swal2-confirm {
+  background-color: #008D8D;
+}
+
+.swal2-confirm:hover {
+  background-color: #006E66;
+  color: #E2E8F0;
+}
+
 .cadastro {
   display: flex;
   justify-content: center;
