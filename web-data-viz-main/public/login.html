@@ -91,11 +91,11 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
 
-    if (emailVar == "" || senhaVar == "") {
+    if (emailVar == "" || senhaVar == "" || senhaVar.length < 6 || !emailVar.includes("@")|| !emailVar.includes(".")) {
       Swal.fire({
         icon: "error",
         title: "Erro no login",
-        text: "Algum dos campos está em branco!"
+        text: "Preencha os campos corretamente!"
       });
       finalizarAguardar();
       return false;

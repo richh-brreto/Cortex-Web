@@ -100,10 +100,17 @@
 
     var cnpjVar = cnpj_input.value;
     var nomeEmpresaVar = nome_input.value;
+    var email = email_input.value;
+    var senha = senha_input.value;
+    var confirmacaoSenha = confirmacao_senha_input.value;
+
 
     if (
       cnpjVar == "" ||
-      nomeEmpresaVar == ""
+      nomeEmpresaVar == "" ||
+      email == "" ||
+      senha == "" ||
+      confirmacaoSenha == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -111,6 +118,22 @@
           icon: "error",
           title: "Erro no cadastro",
           text: "Alguns dos campos está vazio!"
+        });
+
+      return false;
+    } else if (
+      cnpjVar.length != 14 ||
+      !email.includes("@") ||
+      !email.includes(".") ||
+      senha < 6 ||
+      confirmacaoSenha != senha
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        Swal.fire({
+          icon: "error",
+          title: "Erro no cadastro",
+          text: "Preencha os campos corretamente!"
         });
 
       return false;
@@ -187,10 +210,10 @@
     ) {
       cardErro.style.display = "block";
       Swal.fire({
-            icon: "error",
-            title: "Erro no cadastro",
-            text: "Algum dos campos está em branco!"
-          });
+        icon: "error",
+        title: "Erro no cadastro",
+        text: "Algum dos campos está em branco!"
+      });
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
