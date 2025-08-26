@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cortex AI | Simulador</title>
+    <title>Cortex | Simulador</title>
     <link rel="stylesheet" href="./css/styleSimulador.css" />
     <link rel="icon" href="./assets/icon/favicon2.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -39,13 +39,12 @@
             <section class="calculadora">
                 <h2>Calculadora financeira</h2>
                 <form class="form-financeira">
-                    <input id="ipt_downtime" type="text" placeholder="Insira o custo de uma hora de downtime">
-                    <input id="ipt_hardware" type="text" placeholder="Insira o custo do hardware">
-                    <input id="ipt_incidente" type="text" placeholder="Frequência de incidentes por ano">
-                    <input id="ipt_trabalho" type="text" placeholder="O valor da hora de trabalho dos envolvidos">
-                    <input id="ipt_tempo" type="text"
-                        placeholder="Insira o tempo que leva para diagnosticar e resolver o problema">
+                    <label for="ipt_servidores">Quantos servidores você possui:</label>
+                    <input id="ipt_servidores" type="text">
+                    <label for="ipt_incidentes">Frequência de incidentes por ano:</label>
+                    <input id="ipt_incidentes" type="text">
                     <button type="button" class="btn-enviar" onclick="enviar()">Enviar</button>
+                    <div class="erro" id="erro"></div>
                 </form>
             </section>
             <section class="resultado" id="resultado">
@@ -65,27 +64,38 @@
 </html>
 <script>
     function enviar() {
-        var downtime = Number(ipt_downtime.value)
-        var hardware = Number(ipt_hardware.value)
-        var incidentes = Number(ipt_incidente.value)
-        var trabalho = Number(ipt_trabalho.value)
-        var tempo = Number(ipt_tempo.value)
+        var servidores = Number(ipt_servidores.value)
+        var hardware = 125000
+        var incidentes = Number(ipt_incidentes.value)
+        var downtime = 2500000
+        var tempo = 6
 
-        var perda = (downtime * tempo * incidentes) + (hardware * incidentes) + (trabalho * tempo * incidentes)
+        erro.innerHTML = ""
+        resultado.innerHTML = ""
 
-        var perdaFormatada = perda.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+        if (servidores > 0 && incidentes > 0) {
+            var perda = (((hardware + downtime) * tempo) * incidentes) * servidores
+
+            var perdaFormatada = perda.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
 
         resultado.innerHTML = `<div class="card-resultado">
-        <div class="icon-check"><img src="./assets/imgs/certo.png"></div>
-        <h3>Com a Cortex AI</h3>
+            <div class="check">
+                <div class="icon-check"><img src="./assets/imgs/certo.png"></div> 
+                <div class="texto-check"><h3>Com a Cortex</h3></div>
+                </div>
+
         <p>
-          Com a Cortex, você pode reduzir drasticamente o número de incidentes por ano de ${incidentes} para quase zero, 
-          economizando uma estimativa de ${perdaFormatada} por ano em potenciais falhas de hardware.
+          Com a Cortex, você pode reduzir drasticamente o número de incidentes por ano de ${incidentes} <b>para quase zero</b>, 
+          economizando uma <b>estimativa de ${perdaFormatada}</b> por ano em potenciais falhas de hardware.
         </p>
       </div>`
+
+        } else {
+            erro.innerHTML = "ERROR! Insira números validos"
+        }
 
     }
 </script>

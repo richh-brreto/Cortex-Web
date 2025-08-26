@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 body {
   margin: 0;
   padding: 0;
@@ -172,10 +171,11 @@ html, body {
   box-shadow: 0px 0px 8px rgba(0, 110, 102, 0.4);
 }
 
-.form-financeira input::placeholder {
+.form-financeira label{
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   color: #666666;
+  text-align: left;
 }
 
 .btn-enviar {
@@ -198,6 +198,15 @@ html, body {
   max-width: 600px;
   width: 100%;
   margin: auto;
+  font-family: 'Lato', sans-serif;
+}
+
+.erro {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+  color: red;
+  font-family: 'Lato', sans-serif;
 }
 
 .card-resultado {
@@ -209,6 +218,7 @@ html, body {
   line-height: 1.6;
   box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
   margin: auto;
+  display: grid;
 }
 
 .card-resultado h3 {
@@ -217,15 +227,27 @@ html, body {
   color: #00BFA6;
 }
 
+.check{
+  display: grid;
+  grid-template-columns: 1fr,1fr;
+  align-items: center;
+}
+
 .icon-check {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  grid: auto;
 }
 
 .icon-check img {
   width: 25px;   
   height: 25px;
+}
+
+.texto-check{
+  grid-column: 2;
+  margin-right: 2rem;
 }
 
 .footer {
@@ -247,3 +269,4 @@ html, body {
 .footer .container .version {
   font-size: 12px;
 }
+
