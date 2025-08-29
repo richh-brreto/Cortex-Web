@@ -374,19 +374,20 @@ body {
 
 /*Página do serviço*/
 
-.div-checkmat::before {
-  margin-left: 2rem;
-  content: "";
+
+
+.linha-central {
   position: absolute;
-  top: 8rem; 
-  bottom: 8rem; 
-  margin-left: -55%;
-  width: 0.3rem;
+  top: 100%;
+  left: 50%;
+  width: 4px;
+  height: calc(100% + 6rem); 
   background-color: white;
   box-shadow: 0 0 10px #00e0dc;
+  transform: translateX(-50%);
   z-index: 0;
-  
 }
+
 
 
   .div-checkmat {
@@ -408,7 +409,7 @@ body {
   width: 48rem;
   height: 6rem;
   justify-content: space-bfetween;
-  padding: 2.5rem;
+  padding: 3rem;
   gap: 1rem;
 }
 
@@ -433,7 +434,6 @@ body {
 .div-checkmat .etapa h2{
   margin: 0;
   font-size: 1.75rem;
-  margin: 0;
   color: white;;
   font-family: 'Lato', sans-serif;
   position: relative;
