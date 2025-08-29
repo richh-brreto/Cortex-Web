@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(#0A202D, #006E66);
+  overflow: hidden;
 }
 
 :root {
@@ -130,12 +131,12 @@ body {
 .cadastro {
   display: flex;
   justify-content: center;
-  padding: 75px;
+  padding: 35px;
 }
 
 .container-cadastro {
-  width: 900px;
-  height: 650px;
+  width: 830px;
+  height: 550px;
   display: flex;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -188,7 +189,7 @@ body {
 }
 
 .btn-login:hover {
-  letter-spacing: 0.5mm;
+  letter-spacing: 0.1mm;
   background-color: #9B3C3C;
   color: #E2E8F0;
   transform: translateY(5px);
@@ -203,7 +204,7 @@ body {
 .lado-direito {
   width: 70%;
   background-color: #008D8D;
-  padding: 60px 60px;
+  padding: 30px 50px;
   color: white;
 }
 
@@ -266,7 +267,7 @@ body {
 }
 
 .btn-cadastro:hover {
-  letter-spacing: 0.5mm;
+  letter-spacing: 0.1mm;
   background-color: #9B3C3C;
   color: #E2E8F0;
   transform: translateY(5px);

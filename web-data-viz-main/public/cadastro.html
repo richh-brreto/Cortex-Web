@@ -12,33 +12,11 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.all.min.js"></script>
 
   <link rel="stylesheet" href="./css/styleCadastro.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="./assets/icon/favicon2.png" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body>
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">Cortex </h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Sobre nós</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-      </ul>
-      <ul class="navbar">
-        <li>
-          <button class="btn-navbar" onclick="location.href='login.html';">Login</button>
-        </li>
-        <li>
-          <button class="btn-navbar" onclick="location.href='#';">Cadastro</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-
   <div class="cadastro">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
@@ -50,6 +28,7 @@
         <h1>Bem-vindo <br> a <br> <strong>Cortex</strong> </h1>
         <p>Já possui cadastro? <br> Faça seu login!</p>
         <button class="btn-login" onclick="location.href='login.html';"> Fazer login </button>
+        <button class="btn-login" onclick="location.href='index.html';"> Voltar </button>
       </div>
       <hr class="linha">
       <div class="lado-direito">
@@ -70,10 +49,6 @@
           <div class="campo">
             <label> Senha: </label>
             <input id="senha_input" type="password" placeholder="*******" />
-          </div>
-          <div class="campo">
-            <label> Confirmar Senha: </label>
-            <input id="confirmacao_senha_input" type="password" placeholder="*******" />
           </div>
           <button class="btn-cadastro" onclick="cadastrarEmpresa()"> Cadastrar-se </button>
         </div>
