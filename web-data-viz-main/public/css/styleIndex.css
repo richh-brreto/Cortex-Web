@@ -483,27 +483,6 @@ h1 {
   text-align: left;
 }
 
-.box1 {
-  background-color: #c0392b; /* Vermelho */
-}
-
-.box2 {
-  background-color: #00695c; /* Verde */
-}
-
-.titulo h3 {
-  margin-bottom: 20px;
-}
-
-p::before {
-  content: "✔️ ";
-  display: inline-block;
-  margin-right: 8px;
-}
-
-.box1 p::before {
-  content: "❌ ";
-}
 
 /* FOOTER */
 
