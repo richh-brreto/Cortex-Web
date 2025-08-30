@@ -442,7 +442,7 @@ body {
 .div-checkmat .etapa p {
   font-size: 1.3125rem;
   margin-top: 0.9375rem;
-  color: white;;
+  color: white;
   font-family: 'Lato', sans-serif;
   width: 80%;
 }
@@ -451,37 +451,76 @@ body {
 /*pg-solução*/
 
 .pg-solucao{
-    height: var(--tamanho-banner);;
+  height: var(--tamanho-banner);;
+  background-color: var(--branco-gelo);
+  width: 100%;
   display: flex;
- background-color: var(--branco-gelo);
-}
-.container {
-  max-width: 100rem;
-  margin: 0 auto;
-  padding: 20px;
   text-align: center;
+  font-family: 'Lato', sans-serif;
+
 }
 
-h1 {
-  width: 53rem;
-  margin-bottom: 40px;
-}
-
-.boxes {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-;
-}
-
-.box1, .box2 {
-  width: 18rem;
-  padding: 1rem;
-  border-radius: 20px;
-  height: 22rem;
+.pg-solucao .container{
   color: white;
-  text-align: left;
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
 }
+
+.pg-solucao .container h1{
+  color: black;
+  font-size: 3rem;
+}
+
+.pg-solucao .container .boxes{
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.pg-solucao .container .boxes .box1{
+ background-color: #B74C4C;
+ border-radius: 5rem;
+ width: 30%;
+ height: 80%;
+ margin: 2rem;
+}
+
+.pg-solucao .container .boxes .box1 h3{
+ font-size: 3rem;
+}
+
+
+.pg-solucao .container .boxes .box2{
+ background-color: #006E66;
+ border-radius: 5rem;
+ width: 30%;
+ height: 80%;
+ margin: 2rem;
+}
+
+.pg-solucao .container .boxes .texto{
+  display: block;
+  margin-left: 15%;
+  text-align: start;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+
+.pg-solucao .container .boxes .box2 h3{
+ font-size: 3rem;
+}
+
+
 
 
 /* FOOTER */
