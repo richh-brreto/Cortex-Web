@@ -457,7 +457,6 @@ body {
   display: flex;
   text-align: center;
   font-family: 'Lato', sans-serif;
-
 }
 
 .pg-solucao .container{
@@ -527,13 +526,80 @@ body {
  font-size: 3rem;
 }
 
+/*pagina de suporte */
 
+.pg-suporte{
+  height: var(--tamanho-banner);;
+  background-color: #0A202D;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.pg-suporte .container{
+  display: flex;
+  width: 80%;
+  height: 70%;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pg-suporte .container .box2{
+  flex: 1;
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  background-color: white;
+  border-radius: 2rem;
+  margin: 15%;
+ 
+}
+.pg-suporte .container .box2 h2{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+.pg-suporte .container .box2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+
+
+.pg-suporte .container .box2 input{
+  flex: 1;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.pg-suporte .container .box2 button{
+  background-color: #00CFC8;
+  color: white;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.pg-suporte .container .box2 button:hover{
+  background-color: #00a39d;
+}
 
 
 /* FOOTER */
 
 .footer {
-  background-color: var(--ciano);
+  background-color: black;
   height: 150px;
   color: var(--branco-gelo);
   display: flex;
