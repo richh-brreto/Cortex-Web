@@ -5,7 +5,6 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(#0A202D, #006E66);
-  overflow: hidden;
 }
 
 :root {
@@ -21,7 +20,7 @@ body {
 }
 
 .header {
-  height: var(--tamanho-header);
+  height: 9.75vh;
   border-bottom: 5px solid #B74C4C;
   color: #E2E8F0;
   background-color: #040404;
@@ -131,26 +130,27 @@ body {
 .cadastro {
   display: flex;
   justify-content: center;
-  padding: 35px;
+  padding: 3.75vh;
+  height: 69.8vh;
 }
 
 .container-cadastro {
-  width: 830px;
-  height: 550px;
+  width: 50vw;
+  height: 60vh;
   display: flex;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   overflow: hidden;
   background: white;
 }
 
 .lado-esquerdo {
-  width: 50%;
+  width: auto;
   background: linear-gradient(rgba(0, 178, 178, 0.7), rgba(0, 178, 178, 0.7)),
     url(../assets/imgs/servidor.png) center center;
   background-size: cover;
   color: white;
-  padding: 40px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,16 +159,16 @@ body {
 }
 
 .lado-esquerdo h1 {
-  font-size: 28px;
-  line-height: 1.4;
+  font-size: 1.75rem;
+  line-height: 1.4rem;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.5mm;
 }
 
 .lado-esquerdo p {
-  font-size: 24px;
-  margin-top: 20px;
+  font-size: 1.5rem;
+  margin-top: 1.042vw;
   font-family: 'Lato', sans-serif;
   letter-spacing: 0.5mm;
   font-weight: 300;
@@ -178,105 +178,169 @@ body {
   background-color: #B74C4C;
   border: none;
   color: white;
-  padding: 12px 70px;
+  padding: 0.25rem;
   font-weight: bold;
-  font-size: 16px;
-  border-radius: 20px;
+  font-size: 1rem;
+  border-radius: 1.25rem;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 0.521vw;
   font-family: 'Montserrat', sans-serif;
   transition: all 0.5s ease;
+  width: 12vw;
+  height: 4.5vh;
 }
 
 .btn-login:hover {
   letter-spacing: 0.1mm;
   background-color: #9B3C3C;
   color: #E2E8F0;
-  transform: translateY(5px);
-  
+  transform: translateY(0.26vw);
+}
+
+.btn-voltar{
+  background-color: #B74C4C;
+  border: none;
+  color: white;
+  padding: 0.25rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 1.25rem;
+  cursor: pointer;
+  margin-top: 0.521vw;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.5s ease;
+  width: 9vw;
+  height: 4.5vh;
+}
+
+.btn-voltar:hover{
+  letter-spacing: 0.1mm;
+  background-color: #9B3C3C;
+  color: #E2E8F0;
+  transform: translateY(0.26vw);
 }
 
 .linha {
-  width: 5px;
+  width: 0.26vw;
   border: 0;
 }
 
 .lado-direito {
+  display: grid;
+  grid-template-rows: auto 2fr;
   width: 70%;
   background-color: #008D8D;
-  padding: 30px 50px;
+  padding: 2rem;
   color: white;
 }
 
 .lado-direito h2 {
   text-align: center;
   font-weight: bold;
-  font-size: 22px;
-  margin-bottom: 40px;
+  font-size: 1.375rem;
+  margin-bottom: 2.083vw;
+  margin-top: 0;
   letter-spacing: 0.5mm;
   font-family: 'Montserrat', sans-serif;
+  align-items: center;
 }
 
 .formulario {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
 }
 
 .campo {
   display: flex;
   flex-direction: column;
+  margin: 0rem 0.5rem 0rem 0.5rem;
 }
 
 .campo label {
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 1rem;
+  margin-bottom: 0.313rem;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
 
 .campo input {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 20px;
+  padding: 0.625vw 1.042vw;
+  border-radius: 0.75rem;
   outline: none;
-  font-size: 14px;
+  font-size: 0.875rem;
   background-color: white;
   color: #333;
+  border: solid 1px;
+  border-color: #333;
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  width: 12vw;
+}
+
+.campo input:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 15px 2px rgba(255, 255, 255, 0.2);
+  border-color: #008D8D;
 }
 
 .campo input::placeholder {
   color: #666666;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 0.875rem;
+}
+
+.campo.documento {
+  margin-top: 2vh;
+  grid-column: 1 / -1;
+  height: auto;
+}
+
+.campo input#document {
+  height: 3.5vh;
+  align-items: center;
+  display: flex;
+  align-items: center; /* Alinhamento vertical */
+  justify-content: center;
+  width: 27.75vw;
+}
+
+.file-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .btn-cadastro {
   background-color: #B74C4C;
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 20px;
+  padding: 0.625vw;
+  border-radius: 1.042vw;
   cursor: pointer;
   font-weight: bold;
   transition: all 0.5s ease;
-  margin-top: 15px;
+  grid-column: 1 / -1;
+  height: 5vh;
+  width: 30.8vw;
+  align-self: end;
 }
 
 .btn-cadastro:hover {
   letter-spacing: 0.1mm;
   background-color: #9B3C3C;
   color: #E2E8F0;
-  transform: translateY(5px);
+  transform: translateY(0.26vw);
+  box-shadow: 0 2px 4px 2px rgba(255, 255, 255, 0.2);
 }
 
 .esqueceu-a-senha {
-  margin-top: 15px;
+  margin-top: 0.781vw;
   font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   color: white;
@@ -286,12 +350,12 @@ body {
 
 .footer {
   background-color: #040404;
-  border-top: 5px solid #B74C4C;
-  height: 90px;
-  padding: 10px;
+  border-top: 0.26vw solid #B74C4C;
+  height: 9.85vh;
+  padding: 0.521vw;
   color: #fff;
   display: flex;
-  font-size: 15px;
+  font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -301,5 +365,5 @@ body {
 }
 
 .footer .container .version {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
