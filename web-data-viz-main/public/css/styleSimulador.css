@@ -43,6 +43,13 @@ html, body {
   font-weight: bold;
   letter-spacing: 1px;
   font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.titulo img {
+  padding: 0 20px;
 }
 
 .navbar {
@@ -110,7 +117,7 @@ html, body {
 
 .btn-navbar:active {
   letter-spacing: 3px;
-  background-color: #006E66;
+  background-color: #008d8d;
   color: #E2E8F0;
   transform: translateY(5px);
   transition: 100ms;

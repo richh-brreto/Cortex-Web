@@ -37,6 +37,13 @@ body {
   font-weight: bold;
   letter-spacing: 1px;
   font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.titulo img {
+  padding: 0 20px;
 }
 
 .navbar {
@@ -52,7 +59,6 @@ body {
   text-decoration: none;
   color: #E2E8F0;
   position: relative;
-  text-decoration: none;
   font-weight: 600;
   font-size: 16px;
   padding: 6px 0;
@@ -104,7 +110,7 @@ body {
 
 .btn-navbar:active {
   letter-spacing: 3px;
-  background-color: #006E66;
+  background-color: #008D8D;
   color: #E2E8F0;
   transform: translateY(5px);
   transition: 100ms;
