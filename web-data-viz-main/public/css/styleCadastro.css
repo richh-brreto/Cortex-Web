@@ -138,6 +138,8 @@ body {
   justify-content: center;
   padding: 3.75vh;
   height: 69.8vh;
+  justify-items: center;
+  align-items: center;
 }
 
 .container-cadastro {
@@ -236,7 +238,7 @@ body {
   grid-template-rows: auto 2fr;
   width: 70%;
   background-color: #008D8D;
-  padding: 2rem;
+  padding: 3.2vh 1.667vw;
   color: white;
 }
 
