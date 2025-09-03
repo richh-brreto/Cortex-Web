@@ -241,6 +241,10 @@ html, body {
   font-size: 18px;
   color: #00BFA6;
 }
+.fonte a {
+  color: white;   
+  font-size: 13px;
+}
 
 .check{
   display: grid;
