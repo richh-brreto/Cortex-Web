@@ -45,7 +45,6 @@
   <div class="cadastro">
     <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
       </div>
     </div>
     <div class="container-cadastro">
@@ -133,15 +132,13 @@
     var nomeEmpresaVar = nome_input.value;
     var email = email_input.value;
     var senha = senha_input.value;
-    var confirmacaoSenha = confirmacao_senha_input.value;
 
 
     if (
       cnpjVar == "" ||
       nomeEmpresaVar == "" ||
       email == "" ||
-      senha == "" ||
-      confirmacaoSenha == ""
+      senha == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -153,14 +150,12 @@
 
       return false;
     } else if (
-      cnpjVar.length != 14 ||
+      cnpjVar.length != 18 ||
       !email.includes("@") ||
       !email.includes(".") ||
-      senha < 6 ||
-      confirmacaoSenha != senha
+      senha < 6
     ) {
       cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
         Swal.fire({
           icon: "error",
           title: "Erro no cadastro",
@@ -228,7 +223,6 @@
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
     console.log(emailVar)
     console.log(senhaVar)
@@ -236,8 +230,7 @@
     if (
       nomeVar == "" ||
       emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == ""
+      senhaVar == ""
     ) {
       cardErro.style.display = "block";
       Swal.fire({

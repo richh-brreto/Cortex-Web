@@ -130,10 +130,10 @@
         resposta.json().then(json => {
           const usuario = json[0]
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = usuario.email;
-          sessionStorage.NOME_USUARIO = usuario.nome;
-          sessionStorage.ID_USUARIO = usuario.id;
-          sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
+          sessionStorage.EMAIL_USUARIO = usuario.Email;
+          sessionStorage.NOME_USUARIO = usuario.Nome;
+          sessionStorage.ID_USUARIO = usuario.idUsuario;
+          sessionStorage.ADMINISTRADOR_USUARIO = usuario.Administrador;
           console.log(sessionStorage)
 
           Swal.fire({
