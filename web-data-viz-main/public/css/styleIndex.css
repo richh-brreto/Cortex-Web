@@ -55,6 +55,14 @@ body {
   padding: 0 20px;
 }
 
+.logo-link {
+  display: flex;
+  align-items: center; 
+  gap: 10px;          
+  text-decoration: none;
+  color: white;        
+}
+
 .navbar {
   width: 25%;
   display: flex;
