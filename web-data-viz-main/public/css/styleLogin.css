@@ -38,6 +38,13 @@ body {
   font-weight: bold;
   letter-spacing: 1px;
   font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.titulo img {
+  padding: 0 20px;
 }
 
 .navbar {
@@ -105,7 +112,7 @@ body {
 
 .btn-navbar:active {
   letter-spacing: 3px;
-  background-color: #006E66;
+  background-color: #008D8D;
   color: #E2E8F0;
   transform: translateY(5px);
   transition: 100ms;
@@ -238,11 +245,21 @@ body {
 .campo input {
   padding: 12px 20px;
   border: none;
-  border-radius: 20px;
+  border-radius: 0.75rem;
   outline: none;
   font-size: 14px;
   background-color: white;
   color: #333;
+  border: solid 1px;
+  border-color: #333;
+  box-shadow: 0 2px 5px 2px rgb(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+
+.campo input:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 15px 2px rgb(255, 255, 255, 0.2);
+  border-color: #008D8D;
 }
 
 .campo input::placeholder {

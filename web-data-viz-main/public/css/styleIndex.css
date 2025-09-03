@@ -42,10 +42,17 @@ body {
 }
 
 .titulo {
-  font-size: 200%;
+  font-size: 40px;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.titulo img {
+  padding: 0 20px;
 }
 
 .navbar {
@@ -66,7 +73,7 @@ body {
   font-size: 100%;
   padding: 0.2rem 0;
   text-transform: uppercase;
-  letter-spacing: 0.1rem;
+  letter-spacing: 1.5px;
   transition: color, all 0.3s ease;
   font-family: 'Lato', sans-serif;
 }
@@ -83,8 +90,8 @@ body {
 }
 
 .navbar a:hover {
-  color: var(--ciano);
-  letter-spacing: 0.1rem;
+  color: var(--ciano-escuro);
+  letter-spacing: 2.5px;
 }
 
 .navbar a:hover::after {
@@ -108,7 +115,7 @@ body {
 
 .btn-navbar:hover {
   letter-spacing: 3px;
-  background-color: var(--ciano);
+  background-color: var(--ciano-escuro);
   color: var(--branco-gelo);
 }
 
@@ -604,6 +611,7 @@ body {
   color: var(--branco-gelo);
   display: flex;
   font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .footer .container {
