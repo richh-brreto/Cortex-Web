@@ -1,19 +1,19 @@
 var database = require("../database/config")
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrarUsuario(idEmpresa,nome, email, senha) {
+function cadastrarUsuario(idEmpresa, nome, email, senha) {
 
     var instrucaoSql = `
-        INSERT INTO Usuario (idEmpresa,Nome,Email,Senha) VALUES ('${idEmpresa}','${nome}','${email}','${senha}');
+        INSERT INTO Usuario (FK_empresa, Nome, Email, Senha) VALUES ('${idEmpresa}','${nome}','${email}','${senha}');
         
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function cadastrarEmpresa(cnpj,nomeEmpresa){
+function cadastrarEmpresa(cnpj, nomeEmpresa, telefoneResponsavel, nomeResponsavel){
     var instrucaoSql = `
-        INSERT INTO Empresa (CNPJ,Nome) VALUES ('${cnpj}','${nomeEmpresa}');
+        INSERT INTO Empresa (CNPJ, Nome, Nome_responsavel, Telefone_responsavel) VALUES ('${cnpj}','${nomeEmpresa}','${nomeResponsavel}','${telefoneResponsavel}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

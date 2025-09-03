@@ -164,6 +164,11 @@
 
     }).catch(function (erro) {
       console.log(erro);
+      Swal.fire({
+          icon: "error",
+          title: "Erro no login",
+          text: "Algo ocorreu inesperadamente, volte mais tarde!!"
+        });
     })
 
     return false;

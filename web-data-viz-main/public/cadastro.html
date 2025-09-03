@@ -130,6 +130,8 @@
 
     var cnpjVar = cnpj_input.value;
     var nomeEmpresaVar = nome_input.value;
+    var telefoneResponsavelVar = telefoneResponsavel_input.value;
+    var nomeResponsavelVar = nomeResponsavel_input.value;
     var email = email_input.value;
     var senha = senha_input.value;
 
@@ -137,6 +139,8 @@
     if (
       cnpjVar == "" ||
       nomeEmpresaVar == "" ||
+      telefoneResponsavelVar == "" ||
+      nomeResponsavelVar == "" ||
       email == "" ||
       senha == ""
     ) {
@@ -166,7 +170,7 @@
     } else {
       setInterval(sumirMensagem, 5000);
     }
-
+    
     fetch("/usuario/cadastrarEmpresa", {
       method: "POST",
       headers: {
@@ -174,8 +178,9 @@
       },
       body: JSON.stringify({
         nomeEmpresaServer: nomeEmpresaVar,
-        cnpjServer: cnpjVar
-
+        cnpjServer: cnpjVar,
+        telefoneResponsavelServer: telefoneResponsavelVar,
+        nomeResponsavelServer: nomeResponsavelVar
       }),
     })
       .then(function (resposta) {
@@ -201,13 +206,13 @@
   function buscarId() {
     var cnpjVar = cnpj_input.value;
 
-    fetch(`/usuario/buscarId/${cnpjVar}`)
+    fetch(`/usuario/buscarId/${encodeURIComponent(cnpjVar)}`)
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
           resposta.json().then(function (resposta) {
-            let idEmpresa = resposta.map(idsRecuperados => idsRecuperados.idempresa);
+            let idEmpresa = resposta.map(idsRecuperados => idsRecuperados.idEmpresa);
             cadastrarUsuario(idEmpresa)
           });
         }
@@ -219,8 +224,8 @@
 
   function cadastrarUsuario(idEmpresa) {
 
-    var idEmpresaVar = idEmpresa
-    var nomeVar = nome_input.value;
+    var idEmpresaVar = idEmpresa;
+    var nomeVar = nomeResponsavel_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
 

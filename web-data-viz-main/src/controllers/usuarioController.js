@@ -6,15 +6,21 @@ function cadastrarEmpresa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html;
     var cnpj = req.body.cnpjServer;
     var nomeEmpresa = req.body.nomeEmpresaServer; 
+    var telefoneResponsavel = req.body.telefoneResponsavelServer;
+    var nomeResponsavel = req.body.nomeResponsavelServer
 
    if (nomeEmpresa == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
+    } else if (telefoneResponsavel == undefined){
+        res.status(400).send("Seu telefoneResponsavel está undefined!");
+    } else if (nomeResponsavel == undefined){
+        res.status(400).send("Seu nomeResponsavel está undefined!");
     } else {
-
+        
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarEmpresa(cnpj, nomeEmpresa)
+        usuarioModel.cadastrarEmpresa(cnpj, nomeEmpresa, telefoneResponsavel, nomeResponsavel)
             .then(
                 function (resultado) {
                     res.json(resultado);
