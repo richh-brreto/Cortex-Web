@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(#0A202D, #006E66);
-  overflow: auto;
+  overflow: hidden;
 }
 
 :root {
@@ -148,7 +148,7 @@ body {
 .cadastro {
   display: flex;
   justify-content: center;
-  padding: 35px;
+  padding: 53px;
 }
 
 .container-cadastro {
@@ -318,7 +318,7 @@ body {
 .footer {
   background-color: #040404;
   border-top: 5px solid #B74C4C;
-  height: 90px;
+  height: 92px;
   padding: 10px;
   color: #fff;
   display: flex;
