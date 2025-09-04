@@ -1,65 +1,97 @@
-@media screen and (max-width: 814px) {
+@media screen and (max-width: 768px) {
     body {
         margin: 0;
         padding: 0;
         background: linear-gradient(#0A202D, #006E66);
-        overflow: auto;
+        overflow-x: hidden;
+        font-size: 14px;
     }
 
     :root {
-        --tamanho-header: 90px;
+        --tamanho-header: 70px;
+        --tamanho-footer: 60px;
         --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-        --tamanho-footer: 65px;
     }
 
     .container {
-        display: flex;
-        width: 80%;
-        margin: auto;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+        gap: 15px;
     }
 
     .header {
         height: var(--tamanho-header);
-        border-bottom: 5px solid #B74C4C;
+        border-bottom: 4px solid #B74C4C;
         color: #E2E8F0;
         background-color: #040404;
-        width: 930px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .header .container {
-        justify-content: space-between;
+        flex-direction: row;
+        justify-content: center;
         align-items: center;
         height: 100%;
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
     }
 
     .titulo {
-        font-size: 40px;
+        font-size: 20px;
         font-weight: bold;
         letter-spacing: 1px;
         font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .titulo img {
+        height: 50px;
+        width: auto;
+        padding: 0 10px 0 0;
+    }
+
+    .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        color: white;
     }
 
     .navbar {
-        width: 275px;
+        width: 100%;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
         list-style: none;
-        gap: 30px;
+        gap: 10px;
+        padding: 10px 0;
     }
 
     .navbar a {
         text-decoration: none;
         color: #E2E8F0;
         position: relative;
-        text-decoration: none;
         font-weight: 600;
-        font-size: 16px;
-        padding: 6px 0;
+        font-size: 12px;
+        padding: 6px 10px;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        transition: color, all 0.3s ease;
+        transition: color 0.3s ease, letter-spacing 0.3s ease;
         font-family: 'Montserrat', sans-serif;
+        white-space: nowrap;
     }
 
     .navbar a::after {
@@ -83,17 +115,18 @@
     }
 
     .btn-navbar {
-        padding: 15px 30px;
-        border-radius: 50px;
+        padding: 8px 20px;
+        border-radius: 15px;
         cursor: pointer;
         border: 0;
         background-color: #E2E8F0;
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        font-size: 15px;
-        gap: 20px;
+        font-size: 14px;
+        gap: 10px;
         transition: all 0.5s ease;
         font-family: 'Montserrat', sans-serif;
+        white-space: nowrap;
     }
 
     .btn-navbar:hover {
@@ -107,7 +140,7 @@
         background-color: #006E66;
         color: #E2E8F0;
         transform: translateY(5px);
-        transition: 100ms;
+        transition-duration: 100ms;
     }
 
     .swal2-title {
@@ -131,31 +164,36 @@
         display: flex;
         justify-content: center;
         padding: 35px;
-        width: 770px;
+        width: 100%;
+        max-width: 768px;
+        box-sizing: border-box;
     }
 
     .container-cadastro {
-        width: 900px;
-        height: 550px;
+        width: 100%;
+        max-width: 720px;
+        height: auto;
         display: flex;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-        background: white;
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 8px;
+        overflow: visible;
+        background: #E2E8F0;
+    }
+
+    .lado-esquerdo,
+    .lado-direito {
+        width: 100%;
+        padding: 25px 15px;
+        box-sizing: border-box;
     }
 
     .lado-esquerdo {
-        width: 50%;
         background: linear-gradient(rgba(0, 178, 178, 0.7), rgba(0, 178, 178, 0.7)),
-            url(../assets/imgs/servidor.png) center center;
+            url(../assets/imgs/servidor.png) center center no-repeat;
         background-size: cover;
-        color: white;
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         text-align: center;
-        justify-content: space-evenly;
+        border-radius: 8px 8px 0 0;
     }
 
     .lado-esquerdo h1 {
@@ -164,11 +202,12 @@
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
         letter-spacing: 0.5mm;
+        margin: 0;
     }
 
     .lado-esquerdo p {
-        font-size: 24px;
-        margin-top: 20px;
+        font-size: 20px;
+        margin-top: 15px;
         font-family: 'Lato', sans-serif;
         letter-spacing: 0.5mm;
         font-weight: 300;
@@ -177,15 +216,16 @@
     .btn-login {
         background-color: #B74C4C;
         border: none;
-        color: white;
-        padding: 12px 70px;
+        color: #E2E8F0;
+        padding: 12px 25px;
         font-weight: bold;
-        font-size: 16px;
-        border-radius: 20px;
+        font-size: 14px;
+        border-radius: 15px;
         cursor: pointer;
         margin-top: 10px;
         font-family: 'Montserrat', sans-serif;
         transition: all 0.5s ease;
+        align-self: center;
     }
 
     .btn-login:hover {
@@ -193,26 +233,20 @@
         background-color: #9B3C3C;
         color: #E2E8F0;
         transform: translateY(5px);
-
-    }
-
-    .linha {
-        width: 5px;
-        border: 0;
     }
 
     .lado-direito {
-        width: 70%;
         background-color: #008D8D;
-        padding: 50px 50px;
-        color: white;
+        color: #E2E8F0;
+        padding: 40px 20px;
+        border-radius: 0 0 8px 8px;
     }
 
     .lado-direito h2 {
         text-align: center;
         font-weight: bold;
         font-size: 22px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
         letter-spacing: 0.5mm;
         font-family: 'Montserrat', sans-serif;
     }
@@ -236,13 +270,14 @@
     }
 
     .campo input {
-        padding: 12px 20px;
+        padding: 10px 15px;
         border: none;
         border-radius: 20px;
         outline: none;
         font-size: 14px;
-        background-color: white;
+        background-color: #E2E8F0;
         color: #333;
+        box-sizing: border-box;
     }
 
     .campo input::placeholder {
@@ -255,11 +290,11 @@
     .btn-cadastro {
         background-color: #B74C4C;
         font-family: 'Montserrat', sans-serif;
-        font-size: 16px;
-        color: white;
+        font-size: 14px;
+        color: #E2E8F0;
         border: none;
-        padding: 12px;
-        border-radius: 20px;
+        padding: 12px 25px;
+        border-radius: 15px;
         cursor: pointer;
         font-weight: bold;
         transition: all 0.5s ease;
@@ -279,26 +314,36 @@
         font-size: 16px;
         font-weight: bold;
         text-align: center;
-        color: white;
-        text-decoration: solid;
+        color: #E2E8F0;
         cursor: pointer;
+        text-decoration: none;
+        user-select: none;
+    }
+
+    .esqueceu-a-senha:hover{
+        text-decoration: underline;
     }
 
     .footer {
         background-color: #040404;
         border-top: 5px solid #B74C4C;
-        height: 90px;
-        padding: 10px;
-        color: #fff;
+        height: auto;
+        padding: 15px 15px;
+        color: #E2E8F0;
         display: flex;
+        flex-direction: column;
         font-size: 15px;
         font-family: 'Montserrat', sans-serif;
-        width: 900px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
     }
 
     .footer .container {
         justify-content: center;
         text-align: center;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 15px;
     }
-
 }

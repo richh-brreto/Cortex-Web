@@ -44,6 +44,8 @@ body {
 }
 
 .titulo img {
+  height: 60px;
+  width: 80px;
   padding: 0 20px;
 }
 
@@ -304,9 +306,13 @@ body {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  color: white;
+  color: #E2E8F0;
   text-decoration: solid;
   cursor: pointer;
+}
+
+.esqueceu-a-senha:hover{
+  text-decoration: underline;
 }
 
 .footer {
