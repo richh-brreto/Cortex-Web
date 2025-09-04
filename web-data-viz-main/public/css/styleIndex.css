@@ -8,7 +8,7 @@ body {
 }
 
 :root {
-  --tamanho-header: 15vh;
+  --tamanho-header: 9.75vh;
   --tamanho-footer: 10vh;
   --tamanho-divisao: 25vh;
   --tamanho-banner: calc(125vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
