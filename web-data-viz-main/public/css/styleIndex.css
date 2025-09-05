@@ -501,11 +501,12 @@ body {
  background-color: #B74C4C;
  border-radius: 5rem;
  width: 30%;
- margin: 3rem;
- height: 90%;
+ margin: 4%;
+ height: 88%;
  display: flex;     
  flex-direction: column;
  justify-content: flex-start;
+
 }
 
 .pg-solucao .container .boxes .box1 h3{
@@ -517,22 +518,21 @@ body {
  background-color: #006E66;
  border-radius: 5rem;
  width: 30%;
- margin: 3rem;
- height: 90%;
+ margin: 4%;
+ height: 88%;
  display: flex;      
  flex-direction: column;
  justify-content: flex-start; 
 }
 
 .pg-solucao .container .boxes .texto{
-  height: 100%;
+  height: auto;
   margin-left: 15%;
   text-align: start;
   justify-content: center;
   font-size: 1.5rem;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
  
 }
 
