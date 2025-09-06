@@ -341,34 +341,6 @@ body {
 }
 
 
-.div-objetivos .container .boxes .box button{
-  width: 7.5rem;
-  height: 1.5rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: #EBF4F8;
-  color: var(--cinza-claro);
-  border: var(--cinza-claro) 0.1rem solid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.div-objetivos .container .boxes .box button::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0.1rem;
-  bottom: 0;
-  left: 0;
-  transition: width 0.3s ease-in-out;
-}
-
-.div-objetivos .container .boxes .box button:hover {
-  letter-spacing: 0.1rem;
-}
 
 /* FOOTER */
 
