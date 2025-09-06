@@ -6,9 +6,9 @@ CREATE TABLE empresa (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     cnpj VARCHAR(18) UNIQUE NOT NULL,
-    ativo TINYINT NOT NULL, 
+    ativo TINYINT DEFAULT TRUE NOT NULL, 
     nome_responsavel VARCHAR(100) NOT NULL,
-    telefone_responsavel VARCHAR(11) UNIQUE NOT NULL
+    telefone_responsavel VARCHAR(15) UNIQUE NOT NULL
 );
 
 CREATE TABLE usuario (
