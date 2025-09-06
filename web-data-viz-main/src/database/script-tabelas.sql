@@ -2,68 +2,74 @@
 create database cortex;
 use cortex;
 
-CREATE TABLE Empresa (
-    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100) NOT NULL,
-    CNPJ VARCHAR(18) UNIQUE NOT NULL,
+CREATE TABLE empresa (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cnpj VARCHAR(18) UNIQUE NOT NULL,
     ativo TINYINT NOT NULL, 
-    Nome_responsavel VARCHAR(100) NOT NULL,
-    Telefone_responsavel VARCHAR(11) UNIQUE NOT NULL
+    nome_responsavel VARCHAR(100) NOT NULL,
+    telefone_responsavel VARCHAR(11) UNIQUE NOT NULL
 );
 
-CREATE TABLE Usuario (
-    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    FK_empresa INT,
-    Nome VARCHAR(100) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    Senha VARCHAR(20) NOT NULL,
-    Administrador BOOLEAN DEFAULT TRUE NOT NULL,
-    Ativo BOOLEAN DEFAULT TRUE NOT NULL,
-    FOREIGN KEY (FK_empresa) REFERENCES Empresa(idEmpresa)
+CREATE TABLE usuario (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    fk_empresa INT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(20) NOT NULL,
+    administrador BOOLEAN DEFAULT TRUE NOT NULL,
+    ativo TINYINT DEFAULT TRUE NOT NULL,
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
 
-CREATE TABLE Datacenter (
-    idDatacenter INT PRIMARY KEY AUTO_INCREMENT,
-    FK_empresa INT,
-    Nome_datacenter VARCHAR(80) NOT NULL,
-    CEP VARCHAR(9) NOT NULL,
-    Complemento VARCHAR(100) NOT NULL,
-    Numero VARCHAR(10) NOT NULL,
-    FOREIGN KEY (FK_empresa) REFERENCES Empresa(idEmpresa)
+CREATE TABLE datacenter (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    fk_empresa INT,
+    nome_datacenter VARCHAR(80) NOT NULL,
+    cep VARCHAR(9) NOT NULL,
+    complemento VARCHAR(100) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
 
-CREATE TABLE Servidor (
-    idServidor INT PRIMARY KEY AUTO_INCREMENT,
-	FK_rack INT,
-    Identificacao VARCHAR(80) UNIQUE NOT NULL,
-    FOREIGN KEY (FK_rack) references Datacenter(idDatacenter)
+CREATE TABLE servidor (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	fk_datacenter INT NOT NULL,
+    identificacao VARCHAR(80) UNIQUE NOT NULL,
+    rack INT NOT NULL,
+    FOREIGN KEY (fk_datacenter) references datacenter(id),
+    FOREIGN KEY (rack) references servidor(id)
 );
     
-CREATE TABLE ServidorUsuario (
-    FK_servidor INT,
-    FK_usuario INT,
-    FOREIGN KEY (FK_servidor) REFERENCES Servidor(idServidor),
-    FOREIGN KEY (FK_usuario) REFERENCES Usuario(idUsuario),
-    PRIMARY KEY (FK_servidor, FK_usuario)
+CREATE TABLE servidor_usuario (
+    fk_servidor INT NOT NULL,
+    fk_usuario INT NOT NULL,
+    FOREIGN KEY (fk_servidor) REFERENCES servidor(id),
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
+    PRIMARY KEY (fk_servidor, fk_usuario)
 );
 
-CREATE TABLE Processo (
-    idProcesso INT AUTO_INCREMENT,
-    FK_servidor INT,
-    Nome_processo VARCHAR(45)NOT NULL,
-    Metrica_percent DECIMAL (10, 2) NOT NULL,
-    Data_hora DATETIME NOT NULL,
-    PRIMARY KEY (idProcesso, FK_servidor),
-    FOREIGN KEY (FK_servidor) REFERENCES Servidor(idServidor)
+CREATE TABLE menu_processo (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome_usuario_processo VARCHAR(45) NOT NULL,
+    unidade_de_medida VARCHAR(45) NOT NULL,
+    maximo DECIMAL(10,2) NOT NULL,
+    inicio DATETIME NOT NULL,
+    fim DATETIME NOT NULL,
+    ativo TINYINT NOT NULL
 );
 
-CREATE TABLE MetricaAlerta (
-    idAlerta INT AUTO_INCREMENT,
-    FK_processo INT,
-    Maximo DECIMAL(10, 2) NOT NULL,
-    Minimo DECIMAL(10, 2) NOT NULL,
-    Inicio DATETIME NOT NULL,
-    Fim DATETIME NOT NULL,
-    PRIMARY KEY (idAlerta, FK_processo),
-    FOREIGN KEY (FK_processo) REFERENCES Processo(idProcesso)
+CREATE TABLE componentes (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome_componente VARCHAR(40) NOT NULL,
+    fk_servidor INT NOT NULL,
+    fk_menu_processo INT NOT NULL,
+    FOREIGN KEY (fk_servidor) REFERENCES servidor(id),
+    FOREIGN KEY (fk_menu_processo) REFERENCES menu_processo(id)
+);
+
+CREATE TABLE alerta (
+	fk_menu_processo INT NOT NULL PRIMARY KEY,
+    data_e_hora DATETIME NOT NULL,
+    valor VARCHAR(45) NOT NULL
 );
