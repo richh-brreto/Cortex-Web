@@ -6,7 +6,7 @@ body {
   padding: 0;
   background-color: black;
 }
-
+ 
 :root {
   --tamanho-header: 9.75vh;
   --tamanho-footer: 10vh;

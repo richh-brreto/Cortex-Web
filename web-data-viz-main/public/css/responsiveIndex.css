@@ -343,6 +343,7 @@ body {
 /*Página do serviço*/
 
 .div-checkmat {
+    width: auto;
         height: auto; 
         padding: 4rem 2rem; 
     }
@@ -379,9 +380,11 @@ display: none;
 /*pagina de solução*/
 
 .pg-solucao {
+     width: auto;
         height: auto; 
         padding: 3rem 1rem; 
-        overflow: hidden; 
+        
+        
     }
 
     .pg-solucao .container {
