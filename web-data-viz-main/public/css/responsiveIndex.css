@@ -83,7 +83,7 @@ body {
   background-color: var(--vermelho-rosado);
   transition: width 0.3s ease;
 }
-
+ 
 .navbar a:hover {
   color: var(--ciano);
   letter-spacing: 0.1rem;
@@ -223,16 +223,15 @@ body {
 }
 
 .div-page .container p{
-  text-align: justify;
   font-family: 'Lato', sans-serif;
-  width: 40%;
+  width: 50%;
 }
 
 .div-page .container .boxes{
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
-  width: 50%;
+  width: 70%;
   gap: 2rem;
 }
 
@@ -242,20 +241,20 @@ body {
   justify-content: center;
   background-color: var(--branco-gelo);
   color: #040404;
-  width: 90%;
-  height: 2rem;
+  width: 85%;
+  height: 3rem;
   padding: 1rem;
   gap: 0.5rem;
   border-radius: 1rem;
 }
 
 .div-page .container .boxes .box img{
-  width: 15%;
+  width: 30%;
   border-radius: 0.5rem;
 }
 
 .div-page .container .boxes .box a{
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   width: 80%;
   font-weight: 600;
   text-align: start;
@@ -294,7 +293,7 @@ body {
 .div-objetivos .container p{
   text-align: center;
   font-family: 'Lato', sans-serif;
-  width: 30%;
+  width: 50%;
 }
 
 .div-objetivos .container .boxes{
@@ -381,9 +380,9 @@ display: none;
 
 .pg-solucao {
      width: auto;
-        height: auto; 
-        padding: 3rem 1rem; 
-        
+     height: auto; 
+    padding: 3rem 1rem; 
+
         
     }
 
@@ -403,6 +402,7 @@ display: none;
         flex-direction: column;
         align-items: center;
         gap: 2rem; 
+       
     }
 
     .pg-solucao .container .boxes .box1,
@@ -413,6 +413,7 @@ display: none;
         height: auto; 
         padding: 2rem 1.5rem; 
         border-radius: 2rem; 
+        
     }
 
     .pg-solucao .container .boxes .box1 h3,
@@ -422,10 +423,13 @@ display: none;
     }
 
     .pg-solucao .container .boxes .texto {
-        margin-left: 0;
+        margin-left: 8%;
         text-align: center;
         font-size: 1.1rem; 
         padding: 0 0.5rem; 
+        text-align: start;
+        
+        
     }
 
     .pg-solucao .container .boxes .texto p {
