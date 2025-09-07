@@ -352,18 +352,6 @@ canvas {
   background-color: #212124;
 }
 
-.dash-right {
-  display: flex;
-  width: 70%;
-  height: fit-content;
-  background-color: #161618;
-  position: relative;
-  top: 0;
-  left: 25%;
-  height: 100vh;
-  overflow: auto;
-}
-
 .header-left h1 {
   color: #32b9cd;
 }

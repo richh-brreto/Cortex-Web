@@ -2,15 +2,15 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/icon/favicon2.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>Cortex | Dashboard</title>
 
-    
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
+
+    <link rel="stylesheet" href="./../css/dashboardTelaPrincipal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -32,34 +32,24 @@
 
     <div class="janela">
         <div class="header-left">
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
+                <span class="material-symbols-outlined">
+                    description
+                </span>
+                <br>
+                <span class="material-symbols-outlined">
+                    storage
+                </span>
+                <br>
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+                <br>
+                <span class="material-symbols-outlined" onclick="location.href='../index.html';">
+                    logout
+                </span>
+                <span class="material-symbols-outlined">
+                    <img src="../assets/icon/favicon2.png" alt="">
+                </span>
         </div>
 
         <div class="dash">
@@ -73,7 +63,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 
