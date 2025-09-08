@@ -37,7 +37,7 @@
           <button class="btn-navbar" onclick="location.href='login.html';">Login</button>
         </li>
         <li>
-          <button class="btn-navbar" onclick="location.href='cadastro.html'">Cadastro</button>
+          <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
         </li>
       </ul>
     </div>
@@ -47,9 +47,9 @@
       <div class="container">
         <p>Cuidando dos servidores que <span>servem o mundo</span></p>
       </div>
-      <a class="div-button" href="#pg_suporte" style=" text-decoration: none;">
+      <div class="div-button">
         <button class="btn-navbar"><img src="./assets/imgs/headset-icon.PNG">  Fale conosco</button>
-      </a>
+      </div>
     </div>
 
     <div class="divisao">
@@ -195,7 +195,7 @@
 
  <!--pagina de suporte-->
 
- <div class="pg-suporte" id="pg_suporte">
+ <div class="pg-suporte">
 <div class="container">
   <div class="box1"><svg width="421" height="615" viewBox="0 0 421 615" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <path d="M0 50C0 22.3858 22.3858 0 50 0H371C398.614 0 421 22.3858 421 50V565C421 592.614 398.614 615 371 615H50C22.3858 615 0 592.614 0 565V50Z" fill="url(#pattern0_93_17)"/>
@@ -211,29 +211,17 @@
   <div class="box2">
     <h2>Como podemos te ajudar?</h2>
     <div class="linha">
-
-    <label for="ipt_nome">Insira seu nome</label>
-    <input type="text" id="ipt_nome">
-
-    <label for="ipt_telefone">Telefone</label>
-    <input type="text" id="ipt_telefone">
+    <input type="text" placeholder="Insira seu nome">
+    <input type="text" placeholder="Telefone">
     </div>
      <div class="linha">
-
-    <label for="ipt_empresa">Nome da empresa</label>
-    <input type="text" id="ipt_empresa">
-
-    <label for="ipt_cnpj">CNPJ</label>
-    <input type="text" id="ipt_cnpj">
+    <input type="text" placeholder="Nome da empresa">
+    <input type="text" placeholder="CNPJ">
     </div>
 
-    <div class="linha">
-    <label for="ipt_email">E-mail corporativo</label>
-    <input type="text" id="ipt_email">
-
-    <label for="ipt_mensagem">Mensagem</label>
-    <input type="text" id="ipt_mensagem">
-    </div>
+    <input type="text" placeholder="E-mail corporativo">
+    <input type="text"placeholder="Mensagem">
+    
     <button id="solicitarAjuda">Enviar</button>
   </div>
 </div>
