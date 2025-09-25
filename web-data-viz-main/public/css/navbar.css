@@ -1,0 +1,407 @@
+/*Lato*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*Monserrate*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*cores primarias*/
+:root {
+    --branco: #EBF4F8;
+    --azul: #00B2B2;
+    --cinza: #E2E8F0;
+    --vermelho: #B74C4C;
+    --verde: #10b156;
+    --preto: #0A202D;
+    --azul-escuro: #006E66;
+    --cinza-escuro: #7a79799a;
+    --monserate: "Montserrat", sans-serif;
+    --lato: "Lato", sans-serif;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    background: var(--cinza);
+    height: 100vh;
+    display: flex;
+}
+
+.barra-lateral {
+    width: 70px;
+    background: var(--branco);
+    border-right: 1px solid var(--cinza);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0 20px 10px;
+    position: relative;
+    z-index: 100;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.barra-lateral:hover {
+    width: 290px;
+    box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+    z-index: 200;
+}
+
+.item-logo {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+.logotipo {
+    width: 30px;
+    height: 25px;   
+}
+
+.item-logo .texto-logo {
+    position: absolute;
+    font-family: var(--monserate);
+    left: 55px;
+    font-size: 30px;
+    color: var(--preto);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    white-space: nowrap;
+    background: var(--branco);
+    padding: 0 10px;
+}
+
+.barra-lateral:hover .item-logo .texto-logo {
+    opacity: 1;
+}
+
+.item-navegacao {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--preto);
+    position: relative;
+}
+
+.item-navegacao:hover {
+    background: var(--cinza);
+    color: var(--azul);
+}
+
+.item-navegacao .texto {
+    position: absolute;
+    left: 55px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    white-space: nowrap;
+    background: var(--branco);
+    padding: 0 10px;
+}
+
+.barra-lateral:hover .item-navegacao .texto {
+    opacity: 1;
+}
+
+.item-notificacao {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 5px;
+    margin-top: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--azul);
+    position: relative;
+}
+
+.item-notificacao .texto-notificacao {
+    position: absolute;
+    left: 55px;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--preto);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    white-space: nowrap;
+    background: var(--branco);
+    padding: 0 10px;
+    border-radius: 6px;
+}
+
+.barra-lateral:hover .item-notificacao .texto-notificacao {
+    opacity: 1;
+}
+
+.item-notificacao:hover .texto-notificacao {
+    border-color: var(--branco);
+}
+
+#notificacoes:hover{
+    color: var(--azul);
+}
+
+.item-usuario {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.avatar-usuario {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.item-usuario .texto-usuario {
+    position: absolute;
+    left: 55px;
+    font-size: 20px;
+    color: var(--preto);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    white-space: nowrap;
+    background: var(--branco);
+    padding: 0 10px;
+}
+
+.barra-lateral:hover .item-usuario .texto-usuario {
+    opacity: 1;
+}
+
+.divisor {
+    width: calc(100% - 20px);
+    height: 1px;
+    background: var(--cinza);
+    margin: 20px 10px;
+}
+
+.conteudo-principal {
+    flex: 1;
+    background: var(--cinza);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-conteudo {
+    text-align: center;
+    color: var(--preto);
+}
+
+#sair:hover{
+    color: var(--vermelho);
+}
+
+#dash-zona{
+    width: 30px;
+    height: 30px;
+}
+
+#alerta{
+    width: 20px;
+    height: 20px;
+}
+
+#sino{
+    width: 25px;
+    height: 25px;
+}
+
+#gerenciamento{
+    width: 27px;
+    height: 27px;
+    margin-left: 5px;
+}
+
+#modelo{
+    width: 20px;
+    height: 20px;
+}
+
+#atribuicao{
+    width: 30px;
+    height: 30px;
+}
+
+#sair-imagem{
+    width: 20px;
+    height: 20px;
+}
+
+#texto-dash{
+    margin-bottom: 10px;
+}
+
+.placeholder-conteudo {
+    gap: 15px;
+    padding: 20px;
+    font-family: var(--monserate);
+}
+
+.input {
+    width: 260px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: var(--preto);
+    background-color: var(--branco);
+    border: 1px solid var(--azul);
+    transition: all 0.3s ease; 
+    font-family: var(--lato);
+    font-size: 16px; 
+}
+
+.input:focus {
+    border-color: var(--azul-escuro); 
+    box-shadow: 0 0 0 3px rgba(var(--azul), 0.3);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.botao {
+    width: 120px;
+    height: 40px; 
+    padding: 0 15px;
+    border-radius: 8px;
+    background-color: var(--azul);
+    color: var(--branco);
+    border: 2px solid var(--azul);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: var(--lato);
+}
+
+.botao:hover {
+    background-color: var(--branco);
+    color: var(--azul-escuro);
+    border-color: var(--azul-escuro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabela-simples {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.tabela-simples thead th {
+    background-color: var(--azul-claro);
+    color: var(--preto);
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 2px solid var(--azul-escuro);
+    font-weight: bold;
+}
+
+.tabela-simples th,
+.tabela-simples td {
+    padding: 10px;
+    text-align: left;
+    border-right: 1px solid var(--cinza); 
+    border-bottom: 1px solid var(--cinza);
+}
+
+.tabela-simples th:last-child,
+.tabela-simples td:last-child {
+    border-right: none;
+}
+
+.botao-editar {
+    background-color: var(--verde);
+    color: var(--branco);
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botao-deletar {
+    background-color: var(--vermelho);
+    color: var(--branco);
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botao-editar:hover,
+.botao-deletar:hover {
+    opacity: 0.9;
+}
+
+.kpi {
+    width: 200px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    background-color: var(--azul-escuro);
+    color: var(--branco);
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: var(--lato);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#kpi-texto {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.area-de-texto {
+    width: 400px;
+    max-width: 500px;
+    height: 150px;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid var(--cinza);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: var(--lato), sans-serif;
+    font-size: 14px;
+    color: var(--preto);
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.area-de-texto:focus {
+    border-color: var(--azul-escuro); 
+    box-shadow: 0 0 0 3px rgba(var(--azul-escuro), 0.2);
+    outline: none;
+}
