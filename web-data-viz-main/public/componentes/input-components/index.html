@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Componente Input</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="cortex-input.js"></script>
+      <script src="cortex-select.js"></script>
+      <script src="cortex-pesquisar.js"></script>
+</head>
+
+
+        
+        
+<body>
+
+    <h1>Componentes de input</h1>
+
+   
+    <input-cortex
+    id="input-email"
+    config-data='{ 
+        "label": "E-mail:", 
+        "type": "email",
+        "placeholder": "seu_email@email.com",
+        "required": true
+    }'>
+</input-cortex>
+
+   <input-cortex
+    id="input-senha"
+    config-data='{ 
+        "label": "Senha:", 
+        "type": "password",
+        "placeholder": "Digite sua senha",
+        "required": true
+    }'>
+</input-cortex>
+
+
+  <select-cortex
+        id="select-estado"
+        config-data='{
+            "label": "Escolha seu Estado:",
+            "id": "estado",
+            "options": [
+                { "value": "", "text": "Selecione..." },
+                { "value": "sp", "text": "São Paulo" },
+                { "value": "rj", "text": "Rio de Janeiro" },
+                { "value": "mg", "text": "Minas Gerais" },
+                { "value": "ba", "text": "Bahia" }
+            ]
+        }'>
+    </select-cortex>
+
+
+    <search-cortex 
+    config-data='{ 
+        "placeholder": "Buscar por nome...", 
+        "maxlength": "50"  
+    }'>
+</search-cortex>
+
+ <search-cortex 
+    config-data='{ 
+        "placeholder": "Buscar por sla...", 
+        "maxlength": "50"  
+    }'>
+</search-cortex>
+
+ <search-cortex 
+    config-data='{ 
+        "placeholder": "Buscar por chifre...", 
+        "maxlength": "50"  
+    }'>
+</search-cortex>
+
+     
+
+    
+    
+    
+</body>
+</html>
