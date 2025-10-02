@@ -228,3 +228,4 @@ class CadastroForm extends HTMLElement {
 
 customElements.define("cadastro-form", CadastroForm);
 
+
