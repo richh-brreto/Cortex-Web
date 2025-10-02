@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Exemplo com 3 Cards</title>
+
+  <link rel="stylesheet" href="s.css">
+</head>
+
+<body>
+  <h1>Exemplo: connectedCallback + attributeChangedCallback</h1>
+
+  <!-- Três cards diferentes -->
+  <meu-card id="card1" titulo="Card 1" descricao="Texto inicial do card 1"></meu-card>
+  <meu-card id="card2" titulo="Card 2" descricao="Texto inicial do card 2"></meu-card>
+  <meu-card id="card3" titulo="Card 3" descricao="Texto inicial do card 3"></meu-card>
+  <meu-butao id="butao1" texto="TESTE"></meu-butao>
+
+  <!-- Botões para mudar os cards -->
+  <button onclick="mudarCard(1)">Mudar Card 1</button>
+  <button onclick="mudarCard(2)">Mudar Card 2</button>
+  <button onclick="mudarCard(3)">Mudar Card 3</button>
+
+  <cadastro-form
+  fields='[
+    {"label":"Nome","name":"nome","type":"text","required":true},
+    {"label":"Email","name":"email","type":"email","required":true},
+    {"label":"CPF","name":"cpf","type":"text","mask":"cpf"},
+    {"label":"Senha","name":"senha","type":"password","required":true},
+    {"label":"Currículo","name":"curriculo","type":"file","multiple":true},
+    {"label":"Sexo","name":"sexo","type":"radio","required":true,"options":[
+      {"label":"Masculino","value":"M"},
+      {"label":"Feminino","value":"F"},
+      {"label":"Outro","value":"O"}
+    ]},
+    {"label":"Habilidades","name":"habilidades","type":"checkbox","options":[
+      {"label":"JavaScript","value":"js"},
+      {"label":"Python","value":"py"},
+      {"label":"Java","value":"java"}
+    ]},
+    {"label":"Descrição","name":"descricao","type":"textarea"}
+  ]'>
+</cadastro-form>
+
+<script>
+  document.querySelector("cadastro-form")
+    .addEventListener("formSubmit", (e) => {
+      console.log("Dados enviados:", e.detail);
+    });
+</script>
+
+
+
+  <script src="./components/formulario/formulario-dinamico.js"></script>
+  <script>
+    class MeuCard extends HTMLElement {
+      constructor() { // Construtor para o HTMLElement
+        super(); // Construtor da classe pai HTMLElement
+        this.attachShadow({ mode: "open" }); // Ativa o modo CSS Isolado 
+      }
+
+      // Quais atributos o componente deve observar
+      static get observedAttributes() {
+        return ["titulo", "descricao"]; // São os atributos da tags
+      }
+
+      // Roda quando o componente é colocado no DOM
+      connectedCallback() {
+        console.log("✅ Card criado:", this.getAttribute("titulo"));
+        this.render();
+      }
+
+      // Roda sempre que um atributo observado mudar
+      attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`⚡ ${name} mudou de "${oldValue}" para "${newValue}"`);
+        this.render();
+      }
+
+      // Função que monta o HTML interno
+      render() {
+        const titulo = this.getAttribute("titulo") || "Sem título";
+        const descricao = this.getAttribute("descricao") || "Sem descrição";
+
+        // Fazer em CSS, não innerHTML
+        this.shadowRoot.innerHTML = `
+          <style>
+            .card {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              border: 2px solid #333;
+              padding: 10px 0;
+              margin: 10px 0;
+              border-radius: 5px;
+              background: #f9f9f9;
+            }
+            h2 {
+              margin: 0;
+              color: darkblue;
+            }
+            p {
+              margin: 5px 0 0;
+              color: #555;
+            }
+          </style>
+          <div class="card">
+            <h2>${titulo}</h2>
+            <p>${descricao}</p>
+            <meu-butao id="butao2" texto="deu certo HAHAHAHAH"></meu-butao>
+          </div>
+        `;
+
+      }
+    }
+
+    class MeuButao extends HTMLElement {
+      constructor() { // Construtor para o HTMLElement
+        super(); // Construtor da classe pai HTMLElement
+        this.attachShadow({ mode: "open" }); // Ativa o modo CSS Isolado 
+      }
+
+      // Quais atributos o componente deve observar
+      static get observedAttributes() {
+        return ["texto"]; // São os atributos da tags
+      }
+
+      // Roda quando o componente é colocado no DOM
+      connectedCallback() {
+        console.log("✅ Texto criado:", this.getAttribute("texto"));
+        this.render();
+      }
+
+      // Roda sempre que um atributo observado mudar
+      // attributeChangedCallback(name, oldValue, newValue) {
+      //   console.log(`⚡ ${name} mudou de "${oldValue}" para "${newValue}"`);
+      //   this.render();
+      // }
+
+      // Função que monta o HTML interno
+      render() {
+        const texto = this.getAttribute("texto") || "Sem texto";
+
+        // Fazer em CSS, não innerHTML
+        this.shadowRoot.innerHTML = `
+          <style>
+            .caixa-butao {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .butao {
+              border: 2px solid #333;
+              padding: 10px 20px;
+              border-radius: 5px;
+              background: #f9f9;
+            }
+
+          </style>
+          <div class="caixa-butao">
+            <a href="#" class="butao">
+              ${texto}
+            </a>
+          </div>
+          
+        `;
+
+      }
+    }
+
+    customElements.define("meu-card", MeuCard);
+    customElements.define("meu-butao", MeuButao);
+
+
+    // Função para mudar dinamicamente o título/descrição de cada card
+    function mudarCard(num) {
+      const card = document.getElementById("card" + num);
+      card.setAttribute("titulo", "Novo título do Card " + num);
+      card.setAttribute("descricao", "Descrição atualizada do Card " + num);
+    }
+  </script>
+</body>
+
+</html>
