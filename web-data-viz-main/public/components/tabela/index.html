@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste - Componente Tabela v2.0.0</title>
+  
+  <script type="module" defer src="./componente-tabela.js"></script>
+  
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f3f4f6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #1f2937;
+      margin-bottom: 2rem;
+    }
+
+    .tabela-section {
+      margin-bottom: 3rem;
+    }
+
+    .tabela-section h2 {
+      color: #374151;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tabela-section">
+      <h2>Tabela de Vendedores</h2>
+      <tabela-dados
+        id="tabela-vendedores"
+        dados='[
+          {"id":1,"nome":"João Silva","idade":28,"cargo":"Vendedor","vendas":150000,"meta":120000,"ativo":true,"regiao":"Sul","dataContratacao":"2022-03-15"},
+          {"id":2,"nome":"Maria Santos","idade":34,"cargo":"Gerente","vendas":230000,"meta":200000,"ativo":true,"regiao":"Sudeste","dataContratacao":"2020-01-10"},
+          {"id":3,"nome":"Pedro Costa","idade":25,"cargo":"Vendedor","vendas":89000,"meta":120000,"ativo":true,"regiao":"Norte","dataContratacao":"2023-06-20"},
+          {"id":4,"nome":"Ana Paula","idade":31,"cargo":"Coordenadora","vendas":185000,"meta":150000,"ativo":true,"regiao":"Nordeste","dataContratacao":"2021-09-05"},
+          {"id":5,"nome":"Carlos Mendes","idade":42,"cargo":"Diretor","vendas":450000,"meta":400000,"ativo":true,"regiao":"Sudeste","dataContratacao":"2018-02-28"},
+          {"id":6,"nome":"Julia Rocha","idade":29,"cargo":"Vendedora","vendas":125000,"meta":120000,"ativo":true,"regiao":"Sul","dataContratacao":"2022-11-12"},
+          {"id":7,"nome":"Roberto Lima","idade":36,"cargo":"Gerente","vendas":210000,"meta":200000,"ativo":false,"regiao":"Centro-Oeste","dataContratacao":"2019-07-18"},
+          {"id":8,"nome":"Fernanda Alves","idade":27,"cargo":"Vendedora","vendas":95000,"meta":120000,"ativo":true,"regiao":"Norte","dataContratacao":"2023-04-03"},
+          {"id":9,"nome":"Lucas Martins","idade":33,"cargo":"Coordenador","vendas":175000,"meta":150000,"ativo":true,"regiao":"Nordeste","dataContratacao":"2021-05-22"},
+          {"id":10,"nome":"Patricia Souza","idade":38,"cargo":"Gerente","vendas":240000,"meta":200000,"ativo":true,"regiao":"Sudeste","dataContratacao":"2020-08-14"},
+          {"id":11,"nome":"Ricardo Pereira","idade":30,"cargo":"Vendedor","vendas":110000,"meta":120000,"ativo":true,"regiao":"Sul","dataContratacao":"2022-12-01"},
+          {"id":12,"nome":"Amanda Silva","idade":26,"cargo":"Vendedora","vendas":135000,"meta":120000,"ativo":true,"regiao":"Centro-Oeste","dataContratacao":"2023-02-17"},
+          {"id":13,"nome":"Bruno Oliveira","idade":35,"cargo":"Coordenador","vendas":190000,"meta":150000,"ativo":true,"regiao":"Nordeste","dataContratacao":"2021-03-09"},
+          {"id":14,"nome":"Camila Ferreira","idade":32,"cargo":"Gerente","vendas":225000,"meta":200000,"ativo":false,"regiao":"Norte","dataContratacao":"2020-10-25"},
+          {"id":15,"nome":"Diego Santos","idade":29,"cargo":"Vendedor","vendas":105000,"meta":120000,"ativo":true,"regiao":"Sudeste","dataContratacao":"2022-07-30"}
+        ]'
+        colunas='[
+          {"campo":"id","titulo":"ID","largura":"60px","alinhamento":"centro"},
+          {"campo":"nome","titulo":"Nome Completo","ordenavel":true},
+          {"campo":"idade","titulo":"Idade","ordenavel":true,"alinhamento":"centro","largura":"80px"},
+          {"campo":"cargo","titulo":"Cargo","ordenavel":true},
+          {"campo":"regiao","titulo":"Região","ordenavel":true},
+          {"campo":"vendas","titulo":"Vendas","ordenavel":true,"formato":"moeda","alinhamento":"direita"},
+          {"campo":"meta","titulo":"Meta","ordenavel":true,"formato":"moeda","alinhamento":"direita"},
+          {"campo":"ativo","titulo":"Status","formato":"badge","alinhamento":"centro"},
+          {"campo":"dataContratacao","titulo":"Contratação","formato":"data","ordenavel":true}
+        ]'
+        mostrar-busca="true"
+        mostrar-paginacao="true"
+        linhas-por-pagina="20"
+        selecionavel="true"
+        multipla-selecao="true"
+        mostrar-exportar="true"
+        zebrada="true"
+        usar-sombra
+      ></tabela-dados>
+    </div>
+
+    <div class="tabela-section">
+      <h2>Tabela de Produtos</h2>
+      <tabela-dados
+        id="tabela-produtos"
+        dados='[
+          {"codigo":"P001","produto":"Notebook Dell","categoria":"Eletrônicos","estoque":45,"preco":3500.00},
+          {"codigo":"P002","produto":"Mouse Logitech","categoria":"Periféricos","estoque":120,"preco":89.90},
+          {"codigo":"P003","produto":"Teclado Mecânico","categoria":"Periféricos","estoque":67,"preco":450.00},
+          {"codigo":"P004","produto":"Monitor LG 27\"","categoria":"Eletrônicos","estoque":32,"preco":1200.00},
+          {"codigo":"P005","produto":"Webcam Full HD","categoria":"Periféricos","estoque":88,"preco":299.90}
+        ]'
+        colunas='[
+          {"campo":"codigo","titulo":"Código","largura":"100px"},
+          {"campo":"produto","titulo":"Produto","ordenavel":true},
+          {"campo":"categoria","titulo":"Categoria","ordenavel":true},
+          {"campo":"estoque","titulo":"Estoque","ordenavel":true,"alinhamento":"centro"},
+          {"campo":"preco","titulo":"Preço","ordenavel":true,"formato":"moeda","alinhamento":"direita"}
+        ]'
+        mostrar-busca="false"
+        mostrar-paginacao="false"
+        selecionavel="false"
+        mostrar-exportar="false"
+        compacta="false"
+        zebrada="false"
+        usar-sombra
+      ></tabela-dados>
+    </div>
+
+    <div class="tabela-section">
+      <h2>Tabela de Clientes (Compacta)</h2>
+      <tabela-dados
+        id="tabela-clientes"
+        dados='[
+          {"id":1,"cliente":"Tech Solutions LTDA","cnpj":"12.345.678/0001-90","cidade":"São Paulo","faturamento":850000,"ativo":true},
+          {"id":2,"cliente":"Inovação Digital S.A.","cnpj":"98.765.432/0001-10","cidade":"Rio de Janeiro","faturamento":1200000,"ativo":true},
+          {"id":3,"cliente":"Sistemas Avançados ME","cnpj":"11.222.333/0001-44","cidade":"Belo Horizonte","faturamento":450000,"ativo":false},
+          {"id":4,"cliente":"Cloud Services Brasil","cnpj":"55.666.777/0001-88","cidade":"Curitiba","faturamento":2300000,"ativo":true},
+          {"id":5,"cliente":"DataTech Corporation","cnpj":"22.333.444/0001-55","cidade":"Porto Alegre","faturamento":980000,"ativo":true}
+        ]'
+        colunas='[
+          {"campo":"id","titulo":"#","largura":"50px","alinhamento":"centro"},
+          {"campo":"cliente","titulo":"Razão Social","ordenavel":true},
+          {"campo":"cnpj","titulo":"CNPJ","largura":"180px"},
+          {"campo":"cidade","titulo":"Cidade","ordenavel":true},
+          {"campo":"faturamento","titulo":"Faturamento","ordenavel":true,"formato":"moeda","alinhamento":"direita"},
+          {"campo":"ativo","titulo":"Status","formato":"badge","alinhamento":"centro"}
+        ]'
+        mostrar-busca="true"
+        mostrar-paginacao="false"
+        linhas-por-pagina="10"
+        selecionavel="true"
+        multipla-selecao="false"
+        mostrar-exportar="true"
+        zebrada="true"
+        compacta="true"
+        usar-sombra
+      ></tabela-dados>
+    </div>
+
+    <div class="tabela-section">
+      <h2>Resumo de Vendas por Mês</h2>
+      <tabela-dados
+        id="tabela-resumo"
+        dados='[
+          {"mes":"Janeiro","vendas":125000,"clientes":45,"ticketMedio":2777.78},
+          {"mes":"Fevereiro","vendas":148000,"clientes":52,"ticketMedio":2846.15},
+          {"mes":"Março","vendas":167000,"clientes":58,"ticketMedio":2879.31},
+          {"mes":"Abril","vendas":142000,"clientes":49,"ticketMedio":2897.96},
+          {"mes":"Maio","vendas":189000,"clientes":64,"ticketMedio":2953.13}
+        ]'
+        colunas='[
+          {"campo":"mes","titulo":"Mês"},
+          {"campo":"vendas","titulo":"Total de Vendas","formato":"moeda","alinhamento":"direita"},
+          {"campo":"clientes","titulo":"Clientes","formato":"numero","alinhamento":"centro"},
+          {"campo":"ticketMedio","titulo":"Ticket Médio","formato":"moeda","alinhamento":"direita"}
+        ]'
+        mostrar-busca="false"
+        mostrar-paginacao="false"
+        selecionavel="false"
+        mostrar-exportar="false"
+        zebrada="true"
+        usar-sombra
+      ></tabela-dados>
+    </div>
+  </div>
+
+  <script defer type="module" src="./tabela.js" ></script>
+  <script>
+    // Eventos das tabelas
+    document.querySelectorAll('tabela-dados').forEach(tabela => {
+      tabela.addEventListener('tabela-pronta', (e) => {
+        console.log(`✓ ${tabela.id} carregada`);
+      });
+      
+      tabela.addEventListener('selecao-alterada', (e) => {
+        console.log(`${tabela.id} - Selecionados:`, e.detail.length);
+      });
+      
+      tabela.addEventListener('exportacao', (e) => {
+        console.log(`${tabela.id} - Exportado:`, e.detail.tipo, e.detail.registros, 'registros');
+      });
+    });
+
+    console.log('📊 Componente Tabela v2.0.0 - Demo carregada');
+  </script>
+</body>
+</html>

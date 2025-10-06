@@ -1,0 +1,18 @@
+
+.kpi-cartao {
+  padding: 16px;
+}
+
+.kpi-valor {
+  font-size: 24px;
+}
+
+.kpi-grafico {
+  height: 100px;
+}
+
+.kpi-icone {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
