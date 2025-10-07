@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | Cortex</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="./css/perfil.css">
+    <link rel="stylesheet" href="./componentes-cortex/navbar/navbar.css">
+    <link rel="stylesheet" href="./componentes-cortex/button/button.css">
+</head>
+<body>
+    
+    <custom-navbar role="user" user-name="Richard" user-avatar="./assets/icon/teste-perfil.webp"></custom-navbar>
+
+    <main class="conteudo-principal">
+        <section class="perfil-container">
+            <h1 class="titulo-pagina">Meu Perfil</h1>
+
+            <div class="perfil-conteudo">
+                <div class="perfil-foto">
+                    <img src="./assets/icon/teste-perfil.webp" alt="Foto do Usuário">
+                </div>
+
+                <div class="perfil-info">
+                    <p><strong>Nome:</strong> XXXXXXXXX</p>
+                    <p><strong>Cargo:</strong> XXXXXXXXX</p>
+                    <p><strong>CPF:</strong> XXXXXXXXX</p>
+                    <p><strong>Telefone:</strong> XXXXXXXXX</p>
+                    <p><strong>Tipo de usuário:</strong> XXXXXXXXX</p>
+                    <p><strong>Email:</strong> XXXXXXXXX</p>
+
+                    <div class="campo-senha">
+                        <p><strong>Senha:</strong> •••••••••</p>
+                        <button class="mostrar-senha" title="Mostrar senha">👁️</button>
+                    </div>
+
+                    
+                    <button class="button-cadastro-secondary botao-mudar-senha">Mudar Senha</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+<script src="./componentes-cortex/navbar/NavbarComponent.js"></script>
+</html>
