@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../../public/componentes-cortex/navbar/navbar.css">
     <link rel="stylesheet" href="../../public/componentes-cortex/input-components/style.css">
     <link defer rel="stylesheet" href="../css/dash_tecnico.css">
+    <script src="../componentes-cortex/relatorio-components/relatorio.js"></script>
+    <link rel="stylesheet" href="../componentes-cortex/relatorio-components/relatorio.css">
     
     
 </head>
@@ -88,13 +90,32 @@
                 <div class="kpi"></div>
                 </div>
             </div>
-            <div id="containerHistorico"></div>
+            <div id="containerHistorico">
+                <meu-relatorio gerenciador botao-final="Zonas" id= "rel" coluna="TIPO,DATA,DESCRIÇÃO,STATUS" chaves="id,nome,idade,email"></meu-relatorio>
+            </div>
         </div>
     </div>
-    
+   
 
 </body>
  <script defer type="module" src="../componentes-base/KPI/kpi.js"></script>
+ <script>
+     const dadosTeste = [
+  { id: "GRAVE", nome: "08/01/2025", idade: "CPU", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" },
+  { id: "GRAVE", nome: "08/01/2025", idade: "CPU", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" },
+  { id: "RISCO", nome: "18/04/2025", idade: "RAM", email: "ATIVO" }
+];
+
+
+    const relatorio = document.getElementById("rel")
+    relatorio.dados = dadosTeste
+    relatorio.render()
+ </script>
 
 
 </html>
