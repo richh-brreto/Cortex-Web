@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelos</title>
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="componentes-cortex/navbar/navbar.css">
+    <link rel="stylesheet" href="componentes-cortex/input-components/style.css">
+    <link rel="stylesheet" href="componentes-base/KPI/kpi-base.css">
+    <link rel="stylesheet" href="css/info_modelo.css">
+    <link rel="stylesheet" href="componentes-cortex/relatorio-components/relatorio.css">
 </head>
 <body>
     <custom-navbar role="admin"></custom-navbar>
@@ -16,25 +20,120 @@
         </div>
         <div class="container_infos">
             <div class="container_descricao">
-                <h3>Descrição:</h3>
+                <h2>Descrição:</h2>
             </div>
             <div class="container_outras infos">
-                <h3>Zona:</h3>
-                <h3>Cliente:</h3>
-                <h3>Tempo Parâmetros:</h3>
+                <h2>Zona:</h2>
+                <h2>Cliente:</h2>
+                <h2>Tempo Parâmetros:</h2>
             </div>
         </div>
             <div class="container_parametro">
-                <h3>Parâmetros:</h3>
-                <h2>CPU:</h2>
-                <h2>RAM:</h2>
-                <h2>Disco:</h2>
-                <h2>GPU:</h2>
-                </div>
+                <h2>Parâmetros:</h2>
+                <h3>CPU:</h3>
+                <h3>RAM:</h3>
+                <h3>Disco:</h3>
+                <h3>GPU:</h3>
+            </div>
         </div>
-        
-    
+        <div class="kpi-modelo">
+            
+            <div class="tabela-processo">
+                <div class="topo">
+                    <div class="pesquisa">
+                        <search-cortex></search-cortex>
+                    </div>
+                    <div class="botao-verificar">
+                        <button>Verificar Todos</button>
+                    </div>
+                </div>
+                <div class="legenda">
+
+                </div>
+                <div class="tabela">
+                    <meu-relatorio coluna=" ,Processo,Data/Hora Início,Data/Hora Fim, Status,Ações"></meu-relatorio>
+                </div>
+            </div>
+            <div class="kpi">
+                <div class="utimo-processo">
+                    <div class="container-proceso">
+                        <div class="topo-ultimo">
+                            <div class="titulo">
+                                <h2>Último Processo: NOME</h2>
+                            </div>
+                            <div class="filtro">
+                                <div class="filtro-valor">
+                                    <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
+                                    <h4>Valor mais Alto</h4>
+                                </div>
+                                <div class="filtro-cpu">
+                                    <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
+                                    <h4>CPU</h4>
+                                </div>
+                                <div class="filtro-ram">
+                                    <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
+                                    <h4>RAM</h4>
+                                </div>
+                                <div class="filtro-disco">
+                                    <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
+                                    <h4>Disco</h4>
+                                </div>
+                                <div class="filtro-gpu">
+                                    <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
+                                    <h4>GPU</h4>
+                                </div>
+                            </div>
+                            <div class="valores">
+                                <div class="val-cpu">
+                                    <h3>CPU</h3>
+                                </div>
+                                   <div class="val-ram">
+                                    <h3>RAM</h3>
+                                </div>
+                                   <div class="val-disco">
+                                    <h3>Disco</h3>
+                                </div>
+                                   <div class="val-gpu">
+                                    <h3>GPU</h3>
+                                </div>
+                            </div>
+                       </div>
+                    </div>     
+                </div>
+                <div class="componentes">
+                    <div class="cpu">
+                        <cartao-kpi obrigatorio="1234" titulo="CPU"></cartao-kpi>
+                    </div>
+                    <div class="ram">
+                        <cartao-kpi obrigatorio="1234" titulo="RAM"></cartao-kpi>
+                    </div>
+                    
+                    <div class="disco">
+                        <cartao-kpi obrigatorio="1234" titulo="Disco"></cartao-kpi>
+                    </div>
+                    
+                    <div class="gpu">
+                        <cartao-kpi obrigatorio="1234" titulo="GPU"></cartao-kpi>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="historico">
+            <div class="topo-hist">
+                <h2>Histórico de Alertas</h2>
+                <search-cortex></search-cortex>
+                <button>F</button>
+                <h5>Quantidade alertas:</h5>
+            </div>
+            <div class="cards-hist">
+                
+            </div>
+        </div>
     </div>
 </body>
-<script src="componentes/navbar/NavbarComponent.js"></script>
+<script src="componentes-cortex/navbar/NavbarComponent.js"></script>
+<script src="componentes-cortex/input-components/cortex-pesquisar.js"></script>
+<script src="componentes-cortex/relatorio-components/relatorio.js"></script>
+<script type="module" src="componentes-base/KPI/kpi.js"></script>
+<script src="componentes-cortex/input-components/cortex-input.js"></script>
 </html>
