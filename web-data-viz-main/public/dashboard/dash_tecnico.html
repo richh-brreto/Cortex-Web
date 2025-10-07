@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../public/componentes-cortex/input-components/cortex-input.js"></script>
+    <script src="../../public/componentes-cortex/input-components/cortex-select.js"></script>
+    <link rel="stylesheet" href="../../public/componentes-cortex/navbar/navbar.css">
+    <link rel="stylesheet" href="../../public/componentes-cortex/input-components/style.css">
+    <link defer rel="stylesheet" href="../css/dash_tecnico.css">
+    
+    
+</head>
+
+<body>
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="../assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <div id="geral">
+    <select-cortex
+        id="input-zona"
+        config-data='{
+            "label": ":",
+            "id": "select-zona",
+            "options": [
+                { "value": "", "text": "Zona de disponibilidade..." },
+                { "value": "sp", "text": "1" }
+            ]
+        }'>
+    </select-cortex>
+    <div id="containerAlertas"></div>
+    <div id="geral2">
+            <div id="esquerda">
+                <div id="kpis">
+                <div class="kpi"></div>
+                <div class="kpi"></div>
+                <div class="kpi"></div>
+                </div>
+            </div>
+            <div id="containerHistorico"></div>
+        </div>
+    </div>
+    
+
+</body>
+ <script defer type="module" src="../componentes-base/KPI/kpi.js"></script>
+
+
+</html>

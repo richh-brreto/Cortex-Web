@@ -1,0 +1,84 @@
+#containerAlertas{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.3%;
+    background-color: rgb(180, 180, 180);
+    width: 90%;
+    height:14%;
+}
+
+#geral{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#input-zona{
+    height: 50px;
+    width: 40%;
+    font-size:12px;
+    margin-left: 5%;
+    
+}
+
+#geral2{
+    background-color: brown;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+#kpis{
+width: 95%;
+margin-left: auto;
+margin-right: auto;
+background-color: grey;
+height: 18%;
+margin-top:0%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap: 20px;
+}
+
+.kpi{
+    width: 30%;
+    gap:10px;
+    background-color: blue;
+    height: 100%;
+    
+}
+
+#containerHistorico{
+    width: 37%;
+    margin: auto;
+    height: 94%;
+    background-color: yellow;
+}
+
+#esquerda{
+    width: 60%;
+    height: 94%;
+    background-color: greenyellow;
+    margin: auto;
+}
+
+
+
+#select-zona{
+    height: 25px;
+    font-size: 5px;
+    color: black;
+    width: 40%;
+    font-size:12px;
+    margin-left:0;
+    padding: 2px;
+    
+}
