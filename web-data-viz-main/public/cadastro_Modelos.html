@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/navbar.css">
+    <title>Barra de Navegação Lateral</title>
+    <script src="../public/componentes-cortex/input-components/cortex-input.js"></script>
+    <script src="../public/componentes-cortex/input-components/cortex-pesquisar.js"></script>
+    <script src="../public/componentes-cortex/input-components/cortex-select.js"></script>
+    <link rel="stylesheet" href="../public/componentes-cortex/input-components/style.css">
+    
+</head>
+
+<style>
+
+    #geral{
+        width: 100%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: scale(0.9);
+        
+    }
+
+    #divpai{
+display: flex; /* O COMANDO MAIS IMPORTANTE! Alinha as divs filhas lado a lado. */
+  gap: 30px;     /* Cria um espaço horizontal de 30px entre as duas colunas. */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 80%;
+  justify-content: center;
+
+    }
+
+    .coluna-esquerda,
+.coluna-direita {
+  width:75%;
+}
+
+#parametros{
+    margin-bottom: 20px;
+}
+
+
+</style>
+<body>
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair"">Sair</span>
+        </a>
+    </nav>
+    
+    <div id="geral"><h1>Cadastro de Modelos</h1>
+    
+    <div id="divpai">
+        
+    <div class="coluna-esquerda" >
+          
+
+   
+    <input-cortex
+    id="input-nome_modelo"
+    config-data='{ 
+        "label": "Nome:", 
+        "type": "text",
+        "placeholder": "Nome do seu modelo",
+        "required": true
+    }'>
+</input-cortex>
+
+<input-cortex
+    id="input-descricao"
+    config-data='{ 
+        "label": "Descrição", 
+        "type": "text",
+        "placeholder": "Faça uma Descrição",
+        "required": true
+    }'>
+</input-cortex>
+
+ <select-cortex
+        id="select-zona"
+        config-data='{
+            "label": "Zona de disponibilidade:",
+            "id": "select_zona",
+            "options": [
+                { "value": "", "text": "Selecione..." },
+                { "value": "1", "text": "1" },
+                 { "value": "2", "text": "2" },
+                 { "value": "3", "text": "3" }
+                
+            ]
+        }'>
+    </select-cortex>
+
+     <select-cortex
+        id="select-cliente"
+        config-data='{
+            "label": "Cliente:",
+            "id": "cliente",
+            "options": [
+                { "value": "", "text": "Selecione..." },
+                { "value": "sp", "text": "Cortex" },
+                { "value": "rj", "text": "Timitsu" },
+                { "value": "mg", "text": "Corinthians" },
+                { "value": "ba", "text": "Bernô" }
+            ]
+        }'>
+    </select-cortex>
+
+    <input-cortex
+    id="input-ip"
+    config-data='{ 
+        "label": "IP:", 
+        "type": "number",
+        "placeholder": "123.4.567.89",
+        "required": true
+    }'>
+</input-cortex>
+
+<input-cortex
+    id="input-hostname"
+    config-data='{ 
+        "label": "Hostname:", 
+        "type": "text",
+        "placeholder": "User",
+        "required": true
+    }'>
+</input-cortex>
+
+    </div>
+   
+    <div class="coluna-direita">
+         <H1 id="parametros" style="color:#00796B;">Parâmetros</H1>
+        <input-cortex
+    id="input-tempo"
+    config-data='{ 
+        "label": "Tempo dos parâmetros (em Min):", 
+        "type": "text",
+        "placeholder": "Ex:30",
+        "required": true
+    }'>
+</input-cortex>
+
+
+<input-cortex
+    id="limite_cpu"
+    config-data='{ 
+        "label": "Limite CPU (%):", 
+        "type": "text",
+        "placeholder": "80%",
+        "required": true
+    }'>
+</input-cortex>
+<input-cortex
+    id="limite_disco"
+    config-data='{ 
+        "label": "Limite Disco (%):", 
+        "type": "text",
+        "placeholder": "60%",
+        "required": true
+    }'>
+</input-cortex>
+<input-cortex
+    id="limite_ram"
+    config-data='{ 
+        "label": "Limite RAM (%):", 
+        "type": "text",
+        "placeholder": "75%",
+        "required": true
+    }'>
+</input-cortex>
+<input-cortex
+    id="input-hostname"
+    config-data='{ 
+        "label": "Limite GPU (%):", 
+        "type": "text",
+        "placeholder": "92%",
+        "required": true
+    }'>
+</input-cortex>
+    </div>
+ </div>
+
+</div>
+</body>
+</html>
