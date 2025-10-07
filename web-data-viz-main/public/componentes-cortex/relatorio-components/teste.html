@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teste</title>
+    <link rel="stylesheet" href="relatorio.css">
+ 
+</head>
+<body>
+    <meu-relatorio gerenciador botao-final="Zonas" id= "rel" coluna="ID,NOME,IDADE,EMAIL" chaves="id,nome,idade,email"></meu-relatorio>
+
+    
+</body>
+<script src="relatorio.js"></script>
+<script>
+   const dadosTeste = [
+  { id: 1, nome: "Alice", idade: 28, email: "alice@email.com" },
+  { id: 2, nome: "Bruno", idade: 34, email: "bruno@email.com" },
+  { id: 3, nome: "Carla", idade: 22, email: "carla@email.com" },
+  { id: 4, nome: "Daniel", idade: 45, email: "daniel@email.com" }
+];
+
+
+    const relatorio = document.getElementById("rel")
+    relatorio.dados = dadosTeste
+    relatorio.render()
+    
+
+</script>
+</html>
