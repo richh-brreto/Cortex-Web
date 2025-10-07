@@ -1,0 +1,31 @@
+.button-cadastro-primary {
+    background-color: #006E66;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    cursor: pointer; 
+    color: white;
+    display: inline-block; 
+}
+
+.button-cadastro-secondary {
+    background-color: #00B2A1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    cursor: pointer; 
+    color: white;
+    display: inline-block; 
+}
+
+.button-atribuir {
+    background-color: #20AF00;
+    padding: 6px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-family: sans-serif;
+    cursor: pointer; 
+    display: inline-block; 
+}
