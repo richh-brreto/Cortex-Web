@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body{
+        background-color: black;
+      }
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <cartao-kpi
+        obrigatorio="12345"
+        titulo="Vendas"
+        variacao="8.4"
+      ></cartao-kpi>
+      <cartao-kpi
+        obrigatorio="789"
+        titulo="Clientes"
+        variacao="-2.1"
+      ></cartao-kpi>
+      <cartao-kpi
+        obrigatorio="45"
+        titulo="Taxa Conv."
+        progresso="45"
+      ></cartao-kpi>
+      <cartao-kpi
+        obrigatorio="98"
+        titulo="Satisfação"
+        variacao="12.3"
+      ></cartao-kpi>
+      <cartao-kpi obrigatorio="999" usar-sombra sombra-aberta></cartao-kpi>
+      <cartao-kpi obrigatorio="1000" titulo="Vendas">
+        <button slot="acoes" onclick="alert('Detalhes!')">Ver Detalhes</button>
+        <p slot="rodape" style="color: aliceblue;" >Atualizado há 5 minutos</p>
+      </cartao-kpi>
+      <cartao-kpi
+        obrigatorio="75"
+        titulo="Meta do Trimestre"
+        progresso="75"
+        progresso-maximo="100"
+      ></cartao-kpi>
+      <cartao-kpi
+        obrigatorio="45678"
+        titulo="Usuários Ativos"
+        tipo-grafico="line"
+        dados-grafico='{"labels":["Jan","Fev","Mar"],"values":[100,150,120]}'
+      ></cartao-kpi>
+      <cartao-kpi
+        obrigatorio="12345"
+        titulo="Vendas Mensais"
+        variacao="8.4"
+      ></cartao-kpi>
+    </div>
+    <script defer type="module" src="./kpi.js"></script>
+  </body>
+</html>

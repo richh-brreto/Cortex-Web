@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demonstração - Componente Gráfico v2.0.0</title>
+  
+  <style>
+    /* Reset e Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #1f2937;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .version {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Seções */
+    .section {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Grid de Gráficos */
+    .grid {
+      display: grid;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .grid-1 {
+      grid-template-columns: 1fr;
+    }
+
+    /* Controles */
+    .controls {
+      background: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .control-group {
+      margin-bottom: 1rem;
+    }
+
+    .control-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.5rem;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-box h3 {
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-box p {
+      color: #1e40af;
+      font-size: 0.95rem;
+    }
+
+    .info-box code {
+      background: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    /* Code Block */
+    .code-block {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    .code-block pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .section {
+        padding: 1.5rem;
+      }
+
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Loading Animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .loading {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>📊 Componente Gráfico</h1>
+      <p class="subtitle">Visualização de dados poderosa e flexível</p>
+      <span class="version">v2.0.0</span>
+    </header>
+
+    <!-- Seção 1: Tipos de Gráficos -->
+    <section class="section">
+      <h2 class="section-title">1. Tipos de Gráficos Disponíveis</h2>
+      
+      <div class="info-box">
+        <h3>Suporte Completo</h3>
+        <p>O componente suporta 6 tipos diferentes de gráficos do Chart.js: Line, Bar, Pie, Doughnut, Radar e Polar Area.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <grafico-dados
+          id="grafico-line"
+          tipo="line"
+          titulo="Gráfico de Linha"
+          dados='{"labels":["Jan","Fev","Mar","Abr","Mai","Jun"],"datasets":[{"label":"Vendas 2024","data":[12,19,15,25,22,30]},{"label":"Vendas 2025","data":[15,23,18,28,26,35]}]}'
+          altura="280px"
+          mostrar-legenda="true"
+          posicao-legenda="bottom"
+        ></grafico-dados>
+
+        <grafico-dados
+          id="grafico-bar"
+          tipo="bar"
+          titulo="Gráfico de Barras"
+          dados='{"labels":["Q1","Q2","Q3","Q4"],"datasets":[{"label":"Receita","data":[45,52,48,63]},{"label":"Despesas","data":[30,35,32,40]}]}'
+          altura="280px"
+          cores='["#10b981","#ef4444"]'
+        ></grafico-dados>
+
+        <grafico-dados
+          id="grafico-pie"
+          tipo="pie"
+          titulo="Gráfico de Pizza"
+          dados='{"labels":["Produto A","Produto B","Produto C","Produto D"],"datasets":[{"data":[30,25,20,25]}]}'
+          altura="280px"
+          cores='["#3b82f6","#10b981","#f59e0b","#ef4444"]'
+        ></grafico-dados>
+
+        <grafico-dados
+          id="grafico-doughnut"
+          tipo="doughnut"
+          titulo="Gráfico de Rosca"
+          dados='{"labels":["Desktop","Mobile","Tablet"],"datasets":[{"data":[55,35,10]}]}'
+          altura="280px"
+          cores='["#8b5cf6","#ec4899","#06b6d4"]'
+        ></grafico-dados>
+
+        <grafico-dados
+          id="grafico-radar"
+          tipo="radar"
+          titulo="Gráfico Radar"
+          dados='{"labels":["Velocidade","Qualidade","Custo","Experiência","Suporte"],"datasets":[{"label":"Nossa Empresa","data":[85,90,75,88,92]},{"label":"Concorrente","data":[70,80,85,75,70]}]}'
+          altura="280px"
+        ></grafico-dados>
+
+        <grafico-dados
+          id="grafico-polar"
+          tipo="polarArea"
+          titulo="Área Polar"
+          dados='{"labels":["Marketing","Vendas","TI","RH","Operações"],"datasets":[{"data":[65,59,80,45,70]}]}'
+          altura="280px"
+          cores='["#3b82f6","#10b981","#f59e0b","#ef4444","#8b5cf6"]'
+        ></grafico-dados>
+      </div>
+    </section>
+
+    <!-- Seção 2: Gráficos Empilhados -->
+    <section class="section">
+      <h2 class="section-title">2. Gráficos Empilhados</h2>
+      
+      <div class="info-box">
+        <h3>Empilhamento de Dados</h3>
+        <p>Use o atributo <code>empilhado="true"</code> para criar gráficos de barras ou linhas empilhadas.</p>
+      </div>
+
+      <div class="grid grid-2">
+        <grafico-dados
+          tipo="bar"
+          titulo="Vendas por Categoria (Empilhado)"
+          empilhado="true"
+          dados='{"labels":["Jan","Fev","Mar","Abr","Mai","Jun"],"datasets":[{"label":"Online","data":[30,40,35,50,45,60]},{"label":"Loja Física","data":[20,25,30,28,35,40]},{"label":"Marketplace","data":[15,18,20,22,25,30]}]}'
+          altura="320px"
+        ></grafico-dados>
+
+        <grafico-dados
+          tipo="line"
+          titulo="Tráfego por Fonte (Empilhado)"
+          empilhado="true"
+          dados='{"labels":["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"],"datasets":[{"label":"Orgânico","data":[120,145,150,170,190,200,180]},{"label":"Pago","data":[80,90,85,95,100,110,95]},{"label":"Direto","data":[50,55,60,58,65,70,68]}]}'
+          altura="320px"
+          cores='["#10b981","#3b82f6","#f59e0b"]'
+        ></grafico-dados>
+      </div>
+    </section>
+
+    <!-- Seção 3: Controles Interativos -->
+    <section class="section">
+      <h2 class="section-title">3. Controles Dinâmicos</h2>
+      
+      <div class="info-box">
+        <h3>Atualização em Tempo Real</h3>
+        <p>Use a API JavaScript para atualizar dados, tipo e cores dinamicamente.</p>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="tipo-select">Tipo de Gráfico:</label>
+          <select id="tipo-select">
+            <option value="line">Linha</option>
+            <option value="bar" selected>Barras</option>
+            <option value="pie">Pizza</option>
+            <option value="doughnut">Rosca</option>
+            <option value="radar">Radar</option>
+            <option value="polarArea">Área Polar</option>
+          </select>
+        </div>
+
+        <div class="button-group">
+          <button onclick="atualizarDados()">Atualizar Dados</button>
+          <button onclick="mudarCores()">Mudar Cores</button>
+          <button onclick="exportarGrafico()">Exportar PNG</button>
+          <button onclick="resetarGrafico()">Resetar</button>
+        </div>
+      </div>
+
+      <grafico-dados
+        id="grafico-interativo"
+        tipo="bar"
+        titulo="Gráfico Interativo - Experimente os Controles!"
+        dados='{"labels":["Jan","Fev","Mar","Abr","Mai","Jun"],"datasets":[{"label":"Série 1","data":[12,19,15,25,22,30]},{"label":"Série 2","data":[8,15,12,20,18,25]}]}'
+        altura="350px"
+        mostrar-legenda="true"
+      ></grafico-dados>
+    </section>
+
+    <!-- Seção 4: Personalização -->
+    <section class="section">
+      <h2 class="section-title">4. Opções de Personalização</h2>
+      
+      <div class="grid grid-2">
+        <div>
+          <h3 style="margin-bottom: 1rem; color: #374151;">Sem Legenda e Grid</h3>
+          <grafico-dados
+            tipo="line"
+            titulo="Gráfico Minimalista"
+            mostrar-legenda="false"
+            mostrar-grid="false"
+            dados='{"labels":["A","B","C","D","E","F"],"datasets":[{"data":[10,20,15,30,25,35]}]}'
+            altura="250px"
+          ></grafico-dados>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom: 1rem; color: #374151;">Cores Personalizadas</h3>
+          <grafico-dados
+            tipo="doughnut"
+            titulo="Paleta Customizada"
+            dados='{"labels":["Azul","Verde","Amarelo","Vermelho","Roxo"],"datasets":[{"data":[25,20,15,20,20]}]}'
+            cores='["#1e40af","#059669","#d97706","#dc2626","#7c3aed"]'
+            altura="250px"
+          ></grafico-dados>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 5: Dados em Tempo Real -->
+    <section class="section">
+      <h2 class="section-title">5. Simulação de Dados em Tempo Real</h2>
+      
+      <div class="info-box">
+        <h3>Atualização Automática</h3>
+        <p>Os dados são atualizados automaticamente a cada 2 segundos simulando um dashboard ao vivo.</p>
+      </div>
+
+      <div class="button-group" style="margin-bottom: 1.5rem;">
+        <button onclick="iniciarAtualizacao()" id="btn-iniciar">Iniciar Atualização</button>
+        <button onclick="pararAtualizacao()" id="btn-parar" style="background: #ef4444;">Parar Atualização</button>
+      </div>
+
+      <grafico-dados
+        id="grafico-tempo-real"
+        tipo="line"
+        titulo="Dashboard em Tempo Real"
+        dados='{"labels":["00:00","00:02","00:04","00:06","00:08","00:10"],"datasets":[{"label":"Usuários Ativos","data":[120,145,138,165,172,189]},{"label":"Requisições/s","data":[450,520,485,590,610,645]}]}'
+        altura="350px"
+        cores='["#3b82f6","#10b981"]'
+      ></grafico-dados>
+    </section>
+
+    <!-- Seção 6: Exemplo de Código -->
+    <section class="section">
+      <h2 class="section-title">6. Exemplos de Código</h2>
+      
+      <h3 style="margin-bottom: 1rem; color: #374151;">HTML Básico</h3>
+      <div class="code-block">
+        <pre>&lt;grafico-dados
+  tipo="line"
+  titulo="Vendas Mensais"
+  dados='{"labels":["Jan","Fev","Mar"],"datasets":[{"label":"2025","data":[10,20,15]}]}'
+  altura="300px"
+  mostrar-legenda="true"
+&gt;&lt;/grafico-dados&gt;</pre>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; color: #374151;">JavaScript - Atualização Dinâmica</h3>
+      <div class="code-block">
+        <pre>const grafico = document.querySelector('grafico-dados');
+
+// Atualizar dados
+grafico.atualizarDados({
+  labels: ['Jan', 'Fev', 'Mar', 'Abr'],
+  datasets: [{
+    label: 'Vendas',
+    data: [100, 200, 150, 300]
+  }]
+});
+
+// Mudar tipo
+grafico.atualizarTipo('bar');
+
+// Exportar imagem
+const imagem = grafico.exportarImagem();
+console.log(imagem); // data:image/png;base64,...</pre>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem; color: #374151;">Escutar Eventos</h3>
+      <div class="code-block">
+        <pre>grafico.addEventListener('grafico-pronto', () => {
+  console.log('Gráfico carregado!');
+});
+
+grafico.addEventListener('grafico-atualizado', (e) => {
+  console.log('Tipo:', e.detail.tipo);
+});</pre>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Carregar Chart.js primeiro -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+  
+  <!-- Depois carregar o componente -->
+  <script type="module" src="./grafico.js"></script>
+  
+  <script>
+    // Ativar modo dev
+    // GraficoDados.ativarModoDev();
+
+    // Variável para controle de atualização em tempo real
+    let intervaloTempoReal = null;
+
+    // Função para atualizar tipo de gráfico
+    document.getElementById('tipo-select').addEventListener('change', (e) => {
+      const grafico = document.getElementById('grafico-interativo');
+      grafico.atualizarTipo(e.target.value);
+    });
+
+    // Função para atualizar dados aleatórios
+    function atualizarDados() {
+      const grafico = document.getElementById('grafico-interativo');
+      const dados = {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [
+          {
+            label: 'Série 1',
+            data: Array.from({length: 6}, () => Math.floor(Math.random() * 50) + 10)
+          },
+          {
+            label: 'Série 2',
+            data: Array.from({length: 6}, () => Math.floor(Math.random() * 50) + 10)
+          }
+        ]
+      };
+      grafico.atualizarDados(dados);
+    }
+
+    // Função para mudar cores
+    function mudarCores() {
+      const grafico = document.getElementById('grafico-interativo');
+      const cores = [
+        ['#ef4444', '#f59e0b'],
+        ['#10b981', '#3b82f6'],
+        ['#8b5cf6', '#ec4899'],
+        ['#06b6d4', '#84cc16']
+      ];
+      const coresAleatorias = cores[Math.floor(Math.random() * cores.length)];
+      grafico.atualizarCores(coresAleatorias);
+    }
+
+    // Função para exportar gráfico
+    function exportarGrafico() {
+      const grafico = document.getElementById('grafico-interativo');
+      const imagem = grafico.exportarImagem();
+      
+      if (imagem) {
+        const link = document.createElement('a');
+        link.download = 'grafico.png';
+        link.href = imagem;
+        link.click();
+        alert('Gráfico exportado com sucesso!');
+      }
+    }
+
+    // Função para resetar gráfico
+    function resetarGrafico() {
+      const grafico = document.getElementById('grafico-interativo');
+      grafico.atualizarTipo('bar');
+      grafico.atualizarDados({
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [
+          {label: 'Série 1', data: [12, 19, 15, 25, 22, 30]},
+          {label: 'Série 2', data: [8, 15, 12, 20, 18, 25]}
+        ]
+      });
+      document.getElementById('tipo-select').value = 'bar';
+    }
+
+    // Funções de tempo real
+    function iniciarAtualizacao() {
+      if (intervaloTempoReal) return;
+      
+      const grafico = document.getElementById('grafico-tempo-real');
+      let contador = 0;
+      
+      intervaloTempoReal = setInterval(() => {
+        contador++;
+        const agora = new Date();
+        const tempo = agora.toLocaleTimeString('pt-BR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        
+        const dadosAtuais = grafico.obterDados();
+        const labels = [...dadosAtuais.labels.slice(1), tempo];
+        const dataset1 = [...dadosAtuais.datasets[0].data.slice(1), Math.floor(Math.random() * 100) + 100];
+        const dataset2 = [...dadosAtuais.datasets[1].data.slice(1), Math.floor(Math.random() * 200) + 400];
+        
+        grafico.atualizarDados({
+          labels: labels,
+          datasets: [
+            {label: 'Usuários Ativos', data: dataset1},
+            {label: 'Requisições/s', data: dataset2}
+          ]
+        });
+      }, 2000);
+      
+      document.getElementById('btn-iniciar').disabled = true;
+      document.getElementById('btn-parar').disabled = false;
+    }
+
+    function pararAtualizacao() {
+      if (intervaloTempoReal) {
+        clearInterval(intervaloTempoReal);
+        intervaloTempoReal = null;
+      }
+      
+      document.getElementById('btn-iniciar').disabled = false;
+      document.getElementById('btn-parar').disabled = true;
+    }
+
+    // Eventos dos componentes
+    document.querySelectorAll('grafico-dados').forEach(grafico => {
+      grafico.addEventListener('grafico-pronto', () => {
+        console.log('Gráfico pronto:', grafico.getAttribute('titulo'));
+      });
+      
+      grafico.addEventListener('grafico-atualizado', (e) => {
+        console.log('Gráfico atualizado:', e.detail);
+      });
+    });
+
+    // Log inicial
+    console.log('%c📊 Componente Gráfico v2.0.0', 'color: #3b82f6; font-size: 20px; font-weight: bold;');
+    console.log('Todos os gráficos foram carregados com sucesso!');
+  </script>
+</body>
+</html>

@@ -18,7 +18,7 @@
 
 .tabela-container {
   max-height: 18.75rem;        
-  max-width: 100%;
+  max-width: 70%;
   overflow-x: auto;
   overflow-y: auto;
   border: 1px solid var(--cor-borda);

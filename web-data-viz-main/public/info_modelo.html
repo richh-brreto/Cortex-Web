@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelos</title>
-    <link rel="stylesheet" href="componentes-cortex/navbar/navbar.css">
+    <link rel="stylesheet" href="componentes/navbar/navbar.css">
     <link rel="stylesheet" href="componentes-cortex/input-components/style.css">
     <link rel="stylesheet" href="componentes-base/KPI/kpi-base.css">
     <link rel="stylesheet" href="css/info_modelo.css">
@@ -14,28 +14,60 @@
     <custom-navbar role="admin"></custom-navbar>
     <div class="tela">
         <div class="topo">
-                <div class="titulo">
-            <h1>NOME DO MODELO(BACK) - Informações</h1>
+            <div class="topo-infos">
+                    <div class="titulo">
+            <h3>NOME DO MODELO(BACK) - Informações</h3>
             
-        </div>
-        <div class="container_infos">
-            <div class="container_descricao">
-                <h2>Descrição:</h2>
             </div>
-            <div class="container_outras infos">
-                <h2>Zona:</h2>
-                <h2>Cliente:</h2>
-                <h2>Tempo Parâmetros:</h2>
+
+            <div class="container_infos">
+                <div class="container_descricao">
+                    <h5>Descrição:</h5>
+                    <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                </div>
+                <div class="container_outras_infos">
+                    <div class="info-linha">
+                        <h5>Zona Atual:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXXX</h6>
+                    </div>
+                    <div class="info-linha">
+                        <h5>Cliente:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXX</h6>
+                    </div>
+                    <div class="info-linha">
+                        <h5>Tempo Parâmetros:</h5>
+                        <h6>XXXXXXXXXX</h6>
+                    </div>
+                </div>
             </div>
+                <div class="container_parametro">
+                    <div class="linha_parametro">
+                        <h4>Parâmetros:</h4>
+                    </div>
+                    <div class="linha_parametro">
+                             <h5>CPU:</h5>
+                            <h6>XX%</h6>
+                    </div>
+                    <div class="linha_parametro">
+                        <h5>RAM:</h5>
+                        <h6>XX%</h6>
+                    </div>
+                    <div class="linha_parametro">
+                        <h5>Disco:</h5>
+                        <h6>XX%</h6>
+                    </div>
+                    <div class="linha_parametro">
+                        <h5>GPU:</h5>
+                        <h6>XX%</h6>
+                    </div>
+               
+                    
+                    
+                    
+                </div>
         </div>
-            <div class="container_parametro">
-                <h2>Parâmetros:</h2>
-                <h3>CPU:</h3>
-                <h3>RAM:</h3>
-                <h3>Disco:</h3>
-                <h3>GPU:</h3>
             </div>
-        </div>
+            
         <div class="kpi-modelo">
             
             <div class="tabela-processo">
@@ -59,42 +91,46 @@
                     <div class="container-proceso">
                         <div class="topo-ultimo">
                             <div class="titulo">
-                                <h2>Último Processo: NOME</h2>
+                                <h3>Último Processo: NOME</h3>
                             </div>
-                            <div class="filtro">
+                            <div class="filtro-container">
                                 <div class="filtro-valor">
                                     <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
-                                    <h4>Valor mais Alto</h4>
+                                    <h6>Valor mais Alto</h6>
                                 </div>
                                 <div class="filtro-cpu">
                                     <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
-                                    <h4>CPU</h4>
+                                    <h6>CPU</h6>
                                 </div>
                                 <div class="filtro-ram">
                                     <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
-                                    <h4>RAM</h4>
+                                    <h6>RAM</h6>
                                 </div>
                                 <div class="filtro-disco">
                                     <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
-                                    <h4>Disco</h4>
+                                    <h6>Disco</h6>
                                 </div>
                                 <div class="filtro-gpu">
                                     <input-cortex class="filtro" config-data='{"type":"checkbox"}'></input-cortex>
-                                    <h4>GPU</h4>
+                                    <h6>GPU</h6>
                                 </div>
                             </div>
                             <div class="valores">
-                                <div class="val-cpu">
-                                    <h3>CPU</h3>
+                                <div class="val">
+                                    <h5>CPU:</h5>
+                                    <h5> XX%</h5>
                                 </div>
-                                   <div class="val-ram">
-                                    <h3>RAM</h3>
+                                   <div class="val">
+                                    <h5>RAM:</h5>
+                                    <h5> XX%</h5>
                                 </div>
-                                   <div class="val-disco">
-                                    <h3>Disco</h3>
+                                   <div class="val">
+                                    <h5>Disco:</h5>
+                                    <h5> XX%</h5>
                                 </div>
-                                   <div class="val-gpu">
-                                    <h3>GPU</h3>
+                                   <div class="val">
+                                    <h5>GPU:</h5>
+                                    <h5> XX%</h5>
                                 </div>
                             </div>
                        </div>
@@ -120,18 +156,42 @@
         </div>
         <div class="historico">
             <div class="topo-hist">
-                <h2>Histórico de Alertas</h2>
+                <div class="titulo-hist">
+                    <h3>Histórico de Alertas</h3>
                 <search-cortex></search-cortex>
                 <button>F</button>
-                <h5>Quantidade alertas:</h5>
+                </div>
+                <div class="qtd-hist">
+                    <p>Quantidade alertas:</p>
+                <p>aa</p>
+                </div>
+                
             </div>
             <div class="cards-hist">
-                
+                <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
-<script src="componentes-cortex/navbar/NavbarComponent.js"></script>
+<script src="componentes/navbar/NavbarComponent.js"></script>
 <script src="componentes-cortex/input-components/cortex-pesquisar.js"></script>
 <script src="componentes-cortex/relatorio-components/relatorio.js"></script>
 <script type="module" src="componentes-base/KPI/kpi.js"></script>
