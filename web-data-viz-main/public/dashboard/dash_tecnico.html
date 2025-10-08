@@ -12,6 +12,7 @@
     <script src="../componentes-cortex/relatorio-components/relatorio.js"></script>
     <link rel="stylesheet" href="../componentes-cortex/relatorio-components/relatorio.css">
     <link rel="stylesheet" href="../componentes-base/KPI/kpi-base.css">
+      <script src="../componentes-cortex/formulario/component-forms-atualizado.js"></script>
     
 </head>
 
@@ -73,7 +74,7 @@
     <select-cortex
         id="input-zona"
         config-data='{
-            "label": ":",
+            "label": "ㅤ  ",
             "id": "select-zona",
             "options": [
                 { "value": "", "text": "Zona de disponibilidade..." },
@@ -86,26 +87,67 @@
             <div id="esquerda">
                 <div id="kpis">
                  <cartao-kpi
-        obrigatorio="75"
-        titulo="Meta do Trimestre"
-        progresso="75"
-        progresso-maximo="100"
+        obrigatorio="45"
+        titulo="Alertas ativos"
+        
       ></cartao-kpi>
                  <cartao-kpi
-        obrigatorio="75"
-        titulo="Meta do Trimestre"
-        progresso="75"
-        progresso-maximo="100"
+        obrigatorio="18"
+        titulo="Media alertas por dia"
+       
       ></cartao-kpi>
-                 <cartao-kpi
-        obrigatorio="75"
-        titulo="Meta do Trimestre"
-        progresso="75"
-        progresso-maximo="100"
+                  <cartao-kpi
+        obrigatorio="19h"
+        titulo="Periodo com mais alertas"
+       
       ></cartao-kpi>
+                </div>
+
+                <div id="graficos">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
             </div>
             <div id="containerHistorico">
+                <div class="parametrosRel">
+                    <div class="tituloRel">Histórico de Alertas</div>
+                    <div class="container-rel">
+                        <div class="par"> <select-cortex class="ctn-modelo"
+                          id="ctn-modelo"
+                              config-data='{
+                     "label": "Modelo:",
+                        "id": "select-modelo",
+                      "options": [
+                        { "value": "", "text": "Todos..." },
+                      { "value": "sp", "text": "1" }
+                                         ]
+        }'>
+    </select-cortex> </div>
+                        <div class="par"><cadastro-form id="sai" fields='[
+  
+    {"label":"Filtro- Tipo de alerta","name":"sla","type":"checkbox","options":[
+      {"label":"CPU","value":"js"},
+      {"label":"RAM","value":"py"},
+      {"label":"DISCO","value":"java"},
+      {"label":"GPU","value":"java"}
+    ]}
+  ]'>
+  </cadastro-form></div>
+                        <div class="par">
+                            <cadastro-form id="sai" fields='[
+  
+    {"label":"Ordenar por:","name":"sla","type":"checkbox","options":[
+      {"label":"Data","value":"js"},
+      {"label":"Duração","value":"py"},
+      {"label":"Status","value":"py"}
+    ]}
+  ]'>
+  </cadastro-form>
+                        </div>
+                    </div>
+                </div>
                 <meu-relatorio gerenciador botao-final="Zonas" id= "rel" coluna="TIPO,DATA,DESCRIÇÃO,STATUS" chaves="id,nome,idade,email"></meu-relatorio>
             </div>
         </div>
