@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos</title>
+    <link rel="stylesheet" href="css/info-cliente.css">
+    <link rel="stylesheet" href="base/navbar.css">
+
+</head>
+<body>
+    <!-- NAV BAR -->
+        <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair"">Sair</span>
+        </a>
+    </nav>
+
+     <!-- Inicio da tela-->
+    <div class="tela">
+        <div class="titulo-topo-tela">
+            <h2>NOME DO CLIENTE</h2>
+        </div>
+        <div class="dash">
+            <div class="esquerdo">
+                <div class="kpi">
+                    <h4>Qtd. Modelos</h4>
+                    <h4>XXX</h4>
+                </div>
+                 <div class="kpi">
+                    <h4>Distribuição</h4>
+                    <h6>(por zona)</h6>
+                    <h4>XXX</h4>
+                </div>
+            </div>
+            <div class="direito">
+                <canvas id="mychart"></canvas>
+            </div>
+        </div>
+        <div class="secao-info">
+            <div class="topo-infos">
+                    <div class="titulo">
+            <h3>Informações</h3>
+            <button class="botao-editar"><img src="assets/icon/1159633.png"></button>
+            </div>
+
+            <div class="container_infos">
+                <div class="container_descricao">
+                    <h5>Descrição:</h5>
+                    <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                </div>
+                <div class="container_outras_infos">
+                    <div class="info-linha">
+                        <h5>Telefone:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXXX</h6>
+                    </div>
+                    <div class="info-linha">
+                        <h5>Email:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXX</h6>
+                    </div>
+                    <div class="info-linha">
+                        <h5>Cnpj:</h5>
+                        <h6>XXXXXXXXXX</h6>
+                    </div>
+                    
+                </div>
+            </div>
+                
+            </div>
+                
+        </div>
+            
+        <div class="historico">
+            <div class="topo-hist">
+                <div class="titulo-hist">
+                    <h3>Histórico de Alertas</h3>
+                <search-cortex></search-cortex>
+                <button class="botao-editar">
+                    <img src="assets/icon/filtro.png">
+                </button>
+                </div>
+                <div class="qtd-hist">
+                    <p>Quantidade alertas:</p>
+                <p>260</p>
+                </div>
+                
+            </div>
+            <div class="cards-hist">
+                <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card-alerta">
+                    <div class="data-alerta">
+                        <h4>07/10/2025 10:30:12 - 07/10/2025 10:32:05</h4>
+                    </div>
+                    <div class="conteudo-alerta">
+                        <div class="motivo-alerta">
+                            <h5 class="forte">Motivo do Alerta:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                        <div class="infos">
+                            <h5>Ip:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Hostname:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXX</h5>
+                            <h5>Zona:</h5>
+                            <h5>XXXXXXXXXXXXXXXXXXXX</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById("mychart")
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Modelos Totais', 'Modelos do Cliente'],
+        datasets: [{
+            label: 'Modelos',
+            data: [60, 40],  // 60% e 40%
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',  
+                'rgba(255, 99, 132, 0.7)'   
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        let value = context.parsed;
+                        return label + ': ' + value + '%';
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Distribuição dos Modelos em %'
+            }
+        }
+    }
+});
+
+</script>
+</html>
