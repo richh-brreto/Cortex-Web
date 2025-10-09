@@ -1,0 +1,44 @@
+body {
+    background: linear-gradient(#0A202D, #006E66);
+    overflow: hidden;
+}
+
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 100vh;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0A202D;
+}
+
+.header-left .material-symbols-outlined img{
+    padding-bottom: 210px;
+    padding-top: 210px;
+    height: 90px;
+    width: 95px;
+}
+
+.header-left .material-symbols-outlined {
+    font-size: 72px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    color: #E2E8F0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-left .material-symbols-outlined:hover {
+    transform: scale(1.10);
+}
+
+.dash {
+  width: 100%;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}

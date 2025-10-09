@@ -36,7 +36,6 @@ body {
     font-weight: 700;
     color: #ffffff;
     font-family: var(--monserate, 'Montserrat', sans-serif);
-    letter-spacing: -0.5px;
 }
 
 /* Barra de ações */

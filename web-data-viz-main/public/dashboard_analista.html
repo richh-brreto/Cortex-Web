@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="base/navbar.css">
-    <title>Barra de Navegação Lateral</title>
+    <link rel="stylesheet" href="css/dashboard-analista.css">
+
+    <title>Document</title>
 </head>
+
 <body>
+
     <nav class="barra-lateral">
-        
+
         <a class="item-logo">
             <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
@@ -61,42 +67,31 @@
         </a>
     </nav>
 
-    <!-- Conteúdo principal -->
-
     <div class="conteudo-principal">
-        <div class="placeholder-conteudo">
-            <h2>Itens para ultilizar</h2>
-            <input type="text" class="input" placeholder="input para ultilizar  em formulario">
-            <button class="botao">Enviar</button>
-            <table class="tabela-simples">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>André</td>
-            <td>andre@exemplo.com</td>
-            <td class="coluna-acoes">
-                <button class="botao-editar">Editar</button>
-                <button class="botao-deletar">Deletar</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <div class="dashboard-analista">
+            <div class="filtros-cabecalho">
+                <h3>Filtros Gerais</h3>
 
-<div class="kpi">
-    <h3 id="kpi-texto">KPI</h3>
-</div>
-
-<textarea name="" class="area-de-texto" placeholder="Escreva aqui..."></textarea>
+                <div class="filtros-gerais">
+                    <div class="filtro-cliente">
+                        <label for="clientes">Cliente</label>
+                        <select name="clientes" id="clientes">
+                            <option value="#">Escolha o cliente</option>
+                            <option value="cortex">Cortex</option>
+                        </select>
+                    </div>
+                    <div class="filtro-zona-disponibilidade">
+                        <label for="zonas">Zona de Disponibilidade</label>
+                        <select name="zonas" id="zonas">
+                            <option value="#">Escolha a zona</option>
+                            <option value="us-east-1c">US-east-1c</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 </body>
+
 </html>
