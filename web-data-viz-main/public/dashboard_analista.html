@@ -118,7 +118,7 @@
         <div class="graficos-gerais">
             <div class="graficos-separacao">
                 <div class="graficos">
-                    
+                    <canvas id="myChart"></canvas>
                 </div>
                 <div class="graficos">
 
@@ -134,6 +134,84 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
+<script>
+    const ctx = document.getElementById('myChart');
+
+    // Dados e configurações do gráfico
+    const config = {
+        type: 'bar',
+        data: {
+             labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
+        
+        
+        datasets: [
+            
+            {
+                label: 'CPU (%)',
+                data: [80, 75, 90, 85, 70], 
+                backgroundColor: 'rgba(255, 99, 132, 0.8)', 
+            },
+            
+            {
+                label: 'RAM (%)',
+                data: [65, 85, 70, 75, 95], 
+                backgroundColor: 'rgba(54, 162, 235, 0.8)', 
+            },
+            {
+                label: 'Disco (%)',
+                data: [30, 45, 20, 35, 50], 
+                backgroundColor: 'rgba(255, 206, 86, 0.8)', 
+            },
+            {
+                label: 'GPU (%)',
+                data: [55, 60, 50, 65, 70], 
+                backgroundColor: 'rgba(75, 192, 192, 0.8)', 
+            }
+        ]
+    },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top', 
+                },
+                title: {
+                    display: true,
+                    text: 'Uso médio de componente  por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Uso (%)',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const meuGrafico = new Chart(ctx, config);
+</script>
 
 </html>
