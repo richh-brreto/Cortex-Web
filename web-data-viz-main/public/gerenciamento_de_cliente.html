@@ -4,272 +4,209 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes - Cortex</title>
-
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/gerenciamento_cliente.css">
-
-    <link rel="stylesheet" href="componentes/input-components/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <script src="componentes/navbar/NavBarComponent.js" type="module"></script>
-    <script src="componentes/input-components/cortex-pesquisar.js" type="module"></script>
+    <link rel="stylesheet" href="base/navbar.css">
+    <link rel="stylesheet" href="css/gerenciamento_cliente.css">
 </head>
 <body>
 
-    <custom-navbar role="admin" user-name="André"></custom-navbar>
+    <div class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair"">Sair</span>
+        </a>
+    </div>
+
 
     <main class="conteudo-principal">
         <div class="container-clientes">
-            <header class="header-clientes">
+            <div class="header-clientes">
                 <h1>Clientes</h1>
-            </header>
+            </div>
 
-            <section class="barra-acoes">
-                <search-cortex placeholder="Pesquisar..."></search-cortex>
+            <div class="barra-acoes">
+                <div class="area-pesquisa-filtro">
+                    <div class="pesquisa-cortex">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="pesquisar-input" placeholder="Pesquisar...">
+                    </div>
+                    <div class="filtro-coluna">
+                        <label for="filtro-select">Filtrar por:</label>
+                        <!-- Select nativo mais simples e acessível -->
+                        <select id="filtro-select">
+                            <option value="todos" selected>Todos os campos</option>
+                            <!-- valores referenciam o índice da célula na <tr> (0 = checkbox, 1 = Nome, ... ) -->
+                            <option value="1">Nome</option>
+                            <option value="2">Descrição</option>
+                            <option value="3">CNPJ</option>
+                            <option value="4">Telefone</option>
+                            <option value="5">Qtd. modelos</option>
+                        </select>
+                    </div>
+                </div>
                 
                 <div class="acoes-container">
                     <button id="btn-adicionar" class="btn btn-primario">Adicionar <b>+</b></button>
-                    <div class="ordenar-filtros">
-                        <label>Ordenar por:</label>
-                        <div class="filtros-opcoes">
-                            <label>
-                                <input type="checkbox" name="ordenar" value="entrada"> Entrada
-                            </label>
-                            <label>
-                                <input type="checkbox" name="ordenar" value="qtd-modelos"> Qtd. modelos
-                            </label>
-                        </div>
-                    </div>
                 </div>
-            </section>
+            </div>
 
             <section class="container-tabela">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Descrição</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
-                            <th>Quantidade de modelos</th>
-                            <th>Quantidade de zonas de distribuição dos modelos</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabela-clientes-corpo">
-                        <tr>
-                            <td>Cliente Exemplo 1</td>
-                            <td>Descrição do cliente exemplo com mais detalhes</td>
-                            <td>12.345.678/0001-90</td>
-                            <td>(11) 3456-7890</td>
-                            <td>5</td>
-                            <td>12</td>
-                            <td>
-                                <div class="coluna-acoes">
-                                    <button class="btn btn-secundario">Ver mais</button>
-                                    <button class="btn-icone" title="Editar">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn-icone" title="Excluir">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cliente Exemplo 2</td>
-                            <td>Outra descrição de cliente</td>
-                            <td>98.765.432/0001-10</td>
-                            <td>(11) 9876-5432</td>
-                            <td>8</td>
-                            <td>20</td>
-                            <td>
-                                <div class="coluna-acoes">
-                                    <button class="btn btn-secundario">Ver mais</button>
-                                    <button class="btn-icone" title="Editar">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn-icone" title="Excluir">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cliente Exemplo 3</td>
-                            <td>Terceira descrição exemplo</td>
-                            <td>11.222.333/0001-44</td>
-                            <td>(21) 2222-3333</td>
-                            <td>3</td>
-                            <td>7</td>
-                            <td>
-                                <div class="coluna-acoes">
-                                    <button class="btn btn-secundario">Ver mais</button>
-                                    <button class="btn-icone" title="Editar">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn-icone" title="Excluir">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="envoltorio-tabela">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th>Qtd. modelos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-clientes-corpo">
+                            <tr>
+                                <td>Alpha Tech Solutions</td>
+                                <td>Consultoria em IA e integração de dados</td>
+                                <td>12.345.670/0001-12</td>
+                                <td>(11) 98877-6655</td>
+                                <td>8</td>
+                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Beta Comércio Ltda.</td>
+                                <td>Distribuidora de equipamentos eletrônicos</td>
+                                <td>98.765.432/0001-55</td>
+                                <td>(21) 3344-5566</td>
+                                <td>3</td>
+                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Cortex Saúde</td>
+                                <td>Plataforma de telemedicina e análises</td>
+                                <td>23.456.789/0001-00</td>
+                                <td>(31) 91234-5678</td>
+                                <td>12</td>
+                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Delta Serviços</td>
+                                <td>Gestão terceirizada de TI e suporte</td>
+                                <td>11.222.333/0001-81</td>
+                                <td>(41) 4002-8922</td>
+                                <td>2</td>
+                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
+                            </tr>
+                            <tr>
+                                <td>Epsilon Educação</td>
+                                <td>Plataforma de cursos e treinamentos corporativos</td>
+                                <td>77.888.999/0001-44</td>
+                                <td>(51) 99876-5432</td>
+                                <td>6</td>
+                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabela-rodape">
+                </div>
             </section>
         </div>
     </main>
 
-    <div id="modal-cliente" class="modal-overlay oculto">
-        <div class="modal-conteudo">
-            <header class="modal-header">
-                <h2 id="modal-titulo">Adicionar Cliente</h2>
-                <button id="btn-fechar-modal" class="btn-icone">&times;</button>
-            </header>
-            <form id="form-cliente" class="modal-form">
-                <div class="campo-form">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" placeholder="Digite o nome do cliente..." required>
-                </div>
-                <div class="campo-form">
-                    <label for="descricao">Descrição</label>
-                    <textarea id="descricao" rows="3" placeholder="Descrição do cliente..."></textarea>
-                </div>
-                <div class="campo-form">
-                    <label for="cnpj">CNPJ</label>
-                    <input type="text" id="cnpj" placeholder="Digite o CNPJ do cliente..." required>
-                </div>
-                <div class="campo-form">
-                    <label for="telefone">Telefone</label>
-                    <input type="tel" id="telefone" placeholder="Digite o telefonedo cliente...">
-                </div>
-                <div class="campo-form">
-                    <label for="qtd-modelos">Quantidade de Modelos</label>
-                    <input type="number" id="qtd-modelos" min="0" placeholder="Digite a quantidade de modelos do cliente...">
-                </div>
-                <div class="campo-form">
-                    <label for="qtd-zonas">Quantidade de Zonas de Distribuição</label>
-                    <input type="number" id="qtd-zonas" min="0"  placeholder="Digite quantidade de zonas de distribuição do cliente...">
-                </div>
+    
+    <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+        <div class="painel-formulario">
+            <div class="cabecalho-formulario">
+                <h2>Adicionar Cliente</h2>
+                <button class="btn-fechar" id="btn-fechar-modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="corpo-formulario">
+                <form id="form-cliente">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="campo-form">
+                            <label for="nome-cliente">Nome do Cliente *</label>
+                            <input type="text" id="nome-cliente" placeholder="Digite o nome do cliente..." required>
+                        </div>
 
-                <div class="modal-actions">
-                    <button type="button" id="btn-cancelar" class="btn btn-secundario">Cancelar</button>
-                    <button type="submit" class="btn btn-primario">Salvar</button>
-                </div>
-            </form>
+                        <div class="campo-form">
+                            <label for="cnpj-cliente">CNPJ *</label>
+                            <input type="text" id="cnpj-cliente" placeholder="00.000.000/0000-00" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="telefone-cliente">Telefone *</label>
+                            <input type="tel" id="telefone-cliente" placeholder="(00) 00000-0000" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="qtd-modelos">Quantidade de Modelos</label>
+                            <input type="number" id="qtd-modelos" placeholder="0" min="0">
+                        </div>
+                    </div>
+
+                    <div class="campo-form" style="margin-top: 1.5rem;">
+                        <label for="descricao-cliente">Descrição</label>
+                        <textarea id="descricao-cliente" placeholder="Digite uma descrição do cliente..." style="min-height: 80px;"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="rodape-formulario">
+                <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button type="submit" form="form-cliente" class="btn btn-primario">Salvar Cliente</button>
+            </div>
         </div>
     </div>
-    
-    <script>
-        const modal = document.getElementById('modal-cliente');
-        const btnAdicionar = document.getElementById('btn-adicionar');
-        const btnFechar = document.getElementById('btn-fechar-modal');
-        const btnCancelar = document.getElementById('btn-cancelar');
-        const form = document.getElementById('form-cliente');
-
-        btnAdicionar.addEventListener('click', () => {
-            modal.classList.remove('oculto');
-            document.getElementById('modal-titulo').textContent = 'Adicionar Cliente';
-        });
-
-        btnFechar.addEventListener('click', () => {
-            modal.classList.add('oculto');
-        });
-
-        btnCancelar.addEventListener('click', () => {
-            modal.classList.add('oculto');
-            form.reset();
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.add('oculto');
-            }
-        });
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const novoCliente = {
-                nome: document.getElementById('nome').value,
-                descricao: document.getElementById('descricao').value,
-                cnpj: document.getElementById('cnpj').value,
-                telefone: document.getElementById('telefone').value,
-                qtdModelos: document.getElementById('qtd-modelos').value,
-                qtdZonas: document.getElementById('qtd-zonas').value
-            };
-
-            console.log('Novo cliente:', novoCliente);
-            
-            const tbody = document.getElementById('tabela-clientes-corpo');
-            const novaLinha = tbody.insertRow();
-            novaLinha.innerHTML = `
-                <td>${novoCliente.nome}</td>
-                <td>${novoCliente.descricao}</td>
-                <td>${novoCliente.cnpj}</td>
-                <td>${novoCliente.telefone}</td>
-                <td>${novoCliente.qtdModelos}</td>
-                <td>${novoCliente.qtdZonas}</td>
-                <td>
-                    <div class="coluna-acoes">
-                        <button class="btn btn-secundario">Ver mais</button>
-                        <button class="btn-icone" title="Editar">
-                            <span class="material-icons">edit</span>
-                        </button>
-                        <button class="btn-icone" title="Excluir">
-                            <span class="material-icons">delete</span>
-                        </button>
-                    </div>
-                </td>
-            `;
-
-            modal.classList.add('oculto');
-            form.reset();
-        });
-
-        const cortexPesquisar = document.querySelector('cortex-pesquisar');
-        if (cortexPesquisar) {
-            cortexPesquisar.addEventListener('input', (e) => {
-                const termo = e.detail?.value?.toLowerCase() || e.target.value?.toLowerCase() || '';
-                const linhas = document.querySelectorAll('#tabela-clientes-corpo tr');
-                
-                linhas.forEach(linha => {
-                    const texto = linha.textContent.toLowerCase();
-                    linha.style.display = texto.includes(termo) ? '' : 'none';
-                });
-            });
-        }
-
-        const checkboxes = document.querySelectorAll('input[name="ordenar"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                console.log('Filtro alterado:', checkbox.value, checkbox.checked);
-                // Implementar lógica de ordenação aqui
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            const btnEdit = e.target.closest('.btn-icone[title="Editar"]');
-            const btnDelete = e.target.closest('.btn-icone[title="Excluir"]');
-
-            if (btnEdit) {
-                const linha = btnEdit.closest('tr');
-                const nome = linha.cells[0].textContent;
-                console.log('Editando cliente:', nome);
-                modal.classList.remove('oculto');
-                document.getElementById('modal-titulo').textContent = 'Editar Cliente';
-            }
-
-            if (btnDelete) {
-                const linha = btnDelete.closest('tr');
-                const nome = linha.cells[0].textContent;
-                if (confirm(`Deseja realmente excluir o cliente "${nome}"?`)) {
-                    linha.remove();
-                    console.log('Cliente excluído:', nome);
-                }
-            }
-        });
-    </script>
-
 </body>
+<script src="js/gerenciamento_de_cliente.js"></script>
 </html>
