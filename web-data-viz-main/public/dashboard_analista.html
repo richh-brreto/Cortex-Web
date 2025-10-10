@@ -121,12 +121,12 @@
                     <canvas id="usoMedioPorModelos"></canvas>
                 </div>
                 <div class="graficos">
-
+                    <canvas id="qtdAlertasModelo"></canvas>
                 </div>
             </div>
             <div class="graficos-separacao">
                 <div class="graficos">
-
+                    <canvas id="qtdMediaProcessosModelo"></canvas>
                 </div>
                 <div class="graficos">
                     <canvas id="qtdModeloFuncionario"></canvas>
@@ -213,6 +213,65 @@
     // Cria a nova instância do gráfico
     const graficoUsoMedioPorModelos = new Chart(ctxUsoMedioPorModelos, configUsoMedioPorModelos);
 
+    const ctxQtdAlertasModelo = document.getElementById('qtdAlertasModelo');
+
+    // Dados e configurações do gráfico
+    const configQtdAlertasModelo = {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+
+
+            datasets: [
+
+                {
+                    label: 'Alertas',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Quantidade de alertas por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Quantidade',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoQtdAlertasModelo = new Chart(ctxQtdAlertasModelo, configQtdAlertasModelo);
+
     const ctxQtdModeloFuncionario = document.getElementById('qtdModeloFuncionario');
 
     // Dados e configurações do gráfico
@@ -287,6 +346,75 @@
 
     // Cria a nova instância do gráfico
     const graficoQtdModeloFuncionario = new Chart(ctxQtdModeloFuncionario, configQtdModeloFuncionario);
+
+    const ctxQtdMediaProcessosModelo = document.getElementById('qtdMediaProcessosModelo');
+
+    // Dados e configurações do gráfico
+    const configQtdMediaProcessosModelo = {
+        type: 'bar',
+        data: {
+            labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
+
+
+            datasets: [
+
+                {
+                    label: 'Processos',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Quantidade média de Processos por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+
+                    title: {
+                        display: true,
+                        text: 'Modelo',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Quantidade',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoQtdMediaProcessosModelo = new Chart(ctxQtdMediaProcessosModelo, configQtdMediaProcessosModelo);
 </script>
 
 </html>

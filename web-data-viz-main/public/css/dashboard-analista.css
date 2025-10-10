@@ -77,7 +77,6 @@
 .graficos {
     width: 45%;
     height: 100%;
-    border: 1px solid red;
 
     display: flex;
     align-items: center;
