@@ -216,7 +216,7 @@ body{
 .titulo-hist{
        display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
 }
@@ -233,6 +233,7 @@ body{
   flex-direction: column;
   gap: 12px;
   padding: 8px;
+  width: 108%;
   background-color: #f7f7f7;
   border-radius: 8px;
   max-height: 85%;
@@ -240,37 +241,66 @@ body{
   overflow-y: auto;
 }
 
-.card-alerta {
-  background-color: #EBF4F8;
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+.pesquisa{
+  border-radius: 100px;
+  border-style: none;
+  padding: 5px;
+}
+
+.card-modelo{
+   background-color: #EBF4F8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    max-width: 50%;
+}
+.canto{
+  word-wrap:break-word;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  font-size: 14px;
+  max-width: 25%;
+  background-color: #00B2B2;
+  border: 1px solid #0ec9c9;
+} 
+.descricao_card p {
+  font-size: x-small;
 }
-
-.data-alerta h4 {
-  font-size: 13px;
-  color: #000000;
-  margin: 0;
+.colum{
+   display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 3rem;
+    align-items: flex-start;
 }
-
-.conteudo-alerta {
+.linha_card{
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  word-wrap: break-word;
+  gap: 10px;
 }
 
-.motivo-alerta h5.forte {
-  font-weight: 600;
-  margin-bottom: 4px;
+.botoes-final{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  gap: 10px;
 }
 
-.motivo-alerta h5 {
-  font-weight: 400;
+.descricao_card{
+  word-break: break-all;
+}
+
+.linha-hist{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .infos {
