@@ -50,3 +50,32 @@
 .indicador-card h3{
     text-align: center;
 }
+
+.graficos-gerais {
+    width: 100%;
+    height: 100%;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    gap: 40px;
+}
+
+.graficos-separacao {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.graficos {
+    width: 45%;
+    height: 100%;
+    border: 1px solid red;
+}
