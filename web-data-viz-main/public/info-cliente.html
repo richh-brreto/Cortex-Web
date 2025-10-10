@@ -71,32 +71,34 @@
         </div>
         <div class="dash">
             <div class="esquerdo">
-                <div class="kpi">
+                <div class="container-kpi">
+                    <div class="kpi">
                     <h4>Qtd. Modelos</h4>
                     <h4>XXX</h4>
                 </div>
                  <div class="kpi">
-                    <h4>Distribuição</h4>
-                    <h6>(por zona)</h6>
+                    <h4>Distribuição por zona</h4>
                     <h4>XXX</h4>
+                </div>
+                </div>
+                
+                <div class="grafico">
+                    <h4>% de modelos em relação ao total</h4>
+                <canvas id="mychart"></canvas>
                 </div>
             </div>
             <div class="direito">
-                <canvas id="mychart"></canvas>
-            </div>
-        </div>
-        <div class="secao-info">
             <div class="topo-infos">
-                    <div class="titulo">
-            <h3>Informações</h3>
-            <button class="botao-editar"><img src="assets/icon/1159633.png"></button>
-            </div>
-
-            <div class="container_infos">
-                <div class="container_descricao">
-                    <h5>Descrição:</h5>
-                    <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                <div class="titulo">
+                    <h3>Informações</h3>
+                    <button class="botao-editar"><img src="assets/icon/1159633.png"></button>
                 </div>
+
+                <div class="container_infos">
+                    <div class="container_descricao">
+                        <h5>Descrição:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                    </div>
                 <div class="container_outras_infos">
                     <div class="info-linha">
                         <h5>Telefone:</h5>
@@ -112,10 +114,11 @@
                     </div>
                     
                 </div>
-            </div>
+                </div>
                 
             </div>
-                
+            </div>
+            
         </div>
             
         <div class="historico">
@@ -640,10 +643,21 @@ new Chart(ctx, {
     },
     options: {
         responsive: true,
+        layout: {
+            padding: {
+                top: 0
+            }
+        },
         plugins: {
             legend: {
-                position: 'top',
+                position: 'right',
+                 labels: {
+                   boxWidth: 5, 
+                boxHeight: 5,  
+                padding: 10, 
+            }
             },
+           
             tooltip: {
                 callbacks: {
                     label: function(context) {
@@ -652,10 +666,6 @@ new Chart(ctx, {
                         return label + ': ' + value + '%';
                     }
                 }
-            },
-            title: {
-                display: true,
-                text: 'Distribuição dos Modelos em %'
             }
         }
     }

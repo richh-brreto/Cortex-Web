@@ -28,28 +28,62 @@ body{
 }
 
 .dash{
-      display: flex;
-  gap: 24px;
-  height: 100%;
-  width: 100%;
+    display: flex;
+    gap: 24px;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
 }
 
 .esquerdo{
-    flex: 1; /* ocupa metade ou o que sobrar */
+  display: flex;
+  flex: 1; 
   min-width: 300px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 24px;
+}
+.grafico{
+  width: 300px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+.kpi{
+    background-color: #EBF4F8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: row;
+    margin-top: 30%;
+    padding: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .direito{
-    flex: 1.2;
-  min-width: 400px;
+    background-color: #EBF4F8;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    height: 80%;
+    margin-top: 2%;
+}
+.topo-infos{
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 2%;
+  gap: 10px;
+  padding: 10px;
 }
+.container_infos{
+  gap: 40px;
+}
+
 .botao-editar {
     background: none;
     border: none;
@@ -120,10 +154,12 @@ body{
 }
 
 
+
 .container_infos {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    
     
 }
 .container_descricao h6{
@@ -263,8 +299,6 @@ body{
   display: flex;
   flex-direction: column;
   max-width: 25%;
-  background-color: #00B2B2;
-  border: 1px solid #0ec9c9;
 } 
 .descricao_card p {
   font-size: x-small;
