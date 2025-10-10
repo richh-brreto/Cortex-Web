@@ -67,29 +67,55 @@
         </a>
     </nav>
 
-    <div class="conteudo-principal">
-        <div class="dashboard-analista">
-            <div class="filtros-cabecalho">
-                <h3>Filtros Gerais</h3>
+    <div class="conteudo-principal dashboard-analista">
+        <!-- Filtros do Cabeçalho -->
+        <div class="filtros-cabecalho">
+            <h3>Filtros Gerais</h3>
 
-                <div class="filtros-gerais">
-                    <div class="filtro-cliente">
-                        <label for="clientes">Cliente</label>
-                        <select name="clientes" id="clientes">
-                            <option value="#">Escolha o cliente</option>
-                            <option value="cortex">Cortex</option>
-                        </select>
-                    </div>
-                    <div class="filtro-zona-disponibilidade">
-                        <label for="zonas">Zona de Disponibilidade</label>
-                        <select name="zonas" id="zonas">
-                            <option value="#">Escolha a zona</option>
-                            <option value="us-east-1c">US-east-1c</option>
-                        </select>
-                    </div>
+            <div class="filtros-gerais">
+                <div class="filtro-cliente">
+                    <label for="clientes">Cliente</label>
+                    <select name="clientes" id="clientes">
+                        <option value="#">Escolha o cliente</option>
+                        <option value="cortex">Cortex</option>
+                    </select>
+                </div>
+                <div class="filtro-zona-disponibilidade">
+                    <label for="zonas">Zona de Disponibilidade</label>
+                    <select name="zonas" id="zonas">
+                        <option value="#">Escolha a zona</option>
+                        <option value="us-east-1c">US-east-1c</option>
+                    </select>
                 </div>
             </div>
+        </div>
 
+        <!-- Indicadores -->
+        <div class="indicadores-gerais">
+            <div id="kpi-1" class="indicador-card">
+                <h3>Quantidade de Zonas</h3>
+                <span id="">2</span>
+            </div>
+            <div id="kpi-2" class="indicador-card">
+                <h3>Quantidade de modelos</h3>
+                <span id="">256</span>
+            </div>
+            <div id="kpi-3" class="indicador-card">
+                <h3>Média de modelos por cliente</h3>
+                <span id="">21</span>
+            </div>
+            <div id="kpi-4" class="indicador-card">
+                <h3>Quantidade de clientes</h3>
+                <span id="">17</span>
+            </div>
+            <div id="kpi-5" class="indicador-card">
+                <h3>Quantidade de Técnicos</h3>
+                <span id="">71</span>
+            </div>
+        </div>
+
+        <div class="graficos-gerais">
+            
         </div>
     </div>
 </body>
