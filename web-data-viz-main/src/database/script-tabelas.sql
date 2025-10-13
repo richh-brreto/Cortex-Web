@@ -73,3 +73,56 @@ CREATE TABLE alerta (
     data_e_hora DATETIME NOT NULL,
     valor VARCHAR(45) NOT NULL
 );
+
+select * from usuario;
+
+
+
+CREATE TABLE zonadisponibilidade (
+    id_zona INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    descricao VARCHAR(255),
+    fk_empresa INT NOT NULL,
+        FOREIGN KEY (fk_empresa) 
+        REFERENCES empresa(id)
+);
+
+INSERT INTO zonadisponibilidade (nome, descricao, fk_empresa) VALUES
+('SP-01', 'Zona principal em São Paulo, datacenter Tier III', 2);
+
+CREATE TABLE IF NOT EXISTS cliente (
+id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email_contato VARCHAR(100) UNIQUE,
+    telefone_contato VARCHAR(20),
+    fk_empresa INT NOT NULL, 
+        FOREIGN KEY (fk_empresa) 
+        REFERENCES empresa(id)
+);
+
+select * from zonadisponibilidade;
+
+INSERT INTO cliente (nome, email_contato, telefone_contato, fk_empresa) 
+VALUES ('Matrix TI', 'contato@matrixti.com', '(11) 98765-4321', 2);
+
+INSERT INTO cliente (nome, email_contato, telefone_contato, fk_empresa) 
+VALUES ('Richard tech', 'ti.com', '(11) 98765-4321', 2);
+
+create table if not exists modelo (
+    id_modelo int primary key auto_increment,
+    nome varchar(100) not null,
+    descricao text,
+    ip varchar(45),
+    hostname varchar(100),
+    tempo_parametro_min int,
+    limite_cpu decimal(5,2),
+    limite_disco decimal(5,2),
+    limite_ram decimal(5,2),
+    limite_gpu decimal(5,2),
+    fk_cliente int not null,
+    fk_zona_disponibilidade int not null,
+        foreign key (fk_cliente) references cliente(id_cliente),
+        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona)
+);
+
+select * from modelo;

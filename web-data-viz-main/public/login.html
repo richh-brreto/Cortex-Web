@@ -130,10 +130,11 @@
         resposta.json().then(json => {
           const usuario = json[0]
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = usuario.Email;
-          sessionStorage.NOME_USUARIO = usuario.Nome;
-          sessionStorage.ID_USUARIO = usuario.idUsuario;
-          sessionStorage.ADMINISTRADOR_USUARIO = usuario.Administrador;
+          sessionStorage.EMAIL_USUARIO = usuario.email;
+          sessionStorage.NOME_USUARIO = usuario.nome;
+          sessionStorage.ID_USUARIO = usuario.id;
+          sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
+          sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
           console.log(sessionStorage)
 
           Swal.fire({
@@ -143,7 +144,13 @@
           });
 
           setTimeout(function () {
-            location.href = './dashboard/dashboard.html';
+
+            if(usuario.administrador==1){
+               location.href = './dashboard/dash_tecnico.html';
+            }else if(usuario.administrador==2){
+              location.href = './dashboard/dashboard.html';
+            }
+            
           }, 3000);
 
         });
