@@ -22,15 +22,7 @@ CREATE TABLE usuario (
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
 
-CREATE TABLE datacenter (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fk_empresa INT,
-    nome_datacenter VARCHAR(80) NOT NULL,
-    cep VARCHAR(9) NOT NULL,
-    complemento VARCHAR(100) NOT NULL,
-    numero VARCHAR(10) NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
+
 
 CREATE TABLE servidor (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -72,4 +64,50 @@ CREATE TABLE alerta (
 	fk_menu_processo INT NOT NULL PRIMARY KEY,
     data_e_hora DATETIME NOT NULL,
     valor VARCHAR(45) NOT NULL
+);
+
+select * from usuario;
+
+
+
+CREATE TABLE zonadisponibilidade (
+    id_zona INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    descricao VARCHAR(255),
+    fk_empresa INT NOT NULL,
+        FOREIGN KEY (fk_empresa) 
+        REFERENCES empresa(id)
+);
+
+INSERT INTO zonadisponibilidade (nome, descricao, fk_empresa) VALUES
+('SP-01', 'Zona principal em São Paulo, datacenter Tier III', 2);
+
+CREATE TABLE IF NOT EXISTS cliente (
+id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email_contato VARCHAR(100) UNIQUE,
+    telefone_contato VARCHAR(20),
+    fk_empresa INT NOT NULL, 
+        FOREIGN KEY (fk_empresa) 
+        REFERENCES empresa(id)
+);
+
+select * from zonadisponibilidade;
+
+
+create table modelo (
+    id_modelo int primary key auto_increment,
+    nome varchar(100) not null,
+    descricao text,
+    ip varchar(45),
+    hostname varchar(100),
+    tempo_parametro_min int,
+    limite_cpu decimal(5,2),
+    limite_disco decimal(5,2),
+    limite_ram decimal(5,2),
+    limite_gpu decimal(5,2),
+    fk_cliente int not null,
+    fk_zona_disponibilidade int not null,
+        foreign key (fk_cliente) references cliente(id_cliente),
+        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona)
 );

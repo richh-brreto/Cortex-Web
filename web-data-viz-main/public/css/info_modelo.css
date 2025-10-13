@@ -396,3 +396,13 @@ body{
   margin: 0;
   font-weight: 500;
 }
+
+#sugestao {
+    border: 1px solid #cccccc00;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.455);
+    position: absolute;
+    z-index: 100;
+}

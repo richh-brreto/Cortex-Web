@@ -67,7 +67,7 @@
      <!-- Inicio da tela-->
     <div class="tela">
         <div class="titulo-topo-tela">
-            <h2>NOME DO MODELO</h2>
+            <!-- <h2>NOME DO MODELO</h2> -->
         </div>
         <div class="lados">
             <div class="esquerda-topo">
@@ -88,10 +88,8 @@
             <div class="tabela-processo">
                 <div class="topo">
                     <div class="pesquisa">
-                       <input type="search">
-                    </div>
-                    <div class="botao-verificar">
-                        <button>Verificar Todos</button>
+                       <input type="search" id="pesquisar">
+                       <div id="sugestao"></div>
                     </div>
                     <div class="legenda">
                         <div class="item-legenda">
@@ -228,7 +226,13 @@
             <div class="container_infos">
                 <div class="container_descricao">
                     <h5>Descrição:</h5>
-                    <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                    <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                    <h5>IP:</h5>
+                    <h6>222.2.22.223.2</h6>
+                    <h5>Hostname:</h5>
+                    <h6>XXXXXXXXXXXXXXXXX</h6>
                 </div>
                 <div class="container_outras_infos">
                     <div class="info-linha">
@@ -389,6 +393,7 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/info-modelo.js"></script>
 
 <script>
   const ctx2 = document.getElementById('myChart2');
