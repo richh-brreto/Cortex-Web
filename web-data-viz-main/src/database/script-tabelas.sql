@@ -22,15 +22,7 @@ CREATE TABLE usuario (
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
 );
 
-CREATE TABLE datacenter (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fk_empresa INT,
-    nome_datacenter VARCHAR(80) NOT NULL,
-    cep VARCHAR(9) NOT NULL,
-    complemento VARCHAR(100) NOT NULL,
-    numero VARCHAR(10) NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
+
 
 CREATE TABLE servidor (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -102,13 +94,8 @@ id_cliente INT PRIMARY KEY AUTO_INCREMENT,
 
 select * from zonadisponibilidade;
 
-INSERT INTO cliente (nome, email_contato, telefone_contato, fk_empresa) 
-VALUES ('Matrix TI', 'contato@matrixti.com', '(11) 98765-4321', 2);
 
-INSERT INTO cliente (nome, email_contato, telefone_contato, fk_empresa) 
-VALUES ('Richard tech', 'ti.com', '(11) 98765-4321', 2);
-
-create table if not exists modelo (
+create table modelo (
     id_modelo int primary key auto_increment,
     nome varchar(100) not null,
     descricao text,
@@ -125,4 +112,3 @@ create table if not exists modelo (
         foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona)
 );
 
-select * from modelo;
