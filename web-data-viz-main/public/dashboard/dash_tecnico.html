@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <link rel="stylesheet" href="../css/navbar.css">
+  <link defer rel="stylesheet" href="../css/dash_tecnico.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+  body {
+    overflow: hidden;
+  }
+
+  
+
+  .carrossel-wrapper {
+    width: 100%;
+    height: 120px;
+   
+
+  }
+
+  #containerAlertas {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+
+    align-items: center;
+    scroll-behavior: smooth;
+    padding-bottom: 5px;
+    width: 95%;
+   background-color: #ffffff45;
+
+
+
+  }
+
+
+  .alerta {
+    width: 13%;
+    height: 110%;
+  
+    background: #fff;
+    border-left: 3px solid #006E66;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+    font-weight: bold;
+    cursor: grab;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  /* Opcional: barra de scroll mais bonita */
+  #containerAlertas::-webkit-scrollbar {
+    height: 9px;
+    
+    
+  }
+
+  #containerAlertas::-webkit-scrollbar-thumb {
+    background-color: #006E66;
+    border-radius: 4px;
+
+  }
+</style>
+
+<body>
+  <nav class="barra-lateral">
+
+    <a class="item-logo">
+      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+      <span class="texto-logo">Cortex</span>
+    </a>
+
+    <a class="item-navegacao">
+      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+      <span class="texto" id="texto-dash">Dashboard de Zona</span>
+    </a>
+
+    <a class="item-navegacao">
+      <img src="../assets/icon/alerta.png" id="alerta" alt="">
+      <span class="texto">Alertas</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-navegacao">
+      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+      <span class="texto">Atribuições</span>
+    </a>
+
+    <a class="item-navegacao">
+      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+      <span class="texto">Gerenciamento Funcionario</span>
+    </a>
+
+    <a class="item-navegacao">
+      <img src="../assets/icon/modelo.png" id="modelo" alt="">
+      <span class="texto">Modelos</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-notificacao">
+      <img src="../assets/icon/sino.png" id="sino" alt="">
+      <span class="texto-notificacao" id="notificacoes">Notificações</span>
+    </a>
+
+    <a class="item-usuario">
+      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+      <span class="texto-usuario">José</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-notificacao">
+      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+      <span class="texto-notificacao" id="sair">Sair</span>
+    </a>
+  </nav>
+  <div id="geral">
+
+    <div class="container-select">
+    <label class="select-label" for="select-zona"></label>
+    <select class="select-cortex" id="select-zona">
+        <option value="">Zona de disponibilidade...</option>
+        <option value="sp">1</option>
+        </select>
+    
+</div>
+    <div class="carrossel-wrapper" style="width:100%; height:120px;">
+      <div id="containerAlertas" class="alertas-container">
+        <!-- Alertas serão gerados via JS -->
+      </div>
+    </div>
+    <div id="geral2">
+      <div id="esquerda">
+        <div class="kpis">
+         <div class="kpi-card">
+        <span class="kpi-value">19h</span>
+        <span class="kpi-title">Pico</span>
+    </div>
+
+    <div class="kpi-card">
+        <span class="kpi-value">99.8%</span>
+        <span class="kpi-title">Uptime</span>
+    </div>
+        </div>
+
+        <div id="graficos">
+          <div class="grafico-container">
+    <canvas id="graficoAlertasPorDia"></canvas>
+</div>
+        </div>
+        <div class="kpis">
+          <div class="kpi-card">
+        <span class="kpi-value">45</span>
+        <span class="kpi-title">Ativos</span>
+    </div>
+
+    <div class="kpi-card">
+        <span class="kpi-value">18</span>
+        <span class="kpi-title">Média</span>
+    </div>
+
+   
+        </div>
+      </div>
+      <div class="tabela-historico-container">
+        <h2>Histórico de Alertas</h2>
+        <div class="tabela-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Prioridade</th>
+                <th>Data/Hora</th>
+                <th>Componente</th>
+                <th>Nome do Modelo</th>
+                <th>Descrição</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-historico-corpo">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+
+
+</body>
+<script defer type="module" src="../componentes-base/KPI/kpi.js"></script>
+<script>
+
+
+
+
+
+
+  const alertas = [
+    "Alerta crítico CPU",
+    "Alerta RAM alta",
+    "Alerta disco cheio",
+    "Alerta GPU sobrecarregada",
+    "Alerta de rede",
+    "Alerta memória swap",
+    "Alerta crítico CPU",
+    "Alerta RAM alta",
+    "Alerta disco cheio",
+    "Alerta GPU sobrecarregada",
+    "Alerta de rede",
+    "Alerta memória swap",
+    "Alerta crítico CPU",
+    "Alerta RAM alta",
+    "Alerta disco cheio",
+    "Alerta GPU sobrecarregada",
+    "Alerta de rede",
+    "Alerta memória swap",
+    "Alerta crítico CPU",
+    "Alerta RAM alta",
+    "Alerta disco cheio",
+    "Alerta GPU sobrecarregada",
+    "Alerta de rede",
+    "Alerta memória swap",
+  ];
+
+  const containerAlertas = document.getElementById("containerAlertas");
+
+  alertas.forEach(texto => {
+    const div = document.createElement("div");
+    div.classList.add("alerta");
+    div.textContent = texto;
+    containerAlertas.appendChild(div);
+  });
+  
+  // grafico
+
+     const ctx = document.getElementById('graficoAlertasPorDia').getContext('2d');
+
+
+    const labels = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+    const dadosDoBanco = {
+        label: 'Número de Alertas',
+        data: [12, 19, 8, 15, 10, 25, 17], // Dados de exemplo para cada dia
+        
+        // --- ESTILIZAÇÃO DA LINHA E DO PREENCHIMENTO ---
+        borderColor: '#2F8A7D', // Cor da linha (verde-petróleo do seu tema)
+        backgroundColor: 'rgba(47, 138, 125, 0.1)', // Cor da área sob a linha (bem sutil)
+        fill: true, // Habilita o preenchimento da área
+        borderWidth: 2, // Espessura da linha
+        tension: 0.3, // Deixa a linha suavemente curvada
+        pointBackgroundColor: '#2F8A7D', // Cor dos pontos na linha
+        pointRadius: 4, // Tamanho dos pontos
+        pointHoverRadius: 6, // Tamanho dos pontos ao passar o mouse
+    };
+
+    // 3. Criação e configuração do gráfico
+    const meuGrafico = new Chart(ctx, {
+        type: 'line', // Tipo do gráfico
+        data: {
+            labels: labels,
+            datasets: [dadosDoBanco]
+        },
+        options: {
+            responsive: true, // Faz o gráfico se adaptar ao tamanho do container
+            maintainAspectRatio: false, // Permite que o gráfico preencha a altura do container
+            plugins: {
+                legend: {
+                    display: false // Oculta a legenda no topo (desnecessária para um único dado)
+                },
+                title: {
+                    display: true,
+                    text: 'Alertas na Última Semana', // Título do gráfico
+                    font: {
+                        size: 16
+                    },
+                    color: '#343A40',
+                    align: 'start',
+                    padding: {
+                        bottom: 20
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true, // Eixo Y começa no zero
+                    grid: {
+                        color: '#E9ECEF', // Cor das linhas de grade (bem claras)
+                        borderDash: [5, 5] // Linhas tracejadas
+                    },
+                    ticks: {
+                        color: '#6C757D' // Cor dos números do eixo Y
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // Oculta as linhas de grade verticais para um visual mais limpo
+                    },
+                    ticks: {
+                        color: '#6C757D' // Cor dos dias da semana no eixo X
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+
+</html>

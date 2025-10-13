@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Modelos</title>
+  <style>
+   
+
+    .container {
+      width: 71%;
+      margin: 20px auto;
+      background: #e9eef3;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        margin-top: 20px;
+      text-align: left;
+      color: #014c41;
+      margin-left: 22px;
+      font-size: 35px;
+      
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 0px;
+      background: #e9eef3;
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+      
+        
+    }
+
+    .form-left, .form-right {
+      width: 88%;
+      background: #edf1f6;
+      padding: 30px;
+      border-radius: 10px;
+      
+    }
+
+    h2 {
+      color: #016b5b;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #016b5b;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #016b5b;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      font-family: 'Poppins', sans-serif; 
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #999;
+    }
+
+    textarea {
+      resize: none;
+      height: 60px;
+
+    }
+
+    button {
+      width: 100%;
+      background: #016b5b;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #014c41;
+    }
+
+    @media (max-width: 900px) {
+      .form-container {
+        flex-direction: column;
+      }
+      .form-left, .form-right {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="../public/css/navbar.css">
+</head>
+<body>
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair"">Sair</span>
+        </a>
+    </nav>
+
+  <div class="container">
+    <h1>Cadastro de Modelos</h1>
+    <div class="form-container">
+
+      <!-- Coluna Esquerda -->
+      <div class="form-left">
+        <label>Nome:</label>
+        <input type="text" placeholder="Nome do seu modelo">
+
+        <label>Descrição:</label>
+        <textarea placeholder="Faça uma Descrição"></textarea>
+
+        <label>Zona de disponibilidade:</label>
+        <select>
+          <option>Selecione...</option>
+          <option>Zona A</option>
+          <option>Zona B</option>
+        </select>
+
+        <label>Cliente:</label>
+        <select>
+          <option>Selecione...</option>
+          <option>Cliente 1</option>
+          <option>Cliente 2</option>
+        </select>
+
+        <label>IP:</label>
+        <input type="text" placeholder="123.4.567.89">
+
+        <label>Hostname:</label>
+        <input type="text" placeholder="User">
+      </div>
+
+      <!-- Coluna Direita -->
+      <div class="form-right">
+        <h2>Parâmetros</h2>
+
+        <label>Tempo dos parâmetros (em Min):</label>
+        <input type="text" placeholder="Ex: 30">
+
+        <label>Limite CPU (%):</label>
+        <input type="text" placeholder="80%">
+
+        <label>Limite Disco (%):</label>
+        <input type="text" placeholder="60%">
+
+        <label>Limite RAM (%):</label>
+        <input type="text" placeholder="75%">
+
+        <label>Limite GPU (%):</label>
+        <input type="text" placeholder="92%">
+
+        <button>Cadastrar Modelo</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
