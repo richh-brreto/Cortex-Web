@@ -135,6 +135,7 @@
           sessionStorage.ID_USUARIO = usuario.id;
           sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
           sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
+          sessionStorage.ATIVADO_USUARIO=usuario.ativo;
           console.log(sessionStorage)
 
           Swal.fire({
@@ -144,12 +145,16 @@
           });
 
           setTimeout(function () {
-
-            if(usuario.administrador==1){
+            if(usuario.ativo !="1"){
+               location.href = './inativo.html';
+            }else{
+              if(usuario.administrador=="1"){
                location.href = './dashboard/dash_tecnico.html';
-            }else if(usuario.administrador==2){
+            }else if(usuario.administrador=="2"){
               location.href = './dashboard/dashboard.html';
             }
+            }
+            
             
           }, 3000);
 
@@ -186,3 +191,5 @@
   }
 
 </script>
+
+
