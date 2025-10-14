@@ -4,18 +4,23 @@ function infoModeloGet(idModelo) {
    
      var instrucao = `
         SELECT 
-            m.nome as nomeModelo, m.descricao, m.ip, m.hostname, m.tempo_parametro_min ,
-		    m.limite_cpu, m.limite_disco, m.limite_ram, m.limite_gpu, c.nome as cliente, z.nome as zona 
+            m.nome AS nomeModelo,
+            m.descricao,
+            m.ip,
+            m.hostname,
+            m.tempo_parametro_min,
+            ROUND(m.limite_cpu, 0) AS limite_cpu,
+            ROUND(m.limite_disco, 0) AS limite_disco,
+            ROUND(m.limite_ram, 0) AS limite_ram,
+            ROUND(m.limite_gpu, 0) AS limite_gpu,
+            c.nome AS cliente,
+            z.nome AS zona
         FROM 
-            modelo as m
+            modelo AS m
         INNER JOIN 
-            cliente as c 
-        ON 
-            m.fk_cliente = c.id_cliente
+            cliente AS c ON m.fk_cliente = c.id_cliente
         INNER JOIN 
-            zonadisponibilidade as z 
-        ON 
-            z.id_zona = m.fk_zona_disponibilidade
+            zonadisponibilidade AS z ON z.id_zona = m.fk_zona_disponibilidade
         WHERE 
             id_modelo = ${idModelo};
     `;

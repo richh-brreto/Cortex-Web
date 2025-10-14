@@ -406,3 +406,51 @@ body{
     position: absolute;
     z-index: 100;
 }
+
+.modal-filtro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filtro-conteudo {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    position: relative;
+    width: 300px;
+    max-width: 90%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.fechar-filtro {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: none;
+    background: transparent;
+    font-size: 10px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.filtro-conteudo label {
+    display: block;
+    margin: 10px 0;
+}
+
+#botaoAplicarFiltro {
+    padding: 5px 10px;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
