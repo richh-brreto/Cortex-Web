@@ -19,6 +19,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuario");
 var empresaDadosRouter = require("./src/routes/empresaDados");
 var modelosRouter = require("./src/routes/modelos");
+var adminRouter = require("./src/routes/admin");
 
 
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/empresaDados", empresaDadosRouter);
 app.use("/modelos", modelosRouter);
+app.use("/admin", adminRouter);
 
 app.use(cors());
 
