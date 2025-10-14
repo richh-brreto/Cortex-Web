@@ -79,15 +79,14 @@
                     </div>
                     <div class="filtro-coluna">
                         <label for="filtro-select">Filtrar por:</label>
-                        <!-- Select nativo mais simples e acessível -->
-                        <select id="filtro-select">
-                            <option value="todos" selected>Todos os campos</option>
-                            <!-- valores referenciam o índice da célula na <tr> (0 = checkbox, 1 = Nome, ... ) -->
-                            <option value="1">Nome</option>
-                            <option value="2">Descrição</option>
-                            <option value="3">CNPJ</option>
-                            <option value="4">Telefone</option>
-                            <option value="5">Qtd. modelos</option>
+                            <select id="filtro-select">
+                                <option value="todos" selected>Todos os campos</option>
+                                <option value="id">ID</option>
+                                <option value="nome">Nome</option>
+                                <option value="descricao">Descrição</option>
+                                <option value="cnpj">CNPJ</option>
+                                <option value="telefone">Telefone</option>
+                                <option value="qtd_modelos">Qtd. modelos</option>
                         </select>
                     </div>
                 </div>
@@ -102,6 +101,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>id</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
                                 <th>CNPJ</th>
@@ -111,46 +111,6 @@
                             </tr>
                         </thead>
                         <tbody id="tabela-clientes-corpo">
-                            <tr>
-                                <td>Alpha Tech Solutions</td>
-                                <td>Consultoria em IA e integração de dados</td>
-                                <td>12.345.670/0001-12</td>
-                                <td>(11) 98877-6655</td>
-                                <td>8</td>
-                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
-                            </tr>
-                            <tr>
-                                <td>Beta Comércio Ltda.</td>
-                                <td>Distribuidora de equipamentos eletrônicos</td>
-                                <td>98.765.432/0001-55</td>
-                                <td>(21) 3344-5566</td>
-                                <td>3</td>
-                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
-                            </tr>
-                            <tr>
-                                <td>Cortex Saúde</td>
-                                <td>Plataforma de telemedicina e análises</td>
-                                <td>23.456.789/0001-00</td>
-                                <td>(31) 91234-5678</td>
-                                <td>12</td>
-                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
-                            </tr>
-                            <tr>
-                                <td>Delta Serviços</td>
-                                <td>Gestão terceirizada de TI e suporte</td>
-                                <td>11.222.333/0001-81</td>
-                                <td>(41) 4002-8922</td>
-                                <td>2</td>
-                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
-                            </tr>
-                            <tr>
-                                <td>Epsilon Educação</td>
-                                <td>Plataforma de cursos e treinamentos corporativos</td>
-                                <td>77.888.999/0001-44</td>
-                                <td>(51) 99876-5432</td>
-                                <td>6</td>
-                                <td><div class="coluna-acoes"><button class="btn btn-secundario">Ver mais</button><button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button><button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button></div></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -164,7 +124,7 @@
     <div id="sobreposicao-formulario" class="sobreposicao-formulario">
         <div class="painel-formulario">
             <div class="cabecalho-formulario">
-                <h2>Adicionar Cliente</h2>
+                <h2 id="modal-title">Adicionar Cliente</h2>
                 <button class="btn-fechar" id="btn-fechar-modal">
                     <span class="material-icons">close</span>
                 </button>
@@ -174,17 +134,17 @@
                 <form id="form-cliente">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                         <div class="campo-form">
-                            <label for="nome-cliente">Nome do Cliente *</label>
+                            <label for="nome-cliente">Nome do Cliente</label>
                             <input type="text" id="nome-cliente" placeholder="Digite o nome do cliente..." required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="cnpj-cliente">CNPJ *</label>
+                            <label for="cnpj-cliente">CNPJ</label>
                             <input type="text" id="cnpj-cliente" placeholder="00.000.000/0000-00" required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="telefone-cliente">Telefone *</label>
+                            <label for="telefone-cliente">Telefone</label>
                             <input type="tel" id="telefone-cliente" placeholder="(00) 00000-0000" required>
                         </div>
 
@@ -203,10 +163,10 @@
 
             <div class="rodape-formulario">
                 <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
-                <button type="submit" form="form-cliente" class="btn btn-primario">Salvar Cliente</button>
+                <button id="btn-salvar" type="submit" form="form-cliente" class="btn btn-primario">Salvar Cliente</button>
             </div>
         </div>
     </div>
 </body>
-<script src="js/gerenciamento_de_cliente.js"></script>
+<script src="js/gerenciamento_de_cliente.js" defer></script>
 </html>

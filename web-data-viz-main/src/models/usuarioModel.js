@@ -1,6 +1,5 @@
 var database = require("../database/config")
 
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrarUsuario(idEmpresa, nome, email, senha) {
 
     var instrucaoSql = `
@@ -32,10 +31,10 @@ function buscarId(cnpj) {
 
 
 function login(email, senha) {
-
     var instrucaoSql = `
-    select email, nome, id, administrador from usuario
-    where email = '${email}' and senha = '${senha}';
+        SELECT email, nome, id, administrador, fk_empresa 
+        FROM usuario
+        WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

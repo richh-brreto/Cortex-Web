@@ -1,75 +1,79 @@
--- drop database cortex;
-create database cortex;
-use cortex;
+create database if not exists cortexdb;
+/*drop database cortexdb;*/
+use cortexdb;
 
-CREATE TABLE empresa (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    cnpj VARCHAR(18) UNIQUE NOT NULL,
-    ativo TINYINT DEFAULT TRUE NOT NULL, 
-    nome_responsavel VARCHAR(100) NOT NULL,
-    telefone_responsavel VARCHAR(15) UNIQUE NOT NULL
+create table empresa (
+id_empresa int primary key auto_increment,
+nome varchar(100),
+cnpj varchar(18),
+ativo tinyint 
 );
 
-CREATE TABLE usuario (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fk_empresa INT,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(20) NOT NULL,
-    administrador BOOLEAN DEFAULT TRUE NOT NULL,
-    ativo TINYINT DEFAULT TRUE NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table usuario (
+id_usuario int primary key auto_increment,
+fk_empresa int,
+nome varchar(100),
+email varchar(100),
+senha varchar(255),
+cargo varchar(50),
+tipo_acesso enum("admin","analista","tecnico"),
+ativo tinyint,
+cpf varchar(20),
+telefone varchar(20),
+foto blob,
+constraint fk_usuario_empresa foreign key(fk_empresa) references empresa(id_empresa)
 );
 
-CREATE TABLE datacenter (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fk_empresa INT,
-    nome_datacenter VARCHAR(80) NOT NULL,
-    cep VARCHAR(9) NOT NULL,
-    complemento VARCHAR(100) NOT NULL,
-    numero VARCHAR(10) NOT NULL,
-    FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table cliente (
+id_cliente int primary key auto_increment,
+fk_empresa int,
+nome varchar(80),
+descricao varchar(130),
+telefone varchar(20),
+cnpj varchar(18),
+constraint fk_cliente_empresa foreign key(fk_empresa) references empresa(id_empresa)
 );
 
-CREATE TABLE servidor (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	fk_datacenter INT NOT NULL,
-    identificacao VARCHAR(80) UNIQUE NOT NULL,
-    rack INT NOT NULL,
-    FOREIGN KEY (fk_datacenter) references datacenter(id),
-    FOREIGN KEY (rack) references servidor(id)
-);
-    
-CREATE TABLE servidor_usuario (
-    fk_servidor INT NOT NULL,
-    fk_usuario INT NOT NULL,
-    FOREIGN KEY (fk_servidor) REFERENCES servidor(id),
-    FOREIGN KEY (fk_usuario) REFERENCES usuario(id),
-    PRIMARY KEY (fk_servidor, fk_usuario)
+create table zona (
+id_zona int primary key auto_increment,
+nome varchar(45)
 );
 
-CREATE TABLE menu_processo (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome_usuario_processo VARCHAR(45) NOT NULL,
-    unidade_de_medida VARCHAR(45) NOT NULL,
-    maximo DECIMAL(10,2) NOT NULL,
-    inicio DATETIME NOT NULL,
-    fim DATETIME NOT NULL,
-    ativo TINYINT NOT NULL
+create table modelo (
+id_modelo int primary key auto_increment,
+fk_cliente int,
+fk_zona int,
+nome varchar(80),
+limite_cpu int,
+limite_ram int,
+limite_disco int,
+tempo varchar(70),
+descricao varchar(200),
+ip varchar(15),
+hostname varchar(40),
+constraint fk_modelo_cliente foreign key(fk_cliente) references cliente(id_cliente),
+constraint fk_modelo_zona foreign key(fk_zona) references zona(id_zona)
 );
 
-CREATE TABLE componentes (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome_componente VARCHAR(40) NOT NULL,
-    fk_servidor INT NOT NULL,
-    fk_menu_processo INT NOT NULL,
-    FOREIGN KEY (fk_servidor) REFERENCES servidor(id),
-    FOREIGN KEY (fk_menu_processo) REFERENCES menu_processo(id)
+create table usuario_por_zona (
+fk_usuario int,
+fk_zona int,
+
+primary key(fk_usuario, fk_zona),
+constraint fk_usuario_por_zona foreign key(fk_usuario) references usuario(id_usuario),
+constraint fk_zona_contem_usuario foreign key(fk_zona) references zona(id_zona)
 );
 
-CREATE TABLE alerta (
-	fk_menu_processo INT NOT NULL PRIMARY KEY,
-    data_e_hora DATETIME NOT NULL,
-    valor VARCHAR(45) NOT NULL
+create table processo (
+id_processo int auto_increment,
+fk_modelo int,
+nome varchar(70),
+data_hora_inicio datetime,
+data_hora_fim datetime,
+status_processo enum("neutro","ativo","inativo"),
+matar_processo tinyint,
+automatico tinyint,
+
+primary key(id_processo, fk_modelo),
+constraint fk_processo_modelo foreign key(fk_modelo) references modelo(id_modelo)
 );
