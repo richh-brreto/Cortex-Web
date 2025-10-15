@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil | Cortex</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../base/navbar.css">
+
+</head>
+
+<body>
+
+    <nav class="barra-lateral">
+        <a class="item-logo">
+            <img src="./assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="./assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="./assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="./assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="./assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="./assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="./assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario" id="user-area">
+            <img src="./assets/icon/teste-perfil.webp" alt="Avatar Usuário" class="avatar-usuario" id="avatar-user">
+            <span class="texto-usuario" id="texto-usuario">Usuário</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" id="logout-link" style="cursor:pointer;">
+            <img src="./assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+
+    <main class="conteudo-principal">
+        <section class="perfil-container">
+            <h1 class="titulo-pagina">Meu Perfil</h1>
+
+            <div class="perfil-conteudo">
+                <div class="perfil-foto">
+                    <img src="./assets/icon/teste-perfil.webp" alt="Foto do Usuário">
+                </div>
+
+                <div class="perfil-info">
+                    <p><strong>Nome:</strong> XXXXXXXXX</p>
+                    <p><strong>Cargo:</strong> XXXXXXXXX</p>
+                    <p><strong>CPF:</strong> XXXXXXXXX</p>
+                    <p><strong>Telefone:</strong> XXXXXXXXX</p>
+                    <p><strong>Tipo de usuário:</strong> XXXXXXXXX</p>
+                    <p><strong>Email:</strong> XXXXXXXXX</p>
+
+                    <div class="campo-senha">
+                        <p><strong>Senha:</strong> •••••••••</p>
+                        <button class="mostrar-senha" title="Mostrar senha">
+                            <img src="./assets/icon/eye-password.svg" alt="Mostrar senha" class="mostrar-senha-img" />
+                        </button>
+                    </div>
+
+
+                    <button class="button-cadastro-secondary botao-mudar-senha">Mudar Senha</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal-senha" class="modal"
+        style="display:none; position:fixed; inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:20px;border-radius:8px;max-width:420px;width:100%;">
+            <h3>Mudar senha</h3>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+                <input id="senha-atual" type="password" placeholder="Senha atual" />
+                <input id="senha-nova" type="password" placeholder="Nova senha" />
+                <input id="senha-nova-confirm" type="password" placeholder="Confirmar nova senha" />
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+                <button id="btn-cancel-senha">Cancelar</button>
+                <button id="btn-salvar-senha">Salvar</button>
+            </div>
+            <div id="mensagem-senha" style="margin-top:8px;color:red;display:none;"></div>
+        </div>
+    </div>
+
+</body>
+<script src="../js/perfil.js"></script>
+
+</html>

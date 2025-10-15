@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <link rel="stylesheet" href="../base/navbar.css">
+  <link defer rel="stylesheet" href="../css/dash_tecnico.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+  body {
+    overflow: hidden;
+  }
+
+  
+
+  .carrossel-wrapper {
+    width: 100%;
+    height: 120px;
+   
+
+  }
+
+  #containerAlertas {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+
+    align-items: center;
+    scroll-behavior: smooth;
+    padding-bottom: 5px;
+    width: 95%;
+   background-color: #ffffff45;
+
+
+
+  }
+
+
+  .alerta {
+    width: 13%;
+    height: 110%;
+    background: #fff;
+    border-left: 10px solid rgb(149, 4, 4);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+    font-weight: bold;
+    cursor: grab;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+
+  #containerAlertas::-webkit-scrollbar {
+    height: 9px;
+    
+    
+  }
+
+  #containerAlertas::-webkit-scrollbar-thumb {
+    background-color: #006E66;
+    border-radius: 4px;
+
+  }
+</style>
+
+<body>
+  <nav class="barra-lateral">
+
+    <a class="item-logo">
+      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+      <span class="texto-logo">Cortex</span>
+    </a>
+
+    <a class="item-navegacao" href="./dash_tecnico-tecnico.html">
+      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+      <span class="texto" id="texto-dash">Dashboard Alerta</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-navegacao" href="./gerenciamento_de_cliente-tecnico.html">
+      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+      <span class="texto">Clientes</span>
+    </a>
+
+    <a class="item-navegacao" href="./modelosGerenciamento-tecnico.html">
+      <img src="../assets/icon/modelo.png" id="modelo" alt="">
+       <span class="texto">Modelos</span>
+    </a>
+
+
+    <div class="divisor"></div>
+
+
+
+    <a class="item-usuario" href="./perfil-tecnico.html">
+      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+      <span class="texto-usuario">José</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-notificacao">
+      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+      <span class="texto-notificacao" id="sair">Sair</span>
+    </a>
+  </nav>
+  <div id="geral">
+
+    <div class="container-select">
+    <label class="select-label" for="select-zona"></label>
+    <select class="select-cortex" id="select-zona">
+        <option value="">Zona de disponibilidade...</option>
+        <option value="sp">1</option>
+        </select>
+    
+</div>
+    <div class="carrossel-wrapper" style="width:100%; height:120px;">
+      <div id="containerAlertas" class="alertas-container">
+        
+      </div>
+    </div>
+    <div id="geral2">
+      <div id="esquerda">
+        <div class="kpis">
+         <div class="kpi-card">
+        <span class="kpi-value">19h</span>
+        <span class="kpi-title">Pico</span>
+    </div>
+
+    <div class="kpi-card">
+        <span class="kpi-value">99.8%</span>
+        <span class="kpi-title">Uptime</span>
+    </div>
+        </div>
+
+        <div id="graficos">
+          <div class="grafico-container">
+    <canvas id="graficoAlertasPorDia"></canvas>
+</div>
+        </div>
+        <div class="kpis">
+          <div class="kpi-card">
+        <span class="kpi-value">45</span>
+        <span class="kpi-title">Ativos</span>
+    </div>
+
+    <div class="kpi-card">
+        <span class="kpi-value">18</span>
+        <span class="kpi-title">Média</span>
+    </div>
+
+   
+        </div>
+      </div>
+      <div class="tabela-historico-container">
+        <h2>Histórico de Alertas</h2>
+        <div class="tabela-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Prioridade</th>
+                <th>Data/Hora</th>
+                <th>Componente</th>
+                <th>Nome do Modelo</th>
+                <th>Descrição</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-historico-corpo">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+  </div>
+
+
+</body>
+
+<script>
+    
+    window.onload = function() {
+        var idUsuarioLogado = sessionStorage.getItem('ID_USUARIO');
+
+        if (idUsuarioLogado) {
+            carregarZonasDoTecnico(idUsuarioLogado);
+        } else {
+            alert("Sessão expirada ou usuário não logado.");
+            window.location.href = "../login.html";
+        }
+
+        var selectZona = document.getElementById('select-zona');
+        selectZona.addEventListener('change', function() {
+            var idZonaSelecionada = this.value;
+            if (idZonaSelecionada) {
+                carregarDadosDaZona(idZonaSelecionada);
+            } else {
+                // Se nenhuma zona for selecionada, limpa tudo
+                popularTabelaAlertas([]);
+                popularCarrosselAlertas([]);
+            }
+        });
+
+        criarGraficoEstatico();
+    };
+
+  
+
+    function carregarZonasDoTecnico(idUsuario) {
+        fetch('/dashTecnico/tecnico/zonas/' + idUsuario)
+            .then(function(resposta) { /* ...código existente... */ return resposta.json(); })
+            .then(function(zonas) {
+                var select = document.getElementById('select-zona');
+                select.innerHTML = '<option value="">Selecione uma zona...</option>';
+                for (var i = 0; i < zonas.length; i++) {
+                    var zona = zonas[i];
+                    select.innerHTML += `<option value="${zona.id_zona}">${zona.nome}</option>`;
+                }
+            })
+            .catch(function(erro) { console.error("Erro ao carregar zonas:", erro); });
+    }
+
+    function carregarDadosDaZona(idZona) {
+        fetch('/dashTecnico/tecnico/alertas/' + idZona)
+            .then(function(resposta) {
+                if (resposta.ok) { return resposta.json(); } 
+                else { throw new Error('Falha ao buscar os alertas.'); }
+            })
+            .then(function(alertas) {
+                // CHAMA AS FUNÇÕES PARA POPULAR A TELA COM OS DADOS DA ZONA
+                popularTabelaAlertas(alertas);
+                popularCarrosselAlertas(alertas); 
+            })
+            .catch(function(erro) {
+                console.error("Erro ao carregar dados da zona:", erro);
+            });
+    }
+
+
+    function popularCarrosselAlertas(alertas) {
+        var containerAlertas = document.getElementById("containerAlertas");
+        containerAlertas.innerHTML = '';
+
+        // Se não houver alertas, não faz nada
+        if (alertas.length === 0) {
+            return;
+        }
+        
+        // Usando um laço FOR tradicional
+        for (var i = 0; i < alertas.length; i++) {
+            var alerta = alertas[i];
+            
+            var div = document.createElement("div");
+            div.classList.add("alerta");
+            
+          
+            div.classList.add(alerta.tipo.toLowerCase());
+
+            // Define o texto do card (ex: "Crítico CPU")
+            div.textContent = alerta.tipo + " " + alerta.componente;
+
+            containerAlertas.appendChild(div);
+        }
+        
+    }
+
+  
+    function popularTabelaAlertas(alertas) {
+        var corpoTabela = document.getElementById('tabela-historico-corpo');
+        corpoTabela.innerHTML = '';
+        if (alertas.length === 0) {
+            corpoTabela.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhum alerta encontrado para esta zona.</td></tr>`;
+            return;
+        }
+        for (var i = 0; i < alertas.length; i++) {
+            var alerta = alertas[i];
+            var dataFormatada = new Date(alerta.data_hora).toLocaleString('pt-BR');
+            corpoTabela.innerHTML += `
+                <tr>
+                    <td>${alerta.tipo}</td>
+                    <td>${dataFormatada}</td>
+                    <td>${alerta.componente}</td>
+                    <td>${alerta.nome_modelo}</td>
+                    <td>${alerta.descricao}</td>
+                    <td>${alerta.status}</td>
+                </tr>
+            `;
+        }
+    }
+
+    // Função para criar o gráfico com dados de exemplo
+    function criarGraficoEstatico() {
+        var ctx = document.getElementById('graficoAlertasPorDia').getContext('2d');
+        var labels = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+        var dadosDoBanco = {
+            label: 'Número de Alertas',
+            data: [12, 19, 8, 15, 10, 25, 17],
+            borderColor: '#2F8A7D',
+            backgroundColor: 'rgba(47, 138, 125, 0.1)',
+            fill: true,
+            borderWidth: 2,
+            tension: 0.3,
+            pointBackgroundColor: '#2F8A7D',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+        };
+
+        var meuGrafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [dadosDoBanco]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Alertas na Última Semana',
+                        font: { size: 16 },
+                        color: '#343A40',
+                        align: 'start',
+                        padding: { bottom: 20 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#E9ECEF', borderDash: [5, 5] },
+                        ticks: { color: '#6C757D' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6C757D' }
+                    }
+                }
+            }
+        });
+    }
+</script>
+</html>

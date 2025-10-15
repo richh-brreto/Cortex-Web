@@ -147,10 +147,14 @@
             if(usuario.ativo !="1"){
                location.href = './inativo.html';
             }else{
-              if(usuario.cargo=="2"){
-               location.href = './dashboard/dash_tecnico.html';
-            }else if(usuario.cargo=="1"){
-              location.href = './ativacaocliente.html';
+              if(usuario.fk_cargo=="2"){
+               location.href = './tecnico-supervisor/dash_tecnico-supervisor.html';
+            }else if(usuario.fk_cargo=="3"){
+                location.href = './tecnico/dash_tecnico-tecnico.html';
+            }else if(usuario.fk_cargo=="1"){
+              location.href = './analista/dashboard_analista-analista.html';
+            }else if(usuario.fk_cargo=="4"){
+              location.href = './suporte-cortex/ativacaoCliente.html'
             }
             }
             

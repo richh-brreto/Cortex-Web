@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - Cortex</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_cliente.css">
+</head>
+<body>
+ <nav class="barra-lateral">
+
+    <a class="item-logo">
+      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+      <span class="texto-logo">Cortex</span>
+    </a>
+
+    <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
+      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+      <span class="texto" id="texto-dash">Dashboard Alerta</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
+      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+      <span class="texto">Clientes</span>
+    </a>
+
+    <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
+      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+      <span class="texto">Funcionários</span>
+    </a>
+
+    <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
+      <img src="../assets/icon/modelo.png" id="modelo" alt="">
+       <span class="texto">Modelos</span>
+    </a>
+
+        <a class="item-notificacao" href="./zona-supervisor.html">
+      <img src="../assets/icon/sino.png" id="sino" alt="">
+      <span class="texto-notificacao" id="notificacoes">Zonas</span>
+    </a>
+
+    <div class="divisor"></div>
+
+
+
+    <a class="item-usuario" href="./perfil-supervisor.html">
+      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+      <span class="texto-usuario">José</span>
+    </a>
+
+    <div class="divisor"></div>
+
+    <a class="item-notificacao">
+      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+      <span class="texto-notificacao" id="sair">Sair</span>
+    </a>
+  </nav>
+
+
+    <main class="conteudo-principal">
+        <div class="container-clientes">
+            <div class="header-clientes">
+                <h1>Clientes</h1>
+            </div>
+
+            <div class="barra-acoes">
+                <div class="area-pesquisa-filtro">
+                    <div class="pesquisa-cortex">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="pesquisar-input" placeholder="Pesquisar...">
+                    </div>
+                    <div class="filtro-coluna">
+                        <label for="filtro-select">Filtrar por:</label>
+                            <select id="filtro-select">
+                                <option value="todos" selected>Todos os campos</option>
+                                <option value="id">ID</option>
+                                <option value="nome">Nome</option>
+                                <option value="descricao">Descrição</option>
+                                <option value="cnpj">CNPJ</option>
+                                <option value="telefone">Telefone</option>
+                                <option value="qtd_modelos">Qtd. modelos</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="acoes-container">
+                    <button id="btn-adicionar" class="btn btn-primario">Adicionar <b>+</b></button>
+                </div>
+            </div>
+
+            <section class="container-tabela">
+                <div class="envoltorio-tabela">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th>Qtd. modelos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-clientes-corpo">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabela-rodape">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    
+    <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+        <div class="painel-formulario">
+            <div class="cabecalho-formulario">
+                <h2 id="modal-title">Adicionar Cliente</h2>
+                <button class="btn-fechar" id="btn-fechar-modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="corpo-formulario">
+                <form id="form-cliente">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="campo-form">
+                            <label for="nome-cliente">Nome do Cliente</label>
+                            <input type="text" id="nome-cliente" placeholder="Digite o nome do cliente..." required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="cnpj-cliente">CNPJ</label>
+                            <input type="text" id="cnpj-cliente" placeholder="00.000.000/0000-00" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="telefone-cliente">Telefone</label>
+                            <input type="tel" id="telefone-cliente" placeholder="(00) 00000-0000" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="qtd-modelos">Quantidade de Modelos</label>
+                            <input type="number" id="qtd-modelos" placeholder="0" min="0">
+                        </div>
+                    </div>
+
+                    <div class="campo-form" style="margin-top: 1.5rem;">
+                        <label for="descricao-cliente">Descrição</label>
+                        <textarea id="descricao-cliente" placeholder="Digite uma descrição do cliente..." style="min-height: 80px;"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="rodape-formulario">
+                <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button id="btn-salvar" type="submit" form="form-cliente" class="btn btn-primario">Salvar Cliente</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/gerenciamento_de_cliente.js" defer></script>
+</html>
