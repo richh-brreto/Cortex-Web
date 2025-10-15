@@ -60,25 +60,25 @@
 
         <a class="item-notificacao">
             <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair"">Sair</span>
+            <span class="texto-notificacao" id="sair">Sair</span>
         </a>
     </nav>
 
      <!-- Inicio da tela-->
     <div class="tela">
-        <div class="titulo-topo-tela">
-            <h2>NOME DO CLIENTE</h2>
+        <div class="titulo-topo-tela" id="titulo_cliente">
+            <!-- <h2>NOME DO CLIENTE</h2> -->
         </div>
         <div class="dash">
             <div class="esquerdo">
                 <div class="container-kpi">
-                    <div class="kpi">
-                    <h4>Qtd. Modelos</h4>
-                    <h4>XXX</h4>
+                    <div class="kpi" id="kpi">
+                  <!--   <h4>Qtd. Modelos</h4>
+                    <h4>XXX</h4> -->
                 </div>
-                 <div class="kpi">
-                    <h4>Distribuição por zona</h4>
-                    <h4>XXX</h4>
+                 <div class="kpi" id="kpi2">
+                    <!-- <h4>Distribuição por zona</h4>
+                    <h4>XXX</h4> -->
                 </div>
                 </div>
                 
@@ -95,22 +95,22 @@
                 </div>
 
                 <div class="container_infos">
-                    <div class="container_descricao">
-                        <h5>Descrição:</h5>
-                        <h6>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h5>
+                    <div class="container_descricao" id="divDescricao">
+                      <!--   <h5>Descrição:</h5>
+                        <h6>XXXX</h6> -->
                     </div>
                 <div class="container_outras_infos">
-                    <div class="info-linha">
-                        <h5>Telefone:</h5>
-                        <h6>XXXXXXXXXXXXXXXXXXXXXXX</h6>
+                    <div class="info-linha" id="telefone">
+                       <!--  <h5>Telefone:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXXX</h6> -->
                     </div>
-                    <div class="info-linha">
-                        <h5>Email:</h5>
-                        <h6>XXXXXXXXXXXXXXXXXXXXXX</h6>
+                    <div class="info-linha" id="email">
+                        <!-- <h5>Email:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXX</h6> -->
                     </div>
-                    <div class="info-linha">
-                        <h5>Cnpj:</h5>
-                        <h6>XXXXXXXXXX</h6>
+                    <div class="info-linha" id="cnpj">
+                        <!-- <h5>Cnpj:</h5>
+                        <h6>XXXXXXXXXX</h6> -->
                     </div>
                     
                 </div>
@@ -125,7 +125,8 @@
             <div class="topo-hist">
                 <div class="titulo-hist">
                     <h3>Modelos</h3>
-                    <input class="pesquisa" type="search">
+                    <input class="pesquisa" type="search" id="pesquisar">
+                    <div id="sugestao"></div>
                     <p>Zona:</p>
                     <input type="search">
   
@@ -136,8 +137,9 @@
                 </div>
                 
             </div>
-            <div class="cards-hist">
-               <div class="linha-hist">
+            <div class="cards-hist" id="modelo-hist">
+               
+               <!-- <div class="linha-hist">
                  <div class="card-modelo">
                     <div class="canto">
                 
@@ -205,420 +207,13 @@
                         </div>
                     </div>
                 </div>
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-               </div>
-               <div class="linha-hist">
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-               </div>
-               <div class="linha-hist">
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-               </div>
-               <div class="linha-hist">
-                 <div class="card-modelo">
-                    <div class="canto">
-                
-                            <h2>NOME DO MODELO</h2>
-                        <div class="descricao_card">
-                            <h4>Descrição</h4>
-                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                        </div>
-                            
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                            <h4>Parâmetros:</h4>
-                        </div>
-                         <div class="linha_card">
-                            <h5>Tempo:</h5>
-                            <h5>XXX</h5>
-                        </div>
-                      <div class="linha_card">
-                            <h5>CPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                         <div class="linha_card">
-                            <h5>RAM:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>Disco:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h5>GPU:</h5>
-                            <h5>XX%</h5>
-                        </div>
-                     
-                    </div>
-                    <div class="colum">
-                        <div class="linha_card">
-                               <h4>Zona</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Cliente:</h4>
-                        <h5>XXXXXXXXX</h5>
-                        </div>
-                        <div class="linha_card">
-                                    <h4>IP:</h4>
-                        <h5>XX.XXXX.XX.XXX</h5>
-                        </div>
-                        <div class="linha_card">
-                            <h4>Hostname:</h4>
-                        <h5>XXXXXXXXXXXX</h5>
-                        </div>
-
-                     
-                        
-                
-                        
-                        <div class="botoes-final">
-                            <button>A<img src="">
-                            </button>
-                            <button>A<img src="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-               </div>
+               </div> -->
 
             </div>
         </div>
     </div>
 </body>
+<script src="./js/info-cliente.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById("mychart")

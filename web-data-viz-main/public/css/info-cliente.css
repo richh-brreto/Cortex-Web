@@ -73,7 +73,10 @@ body{
     max-width: 50%;
     height: 80%;
     margin-top: 2%;
+    margin-right: 0;
+    margin-left: auto;
 }
+
 .topo-infos{
   display: flex;
   flex-direction: column;
@@ -237,7 +240,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 93%;
+    max-width: 90%;
     min-height: 100%;
 }
 
@@ -269,7 +272,7 @@ body{
   flex-direction: column;
   gap: 12px;
   padding: 8px;
-  width: 108%;
+  width: 100%;
   background-color: #f7f7f7;
   border-radius: 8px;
   max-height: 85%;
@@ -348,4 +351,14 @@ body{
 .infos h5 {
   margin: 0;
   font-weight: 500;
+}
+
+#sugestao {
+    border: 1px solid #cccccc00;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.455);
+
+    z-index: 100;
 }
