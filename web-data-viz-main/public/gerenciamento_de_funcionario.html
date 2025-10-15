@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes - Cortex</title>
+    <title>Funcionários - Cortex</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="base/navbar.css">
-    <link rel="stylesheet" href="css/gerenciamento_cliente.css">
+    <link rel="stylesheet" href="css/gerenciamento_funcionario.css">
 </head>
 <body>
 
@@ -60,33 +60,34 @@
 
         <a class="item-notificacao">
             <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair"">Sair</span>
+            <span class="texto-notificacao" id="sair">Sair</span>
         </a>
     </div>
 
 
     <main class="conteudo-principal">
-        <div class="container-clientes">
-            <div class="header-clientes">
-                <h1>Clientes</h1>
+        <div class="container-funcionarios">
+            <div class="header-funcionarios">
+                <h1>Funcionários</h1>
             </div>
 
             <div class="barra-acoes">
                 <div class="area-pesquisa-filtro">
                     <div class="pesquisa-cortex">
                         <span class="material-icons">search</span>
-                        <input type="text" id="pesquisar-input" placeholder="Pesquisar...">
+                        <input type="text" id="pesquisar-input" placeholder="Pesquisar funcionário...">
                     </div>
                     <div class="filtro-coluna">
                         <label for="filtro-select">Filtrar por:</label>
-                            <select id="filtro-select">
-                                <option value="todos" selected>Todos os campos</option>
-                                <option value="id">ID</option>
-                                <option value="nome">Nome</option>
-                                <option value="descricao">Descrição</option>
-                                <option value="cnpj">CNPJ</option>
-                                <option value="telefone">Telefone</option>
-                                <option value="qtd_modelos">Qtd. modelos</option>
+                        <select id="filtro-select">
+                            <option value="todos" selected>Todos os campos</option>
+                            <option value="id">ID</option>
+                            <option value="nome">Nome</option>
+                            <option value="email">E-mail</option>
+                            <option value="cargo">Cargo</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="telefone">Telefone</option>
+                            <option value="status">Status</option>
                         </select>
                     </div>
                 </div>
@@ -101,16 +102,17 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>ID</th>
                                 <th>Nome</th>
-                                <th>Descrição</th>
-                                <th>CNPJ</th>
+                                <th>E-mail</th>
+                                <th>Cargo</th>
+                                <th>Departamento</th>
                                 <th>Telefone</th>
-                                <th>Qtd. modelos</th>
+                                <th>Status</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="tabela-clientes-corpo">
+                        <tbody id="tabela-funcionarios-corpo">
                         </tbody>
                     </table>
                 </div>
@@ -124,49 +126,70 @@
     <div id="sobreposicao-formulario" class="sobreposicao-formulario">
         <div class="painel-formulario">
             <div class="cabecalho-formulario">
-                <h2 id="modal-title">Adicionar Cliente</h2>
+                <h2 id="modal-title">Adicionar Funcionário</h2>
                 <button class="btn-fechar" id="btn-fechar-modal">
                     <span class="material-icons">close</span>
                 </button>
             </div>
             
             <div class="corpo-formulario">
-                <form id="form-cliente">
+                <form id="form-funcionario">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                         <div class="campo-form">
-                            <label for="nome-cliente">Nome do Cliente</label>
-                            <input type="text" id="nome-cliente" placeholder="Digite o nome do cliente..." required>
+                            <label for="nome-funcionario">Nome Completo</label>
+                            <input type="text" id="nome-funcionario" placeholder="Digite o nome completo..." required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="cnpj-cliente">CNPJ</label>
-                            <input type="text" id="cnpj-cliente" placeholder="00.000.000/0000-00" required>
+                            <label for="email-funcionario">E-mail</label>
+                            <input type="email" id="email-funcionario" placeholder="exemplo@cortex.com" required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="telefone-cliente">Telefone</label>
-                            <input type="tel" id="telefone-cliente" placeholder="(00) 00000-0000" required>
+                            <label for="cargo-funcionario">Cargo</label>
+                            <input type="text" id="cargo-funcionario" placeholder="Digite o cargo..." required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="qtd-modelos">Quantidade de Modelos</label>
-                            <input type="number" id="qtd-modelos" placeholder="0" min="0">
+                            <label for="departamento-funcionario">Departamento</label>
+                            <select id="departamento-funcionario" required>
+                                <option value="">Selecione...</option>
+                                <option value="TI">TI</option>
+                                <option value="Gestão">Gestão</option>
+                                <option value="Design">Design</option>
+                                <option value="RH">Recursos Humanos</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Operacional">Operacional</option>
+                            </select>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="telefone-funcionario">Telefone</label>
+                            <input type="tel" id="telefone-funcionario" placeholder="(00) 00000-0000" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="status-funcionario">Status</label>
+                            <select id="status-funcionario" required>
+                                <option value="ativo" selected>Ativo</option>
+                                <option value="inativo">Inativo</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="campo-form" style="margin-top: 1.5rem;">
-                        <label for="descricao-cliente">Descrição</label>
-                        <textarea id="descricao-cliente" placeholder="Digite uma descrição do cliente..." style="min-height: 80px;"></textarea>
+                        <label for="data-admissao">Data de Admissão</label>
+                        <input type="date" id="data-admissao" required>
                     </div>
                 </form>
             </div>
 
             <div class="rodape-formulario">
                 <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
-                <button id="btn-salvar" type="submit" form="form-cliente" class="btn btn-primario">Salvar Cliente</button>
+                <button id="btn-salvar" type="submit" form="form-funcionario" class="btn btn-primario">Salvar Funcionário</button>
             </div>
         </div>
     </div>
 </body>
-<script src="js/gerenciamento_de_cliente.js" defer></script>
+<script src="js/gerenciamento_de_funcionario.js"></script>
 </html>
