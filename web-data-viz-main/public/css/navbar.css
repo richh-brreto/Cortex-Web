@@ -35,7 +35,7 @@
             flex-direction: column;
             align-items: flex-start;
             padding: 20px 0 20px 10px;
-            position: relative;
+            position: fixed;
             z-index: 100;
             transition: all 0.3s ease;
             overflow: hidden;
