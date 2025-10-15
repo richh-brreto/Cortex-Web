@@ -19,31 +19,31 @@
 
 <body>
 
-    <div class="header">
-        <div class="container">
-            <h1 class="titulo">
-                <a href="index.html" class="logo-link">
-                    <img src="./assets/imgs/Cortex - somente logo fundo branco.png" alt="logo">
-                    Cortex</a>
-            </h1>
-            <ul class="navbar">
-                <li>
-                    <a href="index.html">Sobre nós</a>
-                </li>
-                <li>
-                    <a href="simulador.html">Simulador</a>
-                </li>
-            </ul>
-            <ul class="navbar">
-                <li>
-                    <button class="btn-navbar" onclick="location.href='#';">Login</button>
-                </li>
-                <li>
-                    <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
-                </li>
-            </ul>
-        </div>
+  <div class="header">
+    <div class="container">
+      <h1 class="titulo">
+        <a href="index.html" class="logo-link">
+          <img src="./assets/imgs/Cortex - somente logo fundo branco.png" alt="logo">
+          Cortex</a>
+      </h1>
+      <ul class="navbar">
+        <li>
+          <a href="index.html">Sobre nós</a>
+        </li>
+        <li>
+          <a href="simulador.html">Simulador</a>
+        </li>
+      </ul>
+      <ul class="navbar">
+        <li>
+          <button class="btn-navbar" onclick="location.href='#';">Login</button>
+        </li>
+        <li>
+          <button class="btn-navbar" onclick="location.href='cadastro.html';">Cadastro</button>
+        </li>
+      </ul>
     </div>
+  </div>
 
 
     <div class="cadastro">
@@ -77,12 +77,12 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="container">
-            <h4>Developed by Cortex &copy; 2025</h4>
-            <span class="version">v1.0</span>
-        </div>
+  <div class="footer">
+    <div class="container">
+      <h4>Developed by Cortex &copy; 2025</h4>
+      <span class="version">v1.0</span>
     </div>
+  </div>
 
 
 </body>
@@ -126,19 +126,16 @@
             if (resposta.ok) {
                 console.log(resposta);
 
-                resposta.json().then(json => {
-                    const usuario = json[0]
-                    console.log(JSON.stringify(json));
-                    
-                    sessionStorage.EMAIL_USUARIO = usuario.email;
-                    sessionStorage.NOME_USUARIO = usuario.nome;
-                    sessionStorage.ID_USUARIO = usuario.id;
-                    sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
-                    
-                    // CORREÇÃO: Linha adicionada para salvar o ID da empresa
-                    sessionStorage.ID_EMPRESA = usuario.fk_empresa;
-
-                    console.log(sessionStorage)
+        resposta.json().then(json => {
+          const usuario = json[0]
+          console.log(JSON.stringify(json));
+          sessionStorage.EMAIL_USUARIO = usuario.email;
+          sessionStorage.NOME_USUARIO = usuario.nome;
+          sessionStorage.ID_USUARIO = usuario.id;
+          sessionStorage.CARGO_USUARIO = usuario.cargo;
+          sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
+          sessionStorage.ATIVADO_USUARIO=usuario.ativo;
+          console.log(sessionStorage)
 
                     Swal.fire({
                         icon: "success",
@@ -146,9 +143,19 @@
                         text: "Redirecionando..."
                     });
 
-                    setTimeout(function () {
-                        location.href = './gerenciamento_de_funcionario.html';
-                    }, 3000);
+          setTimeout(function () {
+            if(usuario.ativo !="1"){
+               location.href = './inativo.html';
+            }else{
+              if(usuario.cargo=="2"){
+               location.href = './dashboard/dash_tecnico.html';
+            }else if(usuario.cargo=="1"){
+              location.href = './ativacaocliente.html';
+            }
+            }
+            
+            
+          }, 3000);
 
                 });
 
@@ -165,14 +172,14 @@
                 });
             }
 
-        }).catch(function (erro) {
-            console.log(erro);
-            Swal.fire({
-                icon: "error",
-                title: "Erro no login",
-                text: "Algo ocorreu inesperadamente, volte mais tarde!!"
-            });
-        })
+    }).catch(function (erro) {
+      console.log(erro);
+      Swal.fire({
+        icon: "error",
+        title: "Erro no login",
+        text: "Algo ocorreu inesperadamente, volte mais tarde!!"
+      });
+    })
 
         return false;
     }

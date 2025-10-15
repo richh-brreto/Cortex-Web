@@ -2,7 +2,8 @@ var database = require("../database/config")
 
 function cadastrarUsuario(idEmpresa, nome, email, senha) {
     var instrucaoSql = `
-        INSERT INTO usuario (fk_empresa, nome, email, senha) VALUES ('${idEmpresa}','${nome}','${email}','${senha}');
+        INSERT INTO usuario (fk_empresa, nome, email, senha,ativo) VALUES ('${idEmpresa}','${nome}','${email}','${senha}','0');
+        
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -27,9 +28,8 @@ function buscarId(cnpj) {
 
 function login(email, senha) {
     var instrucaoSql = `
-        SELECT id_usuario, email, nome, administrador, fk_empresa 
-        FROM usuario
-        WHERE email = '${email}' AND senha = '${senha}';
+    select email,nome,id, cargo,fk_empresa,ativo from usuario
+    where email = '${email}' and senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
