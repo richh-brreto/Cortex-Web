@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-analista {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros-cabecalho {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+
+.filtros-gerais {
+    display: flex;
+
+}
+
+.indicadores-gerais {
+    width: 100%;
+    height: 16%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center ;
+}
+
+.indicador-card {
+    width: 16%;
+    height: 13vh;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 8px;
+
+    background-color: aqua;
+}
+
+.indicador-card h3{
+    text-align: center;
+}
+
+.graficos-gerais {
+    width: 100%;
+    height: 95%;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    gap: 40px;
+}
+
+.graficos-separacao {
+    width: 100%;
+    height: 45%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.graficos {
+    width: 45%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

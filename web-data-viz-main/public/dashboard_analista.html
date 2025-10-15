@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="base/navbar.css">
+    <link rel="stylesheet" href="css/dashboard-analista.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav class="barra-lateral">
+
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+
+    <div class="conteudo-principal dashboard-analista">
+        <!-- Filtros do Cabeçalho -->
+        <div class="filtros-cabecalho">
+            <h3>Filtros Gerais</h3>
+
+            <div class="filtros-gerais">
+                <div class="filtro-cliente">
+                    <label for="clientes">Cliente</label>
+                    <select name="clientes" id="clientes">
+                        <option value="#">Escolha o cliente</option>
+                        <option value="cortex">Cortex</option>
+                    </select>
+                </div>
+                <div class="filtro-zona-disponibilidade">
+                    <label for="zonas">Zona de Disponibilidade</label>
+                    <select name="zonas" id="zonas">
+                        <option value="#">Escolha a zona</option>
+                        <option value="us-east-1c">US-east-1c</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicadores -->
+        <div class="indicadores-gerais">
+            <div id="kpi-1" class="indicador-card">
+                <h3>Quantidade de Zonas</h3>
+                <span id="">2</span>
+            </div>
+            <div id="kpi-2" class="indicador-card">
+                <h3>Quantidade de modelos</h3>
+                <span id="">256</span>
+            </div>
+            <div id="kpi-3" class="indicador-card">
+                <h3>Média de modelos por cliente</h3>
+                <span id="">21</span>
+            </div>
+            <div id="kpi-4" class="indicador-card">
+                <h3>Quantidade de clientes</h3>
+                <span id="">17</span>
+            </div>
+            <div id="kpi-5" class="indicador-card">
+                <h3>Quantidade de Técnicos</h3>
+                <span id="">71</span>
+            </div>
+        </div>
+
+        <!-- Partição dos gráficos -->
+        <div class="graficos-gerais">
+            <div class="graficos-separacao">
+                <div class="graficos">
+                    <canvas id="usoMedioPorModelos"></canvas>
+                </div>
+                <div class="graficos">
+                    <canvas id="qtdAlertasModelo"></canvas>
+                </div>
+            </div>
+            <div class="graficos-separacao">
+                <div class="graficos">
+                    <canvas id="qtdMediaProcessosModelo"></canvas>
+                </div>
+                <div class="graficos">
+                    <canvas id="qtdModeloFuncionario"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+<script>
+    const ctxUsoMedioPorModelos = document.getElementById('usoMedioPorModelos');
+
+    // Dados e configurações do gráfico
+    const configUsoMedioPorModelos = {
+        type: 'bar',
+        data: {
+            labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
+
+
+            datasets: [
+
+                {
+                    label: 'CPU (%)',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                },
+
+                {
+                    label: 'RAM (%)',
+                    data: [65, 85, 70, 75, 95],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                },
+                {
+                    label: 'Disco (%)',
+                    data: [30, 45, 20, 35, 50],
+                    backgroundColor: 'rgba(255, 206, 86, 0.8)',
+                },
+                {
+                    label: 'GPU (%)',
+                    data: [55, 60, 50, 65, 70],
+                    backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Uso médio de componente  por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Uso (%)',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoUsoMedioPorModelos = new Chart(ctxUsoMedioPorModelos, configUsoMedioPorModelos);
+
+    const ctxQtdAlertasModelo = document.getElementById('qtdAlertasModelo');
+
+    // Dados e configurações do gráfico
+    const configQtdAlertasModelo = {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+
+
+            datasets: [
+
+                {
+                    label: 'Alertas',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Quantidade de alertas por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Quantidade',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoQtdAlertasModelo = new Chart(ctxQtdAlertasModelo, configQtdAlertasModelo);
+
+    const ctxQtdModeloFuncionario = document.getElementById('qtdModeloFuncionario');
+
+    // Dados e configurações do gráfico
+    const configQtdModeloFuncionario = {
+        type: 'bar',
+        data: {
+            labels: ['east-1a', 'east-1c', 'north-1b', 'south-1a', 'north-1c'],
+
+
+            datasets: [
+
+                {
+                    label: 'Modelos',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                },
+
+                {
+                    label: 'Funcionários',
+                    data: [65, 85, 70, 75, 95],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Quantidade de modelo e funcionários técnicos por zona',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+
+                    title: {
+                        display: true,
+                        text: 'Zonas',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Quantidade',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoQtdModeloFuncionario = new Chart(ctxQtdModeloFuncionario, configQtdModeloFuncionario);
+
+    const ctxQtdMediaProcessosModelo = document.getElementById('qtdMediaProcessosModelo');
+
+    // Dados e configurações do gráfico
+    const configQtdMediaProcessosModelo = {
+        type: 'bar',
+        data: {
+            labels: ['10:00', '11:00', '12:00', '13:00', '14:00'],
+
+
+            datasets: [
+
+                {
+                    label: 'Processos',
+                    data: [80, 75, 90, 85, 70],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Quantidade média de Processos por modelo',
+
+                    font: {
+                        size: 20,
+                        weight: 'bold'
+                    },
+                }
+            },
+            scales: {
+                x: {
+                    // Configuração para garantir que as barras fiquem agrupadas
+                    stacked: false,
+
+                    title: {
+                        display: true,
+                        text: 'Modelo',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Quantidade',
+
+                        font: {
+                            size: 18,
+                            weight: 'bold'
+                        },
+                    }
+                }
+            }
+        }
+    };
+
+    // Cria a nova instância do gráfico
+    const graficoQtdMediaProcessosModelo = new Chart(ctxQtdMediaProcessosModelo, configQtdMediaProcessosModelo);
+</script>
+
+</html>

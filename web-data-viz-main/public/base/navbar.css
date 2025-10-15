@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --branco: #EBF4F8;
+            --azul: #00B2B2;
+            --cinza: #E2E8F0;
+            --vermelho: #B74C4C;
+            --verde: #10b156;
+            --preto: #0A202D;
+            --azul-escuro: #006E66;
+            --cinza-escuro: #7a79799a;
+            --monserate: "Montserrat", sans-serif;
+            --lato: "Lato", sans-serif;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            background: var(--cinza);
+            height: 100vh;
+            display: flex;
+        }
+
+        .barra-lateral {
+            width: 70px;
+            background: var(--branco);
+            border-right: 1px solid var(--cinza);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px 0 20px 10px;
+            position: fixed;
+            z-index: 100;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .barra-lateral:hover {
+            width: 290px;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+            z-index: 200;
+        }
+
+        .barra-lateral:not(:hover) .item-com-submenu {
+            transition: all 0.3s ease;
+        }
+
+        .barra-lateral:not(:hover) .item-com-submenu.aberto .submenu {
+            max-height: 0;
+        }
+
+        .item-logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logotipo {
+            width: 30px;
+            height: 25px;   
+        }
+
+        .item-logo .texto-logo {
+            position: absolute;
+            font-family: var(--monserate);
+            left: 55px;
+            font-size: 30px;
+            color: var(--preto);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+        }
+
+        .barra-lateral:hover .item-logo .texto-logo {
+            opacity: 1;
+        }
+
+        .item-navegacao {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--preto);
+            position: relative;
+        }
+
+        .item-navegacao:hover {
+            background: var(--cinza);
+            color: var(--azul);
+        }
+
+        .item-navegacao .texto {
+            position: absolute;
+            left: 55px;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+        }
+
+        .barra-lateral:hover .item-navegacao .texto {
+            opacity: 1;
+        }
+
+        /* Estilos para item com submenu */
+        .item-com-submenu {
+            width: 100%;
+        }
+
+        .item-com-submenu .item-navegacao {
+            width: 50px;
+        }
+
+        .item-com-submenu .item-navegacao .texto {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seta-expansao {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+
+        .item-com-submenu.aberto .seta-expansao {
+            transform: rotate(180deg);
+        }
+
+        /* Submenu */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 50px;
+            opacity: 0;
+        }
+
+        .barra-lateral:hover .submenu {
+            opacity: 1;
+        }
+
+        .item-com-submenu.aberto .submenu {
+            max-height: 200px;
+        }
+
+        .submenu-item {
+            padding: 10px 15px;
+            color: var(--preto);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        .submenu-item:hover {
+            background: var(--cinza);
+            color: var(--azul);
+        }
+
+        .submenu-item.ativo {
+            background: var(--azul);
+            color: var(--branco);
+        }
+
+        .item-notificacao {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin-bottom: 5px;
+            margin-top: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--azul);
+            position: relative;
+        }
+
+        .item-notificacao .texto-notificacao {
+            position: absolute;
+            left: 55px;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--preto);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+            border-radius: 6px;
+        }
+
+        .barra-lateral:hover .item-notificacao .texto-notificacao {
+            opacity: 1;
+        }
+
+        .item-notificacao:hover .texto-notificacao {
+            border-color: var(--branco);
+        }
+
+        #notificacoes:hover{
+            color: var(--azul);
+        }
+
+        .item-usuario {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .avatar-usuario {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .item-usuario .texto-usuario {
+            position: absolute;
+            left: 55px;
+            font-size: 20px;
+            color: var(--preto);
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+        }
+
+        .barra-lateral:hover .item-usuario .texto-usuario {
+            opacity: 1;
+        }
+
+        .divisor {
+            width: calc(100% - 20px);
+            height: 1px;
+            background: var(--cinza);
+            margin: 20px 10px;
+        }
+
+        .conteudo-principal {
+            flex: 1;
+            background: var(--cinza);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            font-family: var(--monserate);
+            justify-content: center;
+        }
+
+        .placeholder-conteudo {
+            text-align: center;
+            color: var(--preto);
+        }
+
+        #sair:hover{
+            color: var(--vermelho);
+        }
+
+        #dash-zona{
+            width: 30px;
+            height: 30px;
+        }
+
+        #alerta{
+            width: 20px;
+            height: 20px;
+        }
+
+        #sino{
+            width: 25px;
+            height: 25px;
+        }
+
+        #gerenciamento{
+            width: 27px;
+            height: 27px;
+            margin-left: 5px;
+        }
+
+        #modelo{
+            width: 20px;
+            height: 20px;
+        }
+
+        #atribuicao{
+            width: 30px;
+            height: 30px;
+        }
+
+        #sair-imagem{
+            width: 20px;
+            height: 20px;
+        }
+
+        #texto-dash{
+            margin-bottom: 10px;
+        }
