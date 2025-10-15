@@ -22,7 +22,7 @@ var empresaDadosRouter = require("./src/routes/empresaDados");
 var modelosRouter = require("./src/routes/modelos");
 var adminRouter = require("./src/routes/admin");
 var dashTecnicoRouter = require("./src/routes/dashTecnico");
-
+var clienteRouter = require("./src/routes/info-cliente")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,6 +37,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuario", usuarioRouter);
 app.use("/info-modelo", infoModeloRouter)
+app.use("/info-cliente", clienteRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos</title>
+    <link rel="stylesheet" href="css/info-cliente.css">
+    <link rel="stylesheet" href="base/navbar.css">
+
+</head>
+<body>
+    <!-- NAV BAR -->
+        <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+
+     <!-- Inicio da tela-->
+    <div class="tela">
+        <div class="titulo-topo-tela" id="titulo_cliente">
+            <!-- <h2>NOME DO CLIENTE</h2> -->
+        </div>
+        <div class="dash">
+            <div class="esquerdo">
+                <div class="container-kpi">
+                    <div class="kpi" id="kpi">
+                  <!--   <h4>Qtd. Modelos</h4>
+                    <h4>XXX</h4> -->
+                </div>
+                 <div class="kpi" id="kpi2">
+                    <!-- <h4>Distribuição por zona</h4>
+                    <h4>XXX</h4> -->
+                </div>
+                </div>
+                
+                <div class="grafico">
+                    <h4>% de modelos em relação ao total</h4>
+                <canvas id="mychart"></canvas>
+                </div>
+            </div>
+            <div class="direito">
+            <div class="topo-infos">
+                <div class="titulo">
+                    <h3>Informações</h3>
+                    <button class="botao-editar"><img src="assets/icon/1159633.png"></button>
+                </div>
+
+                <div class="container_infos">
+                    <div class="container_descricao" id="divDescricao">
+                      <!--   <h5>Descrição:</h5>
+                        <h6>XXXX</h6> -->
+                    </div>
+                <div class="container_outras_infos">
+                    <div class="info-linha" id="telefone">
+                       <!--  <h5>Telefone:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXXX</h6> -->
+                    </div>
+                    <div class="info-linha" id="email">
+                        <!-- <h5>Email:</h5>
+                        <h6>XXXXXXXXXXXXXXXXXXXXXX</h6> -->
+                    </div>
+                    <div class="info-linha" id="cnpj">
+                        <!-- <h5>Cnpj:</h5>
+                        <h6>XXXXXXXXXX</h6> -->
+                    </div>
+                    
+                </div>
+                </div>
+                
+            </div>
+            </div>
+            
+        </div>
+            
+        <div class="historico">
+            <div class="topo-hist">
+                <div class="titulo-hist">
+                    <h3>Modelos</h3>
+                    <input class="pesquisa" type="search" id="pesquisar">
+                    <div id="sugestao"></div>
+                    <p>Zona:</p>
+                    <input type="search">
+  
+                </div>
+                <div class="qtd-hist">
+                    <p>Quantidade alertas:</p>
+                <p>260</p>
+                </div>
+                
+            </div>
+            <div class="cards-hist" id="modelo-hist">
+               
+               <!-- <div class="linha-hist">
+                 <div class="card-modelo">
+                    <div class="canto">
+                
+                            <h2>NOME DO MODELO</h2>
+                        <div class="descricao_card">
+                            <h4>Descrição</h4>
+                            <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                        </div>
+                            
+                    </div>
+                    <div class="colum">
+                        <div class="linha_card">
+                            <h4>Parâmetros:</h4>
+                        </div>
+                         <div class="linha_card">
+                            <h5>Tempo:</h5>
+                            <h5>XXX</h5>
+                        </div>
+                      <div class="linha_card">
+                            <h5>CPU:</h5>
+                            <h5>XX%</h5>
+                        </div>
+                         <div class="linha_card">
+                            <h5>RAM:</h5>
+                            <h5>XX%</h5>
+                        </div>
+                        <div class="linha_card">
+                            <h5>Disco:</h5>
+                            <h5>XX%</h5>
+                        </div>
+                        <div class="linha_card">
+                            <h5>GPU:</h5>
+                            <h5>XX%</h5>
+                        </div>
+                     
+                    </div>
+                    <div class="colum">
+                        <div class="linha_card">
+                               <h4>Zona</h4>
+                        <h5>XXXXXXXXX</h5>
+                        </div>
+                        <div class="linha_card">
+                            <h4>Cliente:</h4>
+                        <h5>XXXXXXXXX</h5>
+                        </div>
+                        <div class="linha_card">
+                                    <h4>IP:</h4>
+                        <h5>XX.XXXX.XX.XXX</h5>
+                        </div>
+                        <div class="linha_card">
+                            <h4>Hostname:</h4>
+                        <h5>XXXXXXXXXXXX</h5>
+                        </div>
+
+                     
+                        
+                
+                        
+                        <div class="botoes-final">
+                            <button>A<img src="">
+                            </button>
+                            <button>A<img src="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               </div> -->
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/info-cliente.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById("mychart")
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Modelos Totais', 'Modelos do Cliente'],
+        datasets: [{
+            label: 'Modelos',
+            data: [60, 40],  // 60% e 40%
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',  
+                'rgba(255, 99, 132, 0.7)'   
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        layout: {
+            padding: {
+                top: 0
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'right',
+                 labels: {
+                   boxWidth: 5, 
+                boxHeight: 5,  
+                padding: 10, 
+            }
+            },
+           
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        let value = context.parsed;
+                        return label + ': ' + value + '%';
+                    }
+                }
+            }
+        }
+    }
+});
+
+</script>
+</html>
