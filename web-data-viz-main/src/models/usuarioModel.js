@@ -34,7 +34,7 @@ function buscarId(cnpj) {
 function login(email, senha) {
 
     var instrucaoSql = `
-    select email,nome,id, administrador,fk_empresa,ativo from usuario
+    select email,nome,id, cargo,fk_empresa,ativo from usuario
     where email = '${email}' and senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

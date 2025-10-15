@@ -20,6 +20,7 @@ var usuarioRouter = require("./src/routes/usuario");
 var empresaDadosRouter = require("./src/routes/empresaDados");
 var modelosRouter = require("./src/routes/modelos");
 var adminRouter = require("./src/routes/admin");
+var dashTecnicoRouter = require("./src/routes/dashTecnico");
 
 
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/empresaDados", empresaDadosRouter);
 app.use("/modelos", modelosRouter);
 app.use("/admin", adminRouter);
+app.use("/dashTecnico", dashTecnicoRouter);
 
 app.use(cors());
 

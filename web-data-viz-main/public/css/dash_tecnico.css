@@ -13,6 +13,18 @@
     
 }
 
+.alerta.critico {
+    border-left: 10px solid #DC3545; 
+}
+
+.alerta.risco {
+    border-left: 10px solid #FFC107; 
+}
+
+.alerta.aviso {
+    border-left: 10px solid #17A2B8; 
+}
+
 #geral{
     
     width: 100%;
@@ -21,6 +33,7 @@
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    margin-left: 100px;
     
 }
 
@@ -82,14 +95,14 @@
 }
 
 input[type="checkbox"] {
-  appearance: none; /* Remove a aparência padrão */
-  width: 20px; /* Define a largura da caixa */
-  height: 20px; /* Define a altura da caixa */
-  border: 2px solid #006E66; /* Define a cor da borda */
-  background-color: #fff; /* Define a cor de fundo */
-  cursor: pointer; /* Mostra um cursor que indica que é clicável */
-  position: relative; /* Necessário para o posicionamento dos pseudo-elementos */
-  margin-right: 5px; /* Adiciona um espaço entre a checkbox e o texto */
+  appearance: none; 
+  width: 20px; 
+  height: 20px; 
+  border: 2px solid #006E66; 
+  background-color: #fff; 
+  cursor: pointer; 
+  position: relative; 
+  margin-right: 5px; 
 }
 
  input[type="checkbox"]:checked {
@@ -112,88 +125,83 @@ input[type="checkbox"]:checked::after {
 
 
 
-    /* ========================================================= */
-    /* CÓDIGO DA TABELA DE HISTÓRICO (Componente Independente)  */
-    /* ========================================================= */
 
     .tabela-historico-container {
        
         background-color: #FFFFFF; 
         padding: 5px;
-        border-radius: 8px; /* Cantos levemente arredondados */
-        color: #343A40; /* Texto principal em cinza escuro */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
+        border-radius: 8px; 
+        color: #343A40; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
         display: flex;
         flex-direction: column;
         max-height: calc(100vh - 420px);
-        min-height: 250px; /* Altura mínima */
-        margin-top: 20px; /* Adiciona uma margem superior para afastar de elementos acima */
-        box-sizing: border-box; /* Inclui padding e borda no cálculo da altura/largura */
+        min-height: 250px;
+        margin-top: 20px; 
+        box-sizing: border-box; 
         margin-top: 0;
     }
 
-    /* Título da tabela */
+ 
     .tabela-historico-container h2 {
        
         margin-bottom: 5px;
         font-size: 1.6em;
         font-weight: 600;
-        color: #2F8A7D; /* Cor verde/azul-petróleo para o título */
-        border-bottom: 2px solid #E6F4F1; /* Borda sutil no tom claro de verde */
+        color: #2F8A7D; 
+        border-bottom: 2px solid #E6F4F1; 
         padding-bottom: 5px;
-        text-align: left; /* Alinhar à esquerda como nos títulos da imagem */
+        text-align: left; 
     }
 
-    /* Wrapper para a tabela que permite rolagem interna */
+ 
     .tabela-wrapper {
         overflow-y: auto; /* Habilita a barra de rolagem vertical */
-        height: 100%; /* Ocupa a altura restante do container */
+        height: 100%; 
     }
 
-    /* Estilo da barra de scroll (Webkit) */
+  
     .tabela-wrapper::-webkit-scrollbar {
         width: 5px;
     }
     .tabela-wrapper::-webkit-scrollbar-thumb {
-        background-color: #A0D2CC; /* Verde mais claro para o polegar da barra */
+        background-color: #A0D2CC;
         border-radius: 4px;
     }
     .tabela-wrapper::-webkit-scrollbar-track {
-        background-color: #E6F4F1; /* Fundo mais claro para a trilha da barra */
+        background-color: #E6F4F1;
     }
 
-    /* Estilo da tabela */
+    
     .tabela-historico-container table {
         width: 100%;
         border-collapse: collapse;
         font-size: 0.95em;
-        color: #495057; /* Texto da tabela em cinza um pouco mais escuro */
+        color: #495057; 
     }
 
-    /* Estilo das células do cabeçalho e do corpo da tabela */
     .tabela-historico-container th,
     .tabela-historico-container td {
         padding: 12px 15px;
         text-align: left;
-        border-bottom: 1px solid #E9ECEF; /* Linha divisória cinza bem clara */
+        border-bottom: 1px solid #E9ECEF;
     }
 
-    /* Estilo específico para o cabeçalho da tabela */
     .tabela-historico-container thead th {
-        background-color: #E6F4F1; /* Fundo claro verde/azul-petróleo para o cabeçalho */
-        color: #2F8A7D; /* Texto do cabeçalho em verde/azul-petróleo escuro */
+        background-color: #E6F4F1; 
+        color: #2F8A7D; 
         font-weight: 600;
         position: sticky;
         top: 0;
         z-index: 1;
     }
 
-    /* Efeito de destaque ao passar o mouse sobre as linhas */
+   
     .tabela-historico-container tbody tr:hover {
-        background-color: #F8F9FA; /* Fundo ligeiramente mais escuro no hover */
+        background-color: #F8F9FA; 
     }
 
-    /* Cores alternadas para as linhas do corpo da tabela para melhor legibilidade */
+  
     .tabela-historico-container tbody tr:nth-child(even) {
         background-color: #FBFBFB; /* Um cinza muito, muito claro */
     }
@@ -205,16 +213,13 @@ input[type="checkbox"]:checked::after {
         font-size: 0.85em;
         font-weight: bold;
         color: #fff;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* Sombra mais sutil */
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); 
         display: inline-block;
         min-width: 60px;
         text-align: center;
     }
 
     
-    .prioridade.critico { background-color: #DC3545; } 
-    .prioridade.risco { background-color: #FFC107; color: #343A40; } 
-    .prioridade.aviso { background-color: #17A2B8; } 
 
        
         
