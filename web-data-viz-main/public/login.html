@@ -133,7 +133,7 @@
           sessionStorage.EMAIL_USUARIO = usuario.email;
           sessionStorage.NOME_USUARIO = usuario.nome;
           sessionStorage.ID_USUARIO = usuario.id;
-          sessionStorage.ADMINISTRADOR_USUARIO = usuario.administrador;
+          sessionStorage.CARGO_USUARIO = usuario.cargo;
           sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
           sessionStorage.ATIVADO_USUARIO=usuario.ativo;
           console.log(sessionStorage)
@@ -148,9 +148,9 @@
             if(usuario.ativo !="1"){
                location.href = './inativo.html';
             }else{
-              if(usuario.administrador=="2"){
+              if(usuario.cargo=="2"){
                location.href = './dashboard/dash_tecnico.html';
-            }else if(usuario.administrador=="1"){
+            }else if(usuario.cargo=="1"){
               location.href = './ativacaocliente.html';
             }
             }
