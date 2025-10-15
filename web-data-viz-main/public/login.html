@@ -130,10 +130,12 @@
         resposta.json().then(json => {
           const usuario = json[0]
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = usuario.Email;
-          sessionStorage.NOME_USUARIO = usuario.Nome;
-          sessionStorage.ID_USUARIO = usuario.idUsuario;
-          sessionStorage.ADMINISTRADOR_USUARIO = usuario.Administrador;
+          sessionStorage.EMAIL_USUARIO = usuario.email;
+          sessionStorage.NOME_USUARIO = usuario.nome;
+          sessionStorage.ID_USUARIO = usuario.id;
+          sessionStorage.CARGO_USUARIO = usuario.cargo;
+          sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
+          sessionStorage.ATIVADO_USUARIO=usuario.ativo;
           console.log(sessionStorage)
 
           Swal.fire({
@@ -143,15 +145,17 @@
           });
 
           setTimeout(function () {
-            if (usuario.ativo != "1") {
-              location.href = './inativo.html';
-            } else {
-              if (usuario.cargo == "2") {
-                location.href = './dashboard/dash_tecnico.html';
-              } else if (usuario.cargo == "1") {
-                location.href = './ativacaocliente.html';
-              }
+            if(usuario.ativo !="1"){
+               location.href = './inativo.html';
+            }else{
+              if(usuario.cargo=="2"){
+               location.href = './dashboard/dash_tecnico.html';
+            }else if(usuario.cargo=="1"){
+              location.href = './ativacaocliente.html';
             }
+            }
+            
+            
           }, 3000);
 
         });
@@ -187,3 +191,5 @@
   }
 
 </script>
+
+
