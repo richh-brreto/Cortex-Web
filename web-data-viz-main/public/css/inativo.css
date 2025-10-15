@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+    --branco: #EBF4F8;
+    --azul: #00B2B2;
+    --cinza: #E2E8F0;
+    --vermelho: #B74C4C;
+    --verde: #10b156;
+    --preto: #0A202D;
+    --azul-escuro: #006E66;
+    --cinza-escuro: #7a79799a;
+    --monserate: "Montserrat", sans-serif;
+    --lato: "Lato", sans-serif;
+}
+
+/*Conteúdo Principal*/
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: var(--lato);
+    background: var(--cinza);
+    color: var(--preto);
+    overflow: hidden;
+}
+
+.conteudo-principal {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.container-inativo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--branco);
+    border-radius: 12px;
+    padding: 40px 36px;
+    width: 92%;
+    max-width: 780px;
+    margin: 0 auto;
+    box-shadow: 0 6px 24px rgba(10,32,45,0.06);
+    max-height: calc(100% - 48px);
+    overflow: auto;
+}
+
+.titulo-pagina {
+    font-family: var(--monserate);
+    font-size: 28px;
+    color: var(--preto);
+    margin-bottom: 18px;
+}
+
+.inativo-conteudo {
+    text-align: center;
+    font-family: var(--lato);
+    color: var(--preto);
+    max-width: 640px;
+}
+
+.mensagem-inativo {
+    font-size: 16px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.botao-contato {
+    background: var(--azul);
+    color: var(--branco);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.botao-contato:hover {
+    background: var(--azul-escuro);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .container-inativo {
+        padding: 18px 14px;
+        width: 96%;
+    }
+    .titulo-pagina { font-size: 22px; }
+    .mensagem-inativo { font-size: 15px; }
+}

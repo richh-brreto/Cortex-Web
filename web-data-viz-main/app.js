@@ -17,16 +17,26 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuario");
+var infoModeloRouter = require("./src/routes/info-modelo")
+var empresaDadosRouter = require("./src/routes/empresaDados");
+var modelosRouter = require("./src/routes/modelos");
+var adminRouter = require("./src/routes/admin");
+var dashTecnicoRouter = require("./src/routes/dashTecnico");
 var clienteRouter = require("./src/routes/info-cliente")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/empresaDados", empresaDadosRouter);
+app.use("/modelos", modelosRouter);
+app.use("/admin", adminRouter);
+app.use("/dashTecnico", dashTecnicoRouter);
 
 app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuario", usuarioRouter);
+app.use("/info-modelo", infoModeloRouter)
 app.use("/info-cliente", clienteRouter)
 
 app.listen(PORTA_APP, function () {

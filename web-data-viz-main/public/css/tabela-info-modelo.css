@@ -1,0 +1,89 @@
+:root {
+
+  --cor-primaria: #00a6a6;
+  --cor-primaria-escura: #008d8d;
+  --cor-fundo-linha: #EBF4F8;
+  --cor-fundo-linha-hover: #EBF4F8;
+  --cor-borda: #ccc;
+  --cor-borda-linha: #eee;
+  --cor-texto-branco: #fff;
+  --fonte-principal: "Montserrat", sans-serif;
+}
+
+
+.tabela-container {
+  width: 87%;
+  min-height: 13rem;
+  max-height: 13rem;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.375rem;     
+}
+
+.tabela {
+  min-width: 600px;
+  width: 100%;       
+  font-family: var(--fonte-principal);
+}
+
+.cabecalho, .container-linha {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.img-status{
+  width: 10%;
+}
+.config{
+  width: 50%;
+}
+
+.cabecalho {
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto-branco);
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.coluna, .linha {
+  flex: 1 0 6.25rem;            
+  padding: 0.375rem 0.5rem;     
+  text-align: left;
+  font-size: 0.875rem;          
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container-linha {
+  background-color: var(--cor-fundo-linha);
+  border-top: 1px solid var(--cor-borda-linha);
+  transition: background-color 0.2s ease;
+}
+
+.container-linha:hover {
+  background-color: var(--cor-fundo-linha-hover);
+}
+
+.coluna:first-child, .linha:first-child {
+  flex: 0 0 2.5rem;            
+  text-align: center;
+}
+
+button {
+  padding: 0.375rem 0.75rem;   
+  font-size: 0.875rem;          
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto-branco);
+  border: none;
+  border-radius: 0.25rem;      
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: var(--cor-primaria-escura);
+}
