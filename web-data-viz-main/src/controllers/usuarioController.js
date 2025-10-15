@@ -5,20 +5,20 @@ var usuarioModel = require("../models/usuarioModel");
 function cadastrarEmpresa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html;
     var cnpj = req.body.cnpjServer;
-    var nomeEmpresa = req.body.nomeEmpresaServer; 
+    var nomeEmpresa = req.body.nomeEmpresaServer;
     var telefoneResponsavel = req.body.telefoneResponsavelServer;
     var nomeResponsavel = req.body.nomeResponsavelServer
 
-   if (nomeEmpresa == undefined) {
+    if (nomeEmpresa == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Seu cnpj está undefined!");
-    } else if (telefoneResponsavel == undefined){
+    } else if (telefoneResponsavel == undefined) {
         res.status(400).send("Seu telefoneResponsavel está undefined!");
-    } else if (nomeResponsavel == undefined){
+    } else if (nomeResponsavel == undefined) {
         res.status(400).send("Seu nomeResponsavel está undefined!");
     } else {
-        
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrarEmpresa(cnpj, nomeEmpresa, telefoneResponsavel, nomeResponsavel)
             .then(
@@ -44,7 +44,7 @@ function cadastrarUsuario(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-  
+
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -100,7 +100,7 @@ function login(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
- 
+
 
     // Faça as validações dos valores
     if (email == undefined) {
@@ -128,11 +128,61 @@ function login(req, res) {
     }
 }
 
+function buscarPorId(req, res) {
+    var idUsuario = parseInt(req.params.id);
+    if (isNaN(idUsuario)) {
+        res.status(400).json({ message: 'ID inválido' });
+        return;
+    }
+
+    usuarioModel.buscarPorId(idUsuario).then((resultado) => {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado[0]);
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o usuário: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function alterarSenha(req, res) {
+    var idUsuario = parseInt(req.body.idUsuario);
+    var senhaAtual = req.body.senhaAtual;
+    var senhaNova = req.body.senhaNova;
+
+    if (isNaN(idUsuario) || !senhaAtual || !senhaNova) {
+        res.status(400).json({ message: 'Parâmetros inválidos' });
+        return;
+    }
+
+    usuarioModel.verificarSenha(idUsuario, senhaAtual).then(function (resultado) {
+        if (resultado.length == 0) {
+            res.status(403).json({ message: 'Senha atual incorreta' });
+            return;
+        }
+
+        usuarioModel.alterarSenha(idUsuario, senhaNova).then(function (resultadoUpdate) {
+            res.status(200).json({ message: 'Senha alterada com sucesso' });
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+
+    }).catch(function (erro) {
+        console.log(erro);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+}
 
 module.exports = {
     cadastrarUsuario,
     buscarId,
     cadastrarEmpresa,
-    login
-
+    login,
+    buscarPorId, 
+    alterarSenha
 }

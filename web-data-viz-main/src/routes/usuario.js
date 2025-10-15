@@ -11,6 +11,14 @@ router.post("/cadastrarEmpresa", function (req, res) {
     usuarioController.cadastrarEmpresa(req, res);
 })
 
+router.post('/alterarSenha', function (req, res) {
+    usuarioController.alterarSenha(req, res);
+});
+
+router.get('/dados/:id', function (req, res) {
+    usuarioController.buscarPorId(req, res);
+});
+
 router.get("/buscarId/:cnpjVar", function (req, res) {
     usuarioController.buscarId(req, res);
 })
