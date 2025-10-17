@@ -1,182 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zonas</title>
-    <link rel="stylesheet" href="../../base/navbar.css">
-    <link rel="stylesheet" href="../../css/zona.css">
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/zona.css">
 </head>
+
 <body>
- 
-     <nav class="barra-lateral">
+    <nav class="barra-lateral">
 
-    <a class="item-logo">
-      <img src="../../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-      <span class="texto-logo">Cortex</span>
-    </a>
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
 
-    <a class="item-navegacao" href="dashboard_analista-analista.html">
-      <img src="../../assets/icon/graficos.png" id="dash-zona" alt="">
-      <span class="texto" id="texto-dash">Dashboard Analista</span>
-    </a>
+        <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
+            <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Dashboard Alerta</span>
+        </a>
 
-    <a class="item-navegacao" href="dash_tecnico-analista.html">
-      <img src="../../assets/icon/alerta.png" id="alerta" alt="">
-      <span class="texto">Dashboard Alerta</span>
-    </a>
+        <div class="divisor"></div>
 
-    <div class="divisor"></div>
+        <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
+            <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Clientes</span>
+        </a>
 
-    <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-      <img src="../../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
-      <span class="texto">Clientes</span>
-    </a>
+        <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
+            <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
 
-    <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-      <img src="../../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
-      <span class="texto">Funcionários</span>
-    </a>
+        <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
+            <img src="../assets/icon/modelo.png" id="modelo" alt="">
+            <span class="texto">Modelos</span>
+        </a>
 
-    <a class="item-navegacao" href="modelosGerenciamento-analista.html">
-      <img src="../../assets/icon/modelo.png" id="modelo" alt="">
-      <span class="texto">Modelos</span>
-    </a>
+        <a class="item-notificacao" href="./zona-supervisor.html">
+            <img src="../assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Zonas</span>
+        </a>
 
-        <a class="item-notificacao" href="zona-analista.html">
-      <img src="../../assets/icon/sino.png" id="sino" alt="">
-      <span class="texto-notificacao" id="notificacoes">Zonas</span>
-    </a>
-
-    <div class="divisor"></div>
+        <div class="divisor"></div>
 
 
 
-    <a class="item-usuario" href="perfil-analista.html">
-      <img src="../../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-      <span class="texto-usuario">José</span>
-    </a>
+        <a class="item-usuario" href="./perfil-supervisor.html">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
 
-    <div class="divisor"></div>
+        <div class="divisor"></div>
 
-    <a class="item-notificacao">
-      <img src="../../assets/icon/sair (1).png" id="sair-imagem" alt="">
-      <span class="texto-notificacao" id="sair">Sair</span>
+        <a class="item-notificacao">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
         </a>
     </nav>
-    
     <div class="tela">
         <div class="topo">
             <h2>Zonas de Disponibilidade</h2>
             <div class="cadastrar-zona">
                 <h3>Adicionar:</h3>
-                
-                    <h5>Nome:</h5>
-                    <input type="text">
-                    <button class="botao">Criar</button>
+
+                <h5>Nome:</h5>
+                <input type="text" id="ipt_nome_zona">
+                <button class="botao" onclick="cadastrarzona()">Criar</button>
             </div>
         </div>
         <div class="zonas">
             <div class="topo-zonas">
                 <input type="search">
-                <div class="container-abas">
-                    <div class="aba escolhida">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                    <div class="aba">
-                        <button>A</button>
+                <div class="container-abas" id="container-abas">
+                    <!--   <div class="aba escolhida">
+                        <button class="botao-editar" id="botao-editar">A</button>
                         <button>A</button>
                         <div class="texto-aba">
                             <h5>Nome da Zona</h5>
                             <h6>Qtd. Modelos: XXX</h6>
                         </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                        <div class="aba">
-                        <button>A</button>
-                        <button>A</button>
-                        <div class="texto-aba">
-                            <h5>Nome da Zona</h5>
-                            <h6>Qtd. Modelos: XXX</h6>
-                        </div>
-                    </div>
-                    
+                    </div>   -->
                 </div>
             </div>
             <div class="usuarios-zonas">
@@ -184,225 +90,39 @@
                     <h3>Permissionamento de funcionários</h3>
                     <input type="search">
                     <button>+</button>
-                    </div>
-                    <div class="usuario-conteudo">
-                        <div class="linha-usuario">
+                </div>
+                <div class="usuario-conteudo" id="usuario-conteudo">
+                    <!--  <div class="linha-usuario">  !A cada 3 cards cria outra linha
                             <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
+                                <img src="../assets/icon/teste-perfil.webp" class="foto">
 
                                 <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                             <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
+                                    <h5>Nome do Usuário</h5>
 
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
                                     <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
+                                        <h6>Email: </h6>
+                                        <h6>usuario@email.com</h6>
                                     </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                           <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
 
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
                                     <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
+                                        <h6>Cargo: </h6>
+                                        <h6>Analista</h6>
                                     </div>
                                 </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="linha-usuario">
-                            <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
 
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
                                 <div class="botao-del-usuario">
-                                    <button>D</button>
+                                    <button class="botao-del">
+                                        <img src="../assets/icon/deletar.png">
+                                    </button>
                                 </div>
                             </div>
-                             <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
+                        </div> -->
+                </div>
 
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                           <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
-
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="linha-usuario">
-                            <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
-
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                             <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
-
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                           <div class="card-usuario">
-                             
-                                    <img class="foto" src="assets/icon/teste-perfil.webp">
-
-                                <div class="conteudo-usuario">
-                                    <h5>Nome</h5>
-                                    <div class="linha-conteudo">
-                                        <h6>Email:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Cargo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                    <div class="linha-conteudo">
-                                        <h6>Tipo:</h6>
-                                        <h6>XXXXXXXXXXXXX</h6>
-                                    </div>
-                                </div>
-                                <div class="botao-del-usuario">
-                                    <button>D</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
             </div>
         </div>
     </div>
 </body>
+<script src="../js/zona.js"></script>
+
 </html>

@@ -22,6 +22,7 @@ var dashTecnicoRouter = require("./src/routes/dashTecnico");
 var clienteRouter = require("./src/routes/info-cliente")
 var clienteRouter = require("./src/routes/cliente");
 var funcionarioRouter = require("./src/routes/funcionario");
+var zonaRouter = require("./src/routes/zona");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,7 +38,7 @@ app.use("/info-modelo", infoModeloRouter)
 app.use("/info-cliente", clienteRouter)
 app.use("/cliente", clienteRouter);
 app.use("/funcionario", funcionarioRouter);
-
+app.use("/zona", zonaRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
