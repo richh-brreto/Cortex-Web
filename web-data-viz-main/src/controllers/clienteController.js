@@ -42,7 +42,7 @@ function cadastrar(req, res) {
 
 function atualizar(req, res) {
     var id_cliente = req.params.id;
-    var { nome, descricao, telefone, cnpj, qtd_modelos } = req.body;
+    var { nome, descricao, telefone, cnpj, email } = req.body;
 
     // Validações básicas
     if (!id_cliente) {
@@ -53,11 +53,10 @@ function atualizar(req, res) {
         return res.status(400).json({ erro: "Campos obrigatórios: nome, cnpj" });
     }
 
-    qtd_modelos = qtd_modelos || 0;
 
-    console.log("Atualizando cliente:", { id_cliente, nome, descricao, telefone, cnpj, qtd_modelos });
+    console.log("Atualizando cliente:", { id_cliente, nome, descricao, telefone, cnpj, email });
 
-    clienteModel.atualizar(id_cliente, nome, descricao, telefone, cnpj, qtd_modelos)
+    clienteModel.atualizar(id_cliente, nome, descricao, telefone, cnpj, email)
         .then(() => {
             console.log("Cliente atualizado com sucesso!");
             res.status(200).json({ mensagem: "Cliente atualizado com sucesso!" });

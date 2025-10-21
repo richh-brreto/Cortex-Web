@@ -1,7 +1,7 @@
 const nomeInput = document.getElementById('nome-cliente');
 const cnpjInput = document.getElementById('cnpj-cliente');
 const telefoneInput = document.getElementById('telefone-cliente');
-const qtdInput = document.getElementById('qtd-modelos');
+const emailInput = document.getElementById('email-cliente');
 const descInput = document.getElementById('descricao-cliente');
 
 const tabelaCorpo = document.getElementById('tabela-clientes-corpo');
@@ -13,11 +13,13 @@ const btnFechar = document.getElementById('btn-fechar-modal');
 const btnCancelar = document.getElementById('btn-cancelar');
 
 let linhaEditando = null;
-const fk_empresa = sessionStorage.ID_EMPRESA;
+const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
+
+// Transformar
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -95,7 +97,8 @@ window.addEventListener("load", () => {
                     <td>${c.descricao}</td>
                     <td>${c.cnpj}</td>
                     <td>${c.telefone}</td>
-                    <td>${c.qtd_modelos}</td> 
+                    <td>${c.email}</td>
+                    <td>${c.qtd}</td> 
                     <td>
                         <div class="coluna-acoes">
                             <button class="btn btn-secundario">Ver mais</button>
@@ -123,7 +126,7 @@ tabelaCorpo.addEventListener('click', (e) => {
         descInput.value = linha.children[2].textContent;
         cnpjInput.value = linha.children[3].textContent;
         telefoneInput.value = linha.children[4].textContent;
-        qtdInput.value = linha.children[5].textContent;
+        emailInput.value = linha.children[5].textContent;
         abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este cliente?")) {
@@ -148,7 +151,7 @@ form.addEventListener('submit', (ev) => {
         descricao: descInput.value.trim(),
         cnpj: cnpjInput.value.trim(),
         telefone: telefoneInput.value.trim(),
-        qtd_modelos: qtdInput.value.trim(),
+        email: emailInput.value.trim(),
         fk_empresa: fk_empresa
     };
 

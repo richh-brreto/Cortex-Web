@@ -81,14 +81,14 @@
                         <input type="text" id="pesquisar-input" placeholder="Pesquisar...">
                     </div>
                     <div class="filtro-coluna">
-                        <label for="filtro-select">Filtrar por:</label>
+                        <label for="filtro-select">Pesquisar por:</label>
                             <select id="filtro-select">
-                                <option value="todos" selected>Todos os campos</option>
                                 <option value="id">ID</option>
                                 <option value="nome">Nome</option>
                                 <option value="descricao">Descrição</option>
                                 <option value="cnpj">CNPJ</option>
                                 <option value="telefone">Telefone</option>
+                                <option value="email">Email</option>
                                 <option value="qtd_modelos">Qtd. modelos</option>
                         </select>
                     </div>
@@ -109,6 +109,7 @@
                                 <th>Descrição</th>
                                 <th>CNPJ</th>
                                 <th>Telefone</th>
+                                <th>Email</th>
                                 <th>Qtd. modelos</th>
                                 <th>Ações</th>
                             </tr>
@@ -152,8 +153,8 @@
                         </div>
 
                         <div class="campo-form">
-                            <label for="qtd-modelos">Quantidade de Modelos</label>
-                            <input type="number" id="qtd-modelos" placeholder="0" min="0">
+                            <label for="email-cliente"> Email:</label>
+                            <input type="email" id="email-cliente" placeholder="exemplo@gmail.com">
                         </div>
                     </div>
 
