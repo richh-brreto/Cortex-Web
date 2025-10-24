@@ -141,13 +141,10 @@ INSERT INTO acesso_zona (fk_usuario, fk_zona) VALUES
 
 
 
-CREATE TABLE processo (
+CREATE TABLE black_list (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    data_hora_inicio DATETIME,
-    data_hora_fim DATETIME,
-    status_processo ENUM('neutro', 'ativo', 'inativo'),
     matar_processo TINYINT,
     automatico TINYINT,
     PRIMARY KEY (id_processo, fk_modelo),
