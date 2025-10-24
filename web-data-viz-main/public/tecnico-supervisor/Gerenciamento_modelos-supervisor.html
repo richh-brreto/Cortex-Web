@@ -1,216 +1,210 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelos - Cortex</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../base/navbar.css">
-  <link rel="stylesheet" href="/public/css/gerenciamento_geral.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modelos - Cortex</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../base/navbar.css">
+  <link rel="stylesheet" href="/public/css/gerenciamento_geral.css">
 </head>
 <body>
-  <nav class="barra-lateral">
-    <a class="item-logo">
-      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-      <span class="texto-logo">Cortex</span>
-    </a>
+  <nav class="barra-lateral">
+    <a class="item-logo">
+      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+      <span class="texto-logo">Cortex</span>
+    </a>
 
-    <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
-      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
-      <span class="texto" id="texto-dash">Dashboard Alerta</span>
-    </a>
+    <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
+      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+      <span class="texto" id="texto-dash">Dashboard Alerta</span>
+    </a>
 
-    <div class="divisor"></div>
+    <div class="divisor"></div>
 
-    <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
-      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
-      <span class="texto">Clientes</span>
-    </a>
+    <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
+      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+      <span class="texto">Clientes</span>
+    </a>
 
-    <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
-      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
-      <span class="texto">Funcionários</span>
-    </a>
+    <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
+      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+      <span class="texto">Funcionários</span>
+    </a>
 
-    <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
-      <img src="../assets/icon/modelo.png" id="modelo" alt="">
-      <span class="texto">Modelos</span>
-    </a>
+    <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
+      <img src="../assets/icon/modelo.png" id="modelo" alt="">
+      <span class="texto">Modelos</span>
+    </a>
 
-    <a class="item-notificacao" href="./zona-supervisor.html">
-      <img src="../assets/icon/sino.png" id="sino" alt="">
-      <span class="texto-notificacao" id="notificacoes">Zonas</span>
-    </a>
+    <a class="item-notificacao" href="./zona-supervisor.html">
+      <img src="../assets/icon/sino.png" id="sino" alt="">
+      <span class="texto-notificacao" id="notificacoes">Zonas</span>
+    </a>
 
-    <div class="divisor"></div>
+    <div class="divisor"></div>
 
-    <a class="item-usuario" href="./perfil-supervisor.html">
-      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-      <span class="texto-usuario">José</span>
-    </a>
+    <a class="item-usuario" href="./perfil-supervisor.html">
+      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+      <span class="texto-usuario">José</span>
+    </a>
 
-    <div class="divisor"></div>
+    <div class="divisor"></div>
 
-    <a class="item-notificacao">
-      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-      <span class="texto-notificacao" id="sair">Sair</span>
-    </a>
-  </nav>
+    <a class="item-notificacao">
+      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+      <span class="texto-notificacao" id="sair">Sair</span>
+    </a>
+  </nav>
 
-  <main class="conteudo-principal">
-    <div class="container-modelos">
-      <div class="header-modelos">
-        <h1>Gerenciamento de Modelos</h1>
-      </div>
+  <main class="conteudo-principal">
+    <div class="container-modelos">
+      <div class="header-modelos">
+        <h1>Gerenciamento de Modelos</h1>
+      </div>
 
-      <div class="barra-acoes">
-        <div class="area-pesquisa-filtro">
-          <div class="pesquisa-cortex">
-            <span class="material-icons">search</span>
-            <input type="text" id="pesquisar-input" placeholder="Pesquisar modelo...">
-          </div>
-          <div class="filtro-coluna">
-            <label for="filtro-select">Filtrar por:</label>
-            <select id="filtro-select">
-              <option value="todos" selected>Todos os campos</option>
-              <option value="nome">Nome</option>
-              <option value="descricao">Descrição</option>
-              <option value="zona">Zona</option>
-              <option value="cliente">Cliente</option>
-              <option value="ip">IP</option>
-              <option value="hostname">Hostname</option>
-              <option value="status">Status</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="acoes-container">
-          <button id="btn-adicionar" class="btn btn-primario">
-            Adicionar <b>+</b>
-          </button>
-        </div>
-      </div>
+      <div class="barra-acoes">
+        <div class="area-pesquisa-filtro">
+          <div class="pesquisa-cortex">
+            <span class="material-icons">search</span>
+            <input type="text" id="pesquisar-input" placeholder="Pesquisar modelo...">
+          </div>
+          <div class="filtro-coluna">
+            <label for="filtro-select">Filtrar por:</label>
+            <select id="filtro-select">
+              <option value="todos" selected>Todos os campos</option>
+              <option value="nome">Nome</option>
+              <option value="descricao">Descrição</option>
+              <option value="zona">Zona</option>
+              <option value="cliente">Cliente</option>
+              <option value="ip">IP</option>
+              <option value="hostname">Hostname</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="acoes-container">
+          <button id="btn-adicionar" class="btn btn-primario">
+            Adicionar <b>+</b>
+          </button>
+        </div>
+      </div>
 
-      <section class="container-tabela">
-        <div class="envoltorio-tabela">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Zona</th>
-                <th>Cliente</th>
-                <th>IP</th>
-                <th>Hostname</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="tabela-modelos-corpo"></tbody>
-          </table>
-        </div>
-        <div class="tabela-rodape"></div>
-      </section>
-    </div>
-  </main>
+      <section class="container-tabela">
+        <div class="envoltorio-tabela">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Zona</th>
+                <th>Cliente</th>
+                <th>IP</th>
+                <th>Hostname</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-modelos-corpo"></tbody>
+          </table>
+        </div>
+        <div class="tabela-rodape"></div>
+      </section>
+    </div>
+  </main>
 
-    <div id="sobreposicao-formulario" class="sobreposicao-formulario">
-    <div class="painel-formulario">
-      <div class="cabecalho-formulario">
-        <h2 id="modal-title">Adicionar Modelo</h2>
-        <button class="btn-fechar" id="btn-fechar-modal">
-          <span class="material-icons">close</span>
-        </button>
-      </div>
-      
-      <div class="corpo-formulario">
-        <form id="form-modelo">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-              <div class="campo-form">
-                <label for="nome-modelo">Nome:</label>
-                <input type="text" id="nome-modelo" placeholder="Nome do seu modelo" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="descricao-modelo">Descrição:</label>
-                <textarea id="descricao-modelo" placeholder="Faça uma Descrição" required></textarea>
-              </div>
-
-              <div class="campo-form">
-                <label for="zona-modelo">Zona de disponibilidade:</label>
-                <select id="zona-modelo" required>
-                  <option value="">Selecione...</option>
-                </select>
-              </div>
-
-              <div class="campo-form">
-                <label for="cliente-modelo">Cliente:</label>
-                <select id="cliente-modelo" required>
-                  <option value="">Selecione...</option>
-                </select>
-              </div>
-
-              <div class="campo-form">
-                <label for="ip-modelo">IP:</label>
-                <input type="text" id="ip-modelo" placeholder="123.4.567.89" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="hostname-modelo">Hostname:</label>
-                <input type="text" id="hostname-modelo" placeholder="User" required>
-              </div>
-
+  <!-- Modal CRUD -->
+  <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+    <div class="painel-formulario">
+      <div class="cabecalho-formulario">
+        <h2 id="modal-title">Adicionar Modelo</h2>
+        <button class="btn-fechar" id="btn-fechar-modal">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      
+      <div class="corpo-formulario">
+        <form id="form-modelo">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <!-- Coluna Esquerda -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
               <div class="campo-form">
-                <label for="status-modelo">Status:</label>
-                <select id="status-modelo" required>
-                  <option value="ativo">Ativo</option>
-                  <option value="inativo">Inativo</option>
-                </select>
-              </div>
+                <label for="nome-modelo">Nome:</label>
+                <input type="text" id="nome-modelo" placeholder="Nome do seu modelo" required>
               </div>
 
-<div style="display: flex; flex-direction: column; gap: 1.5rem; background-color: #E2E8F0; padding: 1.5rem; border-radius: 12px; border: 2px solid var(--cor-borda);">
-              <h3 style="color: var(--cor-primaria); font-size: 1.25rem; font-weight: 700; margin: 0; padding-bottom: 1rem; border-bottom: 2px solid var(--cor-primaria);">Parâmetros</h3>
+              <div class="campo-form">
+                <label for="descricao-modelo">Descrição:</label>
+                <textarea id="descricao-modelo" placeholder="Faça uma Descrição" required></textarea>
+              </div>
 
-              <div class="campo-form">
-                <label for="tempo-modelo">Tempo dos parâmetros (em Min):</label>
-                <input type="text" id="tempo-modelo" placeholder="Ex: 30" required>
-              </div>
+              <div class="campo-form">
+                <label for="zona-modelo">Zona de disponibilidade:</label>
+                <select id="zona-modelo" required>
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
 
-              <div class="campo-form">
-                <label for="limite-cpu-modelo">Limite CPU (%):</label>
-                <input type="text" id="limite-cpu-modelo" placeholder="80%" required>
-              </div>
+              <div class="campo-form">
+                <label for="cliente-modelo">Cliente:</label>
+                <select id="cliente-modelo" required>
+                  <option value="">Selecione...</option>
+                </select>
+              </div>
 
-              <div class="campo-form">
-                <label for="limite-disco-modelo">Limite Disco (%):</label>
-                <input type="text" id="limite-disco-modelo" placeholder="60%" required>
-              </div>
+              <div class="campo-form">
+                <label for="ip-modelo">IP:</label>
+                <input type="text" id="ip-modelo" placeholder="123.4.567.89" required>
+              </div>
 
-              <div class="campo-form">
-                <label for="limite-ram-modelo">Limite RAM (%):</label>
-                <input type="text" id="limite-ram-modelo" placeholder="75%" required>
-              </div>
+              <div class="campo-form">
+                <label for="hostname-modelo">Hostname:</label>
+                <input type="text" id="hostname-modelo" placeholder="User" required>
+              </div>
+            </div>
 
-              <div class="campo-form">
-                <label for="limite-gpu-modelo">Limite GPU (%):</label>
-                <input type="text" id="limite-gpu-modelo" placeholder="92%" required>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+            <!-- Coluna Direita - Parâmetros -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; background-color: #E2E8F0; padding: 1.5rem; border-radius: 12px; border: 2px solid var(--cor-borda);">
+              <h3 style="color: var(--cor-primaria); font-size: 1.25rem; font-weight: 700; margin: 0; padding-bottom: 1rem; border-bottom: 2px solid var(--cor-primaria);">Parâmetros</h3>
 
-      <div class="rodape-formulario">
-        <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
-        <button id="btn-salvar" type="submit" form="form-modelo" class="btn btn-primario">Salvar Modelo</button>
-      </div>
-    </div>
-  </div>
+              <div class="campo-form">
+                <label for="tempo-modelo">Tempo dos parâmetros (em Min):</label>
+                <input type="text" id="tempo-modelo" placeholder="Ex: 30" required>
+              </div>
 
-  <script>
+              <div class="campo-form">
+                <label for="limite-cpu-modelo">Limite CPU (%):</label>
+                <input type="text" id="limite-cpu-modelo" placeholder="80%" required>
+              </div>
+
+              <div class="campo-form">
+                <label for="limite-disco-modelo">Limite Disco (%):</label>
+                <input type="text" id="limite-disco-modelo" placeholder="60%" required>
+              </div>
+
+              <div class="campo-form">
+                <label for="limite-ram-modelo">Limite RAM (%):</label>
+                <input type="text" id="limite-ram-modelo" placeholder="75%" required>
+              </div>
+
+              <div class="campo-form">
+                <label for="limite-gpu-modelo">Limite GPU (%):</label>
+                <input type="text" id="limite-gpu-modelo" placeholder="92%" required>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="rodape-formulario">
+        <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+        <button id="btn-salvar" type="submit" form="form-modelo" class="btn btn-primario">Salvar Modelo</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
 const nomeInput = document.getElementById('nome-modelo');
 const descricaoInput = document.getElementById('descricao-modelo');
 const zonaInput = document.getElementById('zona-modelo');
@@ -259,7 +253,7 @@ const mapaColunas = {
     'zona': 3,
     'cliente': 4,
     'ip': 5,
-    'hostname': 6, 
+    'hostname': 6,
     'status': 7 
 };
 
@@ -487,6 +481,6 @@ form.addEventListener('submit', (ev) => {
 
     fecharModal();
 });
-  </script>
+</script>
 </body>
 </html>
