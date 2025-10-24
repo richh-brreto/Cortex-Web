@@ -10,11 +10,16 @@ function listar(fk_empresa) {
             c.cnpj,
             c.email,
             count(m.id_modelo) as qtd
-        FROM cliente AS c
-        inner join modelo as m on m.fk_cliente = c.id_cliente
-        WHERE c.fk_empresa = ${fk_empresa}
-        group by c.id_cliente
-        ORDER BY c.nome;
+        FROM 
+            cliente AS c
+        LEFT JOIN 
+            modelo as m on m.fk_cliente = c.id_cliente
+        WHERE 
+            c.fk_empresa = ${fk_empresa}
+        GROUP BY 
+            c.id_cliente
+        ORDER BY 
+            c.nome;
     `;
     return database.executar(instrucao);
 }

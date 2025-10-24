@@ -1,10 +1,9 @@
 const nomeInput = document.getElementById('nome-funcionario');
 const emailInput = document.getElementById('email-funcionario');
-const cargoInput = document.getElementById('cargo-funcionario');
-const departamentoInput = document.getElementById('departamento-funcionario');
+const senhaInput = document.getElementById('senha-funcionario');
+const cargoInput = document.getElementById('cargo-funcinario')
 const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
-const dataAdmissaoInput = document.getElementById('data-admissao');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
 const form = document.getElementById('form-funcionario');
@@ -39,11 +38,6 @@ function formatarData(dataISO) {
     return data.toLocaleDateString('pt-BR');
 }
 
-function formatarDataParaInput(dataISO) {
-    if (!dataISO) return '';
-    const data = new Date(dataISO);
-    return data.toISOString().split('T')[0];
-}
 
 const mapaColunas = {
     'todos': 'todos',
@@ -51,7 +45,7 @@ const mapaColunas = {
     'nome': 1,
     'email': 2,
     'cargo': 3,
-    'departamento': 4,
+    'senha' : 4,
     'telefone': 5,
     'status': 6
 };
@@ -102,17 +96,21 @@ window.addEventListener("load", () => {
 
             tabelaCorpo.innerHTML = "";
             funcionarios.forEach(f => {
+                if (f.ativo == 1){
+                    f.ativo = 'Ativo'
+                }else{
+                    f.ativo = "Inativo"
+                }
+
                 const tr = document.createElement("tr");
-                tr.setAttribute("data-id", f.id_funcionario);
-                tr.setAttribute("data-admissao", f.data_admissao);
                 tr.innerHTML = `
-                    <td>${f.id_funcionario}</td>
+                    <td>${f.id}</td>
                     <td>${f.nome}</td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
-                    <td>${f.departamento}</td>
+                    <td>${f.senha}</td>
                     <td>${f.telefone}</td>
-                    <td><span class="badge ${f.status}">${f.status}</span></td>
+                    <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
                     <td>
                         <div class="coluna-acoes">
                             <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
@@ -138,14 +136,14 @@ tabelaCorpo.addEventListener('click', (e) => {
     const acao = botao.getAttribute('title');
 
     if (acao === 'Editar') {
+        console.log(linha.children[3].value)
         linhaEditando = linha;
         nomeInput.value = linha.children[1].textContent;
         emailInput.value = linha.children[2].textContent;
-        cargoInput.value = linha.children[3].textContent;
-        departamentoInput.value = linha.children[4].textContent;
+        cargoInput.value = linha.children[3].value;
+        senhaInput.value = linha.children[4].textContent;
         telefoneInput.value = linha.children[5].textContent;
         statusInput.value = linha.children[6].textContent.trim().toLowerCase();
-        dataAdmissaoInput.value = formatarDataParaInput(linha.getAttribute("data-admissao"));
         abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {

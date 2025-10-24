@@ -107,7 +107,7 @@
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Cargo</th>
-                                <th>Departamento</th>
+                                <th>Senha</th>
                                 <th>Telefone</th>
                                 <th>Status</th>
                                 <th>Ações</th>
@@ -147,20 +147,18 @@
                         </div>
 
                         <div class="campo-form">
-                            <label for="cargo-funcionario">Cargo</label>
-                            <input type="text" id="cargo-funcionario" placeholder="Digite o cargo..." required>
+                            <label for="senha-funcionario">Senha</label>
+                            <input type="text" id="senha-funcionario" placeholder="Digite a senha..." required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="departamento-funcionario">Departamento</label>
-                            <select id="departamento-funcionario" required>
+                            <label for="cargo-funcionario">Cargo</label>
+                            <select id="cargo-funcionario" required>
                                 <option value="">Selecione...</option>
-                                <option value="TI">TI</option>
-                                <option value="Gestão">Gestão</option>
-                                <option value="Design">Design</option>
-                                <option value="RH">Recursos Humanos</option>
-                                <option value="Financeiro">Financeiro</option>
-                                <option value="Operacional">Operacional</option>
+                                <option value="Tecnico">Técnico</option>
+                                <option value="TecnicoSupervisor">Tecnico Supervisor</option>
+                                <option value="Analista">Analista</option>
+
                             </select>
                         </div>
 
@@ -178,10 +176,6 @@
                         </div>
                     </div>
 
-                    <div class="campo-form" style="margin-top: 1.5rem;">
-                        <label for="data-admissao">Data de Admissão</label>
-                        <input type="date" id="data-admissao" required>
-                    </div>
                 </form>
             </div>
 

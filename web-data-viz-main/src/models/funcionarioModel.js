@@ -3,17 +3,21 @@ var database = require("../database/config");
 function listar(fk_empresa) {
     var instrucao = `
         SELECT 
-            f.id_funcionario, 
-            f.nome, 
+            f.id, 
+            f.nome as nome, 
             f.email, 
-            f.cargo,
-            f.departamento,
+            c.nome as cargo,
             f.telefone,
-            f.status,
-            f.data_admissao
-        FROM funcionario AS f
-        WHERE f.fk_empresa = ${fk_empresa}
-        ORDER BY f.nome;
+            f.ativo,
+            f.senha
+        FROM 
+            usuario AS f
+        INNER JOIN
+            cargo AS c on c.id = f.id 
+        WHERE 
+            f.fk_empresa = ${fk_empresa}
+        ORDER BY 
+            f.nome;
     `;
     return database.executar(instrucao);
 }
