@@ -94,7 +94,9 @@ VALUES
         maxDisco int,
         qtd int,
         fk_zona int,
-        foreign key (fk_zona) references zonadisponibilidade(id_zona)
+        fk_empresa int,
+        foreign key (fk_zona) references zonadisponibilidade(id_zona),
+        foreign key (fk_empresa) references empresa(id)
         );
         
 INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
