@@ -24,10 +24,10 @@ function listar(fk_empresa) {
     return database.executar(instrucao);
 }
 
-function cadastrar(nome, descricao, telefone, cnpj, qtd_modelos, fk_empresa) {
+function cadastrar(nome, descricao, telefone, cnpj, email, fk_empresa) {
     var instrucao = `
         INSERT INTO cliente (nome, descricao, telefone, cnpj, email, fk_empresa)
-        VALUES ('${nome}', '${descricao}', '${telefone}', '${cnpj}', '${qtd_modelos}', ${fk_empresa});
+        VALUES ('${nome}', '${descricao}', '${telefone}', '${cnpj}', "${email}" ,${fk_empresa});
     `;
     return database.executar(instrucao);
 }
