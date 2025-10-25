@@ -83,36 +83,59 @@ VALUES
 ('Matrix TI', 'Consultoria em tecnologia e cloud', 'contato@matrixti.com', '(11) 98765-4321', '11.111.111/0001-11', 1),
 ('CloudCorp', 'Infraestrutura em nuvem e segurança', 'contato@cloudcorp.com', '(11) 91234-5678', '11.111.111/0001-22', 1);
 
+  create table arquitetura (
+        id_arquitetura int primary key,
+        nome varchar(55),
+        modelo_cpu varchar(55),
+        qtd_cpu int,
+        qtd_ram int,
+        modelo_gpu varchar(55),
+        so varchar(55),
+        maxDisco int,
+        qtd int,
+        fk_zona int,
+        foreign key (fk_zona) references zonadisponibilidade(id_zona)
+        );
+        
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
+VALUES (1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
 
-CREATE TABLE modelo (
-    id_modelo INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100) NOT NULL,
-    descricao TEXT,
-    ip VARCHAR(45),
-    hostname VARCHAR(100),
-    tempo_parametro_min INT,
-    limite_cpu DECIMAL(5,2),
-    limite_disco DECIMAL(5,2),
-    limite_ram DECIMAL(5,2),
-    limite_gpu DECIMAL(5,2),
-    fk_cliente INT NOT NULL,
-    fk_zona_disponibilidade INT NOT NULL,
-    FOREIGN KEY (fk_cliente) REFERENCES cliente(id_cliente),
-    FOREIGN KEY (fk_zona_disponibilidade) REFERENCES zonadisponibilidade(id_zona)
+     
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
+VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
+
+create table if not exists modelo (
+    id_modelo int primary key auto_increment,
+    nome varchar(100) not null,
+    nome_processo varchar (60),
+    qtd_disco int,
+    descricao text,
+    ip varchar(45),
+    hostname varchar(100),
+    tempo_parametro_min int,
+    limite_cpu decimal(5,2),
+    limite_disco decimal(5,2),
+    limite_ram decimal(5,2),
+    limite_gpu decimal(5,2),
+    fk_cliente int not null,
+    fk_zona_disponibilidade int not null,
+    fk_arquitetura int not null,
+        foreign key (fk_cliente) references cliente(id_cliente),
+        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona),
+        foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
 );
 
-
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade)
+INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '192.168.0.10', 'previsor-sp01', 15, 85.50, 70.00, 65.00, 10.00, 1, 1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2),
+('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
+('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
 
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3);
+('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
+('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
+('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
 
 
 
@@ -165,6 +188,6 @@ CREATE TABLE alerta (
 
 INSERT INTO alerta (tipo, componente, descricao, status, fk_modelo) 
 VALUES 
-('Crítico', 'CPU', 'Uso de CPU excedeu 95% por mais de 5 minutos.', 'Ativo', 1),
-('Aviso', 'RAM', 'Uso de memória ultrapassou 80%.', 'Resolvido', 2);
+('Risco', 'CPU', 'Uso de CPU excedeu 95% por mais de 5 minutos.', 'Ativo', 1);
+
 
