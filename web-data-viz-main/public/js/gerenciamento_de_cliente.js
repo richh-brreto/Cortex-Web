@@ -45,7 +45,8 @@ const mapaColunas = {
     'descricao': 2,
     'cnpj': 3,
     'telefone': 4,
-    'qtd_modelos': 5
+    'email' : 5,
+    'qtd_modelos': 6
 };
 
 function aplicarPesquisa() {
