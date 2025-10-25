@@ -13,7 +13,7 @@ function listar(fk_empresa) {
         FROM 
             usuario AS f
         INNER JOIN
-            cargo AS c on c.id = f.id 
+            cargo AS c on c.id = f.fk_cargo 
         WHERE 
             f.fk_empresa = ${fk_empresa}
         ORDER BY 
@@ -22,10 +22,10 @@ function listar(fk_empresa) {
     return database.executar(instrucao);
 }
 
-function cadastrar(nome, email, cargo, departamento, telefone, status, data_admissao, fk_empresa) {
+function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa) {
     var instrucao = `
-        INSERT INTO funcionario (nome, email, cargo, departamento, telefone, status, data_admissao, fk_empresa)
-        VALUES ('${nome}', '${email}', '${cargo}', '${departamento}', '${telefone}', '${status}', '${data_admissao}', ${fk_empresa});
+        INSERT INTO usuario (nome, email, senha, fk_cargo, telefone, ativo, fk_empresa)
+        VALUES ('${nome}', '${email}', "${senha}", ${cargo}, '${telefone}', '${status}', ${fk_empresa});
     `;
     return database.executar(instrucao);
 }

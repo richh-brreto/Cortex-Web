@@ -23,8 +23,13 @@ const filtroSelect = document.getElementById('filtro-select');
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
-    tituloModal.textContent = modo === 'novo' ? 'Adicionar Cliente' : 'Editar Cliente';
-    if (modo === 'novo') form.reset();
+
+    if(modo === 'novo'){
+        tituloModal.textContent = "Adicionar Cliente"
+         form.reset();
+    }else{
+        tituloModal.textContent = 'Editar Cliente'
+    }
 }
 
 function fecharModal() {

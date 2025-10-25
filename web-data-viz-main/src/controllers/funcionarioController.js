@@ -19,17 +19,14 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var { nome, email, cargo, departamento, telefone, status, data_admissao, fk_empresa } = req.body;
+    var { nome, email, senha, cargo, telefone, status} = req.body;
+    var fk_empresa = req.params.fkEmpresa;
 
-    if (!nome || !email || !cargo || !departamento || !fk_empresa) {
-        return res.status(400).json({ erro: "Campos obrigatórios: nome, email, cargo, departamento, fk_empresa" });
+    if (!nome || !email || !cargo || !fk_empresa || !senha) {
+        return res.status(400).json({ erro: "Campos obrigatórios: nome, email, cargo, senha, departamento, fk_empresa" });
     }
 
-    status = status || 'ativo';
-
-    console.log("Cadastrando funcionário:", { nome, email, cargo, departamento, telefone, status, data_admissao, fk_empresa });
-
-    funcionarioModel.cadastrar(nome, email, cargo, departamento, telefone, status, data_admissao, fk_empresa)
+    funcionarioModel.cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa)
         .then(() => {
             console.log("Funcionário cadastrado com sucesso!");
             res.status(201).json({ mensagem: "Funcionário cadastrado com sucesso!" });
