@@ -30,24 +30,23 @@ function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa) {
     return database.executar(instrucao);
 }
 
-function atualizar(id_funcionario, nome, email, cargo, departamento, telefone, status, data_admissao) {
+function atualizar(id_funcionario, nome, email, senha, cargo, telefone, status) {
     var instrucao = `
-        UPDATE funcionario
+        UPDATE usuario
         SET nome = '${nome}', 
             email = '${email}', 
-            cargo = '${cargo}', 
-            departamento = '${departamento}',
+            fk_cargo = ${cargo}, 
+            senha = '${senha}',
             telefone = '${telefone}',
-            status = '${status}',
-            data_admissao = '${data_admissao}'
-        WHERE id_funcionario = ${id_funcionario};
+            ativo = ${status}
+        WHERE id = ${id_funcionario};
     `;
     return database.executar(instrucao);
 }
 
 function deletar(id_funcionario) {
     var instrucao = `
-        DELETE FROM funcionario WHERE id_funcionario = ${id_funcionario};
+        DELETE FROM usuario WHERE id = ${id_funcionario};
     `;
     return database.executar(instrucao);
 }

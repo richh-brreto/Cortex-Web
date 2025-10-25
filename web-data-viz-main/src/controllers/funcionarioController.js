@@ -39,21 +39,21 @@ function cadastrar(req, res) {
 
 function atualizar(req, res) {
     var id_funcionario = req.params.id;
-    var { nome, email, cargo, departamento, telefone, status, data_admissao } = req.body;
+    var { nome, email, senha, cargo, telefone, status} = req.body;
 
     if (!id_funcionario) {
         return res.status(400).json({ erro: "ID do funcionário não fornecido" });
     }
 
-    if (!nome || !email || !cargo || !departamento) {
+    if (!nome || !email || !senha || !cargo ) {
         return res.status(400).json({ erro: "Campos obrigatórios: nome, email, cargo, departamento" });
     }
 
     status = status || 'ativo';
 
-    console.log("Atualizando funcionário:", { id_funcionario, nome, email, cargo, departamento, telefone, status, data_admissao });
+    console.log("Atualizando funcionário:", { id_funcionario, nome, email, senha, cargo, telefone, status});
 
-    funcionarioModel.atualizar(id_funcionario, nome, email, cargo, departamento, telefone, status, data_admissao)
+    funcionarioModel.atualizar(id_funcionario, nome, email, senha, cargo, telefone, status)
         .then(() => {
             console.log("Funcionário atualizado com sucesso!");
             res.status(200).json({ mensagem: "Funcionário atualizado com sucesso!" });

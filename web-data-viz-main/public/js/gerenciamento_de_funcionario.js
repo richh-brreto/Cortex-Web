@@ -6,6 +6,8 @@ const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
+const header = document.getElementById('header');
+const headers = header.querySelectorAll('th')
 const form = document.getElementById('form-funcionario');
 const overlay = document.getElementById('sobreposicao-formulario');
 const tituloModal = document.getElementById('modal-title');
@@ -15,6 +17,8 @@ const btnCancelar = document.getElementById('btn-cancelar');
 
 let linhaEditando = null;
 const fk_empresa = sessionStorage.EMPRESA_USUARIO;
+
+
 
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
@@ -129,14 +133,46 @@ window.addEventListener("load", () => {
             console.error("Erro ao carregar funcionários:", erro);
             alert("Erro ao carregar funcionários");
         });
+
+
 });
+
+
+    headers.forEach(h =>{
+    h.addEventListener('click', () =>{
+        var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
+        const indice = parseInt(h.id)
+        for(let i = 0; i < linhas.length; i++){
+            var menor = i
+            for(let j = i + 1; j < linhas.length;j++){
+                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
+                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+              if(valorA.localeCompare(valorB)  > 0){
+                menor = j;
+              }
+            }
+            var aux = linhas[i]
+            linhas[i] = linhas[menor]
+            linhas[menor] = aux
+            
+        }
+
+        tabelaCorpo.innerHTML = ""
+
+        for(let i = 0; i < linhas.length;i++){
+            tabelaCorpo.appendChild(linhas[i])
+        }
+    })
+})
+
+
 
 tabelaCorpo.addEventListener('click', (e) => {
     const botao = e.target.closest('.btn-icone');
     if (!botao) return;
 
     const linha = botao.closest('tr');
-    const id_funcionario = linha.getAttribute("data-id");
+    const id_funcionario = linha.children[0].textContent
     const acao = botao.getAttribute('title');
 
     if (acao === 'Editar') {
@@ -206,7 +242,8 @@ form.addEventListener('submit', (ev) => {
     };
 
     if (linhaEditando) {
-        const id_funcionario = linhaEditando.getAttribute("data-id");
+        const id_funcionario = linhaEditando.children[0].textContent;
+     console.log(linhaEditando.children[0].textContent)
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
