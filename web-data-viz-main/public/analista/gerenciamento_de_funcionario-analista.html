@@ -79,14 +79,13 @@
                         <input type="text" id="pesquisar-input" placeholder="Pesquisar funcionário...">
                     </div>
                     <div class="filtro-coluna">
-                        <label for="filtro-select">Filtrar por:</label>
+                        <label for="filtro-select">Pesquisar por:</label>
                         <select id="filtro-select">
                             <option value="todos" selected>Todos os campos</option>
                             <option value="id">ID</option>
                             <option value="nome">Nome</option>
                             <option value="email">E-mail</option>
                             <option value="cargo">Cargo</option>
-                            <option value="departamento">Departamento</option>
                             <option value="telefone">Telefone</option>
                             <option value="status">Status</option>
                         </select>
@@ -101,16 +100,16 @@
             <section class="container-tabela">
                 <div class="envoltorio-tabela">
                     <table>
-                        <thead>
+                        <thead id="header">
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>E-mail</th>
-                                <th>Cargo</th>
-                                <th>Departamento</th>
-                                <th>Telefone</th>
-                                <th>Status</th>
-                                <th>Ações</th>
+                                <th id="0">*ID</th>
+                                <th id="1">*Nome</th>
+                                <th id="2">*E-mail</th>
+                                <th id="3">*Cargo</th>
+                                <th id="">Senha</th>
+                                <th id="">Telefone</th>
+                                <th id="6">*Status</th>
+                                <th id="">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-funcionarios-corpo">
@@ -147,20 +146,18 @@
                         </div>
 
                         <div class="campo-form">
-                            <label for="cargo-funcionario">Cargo</label>
-                            <input type="text" id="cargo-funcionario" placeholder="Digite o cargo..." required>
+                            <label for="senha-funcionario">Senha</label>
+                            <input type="text" id="senha-funcionario" placeholder="Digite a senha..." required>
                         </div>
 
                         <div class="campo-form">
-                            <label for="departamento-funcionario">Departamento</label>
-                            <select id="departamento-funcionario" required>
+                            <label for="cargo-funcionario">Cargo</label>
+                            <select id="cargo-funcionario" required>
                                 <option value="">Selecione...</option>
-                                <option value="TI">TI</option>
-                                <option value="Gestão">Gestão</option>
-                                <option value="Design">Design</option>
-                                <option value="RH">Recursos Humanos</option>
-                                <option value="Financeiro">Financeiro</option>
-                                <option value="Operacional">Operacional</option>
+                                <option value="Tecnico">Técnico</option>
+                                <option value="TecnicoSupervisor">Técnico Supervisor</option>
+                                <option value="Analista">Analista</option>
+
                             </select>
                         </div>
 
@@ -178,10 +175,6 @@
                         </div>
                     </div>
 
-                    <div class="campo-form" style="margin-top: 1.5rem;">
-                        <label for="data-admissao">Data de Admissão</label>
-                        <input type="date" id="data-admissao" required>
-                    </div>
                 </form>
             </div>
 

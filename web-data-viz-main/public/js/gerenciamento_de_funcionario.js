@@ -1,12 +1,13 @@
 const nomeInput = document.getElementById('nome-funcionario');
 const emailInput = document.getElementById('email-funcionario');
-const cargoInput = document.getElementById('cargo-funcionario');
-const departamentoInput = document.getElementById('departamento-funcionario');
+const senhaInput = document.getElementById('senha-funcionario');
+const cargoInput = document.getElementById('cargo-funcionario')
 const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
-const dataAdmissaoInput = document.getElementById('data-admissao');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
+const header = document.getElementById('header');
+const headers = header.querySelectorAll('th')
 const form = document.getElementById('form-funcionario');
 const overlay = document.getElementById('sobreposicao-formulario');
 const tituloModal = document.getElementById('modal-title');
@@ -17,14 +18,20 @@ const btnCancelar = document.getElementById('btn-cancelar');
 let linhaEditando = null;
 const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
+
+
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
-    tituloModal.textContent = modo === 'novo' ? 'Adicionar Funcionário' : 'Editar Funcionário';
-    if (modo === 'novo') form.reset();
+    if (modo === 'novo') {
+        tituloModal.textContent = 'Adicionar Funcionário';
+        form.reset()
+    } else {
+        tituloModal.textContent = 'Editar Funcionário';
+    }
 }
 
 function fecharModal() {
@@ -39,11 +46,6 @@ function formatarData(dataISO) {
     return data.toLocaleDateString('pt-BR');
 }
 
-function formatarDataParaInput(dataISO) {
-    if (!dataISO) return '';
-    const data = new Date(dataISO);
-    return data.toISOString().split('T')[0];
-}
 
 const mapaColunas = {
     'todos': 'todos',
@@ -51,7 +53,7 @@ const mapaColunas = {
     'nome': 1,
     'email': 2,
     'cargo': 3,
-    'departamento': 4,
+    'senha': 4,
     'telefone': 5,
     'status': 6
 };
@@ -102,17 +104,21 @@ window.addEventListener("load", () => {
 
             tabelaCorpo.innerHTML = "";
             funcionarios.forEach(f => {
+                if (f.ativo == 1) {
+                    f.ativo = 'Ativo'
+                } else {
+                    f.ativo = "Inativo"
+                }
+
                 const tr = document.createElement("tr");
-                tr.setAttribute("data-id", f.id_funcionario);
-                tr.setAttribute("data-admissao", f.data_admissao);
                 tr.innerHTML = `
-                    <td>${f.id_funcionario}</td>
+                    <td>${f.id}</td>
                     <td>${f.nome}</td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
-                    <td>${f.departamento}</td>
+                    <td>${f.senha}</td>
                     <td>${f.telefone}</td>
-                    <td><span class="badge ${f.status}">${f.status}</span></td>
+                    <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
                     <td>
                         <div class="coluna-acoes">
                             <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
@@ -127,25 +133,66 @@ window.addEventListener("load", () => {
             console.error("Erro ao carregar funcionários:", erro);
             alert("Erro ao carregar funcionários");
         });
+
+
 });
+
+
+    headers.forEach(h =>{
+    h.addEventListener('click', () =>{
+        var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
+        const indice = parseInt(h.id)
+        for(let i = 0; i < linhas.length; i++){
+            var menor = i
+            for(let j = i + 1; j < linhas.length;j++){
+                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
+                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+              if(valorA.localeCompare(valorB)  > 0){
+                menor = j;
+              }
+            }
+            var aux = linhas[i]
+            linhas[i] = linhas[menor]
+            linhas[menor] = aux
+            
+        }
+
+        tabelaCorpo.innerHTML = ""
+
+        for(let i = 0; i < linhas.length;i++){
+            tabelaCorpo.appendChild(linhas[i])
+        }
+    })
+})
+
+
 
 tabelaCorpo.addEventListener('click', (e) => {
     const botao = e.target.closest('.btn-icone');
     if (!botao) return;
 
     const linha = botao.closest('tr');
-    const id_funcionario = linha.getAttribute("data-id");
+    const id_funcionario = linha.children[0].textContent
     const acao = botao.getAttribute('title');
 
     if (acao === 'Editar') {
+
         linhaEditando = linha;
         nomeInput.value = linha.children[1].textContent;
         emailInput.value = linha.children[2].textContent;
-        cargoInput.value = linha.children[3].textContent;
-        departamentoInput.value = linha.children[4].textContent;
+ 
+        if (linha.children[3].textContent == "Técnico Supervisor") {
+            cargoInput.value = "TecnicoSupervisor"
+        } else if (linha.children[3].textContent == "Técnico") {
+            cargoInput.value = "Tecnico"
+        } else {
+            cargoInput.value = "Analista"
+        }
+
+        senhaInput.value = linha.children[4].textContent;
         telefoneInput.value = linha.children[5].textContent;
+
         statusInput.value = linha.children[6].textContent.trim().toLowerCase();
-        dataAdmissaoInput.value = formatarDataParaInput(linha.getAttribute("data-admissao"));
         abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {
@@ -169,55 +216,76 @@ tabelaCorpo.addEventListener('click', (e) => {
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
+        var cargoB = null
+        var statusB = null
+    if(cargoInput.value == "Analista"){
+         cargoB = 1
+    }else if(cargoInput.value == "TecnicoSupervisor"){
+        cargoB = 2
+    }else if(cargoInput.value == "Tecnico"){
+         cargoB = 3
+    }
+
+    if(statusInput.value == "ativo"){
+         statusB = 1
+    }else{
+         statusB = 0
+    }
     const funcionario = {
         nome: nomeInput.value.trim(),
         email: emailInput.value.trim(),
-        cargo: cargoInput.value.trim(),
-        departamento: departamentoInput.value.trim(),
+        senha: senhaInput.value.trim(),
+        cargo: cargoB,
         telefone: telefoneInput.value.trim(),
-        status: statusInput.value.trim(),
-        data_admissao: dataAdmissaoInput.value,
-        fk_empresa: fk_empresa
+        status: statusB
+
     };
 
     if (linhaEditando) {
-        const id_funcionario = linhaEditando.getAttribute("data-id");
+        const id_funcionario = linhaEditando.children[0].textContent;
+     console.log(linhaEditando.children[0].textContent)
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(funcionario)
         })
-        .then(res => {
-            if (res.ok) {
-                alert("Funcionário atualizado com sucesso!");
-                window.location.reload();
-            } else {
+            .then(res => {
+                if (res.ok) {
+                    alert("Funcionário atualizado com sucesso!");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao atualizar funcionário");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao atualizar:", erro);
                 alert("Erro ao atualizar funcionário");
-            }
-        })
-        .catch(erro => {
-            console.error("Erro ao atualizar:", erro);
-            alert("Erro ao atualizar funcionário");
-        });
+            });
     } else {
-        fetch("/funcionario/cadastrar", {
+        console.log(senhaInput.value)
+        console.log(nomeInput.value.trim())
+        console.log(emailInput.value.trim())
+        console.log(telefoneInput.value.trim())
+        console.log(cargoInput.value)
+        console.log(statusInput.value)
+        fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(funcionario)
         })
-        .then(res => {
-            if (res.ok) {
-                alert("Funcionário cadastrado com sucesso!");
-                window.location.reload();
-            } else {
+            .then(res => {
+                if (res.ok) {
+                    alert("Funcionário cadastrado com sucesso!");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao cadastrar funcionário");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao cadastrar:", erro);
                 alert("Erro ao cadastrar funcionário");
-            }
-        })
-        .catch(erro => {
-            console.error("Erro ao cadastrar:", erro);
-            alert("Erro ao cadastrar funcionário");
-        });
+            });
     }
 
     fecharModal();

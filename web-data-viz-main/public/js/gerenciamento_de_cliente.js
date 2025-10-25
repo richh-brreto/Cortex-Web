@@ -6,11 +6,14 @@ const descInput = document.getElementById('descricao-cliente');
 
 const tabelaCorpo = document.getElementById('tabela-clientes-corpo');
 const form = document.getElementById('form-cliente');
+
 const overlay = document.getElementById('sobreposicao-formulario');
 const tituloModal = document.getElementById('modal-title');
 const btnAdicionar = document.getElementById('btn-adicionar');
 const btnFechar = document.getElementById('btn-fechar-modal');
 const btnCancelar = document.getElementById('btn-cancelar');
+const header = document.getElementById('header');
+const headers = header.querySelectorAll('th') 
 
 let linhaEditando = null;
 const fk_empresa = sessionStorage.EMPRESA_USUARIO;
@@ -23,8 +26,13 @@ const filtroSelect = document.getElementById('filtro-select');
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
-    tituloModal.textContent = modo === 'novo' ? 'Adicionar Cliente' : 'Editar Cliente';
-    if (modo === 'novo') form.reset();
+
+    if(modo === 'novo'){
+        tituloModal.textContent = "Adicionar Cliente"
+         form.reset();
+    }else{
+        tituloModal.textContent = 'Editar Cliente'
+    }
 }
 
 function fecharModal() {
@@ -40,7 +48,8 @@ const mapaColunas = {
     'descricao': 2,
     'cnpj': 3,
     'telefone': 4,
-    'qtd_modelos': 5
+    'email' : 5,
+    'qtd_modelos': 6
 };
 
 function aplicarPesquisa() {
@@ -109,8 +118,51 @@ window.addEventListener("load", () => {
                 `;
                 tabelaCorpo.appendChild(tr);
             });
+            
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar Clientes:", erro);
+            alert("Erro ao carregar Clientes");
         });
+        
 });
+
+    headers.forEach(h =>{
+    h.addEventListener('click', () =>{
+        var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
+        const indice = parseInt(h.id)
+   
+     
+        for(let i = 0; i < linhas.length; i++){
+            var menor = i
+            for(let j = i + 1; j < linhas.length;j++){
+                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
+                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+
+                if(indice == 6){
+                    if(valorA.localeCompare(valorB)  < 0){
+                        menor = j;
+                    } 
+                }else{
+                    if(valorA.localeCompare(valorB)  > 0){
+                        menor = j;
+                    } 
+                }
+           
+            }
+            var aux = linhas[i]
+            linhas[i] = linhas[menor]
+            linhas[menor] = aux
+            
+        }
+
+        tabelaCorpo.innerHTML = ""
+
+        for(let i = 0; i < linhas.length;i++){
+            tabelaCorpo.appendChild(linhas[i])
+        }
+    })
+})
 
 tabelaCorpo.addEventListener('click', (e) => {
     const botao = e.target.closest('.btn-icone');
