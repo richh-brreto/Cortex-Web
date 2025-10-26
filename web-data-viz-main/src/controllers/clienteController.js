@@ -19,17 +19,16 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var { nome, descricao, telefone, cnpj, qtd_modelos, fk_empresa } = req.body;
+    var { nome, descricao, telefone, cnpj, email, fk_empresa} = req.body;
 
     if (!nome || !cnpj || !fk_empresa) {
         return res.status(400).json({ erro: "Campos obrigatórios: nome, cnpj, fk_empresa" });
     }
 
-    qtd_modelos = qtd_modelos || 0;
 
-    console.log("Cadastrando cliente:", { nome, descricao, telefone, cnpj, qtd_modelos, fk_empresa });
+    console.log("Cadastrando cliente:", { nome, descricao, telefone, cnpj, email, fk_empresa});
 
-    clienteModel.cadastrar(nome, descricao, telefone, cnpj, qtd_modelos, fk_empresa)
+    clienteModel.cadastrar(nome, descricao, telefone, cnpj, email, fk_empresa)
         .then(() => {
             console.log("Cliente cadastrado com sucesso!");
             res.status(201).json({ mensagem: "Cliente cadastrado com sucesso!" });
