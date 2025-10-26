@@ -35,6 +35,7 @@ CREATE TABLE usuario (
     fk_empresa INT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(30),
     senha VARCHAR(20) NOT NULL,
     fk_cargo INT,
     ativo TINYINT DEFAULT FALSE NOT NULL,
@@ -42,11 +43,12 @@ CREATE TABLE usuario (
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
 );
 
-INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo) VALUES
-('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1), -- Analista
-('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1), -- Técnico Supervisor
-('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1), -- Técnico
-('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 1, 4, 1); -- Cortex
+INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) VALUES
+('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, '(11) 91234-5678'), -- Analista
+('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1, '(11) 92345-6789'), -- Técnico Supervisor
+('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, '(11) 93456-7890'), -- Técnico
+('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 1, 4, 1, '(11) 90000-0000'); -- Cortex
+
 
 
 CREATE TABLE zonadisponibilidade (
