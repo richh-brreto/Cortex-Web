@@ -36,18 +36,17 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(20) NOT NULL,
-    telefone VARCHAR(30),
     fk_cargo INT,
-    ativo TINYINT DEFAULT TRUE NOT NULL,
+    ativo TINYINT DEFAULT FALSE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
 );
 
-INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) VALUES
-('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, "(11) 98583-1860"), -- Analista
-('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1, "(11) 92057-3048"), -- Técnico Supervisor
-('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, "(11) 90940-1920"), -- Técnico
-('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', null, 4, 1, null); -- Cortex
+INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo) VALUES
+('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1), -- Analista
+('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1), -- Técnico Supervisor
+('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1), -- Técnico
+('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 1, 4, 1); -- Cortex
 
 
 CREATE TABLE zonadisponibilidade (
@@ -84,8 +83,11 @@ VALUES
 ('Matrix TI', 'Consultoria em tecnologia e cloud', 'contato@matrixti.com', '(11) 98765-4321', '11.111.111/0001-11', 1),
 ('CloudCorp', 'Infraestrutura em nuvem e segurança', 'contato@cloudcorp.com', '(11) 91234-5678', '11.111.111/0001-22', 1);
 
+
+
+    
   create table arquitetura (
-        id_arquitetura int primary key,
+        id_arquitetura int primary key auto_increment,
         nome varchar(55),
         modelo_cpu varchar(55),
         qtd_cpu int,
@@ -98,14 +100,15 @@ VALUES
         fk_empresa int,
         foreign key (fk_zona) references zonadisponibilidade(id_zona),
         foreign key (fk_empresa) references empresa(id)
+        ON DELETE CASCADE
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
-VALUES (1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona,fk_empresa)
+VALUES (1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 512, 1, 1,1);
 
      
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
-VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona,fk_empresa)
+VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 256, 1, 1,1);
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
@@ -126,6 +129,7 @@ create table if not exists modelo (
         foreign key (fk_cliente) references cliente(id_cliente),
         foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona),
         foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
+        ON DELETE CASCADE
 );
 
 INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
@@ -138,7 +142,7 @@ VALUES
 -- Modelos para CloudCorp (Cliente 2)
 ('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
 ('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.0.192', 'DESKTOP-N2E1DHL', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
 
 
 
@@ -187,10 +191,13 @@ CREATE TABLE alerta (
     fk_modelo INT,
     componente VARCHAR(50),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+    ON DELETE CASCADE
 );
 
 INSERT INTO alerta (tipo, componente, descricao, status, fk_modelo) 
 VALUES 
 ('Risco', 'CPU', 'Uso de CPU excedeu 95% por mais de 5 minutos.', 'Ativo', 1);
 
-
+select * from usuario;
+select * from arquitetura;
+select * from modelo;
