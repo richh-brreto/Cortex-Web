@@ -23,6 +23,7 @@ var clienteRouter = require("./src/routes/info-cliente")
 var clienteRouter = require("./src/routes/cliente");
 var funcionarioRouter = require("./src/routes/funcionario");
 var zonaRouter = require("./src/routes/zona");
+var arquiteturaRouter = require("./src/routes/arquiteturas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use("/info-cliente", clienteRouter)
 app.use("/cliente", clienteRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/zona", zonaRouter);
+app.use("/arquiteturas", arquiteturaRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

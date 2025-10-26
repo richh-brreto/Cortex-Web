@@ -754,3 +754,90 @@ input[type="checkbox"] {
         padding: 0.875rem 0.5rem;
     }
 }
+
+
+.fundo-dialogo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1020;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.fundo-dialogo.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-dialogo {
+    background-color: #ffffff; 
+    color: var(--cor-destaque-medio); 
+    padding: 25px 35px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.fundo-dialogo.show .modal-dialogo {
+    transform: translateY(0);
+}
+
+.modal-dialogo h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: var(--cor-destaque-medio); /* Um azul para o título */
+}
+
+.modal-dialogo p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.botoes-dialogo {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-dialogo {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-dialogo.btn-ok {
+    background-color: var(--cor-destaque-medio); /* Azul */
+    color: white;
+}
+
+.btn-dialogo.btn-ok:hover {
+    background-color: var(--cor-destaque-claro);
+    transform: translateY(-2px);
+}
+
+.btn-dialogo.btn-cancelar {
+    background-color: #6c757d; /* Cinza */
+    color: white;
+}
+
+.btn-dialogo.btn-cancelar:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
