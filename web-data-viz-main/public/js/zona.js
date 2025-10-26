@@ -1,211 +1,287 @@
-function cadastrarzona() {
+const nomeInput = document.getElementById('nome-funcionario');
+const emailInput = document.getElementById('email-funcionario');
+const senhaInput = document.getElementById('senha-funcionario');
+const cargoInput = document.getElementById('cargo-funcionario')
+const telefoneInput = document.getElementById('telefone-funcionario');
+const statusInput = document.getElementById('status-funcionario');
 
-    var nome_zona = ipt_nome_zona.value;
-    var idEmpresa = sessionStorage.getItem('EMPRESA_USUARIO');
+const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
+const header = document.getElementById('header');
+const headers = header.querySelectorAll('th')
+const form = document.getElementById('form-funcionario');
+const overlay = document.getElementById('sobreposicao-formulario');
+const tituloModal = document.getElementById('modal-title');
+const btnAdicionar = document.getElementById('btn-adicionar');
+const btnFechar = document.getElementById('btn-fechar-modal');
+const btnCancelar = document.getElementById('btn-cancelar');
+
+let linhaEditando = null;
+const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
 
-    if (nome_zona == "") {
-        alert("Por favor, preencha o campo.");
-        return;
+
+const pesquisaInput = document.getElementById('pesquisar-input');
+const filtroSelect = document.getElementById('filtro-select');
+
+function abrirModal(modo = 'novo') {
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    if (modo === 'novo') {
+        tituloModal.textContent = 'Adicionar Funcionário';
+        form.reset()
+    } else {
+        tituloModal.textContent = 'Editar Funcionário';
     }
+}
+
+function fecharModal() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    linhaEditando = null;
+}
+
+function formatarData(dataISO) {
+    if (!dataISO) return '';
+    const data = new Date(dataISO);
+    return data.toLocaleDateString('pt-BR');
+}
 
 
-    fetch('/zona/cadastrarzona/' + nome_zona + "/" + idEmpresa, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            alert("Zona cadastrado com sucesso!");
-            window.location.reload();
+const mapaColunas = {
+    'todos': 'todos',
+    'id': 0,
+    'nome': 1,
+    'email': 2,
+    'cargo': 3,
+    'senha': 4,
+    'telefone': 5,
+    'status': 6
+};
+
+function aplicarPesquisa() {
+    const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
+    const colunaFiltro = filtroSelect.value;
+    const linhas = tabelaCorpo.querySelectorAll('tr');
+
+    linhas.forEach(linha => {
+        let textoParaPesquisar = '';
+
+        if (colunaFiltro === 'todos') {
+            for (let i = 0; i < linha.children.length - 1; i++) {
+                textoParaPesquisar += linha.children[i].textContent.toLowerCase() + ' ';
+            }
         } else {
-            alert("Houve um erro ao tentar cadastrar a zona!");
-            console.error('Erro no cadastro, resposta do servidor:', resposta);
+            const indiceCelula = mapaColunas[colunaFiltro];
+            textoParaPesquisar = linha.children[indiceCelula].textContent.toLowerCase();
         }
-    }).catch(function (erro) {
-        console.error('Erro na requisição de cadastro:', erro);
-        alert("Houve um erro na requisição!");
+
+        if (textoParaPesquisar.includes(termoPesquisa)) {
+            linha.style.display = '';
+        } else {
+            linha.style.display = 'none';
+        }
     });
 }
 
-function carregarAbas() {
-    const idEmpresa = sessionStorage.getItem('EMPRESA_USUARIO')
+pesquisaInput.addEventListener('input', aplicarPesquisa);
+filtroSelect.addEventListener('change', aplicarPesquisa);
 
-    fetch('/zona/carregarAbas/' + idEmpresa)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                throw new Error('Falha ao buscar os dados do formulário.');
-            }
-        })
-        .then(function (info) {
-            listaIdZona = []
-            const container_abas = document.getElementById("container-abas")
-            for (let i = 0; i < info.length; i++) {
-                listaIdZona.push(info[i].id_zona)
-                const aba = document.createElement("div")
-                if (i == 0) {
-                    aba.className = "aba escolhida"
+btnAdicionar.addEventListener('click', () => abrirModal('novo'));
+btnFechar.addEventListener('click', fecharModal);
+btnCancelar.addEventListener('click', fecharModal);
+
+window.addEventListener("load", () => {
+    if (!fk_empresa) {
+        console.error("ID da empresa não encontrado na sessão.");
+        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
+        return;
+    }
+
+    fetch(`/funcionario/listar/${fk_empresa}`)
+        .then(res => res.json())
+        .then(funcionarios => {
+            console.log("Dados recebidos pelo frontend:", funcionarios);
+
+            tabelaCorpo.innerHTML = "";
+            funcionarios.forEach(f => {
+                if (f.ativo == 1) {
+                    f.ativo = 'Ativo'
                 } else {
-                    aba.className = "aba"
+                    f.ativo = "Inativo"
                 }
 
-                const btEditar = document.createElement("button")
-                btEditar.className = "botao-editar"
-                btEditar.id = "botao-editar"
-                const imagemEditar = document.createElement("img")
-                imagemEditar.src = "../assets/icon/1159633.png"
-                btEditar.appendChild(imagemEditar)
-                aba.appendChild(btEditar)
-
-                const btDel = document.createElement("button")
-                btDel.className = "botao-del"
-                btDel.id = "botao-del"
-                const imagemDel = document.createElement("img")
-                imagemDel.src = "../assets/icon/deletar.png"
-                btDel.appendChild(imagemDel)
-                aba.appendChild(btDel)
-
-                const divTexto = document.createElement("div")
-                divTexto.className = "texto-aba"
-                const h5 = document.createElement("h5")
-                h5.textContent = info[i].nome
-                divTexto.appendChild(h5)
-
-                const idZona = info[i].id_zona
-
-                fetch('/zona/qtdModelo/' + idZona)
-                    .then(function (resposta) {
-                        if (resposta.ok) {
-                            return resposta.json();
-                        } else {
-                            throw new Error('Falha ao buscar os dados do formulário.');
-                        }
-                    })
-                    .then(function (info2) {
-                        const h6 = document.createElement("h6")
-                        h6.textContent = "Qtd. Modelos: " + info2[0].qtd
-                        divTexto.appendChild(h6)
-                    })
-
-                aba.appendChild(divTexto)
-                container_abas.appendChild(aba)
-
-
-            }
-            
-            botaoAba(listaIdZona)
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${f.id}</td>
+                    <td>${f.nome}</td>
+                    <td>${f.email}</td>
+                    <td>${f.cargo}</td>
+                    <td>${f.senha}</td>
+                    <td>${f.telefone}</td>
+                    <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
+                    <td>
+                        <div class="coluna-acoes">
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                        </div>
+                    </td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            });
         })
-        .catch(function (error) {
-            console.error('Erro ao buscar dados do formulário:', error);
+        .catch(erro => {
+            console.error("Erro ao carregar funcionários:", erro);
+            alert("Erro ao carregar funcionários");
         });
 
 
+});
 
-}
 
-function botaoAba(listaIdZona) {
-    const texto_aba = document.getElementsByClassName("texto-aba")
-    const aba = document.getElementsByClassName("aba")
-
-    info_usuario(listaIdZona[0])
-
-    for (let i = 0; i < texto_aba.length; i++) {
-        texto_aba[i].addEventListener("click", function () {
-            const escolhida = document.getElementsByClassName("escolhida")
-            escolhida[0].classList.remove("escolhida")
-            aba[i].classList.add("escolhida")
+    headers.forEach(h =>{
+    h.addEventListener('click', () =>{
+        var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
+        const indice = parseInt(h.id)
+        for(let i = 0; i < linhas.length; i++){
+            var menor = i
+            for(let j = i + 1; j < linhas.length;j++){
+                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
+                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+              if(valorA.localeCompare(valorB)  > 0){
+                menor = j;
+              }
+            }
+            var aux = linhas[i]
+            linhas[i] = linhas[menor]
+            linhas[menor] = aux
             
-            info_usuario(listaIdZona[i])
-             
-        })
-    }
-}
+        }
+
+        tabelaCorpo.innerHTML = ""
+
+        for(let i = 0; i < linhas.length;i++){
+            tabelaCorpo.appendChild(linhas[i])
+        }
+    })
+})
 
 
-function info_usuario(idZona){
-      fetch('/zona/info-usuario/' + idZona)
-                .then(function (resposta) {
-                    if (resposta.ok) {
-                        return resposta.json();
+
+tabelaCorpo.addEventListener('click', (e) => {
+    const botao = e.target.closest('.btn-icone');
+    if (!botao) return;
+
+    const linha = botao.closest('tr');
+    const id_funcionario = linha.children[0].textContent
+    const acao = botao.getAttribute('title');
+
+    if (acao === 'Editar') {
+
+        linhaEditando = linha;
+        nomeInput.value = linha.children[1].textContent;
+        emailInput.value = linha.children[2].textContent;
+ 
+        if (linha.children[3].textContent == "Técnico Supervisor") {
+            cargoInput.value = "TecnicoSupervisor"
+        } else if (linha.children[3].textContent == "Técnico") {
+            cargoInput.value = "Tecnico"
+        } else {
+            cargoInput.value = "Analista"
+        }
+
+        senhaInput.value = linha.children[4].textContent;
+        telefoneInput.value = linha.children[5].textContent;
+
+        statusInput.value = linha.children[6].textContent.trim().toLowerCase();
+        abrirModal('editar');
+    } else if (acao === 'Excluir') {
+        if (confirm("Deseja realmente excluir este funcionário?")) {
+            fetch(`/funcionario/deletar/${id_funcionario}`, { method: "DELETE" })
+                .then(res => {
+                    if (res.ok) {
+                        linha.remove();
+                        alert("Funcionário excluído!");
                     } else {
-                        throw new Error('Falha ao buscar os dados do formulário.');
+                        alert("Erro ao excluir funcionário");
                     }
                 })
-                .then(function (info3) {
-
-                    const divUsuarioConteudo = document.getElementById("usuario-conteudo")
-                    divUsuarioConteudo.innerHTML = ""
-                    for (let i = 0; i < info3.length; i++) {
-                        if (i % 3 == 0) {
-                            var linhaUsuario = document.createElement("div")
-                            linhaUsuario.className = "linha-usuario"
-                            divUsuarioConteudo.appendChild(linhaUsuario)
-                        }
-
-                        const divCard = document.createElement("div")
-                        divCard.className = "card-usuario"
-                        const fotoPerfil = document.createElement("img")
-                        // tem que pegar a foto do usuario
-                        fotoPerfil.src = "../assets/icon/teste-perfil.webp"
-                        fotoPerfil.className = "foto"
-                        divCard.appendChild(fotoPerfil)
-
-                        const divConteudo = document.createElement("div")
-                        divConteudo.className = "conteudo-usuario"
-                        divCard.appendChild(divConteudo)
-
-                        const nome = document.createElement("h5")
-                        nome.textContent = info3[i].nome_usuario
-                        divConteudo.appendChild(nome)
-
-                        const linha1 = document.createElement("div")
-                        linha1.className = "linha-conteudo"
-                        divConteudo.appendChild(linha1)
-
-                        const emailTag = document.createElement("h6")
-                        emailTag.textContent = "Email: "
-                        linha1.appendChild(emailTag)
-
-                        const emailInfo = document.createElement("h6")
-                        emailInfo.textContent = info3[i].email
-                        linha1.appendChild(emailInfo)
-
-                        const linha2 = document.createElement("div")
-                        linha2.className = "linha-conteudo"
-                        divConteudo.appendChild(linha2)
-
-                        const cargoTag = document.createElement("h6")
-                        cargoTag.textContent = "Cargo: "
-                        linha2.appendChild(cargoTag)
-
-                        const cargoInfo = document.createElement("h6")
-                        cargoInfo.textContent = info3[i].cargo
-                        linha2.appendChild(cargoInfo)
-
-                        const botaoDiv = document.createElement("div")
-                        botaoDiv.className = "botao-del-usuario"
-                        divCard.appendChild(botaoDiv)
-
-                        const botao = document.createElement("button")
-                        botao.className = "botao-del"
-                        botaoDiv.appendChild(botao)
-
-                        const imgDel = document.createElement("img")
-                        imgDel.src = "../assets/icon/deletar.png"
-                        botao.appendChild(imgDel)
-
-                        linhaUsuario.appendChild(divCard)
-                    }
-
-                })
-                .catch(function (error) {
-                    console.error('Erro ao buscar dados do formulário:', error);
+                .catch(erro => {
+                    console.error("Erro ao excluir:", erro);
+                    alert("Erro ao excluir funcionário");
                 });
-}
+        }
+    }
+});
 
-window.onload = function () {
-    carregarAbas();
-};
+form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+
+        var cargoB = null
+        var statusB = null
+    if(cargoInput.value == "Analista"){
+         cargoB = 1
+    }else if(cargoInput.value == "TecnicoSupervisor"){
+        cargoB = 2
+    }else if(cargoInput.value == "Tecnico"){
+         cargoB = 3
+    }
+
+    if(statusInput.value == "ativo"){
+         statusB = 1
+    }else{
+         statusB = 0
+    }
+    const funcionario = {
+        nome: nomeInput.value.trim(),
+        email: emailInput.value.trim(),
+        senha: senhaInput.value.trim(),
+        cargo: cargoB,
+        telefone: telefoneInput.value.trim(),
+        status: statusB
+
+    };
+
+    if (linhaEditando) {
+        const id_funcionario = linhaEditando.children[0].textContent;
+     console.log(linhaEditando.children[0].textContent)
+
+        fetch(`/funcionario/atualizar/${id_funcionario}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(funcionario)
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Funcionário atualizado com sucesso!");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao atualizar funcionário");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao atualizar:", erro);
+                alert("Erro ao atualizar funcionário");
+            });
+    } else {
+
+        fetch("/funcionario/cadastrar/" + fk_empresa, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(funcionario)
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Funcionário cadastrado com sucesso!");
+                    window.location.reload();
+                } else {
+                    alert("Erro ao cadastrar funcionário");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao cadastrar:", erro);
+                alert("Erro ao cadastrar funcionário");
+            });
+    }
+
+    fecharModal();
+});
