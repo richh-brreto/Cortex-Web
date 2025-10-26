@@ -1,16 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap');
 
+/* === VARIÁVEIS === */
 :root {
-    --branco: #EBF4F8;
-    --azul: #00B2B2;
-    --cinza: #E2E8F0;
-    --vermelho: #B74C4C;
-    --verde: #10b156;
-    --preto: #0A202D;
-    --azul-escuro: #006E66;
-    --cinza-escuro: #7a79799a;
-    --monserate: "Montserrat", sans-serif;
-    --lato: "Lato", sans-serif;
+    --cor-primaria-claro: #EBF4F8;
+    --cor-secundaria-claro: #E2E8F0;
+    --cor-destaque-claro: #00B2B2;
+    --cor-destaque-medio: #006E66;
+    --cor-detalhe-quente: #B74C4C;
+    --cor-texto-escuro: #0A202D;
+
+    --cor-fundo-primaria: var(--cor-secundaria-claro);
+    --cor-fundo-secundaria: var(--cor-primaria-claro);
+    --cor-fundo-tela: #FFFFFF;
+    
+    --cor-borda: #cbd5e0;
+    --cor-sombra: rgba(0, 0, 0, 0.08);
+    
+    --cor-primaria: var(--cor-destaque-claro);
+    --cor-secundaria: var(--cor-destaque-medio);
+    --cor-perigo: var(--cor-detalhe-quente);
+    --cor-texto: var(--cor-texto-escuro);
+    --cor-sucesso: #10b156;
+
+    --font-principal: 'Lato', sans-serif;
+    --font-titulo: 'Montserrat', sans-serif;
 }
 
 * {
@@ -19,172 +32,363 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
 body {
     display: flex;
-    height: 100vh;
-    font-family: var(--lato);
-    background: var(--cinza);
+    font-family: var(--font-principal);
+    background: linear-gradient(135deg, var(--cor-primaria-claro) 0%, var(--cor-secundaria-claro) 100%);
+    color: var(--cor-texto);
 }
 
-/* Menu Lateral */
-.barra-lateral {
-    width: 70px;
-    background: var(--branco);
-    border-right: 1px solid var(--cinza);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 0 20px 10px;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    height: 100%;
-}
-
-.barra-lateral:hover {
-    width: 260px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-}
-
-.item-logo {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40px;
-    cursor: pointer;
-    position: relative;
-}
-
-.item-logo img {
-    width: 30px;
-}
-
-.texto-logo {
-    position: absolute;
-    left: 80px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    font-family: var(--monserate);
-    font-size: 22px;
-    color: var(--preto);
-}
-
-.barra-lateral:hover .texto-logo {
-    opacity: 1;
-}
-
-.item-navegacao {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    color: var(--preto);
-    transition: 0.3s;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.item-navegacao:hover {
-    background: var(--cinza);
-    color: var(--azul);
-}
-
-.item-navegacao span {
-    position: absolute;
-    left: 80px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    font-weight: 600;
-}
-
-.barra-lateral:hover .item-navegacao span {
-    opacity: 1;
-}
-
-/* Conteúdo Principal */
+/* === CONTEÚDO PRINCIPAL === */
 .conteudo-principal {
     flex: 1;
     padding: 40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--cinza);
+    flex-direction: column;
+    overflow-y: auto;
 }
 
+/* === PERFIL CONTAINER === */
 .perfil-container {
-    background: var(--branco);
-    border-radius: 12px;
-    padding: 40px 60px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    width: 80%;
-    max-width: 950px;
+    background: white;
+    border-radius: 16px;
+    padding: 10px 70px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .titulo-pagina {
-    font-family: var(--monserate);
-    font-size: 28px;
-    color: var(--preto);
-    margin-bottom: 30px;
+    font-family: var(--font-titulo);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+    align-self: flex-start;
 }
 
+/* === PERFIL CONTEÚDO === */
 .perfil-conteudo {
     display: flex;
-    gap: 60px;
-    align-items: center;
+    gap: 80px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* === FOTO === */
+.perfil-foto {
+    flex-shrink: 0;
 }
 
 .perfil-foto img {
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    border: 4px solid var(--preto);
+    border: 4px solid var(--cor-destaque-claro);
     object-fit: cover;
+    box-shadow: 0 8px 24px rgba(0, 178, 178, 0.2);
+    transition: all 0.3s ease;
+}
+
+.perfil-foto img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 178, 178, 0.3);
+}
+
+/* === INFORMAÇÕES === */
+.perfil-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .perfil-info p {
-    font-size: 16px;
-    color: var(--preto);
-    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--cor-texto);
+    line-height: 1.6;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cor-secundaria-claro);
+}
+
+.perfil-info p:last-of-type {
+    border-bottom: none;
 }
 
 .perfil-info strong {
     font-weight: 600;
-    font-family: var(--monserate);
+    font-family: var(--font-titulo);
+    color: var(--cor-destaque-medio);
+    display: inline-block;
+    min-width: 160px;
 }
 
+/* === CAMPO SENHA === */
 .campo-senha {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cor-secundaria-claro);
+}
+
+.campo-senha p {
+    flex: 1;
+    border-bottom: none;
+    padding: 0;
+    margin: 0;
 }
 
 .mostrar-senha {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.mostrar-senha:hover {
+    background-color: var(--cor-primaria-claro);
+}
+
+.mostrar-senha-img {
+    width: 20px;
+    height: 20px;
+}
+
+/* === BOTÃO MUDAR SENHA === */
 .botao-mudar-senha {
-    margin-top: 15px;
-    background: var(--cinza);
-    color: var(--preto);
+    margin-top: 24px;
+    background: var(--cor-destaque-claro);
+    color: white;
     border: none;
-    padding: 8px 20px;
-    border-radius: 8px;
+    padding: 12px 32px;
+    border-radius: 10px;
     font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: var(--font-principal);
+    box-shadow: 0 2px 8px rgba(0, 178, 178, 0.3);
 }
 
 .botao-mudar-senha:hover {
-    background: var(--azul);
-    color: var(--branco);
+    background: var(--cor-destaque-medio);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 178, 178, 0.4);
+}
+
+.botao-mudar-senha:active {
+    transform: translateY(0);
+}
+
+/* === MODAL === */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 32, 45, 0.6);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+}
+
+.modal[style*="display: flex"] {
+    display: flex !important;
+}
+
+.modal > div {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+    font-family: var(--font-titulo);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    margin-bottom: 20px;
+}
+
+.modal > div > div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--font-principal);
+    color: var(--cor-texto);
+    transition: all 0.3s ease;
+}
+
+.modal input:focus {
+    outline: none;
+    border-color: var(--cor-destaque-claro);
+    box-shadow: 0 0 0 3px rgba(0, 178, 178, 0.1);
+}
+
+.modal input::placeholder {
+    color: #9ca3af;
+}
+
+/* === BOTÕES DO MODAL === */
+.modal > div > div:last-of-type {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.modal button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-principal);
+}
+
+#btn-cancel-senha {
+    background: transparent;
+    color: var(--cor-texto);
+    border: 2px solid var(--cor-borda);
+}
+
+#btn-cancel-senha:hover {
+    background: var(--cor-primaria-claro);
+    border-color: var(--cor-destaque-claro);
+}
+
+#btn-salvar-senha {
+    background: var(--cor-destaque-claro);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 178, 178, 0.3);
+}
+
+#btn-salvar-senha:hover {
+    background: var(--cor-destaque-medio);
+    transform: translateY(-1px);
+}
+
+/* === MENSAGEM === */
+#mensagem-senha {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+#mensagem-senha.erro {
+    background: rgba(183, 76, 76, 0.1);
+    color: var(--cor-perigo);
+    border: 1px solid var(--cor-perigo);
+}
+
+#mensagem-senha.sucesso {
+    background: rgba(16, 177, 86, 0.1);
+    color: var(--cor-sucesso);
+    border: 1px solid var(--cor-sucesso);
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 768px) {
+    .conteudo-principal {
+        padding: 24px;
+    }
+
+    .perfil-container {
+        padding: 32px 24px;
+    }
+
+    .titulo-pagina {
+        font-size: 2rem;
+        margin-bottom: 32px;
+    }
+
+    .perfil-conteudo {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .perfil-foto img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .perfil-info {
+        width: 100%;
+    }
+
+    .perfil-info strong {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .campo-senha {
+        justify-content: center;
+    }
+
+    .botao-mudar-senha {
+        width: 100%;
+    }
+
+    .modal > div {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-pagina {
+        font-size: 1.75rem;
+    }
+
+    .perfil-foto img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .perfil-info p {
+        font-size: 0.9rem;
+    }
+
+    .perfil-info strong {
+        min-width: auto;
+    }
+
+    .modal > div {
+        width: 95%;
+    }
 }

@@ -5,166 +5,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Modelos</title>
-  <style>
-    .container {
-      width: 71%;
-      margin: 20px auto;
-      background: #e9eef3;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      margin-top: 20px;
-      text-align: left;
-      color: #014c41;
-      margin-left: 22px;
-      font-size: 35px;
-
-    }
-
-    .form-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 0px;
-      background: #e9eef3;
-      padding: 10px;
-      border-radius: 10px;
-      width: 100%;
-
-
-    }
-
-    .form-left,
-    .form-right {
-      width: 88%;
-      background: #edf1f6;
-      padding: 30px;
-      border-radius: 10px;
-
-    }
-
-    h2 {
-      color: #016b5b;
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      color: #016b5b;
-      margin-bottom: 5px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 2px solid #016b5b;
-      border-radius: 6px;
-      font-size: 14px;
-      outline: none;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #999;
-    }
-
-    textarea {
-      resize: none;
-      height: 60px;
-
-    }
-
-    button {
-      width: 100%;
-      background: #016b5b;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #014c41;
-    }
-
-    @media (max-width: 900px) {
-      .form-container {
-        flex-direction: column;
-      }
-
-      .form-left,
-      .form-right {
-        width: 100%;
-      }
-    }
-  </style>
-
-  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="/public/css/cadastro-modelo.css">
+  <link rel="stylesheet" href="../base/navbar.css">
 </head>
 
 <body>
   <nav class="barra-lateral">
 
     <a class="item-logo">
-      <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
       <span class="texto-logo">Cortex</span>
     </a>
 
-    <a class="item-navegacao">
-      <img src="assets/icon/graficos.png" id="dash-zona" alt="">
-      <span class="texto" id="texto-dash">Dashboard de Zona</span>
-    </a>
-
-    <a class="item-navegacao">
-      <img src="assets/icon/alerta.png" id="alerta" alt="">
-      <span class="texto">Alertas</span>
+    <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
+      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+      <span class="texto" id="texto-dash">Dashboard Alerta</span>
     </a>
 
     <div class="divisor"></div>
 
-    <a class="item-navegacao">
-      <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
-      <span class="texto">Atribuições</span>
+    <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
+      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+      <span class="texto">Clientes</span>
     </a>
 
-    <a class="item-navegacao">
-      <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
-      <span class="texto">Gerenciamento Funcionario</span>
+    <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
+      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+      <span class="texto">Funcionários</span>
     </a>
 
-    <a class="item-navegacao">
-      <img src="assets/icon/modelo.png" id="modelo" alt="">
-      <span class="texto">Modelos</span>
+    <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
+      <img src="../assets/icon/modelo.png" id="modelo" alt="">
+       <span class="texto">Modelos</span>
+    </a>
+
+        <a class="item-notificacao" href="./zona-supervisor.html">
+      <img src="../assets/icon/sino.png" id="sino" alt="">
+      <span class="texto-notificacao" id="notificacoes">Zonas</span>
     </a>
 
     <div class="divisor"></div>
 
-    <a class="item-notificacao">
-      <img src="assets/icon/sino.png" id="sino" alt="">
-      <span class="texto-notificacao" id="notificacoes">Notificações</span>
-    </a>
 
-    <a class="item-usuario">
-      <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+
+    <a class="item-usuario" href="./perfil-supervisor.html">
+      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
       <span class="texto-usuario">José</span>
     </a>
 
     <div class="divisor"></div>
 
     <a class="item-notificacao">
-      <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
-      <span class="texto-notificacao" id="sair"">Sair</span>
-        </a>
-    </nav>
+      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+      <span class="texto-notificacao" id="sair">Sair</span>
+    </a>
+  </nav>
 
   <div class=" container">
         <h1>Cadastro de Modelos</h1>
@@ -215,9 +110,8 @@
 
             <label>Limite GPU (%):</label>
             <input id="ipt_limite_gpu" type="text" placeholder="92%">
-
-            <button type="button" onclick="Cadastrar()">Cadastrar Modelo</button>
           </div>
+          <button type="button" onclick="Cadastrar()">Cadastrar Modelo</button>
         </div>
         </div>
 
