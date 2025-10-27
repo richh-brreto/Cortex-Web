@@ -7,19 +7,19 @@ var zonaController = require("../controllers/zonaController");
 
 
 
-router.post("/cadastrarzona/:nome/:idEmpresa", function (req, res) {
-    zonaController.cadastrarzona(req, res);
+router.get("/listar/:fkEmpresa", function (req, res) {
+    zonaController.listar(req, res);
 });
 
-router.get("/carregarAbas/:idEmpresa", function (req, res) {
-    zonaController.carregarAbas(req, res);
+router.post("/cadastrar/:fkEmpresa", function (req, res) {
+    zonaController.cadastrar(req, res);
 });
 
-router.get("/qtdModelo/:idZona", function (req, res) {
-    zonaController.qtdModelo(req, res);
+router.delete("/deletar/:idZona", function (req, res) {
+    zonaController.deletar(req, res);
 });
 
-router.get("/info-usuario/:idZona", function (req, res) {
-    zonaController.info_usuario(req, res);
+router.put("/atualizar/:idZona", function (req, res) {
+    zonaController.atualizar(req, res);
 });
 module.exports = router; 

@@ -1,75 +1,81 @@
 var database = require("../database/config");
 
-function cadastrarzona(nomeZona, idEmpresa) {
-   
-     var instrucao = `
+function cadastrar(nome, fkEmpresa) {
+
+    var instrucao = `
         INSERT INTO 
             zonadisponibilidade (nome, fk_empresa) 
         VALUES
-            ('${nomeZona}',${idEmpresa});
+            ('${nome}',${fkEmpresa});
     `;
-    
-    
+
+
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function carregarAbas(idEmpresa) {
-   
-     var instrucao = `
-        SELECT
-            nome, id_zona
-        FROM
-            zonadisponibilidade
-        WHERE
-            fk_empresa = ${idEmpresa};
+function listar(fkEmpresa) {
+
+    var instrucao = `
+    SELECT 
+        z.id_zona,
+        z.nome AS nome_zona,
+        COUNT(DISTINCT az.fk_usuario) AS qtd_usuarios,
+        COUNT(DISTINCT m.id_modelo) AS qtd_modelos,
+        COUNT(DISTINCT a.id_arquitetura) AS qtd_arquiteturas
+    FROM 
+        zonadisponibilidade z
+    LEFT JOIN 
+        acesso_zona az 
+    ON 
+        z.id_zona = az.fk_zona
+    LEFT JOIN 
+        modelo m 
+    ON 
+        z.id_zona = m.fk_zona_disponibilidade
+    LEFT JOIN 
+        arquitetura a 
+    ON 
+        z.id_zona = a.fk_zona
+    WHERE
+        z.fk_empresa = ${fkEmpresa}
+    GROUP BY 
+        z.id_zona, z.nome
+    ORDER BY 
+        z.id_zona;
     `;
-    
-    
+
+
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function qtdModelo(idZona) {
-   
-     var instrucao = `
-        SELECT
-            count(id_modelo) as qtd
-        FROM
-            modelo
-        WHERE
-            fk_zona_disponibilidade = ${idZona};
+function deletar(idZona) {
+
+    var instrucao = `
+        DELETE FROM zonadisponibilidade WHERE id_zona = ${idZona};
     `;
-    
-    
+
+
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function info_usuario(idZona) {
-   
-     var instrucao = `
-        SELECT 
-            u.nome as nome_usuario, u.email as email, c.nome as cargo 
-        FROM 
-            acesso_zona as az 
-        INNER JOIN 
-            usuario as u on u.id = az.fk_usuario 
-        INNER JOIN 
-            cargo as c on u.fk_cargo =  c.id 
-        WHERE 
-            az.fk_zona = ${idZona};
+function atualizar(idZona,nome) {
+
+    var instrucao = `
+        UPDATE zonadisponibilidade SET nome = '${nome}' WHERE id_zona = ${idZona};
     `;
-    
-    
+
+
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 
 module.exports = {
-    cadastrarzona,
-    carregarAbas,
-    qtdModelo,
-    info_usuario
+    cadastrar,
+    listar,
+    deletar,
+    atualizar
 };

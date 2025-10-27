@@ -1,36 +1,46 @@
-const nomeInput = document.getElementById('nome-funcionario');
-const emailInput = document.getElementById('email-funcionario');
-const senhaInput = document.getElementById('senha-funcionario');
-const cargoInput = document.getElementById('cargo-funcionario')
-const telefoneInput = document.getElementById('telefone-funcionario');
-const statusInput = document.getElementById('status-funcionario');
+const nomeInput = document.getElementById('nome-zona');
 
-const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
+
+const tabelaCorpo = document.getElementById('tabela-zona-corpo');
 const header = document.getElementById('header');
 const headers = header.querySelectorAll('th')
-const form = document.getElementById('form-funcionario');
+const form = document.getElementById('form-zona');
 const overlay = document.getElementById('sobreposicao-formulario');
+const overlayInfo = document.getElementById('sobreposicao-info')
 const tituloModal = document.getElementById('modal-title');
 const btnAdicionar = document.getElementById('btn-adicionar');
 const btnFechar = document.getElementById('btn-fechar-modal');
 const btnCancelar = document.getElementById('btn-cancelar');
+const btnFecharInfo = document.getElementById('btn-fechar-modal-info')
+const tituloInfo = document.getElementById('modal-title-info')
+const aba = Array.from(document.getElementsByClassName('aba')) 
 
 let linhaEditando = null;
 const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
-
-
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
+
+
+function abrirModalInfo(nome){
+    overlayInfo.classList.add('show')
+    document.body.style.overflow = 'hidden'
+    tituloInfo.textContent += " " + nome;
+}
+
+function fecharModalInfo(){
+    overlayInfo.classList.remove('show');
+    document.body.style.overflow = '';
+}
 
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
     if (modo === 'novo') {
-        tituloModal.textContent = 'Adicionar Funcionário';
+        tituloModal.textContent = 'Adicionar Zona';
         form.reset()
     } else {
-        tituloModal.textContent = 'Editar Funcionário';
+        tituloModal.textContent = 'Editar Zona';
     }
 }
 
@@ -51,28 +61,26 @@ const mapaColunas = {
     'todos': 'todos',
     'id': 0,
     'nome': 1,
-    'email': 2,
-    'cargo': 3,
-    'senha': 4,
-    'telefone': 5,
-    'status': 6
+    'modelos': 2,
+    'arquitetura': 3,
+    'funcionario': 4,
 };
 
 function aplicarPesquisa() {
     const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
-    const colunaFiltro = filtroSelect.value;
-    const linhas = tabelaCorpo.querySelectorAll('tr');
+    const colunaFiltro = filtroSelect.value.trim();
+    const linhas =  Array.from(tabelaCorpo.querySelectorAll('tr'));
 
     linhas.forEach(linha => {
         let textoParaPesquisar = '';
 
         if (colunaFiltro === 'todos') {
             for (let i = 0; i < linha.children.length - 1; i++) {
-                textoParaPesquisar += linha.children[i].textContent.toLowerCase() + ' ';
+                textoParaPesquisar += linha.children[i].textContent.trim().toLowerCase() + ' ';
             }
         } else {
             const indiceCelula = mapaColunas[colunaFiltro];
-            textoParaPesquisar = linha.children[indiceCelula].textContent.toLowerCase();
+            textoParaPesquisar = linha.children[indiceCelula].textContent.trim().toLowerCase();
         }
 
         if (textoParaPesquisar.includes(termoPesquisa)) {
@@ -89,38 +97,48 @@ filtroSelect.addEventListener('change', aplicarPesquisa);
 btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
+btnFecharInfo.addEventListener('click', fecharModalInfo);
+aba.forEach(a =>
+    a.addEventListener('click', function () {
+        const escolhida = document.getElementsByClassName("escolhida")
+         escolhida[0].classList.remove("escolhida")
+            a.classList.add("escolhida")
+        const id_aba = a.id
 
-window.addEventListener("load", () => {
-    if (!fk_empresa) {
-        console.error("ID da empresa não encontrado na sessão.");
-        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
-        return;
-    }
+        const containerInfo = document.getElementsByClassName("infos")
+        containerInfo.innerHTML = ""
 
-    fetch(`/funcionario/listar/${fk_empresa}`)
+        if(id_aba == "aba-funcionario"){
+            carregarFuncionarios()
+        }else if( id_aba == "aba-modelos"){
+            carregarModelos()
+        }else if( id_aba == "aba-arq"){
+            carregarArq()
+        }
+    })
+)
+
+function carregarArq(){
+    
+    fetch(`/zona/listarArq/${fk_empresa}`)
         .then(res => res.json())
-        .then(funcionarios => {
-            console.log("Dados recebidos pelo frontend:", funcionarios);
+        .then(zonas => {
+            console.log("Dados recebidos pelo frontend:", zonas);
 
             tabelaCorpo.innerHTML = "";
-            funcionarios.forEach(f => {
-                if (f.ativo == 1) {
-                    f.ativo = 'Ativo'
-                } else {
-                    f.ativo = "Inativo"
-                }
-
+            zonas.forEach(z => {
+                
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                    <td>${f.id}</td>
-                    <td>${f.nome}</td>
-                    <td>${f.email}</td>
-                    <td>${f.cargo}</td>
-                    <td>${f.senha}</td>
-                    <td>${f.telefone}</td>
-                    <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
+                    <td>${z.id_zona}</td>
+                    <td>${z.nome_zona}</td>
+                    <td>${z.qtd_usuarios}</td>
+                    <td>${z.qtd_modelos}</td>
+                    <td>${z.qtd_arquiteturas}</td>
+                    AAAAAAAAA
                     <td>
                         <div class="coluna-acoes">
+                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
                             <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
                             <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                         </div>
@@ -130,8 +148,100 @@ window.addEventListener("load", () => {
             });
         })
         .catch(erro => {
-            console.error("Erro ao carregar funcionários:", erro);
-            alert("Erro ao carregar funcionários");
+            console.error("Erro ao carregar zonas:", erro);
+            alert("Erro ao carregar zonas");
+        });
+}
+
+function carregarModelos(){
+
+    fetch(`/zona/listarModelos/${fk_empresa}`)
+        .then(res => res.json())
+        .then(modelos => {
+            console.log("Dados recebidos pelo frontend:", modelos);
+
+           
+            modelos.forEach(z => {
+            
+              
+            });
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar modelos:", erro);
+            alert("Erro ao carregar modelos");
+        });
+}
+
+function carregarFuncionarios(){
+
+    fetch(`/zona/listar/${fk_empresa}`)
+        .then(res => res.json())
+        .then(zonas => {
+            console.log("Dados recebidos pelo frontend:", zonas);
+
+            tabelaCorpo.innerHTML = "";
+            zonas.forEach(z => {
+                
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${z.id_zona}</td>
+                    <td>${z.nome_zona}</td>
+                    <td>${z.qtd_usuarios}</td>
+                    <td>${z.qtd_modelos}</td>
+                    <td>${z.qtd_arquiteturas}</td>
+                    <td>
+                        <div class="coluna-acoes">
+                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                        </div>
+                    </td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            });
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar zonas:", erro);
+            alert("Erro ao carregar zonas");
+        });
+}
+
+window.addEventListener("load", () => {
+    if (!fk_empresa) {
+        console.error("ID da empresa não encontrado na sessão.");
+        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
+        return;
+    }
+
+    fetch(`/zona/listar/${fk_empresa}`)
+        .then(res => res.json())
+        .then(zonas => {
+            console.log("Dados recebidos pelo frontend:", zonas);
+
+            tabelaCorpo.innerHTML = "";
+            zonas.forEach(z => {
+                
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${z.id_zona}</td>
+                    <td>${z.nome_zona}</td>
+                    <td>${z.qtd_usuarios}</td>
+                    <td>${z.qtd_modelos}</td>
+                    <td>${z.qtd_arquiteturas}</td>
+                    <td>
+                        <div class="coluna-acoes">
+                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                        </div>
+                    </td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            });
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar zonas:", erro);
+            alert("Erro ao carregar zonas");
         });
 
 
@@ -145,11 +255,19 @@ window.addEventListener("load", () => {
         for(let i = 0; i < linhas.length; i++){
             var menor = i
             for(let j = i + 1; j < linhas.length;j++){
-                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
-                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+                var valorA = linhas[menor].children[indice].textContent.trim().toLowerCase()
+                var valorB = linhas[j].children[indice].textContent.trim().toLowerCase()
+
+            if(indice == 0 || indice == 1){   
               if(valorA.localeCompare(valorB)  > 0){
                 menor = j;
               }
+            }else{
+              if(valorA.localeCompare(valorB)  < 0){
+                menor = j;
+              }
+            }
+
             }
             var aux = linhas[i]
             linhas[i] = linhas[menor]
@@ -172,114 +290,82 @@ tabelaCorpo.addEventListener('click', (e) => {
     if (!botao) return;
 
     const linha = botao.closest('tr');
-    const id_funcionario = linha.children[0].textContent
+    const id_zona = linha.children[0].textContent
     const acao = botao.getAttribute('title');
 
     if (acao === 'Editar') {
 
         linhaEditando = linha;
         nomeInput.value = linha.children[1].textContent;
-        emailInput.value = linha.children[2].textContent;
- 
-        if (linha.children[3].textContent == "Técnico Supervisor") {
-            cargoInput.value = "TecnicoSupervisor"
-        } else if (linha.children[3].textContent == "Técnico") {
-            cargoInput.value = "Tecnico"
-        } else {
-            cargoInput.value = "Analista"
-        }
 
-        senhaInput.value = linha.children[4].textContent;
-        telefoneInput.value = linha.children[5].textContent;
-
-        statusInput.value = linha.children[6].textContent.trim().toLowerCase();
         abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {
-            fetch(`/funcionario/deletar/${id_funcionario}`, { method: "DELETE" })
+            fetch(`/zona/deletar/${id_zona}`, { method: "DELETE" })
                 .then(res => {
                     if (res.ok) {
                         linha.remove();
-                        alert("Funcionário excluído!");
+                        alert("Zona excluído!");
                     } else {
-                        alert("Erro ao excluir funcionário");
+                        alert("Erro ao excluir Zona");
                     }
                 })
                 .catch(erro => {
                     console.error("Erro ao excluir:", erro);
-                    alert("Erro ao excluir funcionário");
+                    alert("Erro ao excluir zona");
                 });
         }
+    } else if (acao === "VerMais"){
+            abrirModalInfo(linha.children[1].textContent)
     }
 });
 
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-        var cargoB = null
-        var statusB = null
-    if(cargoInput.value == "Analista"){
-         cargoB = 1
-    }else if(cargoInput.value == "TecnicoSupervisor"){
-        cargoB = 2
-    }else if(cargoInput.value == "Tecnico"){
-         cargoB = 3
-    }
-
-    if(statusInput.value == "ativo"){
-         statusB = 1
-    }else{
-         statusB = 0
-    }
-    const funcionario = {
+    const zonas = {
         nome: nomeInput.value.trim(),
-        email: emailInput.value.trim(),
-        senha: senhaInput.value.trim(),
-        cargo: cargoB,
-        telefone: telefoneInput.value.trim(),
-        status: statusB
-
     };
 
     if (linhaEditando) {
-        const id_funcionario = linhaEditando.children[0].textContent;
+        const id_zona = linhaEditando.children[0].textContent;
      console.log(linhaEditando.children[0].textContent)
 
-        fetch(`/funcionario/atualizar/${id_funcionario}`, {
+        fetch(`/zona/atualizar/${id_zona}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: JSON.stringify(zonas)
         })
             .then(res => {
                 if (res.ok) {
-                    alert("Funcionário atualizado com sucesso!");
+                    alert("Zona atualizado com sucesso!");
                     window.location.reload();
                 } else {
-                    alert("Erro ao atualizar funcionário");
+                    alert("Erro ao atualizar zona");
                 }
             })
             .catch(erro => {
                 console.error("Erro ao atualizar:", erro);
-                alert("Erro ao atualizar funcionário");
+                alert("Erro ao atualizar zona");
             });
     } else {
 
-        fetch("/funcionario/cadastrar/" + fk_empresa, {
+        fetch("/zona/cadastrar/" + fk_empresa, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: JSON.stringify(zonas)
         })
             .then(res => {
                 if (res.ok) {
-                    alert("Funcionário cadastrado com sucesso!");
+                    alert("Zona cadastrado com sucesso!");
                     window.location.reload();
                 } else {
-                    alert("Erro ao cadastrar funcionário");
+                    alert("Erro ao cadastrar zona");
                 }
             })
             .catch(erro => {
                 console.error("Erro ao cadastrar:", erro);
-                alert("Erro ao cadastrar funcionário");
+                alert("Erro ao cadastrar zona");
             });
     }
 

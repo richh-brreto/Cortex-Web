@@ -1,15 +1,15 @@
 var zonaModel = require("../models/zonaModel");
 
-function cadastrar(req, res) {
+function cadastrarzona(req, res) {
     
-    var fkEmpresa = req.params.fkEmpresa
-    var nome = req.body.nome
+    var nomeZona = req.params.nome
+    var idEmpresa = req.params.idEmpresa
    
-   if (nome == undefined || fkEmpresa == undefined){
+   if (nomeZona == undefined || idEmpresa == undefined){
           res.status(400).send("Algum parêmetro indefinido")
       } else {
   
-          zonaModel.cadastrar(nome,fkEmpresa)
+          zonaModel.cadastrarzona(nomeZona,idEmpresa)
               .then(
                   function(resultado) {
                       console.log("Tudo certo no controller")
@@ -27,15 +27,15 @@ function cadastrar(req, res) {
 
 }
 
-function listar(req, res) {
+function carregarAbas(req, res) {
 
-    var fkEmpresa = req.params.fkEmpresa
+    var idEmpresa = req.params.idEmpresa
    
-   if (!fkEmpresa){
+   if (idEmpresa == undefined){
           res.status(400).send("Algum parêmetro indefinido")
       } else {
   
-          zonaModel.listar(fkEmpresa)
+          zonaModel.carregarAbas(idEmpresa)
               .then(
                   function(resultado) {
                       console.log("Tudo certo no controller")
@@ -45,7 +45,7 @@ function listar(req, res) {
               ).catch(
                   function(erro){
                       console.log(erro)
-                      console.log("\nErro ao carregar zonas", erro.sqlMessage);
+                      console.log("\nErro ao cadastrar zona", erro.sqlMessage);
                       res.status(500).json(erro.sqlMessage);
                   }
               )
@@ -53,7 +53,7 @@ function listar(req, res) {
 
 }
 
-function deletar(req, res) {
+function info_usuario(req, res) {
 
     var idZona = req.params.idZona
    
@@ -61,7 +61,7 @@ function deletar(req, res) {
           res.status(400).send("Algum parêmetro indefinido")
       } else {
   
-          zonaModel.deletar(idZona)
+          zonaModel.info_usuario(idZona)
               .then(
                   function(resultado) {
                       console.log("Tudo certo no controller")
@@ -71,7 +71,7 @@ function deletar(req, res) {
               ).catch(
                   function(erro){
                       console.log(erro)
-                      console.log("\nErro ao deletar zona", erro.sqlMessage);
+                      console.log("\nErro ao cadastrar zona", erro.sqlMessage);
                       res.status(500).json(erro.sqlMessage);
                   }
               )
@@ -79,16 +79,15 @@ function deletar(req, res) {
 
 }
 
-function atualizar(req, res) {
+function qtdModelo(req, res) {
 
     var idZona = req.params.idZona
-    var nome = req.body.nome
    
    if (idZona == undefined){
           res.status(400).send("Algum parêmetro indefinido")
       } else {
   
-          zonaModel.atualizar(idZona,nome)
+          zonaModel.qtdModelo(idZona)
               .then(
                   function(resultado) {
                       console.log("Tudo certo no controller")
@@ -107,8 +106,8 @@ function atualizar(req, res) {
 }
 
 module.exports = {
-    cadastrar,
-    listar,
-    atualizar,
-    deletar
+    cadastrarzona,
+    carregarAbas,
+    qtdModelo,
+    info_usuario
 }
