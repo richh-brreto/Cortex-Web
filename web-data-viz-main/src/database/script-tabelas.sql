@@ -95,7 +95,6 @@ VALUES
         qtd_cpu int,
         qtd_ram int,
         modelo_gpu varchar(55),
-        qtd_gpu int,
         so varchar(55),
         maxDisco int,
         qtd int,
@@ -106,10 +105,10 @@ VALUES
         foreign key (fk_empresa) references empresa(id)
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa, qtd_gpu)
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa)
 VALUES 
-(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1, 1,1),
-(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1, 2, 1,4);
+(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1, 1),
+(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1, 2, 1);
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
