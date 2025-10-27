@@ -115,7 +115,6 @@ VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
     nome varchar(100) not null,
-    nome_processo varchar (60),
     qtd_disco int,
     descricao text,
     ip varchar(45),
@@ -133,18 +132,25 @@ create table if not exists modelo (
         foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
         ON DELETE CASCADE
 );
+INSERT INTO modelo (
+    nome, descricao, ip, hostname, qtd_disco, -- <-- Adicionado aqui
+    tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, 
+    fk_cliente, fk_zona_disponibilidade, fk_arquitetura
+) VALUES (
+    'Modelo Análise Preditiva V2', 'Modelo otimizado para análise de dados históricos', '10.1.1.5', 'preditivo-sp01', 500, -- <-- Valor adicionado
+    10, 80.00, 75.00, 70.00, 15.00, 
+    1, 1, 1
+);
 
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
-VALUES 
--- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
-
-
--- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.0.192', 'DESKTOP-N2E1DHL', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+INSERT INTO modelo (
+    nome, descricao, ip, hostname, qtd_disco, 
+    tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, 
+    fk_cliente, fk_zona_disponibilidade, fk_arquitetura
+) VALUES (
+    'Modelo Relatórios MG', 'Geração de relatórios consolidados da filial MG', '172.16.5.15', 'relatorio-mg01', 200, -- <-- Valor adicionado
+    30, 70.00, 60.00, 65.00, 5.00, 
+    1, 3, 1
+);
 
 
 
