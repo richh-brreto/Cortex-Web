@@ -13,46 +13,46 @@
     <nav class="barra-lateral">
         
         <a class="item-logo">
-            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
         </a>
         <a class="item-navegacao" href="dashboard_analista-analista.html">
-            <img src="assets/icon/graficos.png" id="dash-zona" alt="">
+            <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
             <span class="texto" id="texto-dash">Dashboard Analista</span>
         </a>
         <a class="item-navegacao" href="dash_tecnico-analista.html">
-            <img src="assets/icon/alerta.png" id="alerta" alt="">
+            <img src="../assets/icon/alerta.png" id="alerta" alt="">
             <span class="texto">Dashboard Alerta</span>
         </a>
         <div class="divisor"></div>
         <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
             <span class="texto">Clientes</span>
         </a>
         <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
             <span class="texto">Funcionários</span>
         </a>
         <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="assets/icon/modelo.png" id="modelo" alt="">
+            <img src="../assets/icon/modelo.png" id="modelo" alt="">
             <span class="texto">Modelos</span>
         </a>
         <a class="item-notificacao" href="zona-analista.html">
-            <img src="assets/icon/sino.png" id="sino" alt="">
+            <img src="../assets/icon/sino.png" id="sino" alt="">
             <span class="texto-notificacao" id="notificacoes">Zonas</span>
         </a>
-         <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html"> <!-- Link adicionado -->
-            <img src="assets/icon/servidor.png" alt="" width="25px" height="25px"> <!-- Ícone exemplo -->
+         <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html"> 
+            <img src="../assets/icon/servidor.png" alt="" width="25px" height="25px"> 
             <span class="texto">Arquiteturas</span>
         </a>
         <div class="divisor"></div>
         <a class="item-usuario" href="perfil-analista.html">
-            <img src="assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
             <span class="texto-usuario">José</span>
         </a>
         <div class="divisor"></div>
         <a class="item-notificacao">
-            <img src="assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
             <span class="texto-notificacao" id="sair">Sair</span>
         </a>
     </nav>
@@ -61,7 +61,7 @@
         <div class="container-modelos">
             <div class="header-modelos">
                 <h1>Gerenciamento de Modelos</h1>
-                <!-- Ícone pode ser adicionado aqui se desejar -->
+                
             </div>
 
             <div class="barra-acoes">
@@ -81,7 +81,7 @@
                             <option value="cliente">Cliente</option>
                             <option value="ip">IP</option>
                             <option value="hostname">Hostname</option>
-                            <!-- Adicionar opção para Arquitetura se for relevante -->
+                            
                         </select>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <!-- Cabeçalhos corretos para a tabela de Modelos -->
+                                
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>Descrição</th>
@@ -106,23 +106,23 @@
                                 <th>Cliente</th>
                                 <th>IP</th>
                                 <th>Hostname</th>
-                                <th>Arquitetura</th> <!-- Coluna adicionada -->
+                                <th>Arquitetura</th> 
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-modelos-corpo">
-                            <!-- O JavaScript vai preencher aqui -->
+                         
                         </tbody>
                     </table>
                 </div>
                 <div class="tabela-rodape">
-                    <!-- Paginação pode ser adicionada aqui se necessário -->
+                  
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Modal CRUD para Modelos -->
+
     <div id="sobreposicao-formulario" class="sobreposicao-formulario">
         <div class="painel-formulario">
             <div class="cabecalho-formulario">
@@ -135,7 +135,7 @@
             <div class="corpo-formulario">
                 <form id="form-modelo">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <!-- Coluna Esquerda -->
+                        
                         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                             <div class="campo-form">
                                 <label for="nome-modelo">Nome:</label>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="campo-form">
                                 <label for="descricao-modelo">Descrição:</label>
-                                <textarea id="descricao-modelo" placeholder="Faça uma Descrição"></textarea> <!-- Não obrigatório? -->
+                                <textarea id="descricao-modelo" placeholder="Faça uma Descrição"></textarea>
                             </div>
                              <div class="campo-form">
                                 <label for="cliente-modelo">Cliente:</label>
@@ -157,7 +157,7 @@
                                     <option value="">Selecione...</option>
                                 </select>
                             </div>
-                             <!-- Select de Arquitetura ADICIONADO -->
+                            
                             <div class="campo-form">
                                 <label for="arquitetura-modelo">Arquitetura:</label>
                                 <select id="arquitetura-modelo" required>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
 
-                        <!-- Coluna Direita - Parâmetros -->
+                       
                         <div style="display: flex; flex-direction: column; gap: 1.5rem; background-color: #E2E8F0; padding: 1.5rem; border-radius: 12px; border: 2px solid var(--cor-borda);">
                             <h3 style="color: var(--cor-primaria); font-size: 1.25rem; font-weight: 700; margin: 0; padding-bottom: 1rem; border-bottom: 2px solid var(--cor-primaria);">Parâmetros de Monitoramento</h3>
                             <div class="campo-form">
@@ -209,7 +209,7 @@
         </div>
     </div>
 
-    <!-- Modal de Confirmação -->
+    
     <div class="fundo-dialogo" id="fundo-confirmacao">
         <div class="modal-dialogo">
             <h3 id="titulo-confirmacao">Confirmação</h3>
@@ -221,7 +221,7 @@
         </div>
     </div>
 
-    <!-- Modal de Aviso -->
+   
     <div class="fundo-dialogo" id="fundo-aviso">
         <div class="modal-dialogo">
             <h3 id="titulo-aviso">Aviso</h3>
@@ -233,7 +233,7 @@
     </div>
 
     <script>
-    // --- Referências aos campos do formulário (Modelos) ---
+  
     const nomeInput = document.getElementById('nome-modelo');
     const descricaoInput = document.getElementById('descricao-modelo');
     const zonaInput = document.getElementById('zona-modelo');
@@ -245,9 +245,9 @@
     const limiteDiscoInput = document.getElementById('limite-disco-modelo');
     const limiteRamInput = document.getElementById('limite-ram-modelo');
     const limiteGpuInput = document.getElementById('limite-gpu-modelo');
-    const arquiteturaInput = document.getElementById('arquitetura-modelo'); // Novo
+    const arquiteturaInput = document.getElementById('arquitetura-modelo'); 
 
-    // --- Referências da Tabela e Modal de Formulário ---
+   
     const tabelaCorpo = document.getElementById('tabela-modelos-corpo');
     const form = document.getElementById('form-modelo');
     const overlay = document.getElementById('sobreposicao-formulario');
@@ -257,7 +257,7 @@
     const btnCancelar = document.getElementById('btn-cancelar');
     const btnSalvar = document.getElementById('btn-salvar');
 
-    // --- Referências aos Modais Customizados ---
+
     const fundoConfirmacao = document.getElementById('fundo-confirmacao');
     const tituloConfirmacao = document.getElementById('titulo-confirmacao');
     const mensagemConfirmacao = document.getElementById('mensagem-confirmacao');
@@ -268,14 +268,12 @@
     const mensagemAviso = document.getElementById('mensagem-aviso');
     const botaoAvisoOK = document.getElementById('botao-aviso-ok');
 
-    // --- Referências da Pesquisa e Tabela ---
     const pesquisaInput = document.getElementById('pesquisar-input');
     const filtroSelect = document.getElementById('filtro-select');
     const headers = document.querySelectorAll('.envoltorio-tabela thead th');
     let linhaEditando = null;
     const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
-    // --- Funções para o Modal de Formulário ---
     function abrirModalFormulario(modo) {
         if (modo === undefined) { modo = 'novo'; }
         overlay.classList.add('show');
@@ -297,7 +295,6 @@
         if (form) form.reset();
     }
 
-    // --- Funções para o Modal de Aviso ---
     function mostrarAviso(mensagem, titulo) {
         if (titulo === undefined) { titulo = 'Aviso'; }
         tituloAviso.textContent = titulo;
@@ -313,7 +310,6 @@
     }
     botaoAvisoOK.addEventListener('click', fecharAviso);
 
-    // --- Funções para o Modal de Confirmação ---
     function mostrarConfirmacao(mensagem, titulo) {
         if (titulo === undefined) { titulo = 'Confirmação'; }
         return new Promise(function(resolve) {
@@ -343,8 +339,6 @@
         });
     }
 
-    // --- Funções de Pesquisa (Ajustadas para Modelo) ---
-    // Verifique se os índices correspondem às suas colunas no HTML thead
      const mapaColunas = {
         'todos': 'todos',
         'id': 0,
@@ -354,8 +348,8 @@
         'cliente': 4,
         'ip': 5,
         'hostname': 6,
-        'arquitetura': 7 // Adicionado
-        //'status': ? // Se adicionar status na tabela, coloque o índice aqui
+        'arquitetura': 7 
+        
     };
     function aplicarPesquisa() {
         const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
@@ -365,7 +359,7 @@
             const linha = linhas[i];
             let textoParaPesquisar = '';
             if (colunaFiltro === 'todos') {
-                for (let j = 0; j < linha.children.length - 1; j++) { // Itera nas colunas visíveis
+                for (let j = 0; j < linha.children.length - 1; j++) { 
                     textoParaPesquisar += linha.children[j].textContent.toLowerCase() + ' ';
                 }
             } else {
@@ -382,19 +376,17 @@
         }
     }
 
-    // --- Event Listeners Principais ---
+  
     pesquisaInput.addEventListener('input', aplicarPesquisa);
     filtroSelect.addEventListener('change', aplicarPesquisa);
     btnAdicionar.addEventListener('click', function() { abrirModalFormulario('novo'); });
     btnFechar.addEventListener('click', fecharModalFormulario);
     btnCancelar.addEventListener('click', fecharModalFormulario);
 
-    // --- Lógica de Carregamento e CRUD ---
+    
     window.addEventListener("load", function() {
         if (!fk_empresa) {
             mostrarAviso("ID da empresa não encontrado. Faça o login novamente.", "Erro de Sessão");
-            // Idealmente, redirecionar para a página de login aqui
-            // window.location.href = '/login.html'; // Exemplo
             return;
         }
 
@@ -407,16 +399,9 @@
             })
             .then(function(modelos) {
                 console.log("Modelos recebidos:", modelos);
-                tabelaCorpo.innerHTML = ""; // Limpa antes de preencher
+                tabelaCorpo.innerHTML = ""; 
                 if (!modelos || modelos.length === 0) {
-                    // Opcional: Adicionar uma linha indicando "Nenhum modelo encontrado"
-                    // const tr = document.createElement('tr');
-                    // const td = document.createElement('td');
-                    // td.textContent = 'Nenhum modelo encontrado.';
-                    // td.colSpan = headers.length; // Ocupa todas as colunas
-                    // td.style.textAlign = 'center';
-                    // tr.appendChild(td);
-                    // tabelaCorpo.appendChild(tr);
+                 
                     return;
                 }
 
@@ -464,7 +449,7 @@
 
     // Função para buscar dados de Zonas, Clientes e Arquiteturas
     function buscarDadosParaDropdowns(idEmpresa) {
-        // Busca Zonas e Clientes
+        
         fetch(`/empresaDados/formulario/${idEmpresa}`)
             .then(function(resposta) {
                 if (!resposta.ok) { throw new Error('Falha ao buscar Zonas/Clientes.'); }
@@ -505,8 +490,8 @@
         for (let i = 0; i < dados.length; i++) {
             const item = dados[i];
             const option = document.createElement('option');
-            option.value = item.id; // Assume que o ID vem como 'id' no JSON
-            option.textContent = item.nome; // Assume que o nome vem como 'nome' no JSON
+            option.value = item.id;
+            option.textContent = item.nome; 
             if (item.tipo === 'zona') {
                 selectZona.appendChild(option);
             } else if (item.tipo === 'cliente') {
@@ -515,7 +500,7 @@
         }
     }
 
-    // Popula select de Arquitetura
+
     function popularSelectArquitetura(arquiteturas) {
         const selectArquitetura = arquiteturaInput;
         if (!selectArquitetura) {
@@ -530,13 +515,13 @@
         for (let i = 0; i < arquiteturas.length; i++) {
             const arq = arquiteturas[i];
             const option = document.createElement('option');
-            option.value = arq.id_arquitetura; // Usa o nome da coluna id que vem da API
-            option.textContent = arq.nome; // Mostra o nome da arquitetura
+            option.value = arq.id_arquitetura; 
+            option.textContent = arq.nome; 
             selectArquitetura.appendChild(option);
         }
     }
 
-    // --- Ações de Editar e Excluir ---
+    
     tabelaCorpo.addEventListener('click', function(e) {
         const botao = e.target.closest('.btn-icone');
         if (!botao) return;
@@ -546,7 +531,6 @@
 
         if (acao === 'Editar') {
             linhaEditando = linha;
-            // Preenche o formulário com dados dos atributos data-*
             nomeInput.value = linha.getAttribute("data-nome");
             descricaoInput.value = linha.getAttribute("data-descricao");
             ipInput.value = linha.getAttribute("data-ip");
@@ -559,7 +543,7 @@
             clienteInput.value = linha.getAttribute("data-fk_cliente");
             zonaInput.value = linha.getAttribute("data-fk_zona");
             if (arquiteturaInput) arquiteturaInput.value = linha.getAttribute("data-fk_arquitetura");
-            // Adicionar status se necessário
+            
 
             abrirModalFormulario('editar');
 
@@ -588,7 +572,7 @@
         }
     });
 
-    // --- Ação de Salvar (Novo ou Edição) ---
+    //SALVAR
     form.addEventListener('submit', function(ev) {
         ev.preventDefault();
 
@@ -606,7 +590,7 @@
             fk_cliente: clienteInput.value,
             fk_zona_disponibilidade: zonaInput.value, 
             fk_arquitetura: arquiteturaInput ? arquiteturaInput.value : null, 
-            fk_empresa: fk_empresa // Inclui a empresa
+            fk_empresa: fk_empresa 
 
         };
 
@@ -633,7 +617,6 @@
         .then(function(res) {
             if (res.ok) {
                 mostrarAviso(`Modelo ${linhaEditando ? 'atualizado' : 'cadastrado'} com sucesso!`, "Sucesso");
-                // Recarrega DEPOIS que o usuário clicar OK no aviso
                 function recarregarAposOK() {
                     window.location.reload();
                     botaoAvisoOK.removeEventListener('click', recarregarAposOK);
@@ -653,11 +636,11 @@
             mostrarAviso(`Erro de conexão ao ${linhaEditando ? 'atualizar' : 'cadastrar'} modelo.`, "Erro");
         });
 
-        fecharModalFormulario(); // Fecha o modal do formulário
+        fecharModalFormulario(); 
     });
 
 
-    // --- LÓGICA DE ORDENAÇÃO DA TABELA ---
+
     for (let i = 0; i < headers.length; i++) {
         const h = headers[i];
         const indice = i;
@@ -668,12 +651,12 @@
 
         h.addEventListener('click', function() {
             const linhas = Array.from(tabelaCorpo.querySelectorAll('tr'));
-            // Colunas numéricas (ajuste os índices)
-            const isNumeric = (indice === 0); // Só ID é numérico neste caso?
+            
+            const isNumeric = (indice === 0); 
             const currentDir = h.dataset.sortDir || 'desc';
             const newDir = (currentDir === 'asc') ? 'desc' : 'asc';
 
-            // Limpa direções
+            
             for (let j = 0; j < headers.length; j++) { headers[j].dataset.sortDir = ''; }
             h.dataset.sortDir = newDir;
 
@@ -693,7 +676,7 @@
                 return 0;
             });
 
-            // Reinsere ordenado
+  
             tabelaCorpo.innerHTML = "";
             for (let k = 0; k < linhas.length; k++) {
                 tabelaCorpo.appendChild(linhas[k]);
