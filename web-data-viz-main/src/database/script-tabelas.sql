@@ -38,9 +38,11 @@ CREATE TABLE usuario (
     senha VARCHAR(20) NOT NULL,
     telefone VARCHAR(30),
     fk_cargo INT,
+    foto VARCHAR(500) default "../assets/icon/sem_foto.png",
     ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
+    ON DELETE CASCADE
 );
 
 INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) VALUES
@@ -54,8 +56,9 @@ CREATE TABLE zonadisponibilidade (
     id_zona INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     descricao VARCHAR(255),
-    fk_empresa INT NOT NULL,
+    fk_empresa INT,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    ON DELETE SET NULL
 );
 
 INSERT INTO zonadisponibilidade (nome, descricao, fk_empresa) VALUES
@@ -76,6 +79,7 @@ CREATE TABLE cliente (
     telefone VARCHAR(20),
     cnpj VARCHAR(18),
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    ON DELETE CASCADE
 );
 
 INSERT INTO cliente (nome, descricao, email, telefone, cnpj, fk_empresa) 
@@ -91,21 +95,21 @@ VALUES
         qtd_cpu int,
         qtd_ram int,
         modelo_gpu varchar(55),
+        qtd_gpu int,
         so varchar(55),
         maxDisco int,
         qtd int,
         fk_zona int,
-        fk_empresa int,
-        foreign key (fk_zona) references zonadisponibilidade(id_zona),
+        fk_empresa int not null,
+        foreign key (fk_zona) references zonadisponibilidade(id_zona)
+        ON DELETE SET NULL,
         foreign key (fk_empresa) references empresa(id)
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
-VALUES (1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
-
-     
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona)
-VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1);
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa, qtd_gpu)
+VALUES 
+(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1, 1,1),
+(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1, 2, 1,4);
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
@@ -121,11 +125,14 @@ create table if not exists modelo (
     limite_ram decimal(5,2),
     limite_gpu decimal(5,2),
     fk_cliente int not null,
-    fk_zona_disponibilidade int not null,
-    fk_arquitetura int not null,
-        foreign key (fk_cliente) references cliente(id_cliente),
-        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona),
+    fk_zona_disponibilidade int,
+    fk_arquitetura int,
+        foreign key (fk_cliente) references cliente(id_cliente)
+        ON DELETE CASCADE,
+        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona)
+        ON DELETE SET NULL,
         foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
+        ON DELETE SET NULL
 );
 
 INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
@@ -143,8 +150,8 @@ VALUES
 
 
 CREATE TABLE acesso_zona (
-    fk_usuario INT NOT NULL,
-    fk_zona INT NOT NULL,
+    fk_usuario INT,
+    fk_zona INT,
     PRIMARY KEY (fk_usuario, fk_zona),
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (fk_zona) REFERENCES zonadisponibilidade(id_zona) ON DELETE CASCADE
@@ -172,25 +179,51 @@ CREATE TABLE black_list (
     fk_modelo INT,
     nome VARCHAR(70),
     matar_processo TINYINT,
-    automatico TINYINT,
+    status ENUM("proibido","verificado","automatico"),
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+    ON DELETE CASCADE
 );
 
+INSERT INTO black_list (fk_modelo, nome, matar_processo, status) VALUES
+(1, 'processoA', 1, 'automatico'),
+(1, 'processoB', 0, 'automatico'),
+(1, 'processoC', 0, 'verificado'),
+(1, 'processoD', 1, 'proibido'),
+(1, 'processoE', 1, 'automatico');
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
-    tipo VARCHAR(50),
-    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
-    descricao VARCHAR(255),
+    tipo VARCHAR(50),  -- gpu,ram,disco,cpu,processo
+    parametro INT,
+    valor_maximo_encontrado INT,
+    data_hora_inicio DATETIME DEFAULT CURRENT_TIMESTAMP,  
+    data_hora_fim_chamado DATETIME,  -- referente ao chamado (é setado esse campo quando algum técnico resolve o chamado)
+     data_hora_fim_alerta DATETIME, -- referente ao alerta, então quando se encerrou aquele alerta
     status VARCHAR(50),
     fk_modelo INT,
-    componente VARCHAR(50),
+    fk_usuario INT,
+    relatorio VARCHAR(400),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+    ON DELETE CASCADE,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+    ON DELETE CASCADE
 );
 
-INSERT INTO alerta (tipo, componente, descricao, status, fk_modelo) 
-VALUES 
-('Risco', 'CPU', 'Uso de CPU excedeu 95% por mais de 5 minutos.', 'Ativo', 1);
+INSERT INTO alerta 
+(tipo, parametro, valor_maximo_encontrado, status, fk_modelo, fk_usuario, data_hora_fim_chamado, data_hora_fim_alerta, relatorio)
+VALUES
 
+('cpu', 85.50, 93.20, 'Ativo', 1, NULL, NULL, NULL, NULL),
+
+('ram', 65.00, 78.50, 'Resolvido', 1, 2, '2025-10-27 14:40:00', '2025-10-27 14:35:00',
+ 'Ricardo analisou os logs de memória e identificou scripts consumindo mais RAM que o previsto, ajustou configurações e liberou recursos, garantindo operação normal do sistema.'),
+
+('disco', 70.00, 95.10, 'Ativo', 1, NULL, NULL, NULL, NULL),
+
+('gpu', 10.00, 15.20, 'Resolvido', 1, 3, '2025-10-26 17:50:00', '2025-10-26 17:45:00',
+ 'Juliana monitorou o uso da GPU, detectou alto consumo nos containers de IA e otimizou os processos, reduzindo o impacto e estabilizando a performance do sistema.'),
+
+('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
+ 'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
 
