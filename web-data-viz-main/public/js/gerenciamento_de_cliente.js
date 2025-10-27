@@ -110,7 +110,7 @@ window.addEventListener("load", () => {
                     <td>${c.qtd}</td> 
                     <td>
                         <div class="coluna-acoes">
-                            <button class="btn btn-secundario">Ver mais</button>
+                            <button class="btn btn-secundario">Modelos</button>
                             <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
                             <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                         </div>

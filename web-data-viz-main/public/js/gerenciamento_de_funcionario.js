@@ -263,12 +263,7 @@ form.addEventListener('submit', (ev) => {
                 alert("Erro ao atualizar funcionário");
             });
     } else {
-        console.log(senhaInput.value)
-        console.log(nomeInput.value.trim())
-        console.log(emailInput.value.trim())
-        console.log(telefoneInput.value.trim())
-        console.log(cargoInput.value)
-        console.log(statusInput.value)
+
         fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
