@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelos</title>
-    <link rel="stylesheet" href="../../css/info_modelo.css">
-    <link rel="stylesheet" href="../../base/navbar.css">
-    <link rel="stylesheet" href="../../css/tabela-info-modelo.css">
+    <link rel="stylesheet" href="../css/info_modelo.css">
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/tabela-info-modelo.css">
 </head>
 
 <body>
-    <!-- NAV BAR -->
    
    <nav class="barra-lateral">
 
@@ -430,6 +429,23 @@
                 </div>
 </body>
 <script>
+ 
+window.addEventListener("load",function(){
+  
+const idModeloAtual = sessionStorage.getItem('ID_MODELO_SELECIONADO');
+const nomeModeloAtual = sessionStorage.getItem('NOME_MODELO_SELECIONADO');
+
+if (idModeloAtual) {
+    document.title = `Dashboard - ${nomeModeloAtual}`; 
+} else {
+    
+    alert("Erro: ID do modelo não encontrado!");
+    window.location.href = 'Gerenciamento_modelos-analista.html';
+}
+
+})
+
+
     function mostrar(){
         document.getElementById("modalFiltro").style.display = "flex"
     }
