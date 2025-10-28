@@ -27,6 +27,85 @@ function cadastrar(req, res) {
 
 }
 
+function listarFuncionario(req, res) {
+
+    var fk_zona = req.params.fk_zona
+   
+   if (!fk_zona){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarFuncionario(fk_zona)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar funcionarios", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
+function listarModelos(req, res) {
+
+    var fk_zona = req.params.fk_zona
+   
+   if (!fk_zona){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarModelos(fk_zona)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar modelos", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
+function listarArq(req, res) {
+
+    var fk_zona = req.params.fk_zona
+   
+   if (!fk_zona){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarArq(fk_zona)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar arquiteturas", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
+
 function listar(req, res) {
 
     var fkEmpresa = req.params.fkEmpresa
@@ -110,5 +189,8 @@ module.exports = {
     cadastrar,
     listar,
     atualizar,
-    deletar
+    deletar,
+    listarFuncionario,
+    listarArq,
+    listarModelos
 }

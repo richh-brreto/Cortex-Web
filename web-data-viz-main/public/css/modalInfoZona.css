@@ -177,3 +177,97 @@
 .escolhida {
     background-color: #808080;
 }
+
+
+.usuario-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.linha-usuario {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* === CARD USUARIO === */
+.card-usuario {
+    flex: 1 1 250px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.card-usuario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.foto {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cor-destaque-claro);
+}
+
+
+/* === BOTAO DELETAR === */
+.botao-del-usuario button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--cor-perigo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.botao-del-usuario button img {
+    width: 14px;
+    height: 14px;
+}
+
+.botao-del-usuario button:hover {
+    background: #9a3838;
+    transform: scale(1.05);
+}
+
+
+#infos {
+    max-height: 60vh; /* limita a altura visível */
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* estiliza o scroll (opcional, mais bonito) */
+#infos::-webkit-scrollbar {
+    width: 8px;
+}
+#infos::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+#infos::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.35);
+}
+
+.tamanho {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.linha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}

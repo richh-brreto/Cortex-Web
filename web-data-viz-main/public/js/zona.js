@@ -21,16 +21,24 @@ const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
+let idZonaSelect= null
 
-function abrirModalInfo(nome){
+function abrirModalInfo(nome, id_zona){
     overlayInfo.classList.add('show')
     document.body.style.overflow = 'hidden'
     tituloInfo.textContent += " " + nome;
+    idZonaSelect = id_zona
+    const abaFunc = document.getElementById("aba-funcionario")
+    const escolhida = document.getElementsByClassName("escolhida")
+    escolhida[0].classList.remove("escolhida")
+    abaFunc.classList.add("escolhida")
+    carregarFuncionarios()
 }
 
 function fecharModalInfo(){
     overlayInfo.classList.remove('show');
     document.body.style.overflow = '';
+    idZonaSelect = null
 }
 
 function abrirModal(modo = 'novo') {
@@ -98,6 +106,7 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 btnFecharInfo.addEventListener('click', fecharModalInfo);
+
 aba.forEach(a =>
     a.addEventListener('click', function () {
         const escolhida = document.getElementsByClassName("escolhida")
@@ -107,6 +116,7 @@ aba.forEach(a =>
 
         const containerInfo = document.getElementsByClassName("infos")
         containerInfo.innerHTML = ""
+
 
         if(id_aba == "aba-funcionario"){
             carregarFuncionarios()
@@ -120,47 +130,35 @@ aba.forEach(a =>
 
 function carregarArq(){
     
-    fetch(`/zona/listarArq/${fk_empresa}`)
+    fetch(`/zona/listarArq/${idZonaSelect}`)
         .then(res => res.json())
-        .then(zonas => {
-            console.log("Dados recebidos pelo frontend:", zonas);
+        .then(arq => {
+            console.log("Dados recebidos pelo frontend:", arq);
 
-            tabelaCorpo.innerHTML = "";
-            zonas.forEach(z => {
-                
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${z.id_zona}</td>
-                    <td>${z.nome_zona}</td>
-                    <td>${z.qtd_usuarios}</td>
-                    <td>${z.qtd_modelos}</td>
-                    <td>${z.qtd_arquiteturas}</td>
-                    AAAAAAAAA
-                    <td>
-                        <div class="coluna-acoes">
-                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
-                        </div>
-                    </td>
-                `;
-                tabelaCorpo.appendChild(tr);
-            });
+            const envoltorio = document.getElementById("infos")
+            const conteudo = document.createElement("div")
+
+            // nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd
+
+      
+               
         })
         .catch(erro => {
-            console.error("Erro ao carregar zonas:", erro);
-            alert("Erro ao carregar zonas");
+            console.error("Erro ao carregar arquiteturas:", erro);
+            alert("Erro ao carregar arquiteturas");
         });
 }
 
 function carregarModelos(){
 
-    fetch(`/zona/listarModelos/${fk_empresa}`)
+    fetch(`/zona/listarModelos/${idZonaSelect}`)
         .then(res => res.json())
         .then(modelos => {
             console.log("Dados recebidos pelo frontend:", modelos);
 
-           
+             const envoltorio = document.getElementById("infos")
+
+           // nome, qtd_disco, descricao, nome_cliente, ip, hostname, tempo, cpu, ram, disco, gpu, nome_arq
             modelos.forEach(z => {
             
               
@@ -174,35 +172,76 @@ function carregarModelos(){
 
 function carregarFuncionarios(){
 
-    fetch(`/zona/listar/${fk_empresa}`)
+    fetch(`/zona/listarFuncionario/${idZonaSelect}`)
         .then(res => res.json())
-        .then(zonas => {
-            console.log("Dados recebidos pelo frontend:", zonas);
+        .then(func => {
+            console.log("Dados recebidos pelo frontend:", func);
+            
+             const envoltorio = document.getElementById("infos")
+             const divContainer = document.createElement("div")
+            divContainer.className = "tamanho"
+            // foto, nome, email,telefone, cargo, ativo
+            var linha = document.createElement("div")
+            linha.className = "linha"
 
-            tabelaCorpo.innerHTML = "";
-            zonas.forEach(z => {
-                
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${z.id_zona}</td>
-                    <td>${z.nome_zona}</td>
-                    <td>${z.qtd_usuarios}</td>
-                    <td>${z.qtd_modelos}</td>
-                    <td>${z.qtd_arquiteturas}</td>
-                    <td>
-                        <div class="coluna-acoes">
-                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
-                        </div>
-                    </td>
-                `;
-                tabelaCorpo.appendChild(tr);
-            });
+            for(let i =0; i<func.length; i++){
+
+                if(i % 3 == 0 && i != 0){
+                    divContainer.appendChild(linha)
+                    linha = document.createElement("div")
+                    linha.className = "linha"
+                }
+                const card = document.createElement("div")
+                card.className = "card-usuario"
+
+               card.innerHTML = `  
+                          
+                                <img src=${func[i].foto} class="foto">
+
+                                <div class="conteudo-usuario">
+                                    <h5>${func[i].nome}</h5>
+
+                                    <div class="linha-conteudo">
+                                        <h6>Email: </h6>
+                                        <h6>${func[i].email}</h6>
+                                    </div>
+
+                                    <div class="linha-conteudo">
+                                        <h6>Telefone: </h6>
+                                        <h6>${func[i].telefone}</h6>
+                                    </div>
+
+                                    <div class="linha-conteudo">
+                                        <h6>Cargo: </h6>
+                                        <h6>${func[i].cargo}</h6>
+                                    </div>
+
+                                     <div class="linha-conteudo">
+                                        <h6>Status: </h6>
+                                        <h6>${func[i].ativo}</h6>
+                                    </div>
+                                </div>
+
+                                <div class="botao-del-usuario">
+                                    <button class="botao-del">
+                                        <img src="../assets/icon/deletar.png">
+                                    </button>
+                                </div>
+                            </div>
+               `
+                linha.appendChild(card)
+            }
+
+              if (linha.children.length > 0) {
+                divContainer.appendChild(linha);
+            }
+
+            envoltorio.appendChild(divContainer)
+
         })
         .catch(erro => {
-            console.error("Erro ao carregar zonas:", erro);
-            alert("Erro ao carregar zonas");
+            console.error("Erro ao carregar funcionários:", erro);
+            alert("Erro ao carregar funcionários");
         });
 }
 
@@ -316,7 +355,7 @@ tabelaCorpo.addEventListener('click', (e) => {
                 });
         }
     } else if (acao === "VerMais"){
-            abrirModalInfo(linha.children[1].textContent)
+            abrirModalInfo(linha.children[1].textContent, linha.children[0].textContent)
     }
 });
 
