@@ -97,23 +97,36 @@ VALUES
         modelo_gpu varchar(55),
         so varchar(55),
         maxDisco int,
-        qtd int,
-        fk_zona int,
         fk_empresa int not null,
-        foreign key (fk_zona) references zonadisponibilidade(id_zona)
-        ON DELETE SET NULL,
         foreign key (fk_empresa) references empresa(id)
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa)
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
 VALUES 
-(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1, 1),
-(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1, 2, 1);
+(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1),
+(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1);
+
+create table arquitetura_zona (
+	fk_arquitetura int,
+    fk_zona int,
+    qtd int,
+    primary key (fk_arquitetura, fk_zona),
+    foreign key (fk_zona) references zonadisponibilidade(id_zona)
+    on delete cascade,
+    foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
+    on delete cascade
+);
+
+INSERT INTO arquitetura_zona (fk_arquitetura, fk_zona, qtd) VALUES
+(1, 1, 3), 
+(1, 2, 2), 
+(2, 1, 4), 
+(2, 3, 1); 
+
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
     nome varchar(100) not null,
-    nome_processo varchar (60),
     qtd_disco int,
     descricao text,
     ip varchar(45),
