@@ -22,7 +22,7 @@ function listar(fkEmpresa) {
         z.nome AS nome_zona,
         COUNT(DISTINCT az.fk_usuario) AS qtd_usuarios,
         COUNT(DISTINCT m.id_modelo) AS qtd_modelos,
-        COUNT(DISTINCT a.id_arquitetura) AS qtd_arquiteturas
+        COUNT(DISTINCT a.fk_arquitetura) AS qtd_arquiteturas
     FROM 
         zonadisponibilidade z
     LEFT JOIN 
@@ -34,7 +34,7 @@ function listar(fkEmpresa) {
     ON 
         z.id_zona = m.fk_zona_disponibilidade
     LEFT JOIN 
-        arquitetura a 
+        arquitetura_zona a 
     ON 
         z.id_zona = a.fk_zona
     WHERE
@@ -55,11 +55,15 @@ function listarArq(fk_zona) {
     var instrucao = `
     SELECT 
         a.nome, a.modelo_cpu, a.qtd_cpu, a.qtd_ram,
-        a.modelo_gpu, a.so, a.maxDisco, a.qtd
+        a.modelo_gpu, a.so, a.maxDisco, az.qtd
     FROM 
         arquitetura as a
+	INNER JOIN
+		arquitetura_zona as az
+	ON
+		az.fk_arquitetura = a.id_arquitetura
     WHERE
-        a.fk_zona = ${fk_zona};
+        az.fk_zona = ${fk_zona};
     `;
 
 
@@ -71,7 +75,7 @@ function listarModelos(fk_zona) {
 
     var instrucao = `
     SELECT 
-       m.nome, m.qtd_disco, m.ip, m.hostname, m.tempo_parametro_min as tempo,
+       m.nome, m.descricao, m.qtd_disco, m.ip, m.hostname, m.tempo_parametro_min as tempo,
        m.limite_cpu as cpu ,m.limite_disco as disco ,
        m.limite_ram as ram , m.limite_gpu as gpu,
        c.nome as nome_cliente, a.nome as nome_arq
@@ -140,6 +144,77 @@ function atualizar(idZona,nome) {
     return database.executar(instrucao);
 }
 
+function posibilidadesModelo(fk_empresa) {
+
+    var instrucao = `
+    SELECT 
+       m.id_modelo, m.nome
+    FROM
+       modelo as m
+	INNER JOIN
+		cliente as c
+	ON
+		m.fk_cliente = c.id_cliente
+    WHERE
+        m.fk_zona_disponibilidade IS NULL 
+    AND 
+        c.fk_empresa = ${fk_empresa}
+    ;
+    ;
+
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function posibilidadesArq(fk_empresa, fk_zona) {
+
+    var instrucao = `
+    SELECT 
+        a.id_arquitetura, a.nome
+    FROM
+        arquitetura AS a
+    WHERE
+        a.fk_empresa = ${fk_empresa}
+    AND a.id_arquitetura
+    NOT IN (
+        SELECT a.id_arquitetura
+        FROM arquitetura_zona AS az
+        WHERE az.fk_arquitetura = a.id_arquitetura
+        AND az.fk_zona = ${fk_zona}
+    );
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function posibilidadesFunc(fk_zona) {
+
+    var instrucao = `
+    SELECT 
+       f.foto, f.nome, f.email, f.telefone, c.nome as cargo, f.ativo
+    FROM 
+        usuario as f
+    INNER JOIN 
+        acesso_zona az 
+    ON 
+        f.id = az.fk_usuario
+    INNER JOIN
+        cargo as c
+    ON
+        c.id = f.fk_cargo
+    WHERE
+        az.fk_zona = ${fk_zona};
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 module.exports = {
     cadastrar,
@@ -148,5 +223,8 @@ module.exports = {
     atualizar,
     listarArq,
     listarFuncionario,
-    listarModelos
+    listarModelos,
+    posibilidadesFunc,
+    posibilidadesArq,
+    posibilidadesModelo
 };

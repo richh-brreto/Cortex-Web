@@ -97,23 +97,36 @@ VALUES
         modelo_gpu varchar(55),
         so varchar(55),
         maxDisco int,
-        qtd int,
-        fk_zona int,
         fk_empresa int not null,
-        foreign key (fk_zona) references zonadisponibilidade(id_zona)
-        ON DELETE SET NULL,
         foreign key (fk_empresa) references empresa(id)
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa)
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
 VALUES 
-(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1, 1, 1),
-(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1, 2, 1);
+(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1),
+(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1);
+
+create table arquitetura_zona (
+	fk_arquitetura int,
+    fk_zona int,
+    qtd int,
+    primary key (fk_arquitetura, fk_zona),
+    foreign key (fk_zona) references zonadisponibilidade(id_zona)
+    on delete cascade,
+    foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
+    on delete cascade
+);
+
+INSERT INTO arquitetura_zona (fk_arquitetura, fk_zona, qtd) VALUES
+(1, 1, 3), 
+(1, 2, 2), 
+(2, 1, 4), 
+(2, 3, 1); 
+
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
     nome varchar(100) not null,
-    nome_processo varchar (60),
     qtd_disco int,
     descricao text,
     ip varchar(45),
@@ -134,17 +147,18 @@ create table if not exists modelo (
         ON DELETE SET NULL
 );
 
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
+INSERT INTO modelo (
+    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
+)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
-
+('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
+('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
+('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
+('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
 
 
 
@@ -225,4 +239,3 @@ VALUES
 
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
-

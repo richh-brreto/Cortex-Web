@@ -185,6 +185,86 @@ function atualizar(req, res) {
 
 }
 
+function posibilidadesModelo(req, res) {
+
+    var fk_empresa = req.params.fk_empresa
+   
+   if (!fk_empresa){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarFuncionario(fk_empresa)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar possibilidades modelos", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
+function posibilidadesArq(req, res) {
+
+    var fk_empresa = req.params.fk_empresa
+    var fk_zona = req.params.fk_zona
+   
+   if (!fk_empresa || !fk_zona){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarFuncionario(fk_empresa,fk_zona)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar possibilidades arquiteturas", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
+function posibilidadesFunc(req, res) {
+
+    var fk_empresa = req.params.fk_empresa
+    var fk_zona = req.params.fk_zona
+   
+   if (!fk_empresa || !fk_zona){
+          res.status(400).send("Algum parêmetro indefinido")
+      } else {
+  
+          zonaModel.listarFuncionario(fk_empresa,fk_zona)
+              .then(
+                  function(resultado) {
+                      console.log("Tudo certo no controller")
+  
+                      res.status(200).json(resultado)
+                  }
+              ).catch(
+                  function(erro){
+                      console.log(erro)
+                      console.log("\nErro ao carregar possibilidades funcionarios", erro.sqlMessage);
+                      res.status(500).json(erro.sqlMessage);
+                  }
+              )
+      }
+
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -192,5 +272,8 @@ module.exports = {
     deletar,
     listarFuncionario,
     listarArq,
-    listarModelos
+    listarModelos,
+    posibilidadesFunc,
+    posibilidadesArq,
+    posibilidadesModelo
 }

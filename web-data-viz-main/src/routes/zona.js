@@ -5,6 +5,19 @@ var router = express.Router();
 
 var zonaController = require("../controllers/zonaController");
 
+
+router.get("/posibilidadesModelo/:fk_empresa", function (req, res) {
+    zonaController.posibilidadesModelo(req, res);
+});
+
+router.get("/posibilidadesArq/:fk_empresa/:fk_zona", function (req, res) {
+    zonaController.posibilidadesArq(req, res);
+});
+
+router.get("/posibilidadesFunc/:fk_empresa/:fk_zona", function (req, res) {
+    zonaController.posibilidadesFunc(req, res);
+});
+
 router.get("/listarArq/:fk_zona", function (req, res) {
     zonaController.listarArq(req, res);
 });

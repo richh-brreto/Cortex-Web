@@ -1,5 +1,5 @@
 /* Modal */
-.sobreposicao-info {
+.sobreposicao-modelo {
     position: fixed;
     top: 0;
     left: 0;
@@ -17,12 +17,12 @@
     transition: all 0.3s ease;
 }
 
-.sobreposicao-info.show {
+.sobreposicao-modelo.show {
     opacity: 1;
     visibility: visible;
 }
 
-.painel-info {
+.painel-modelo {
     background-color: var(--cor-fundo-tela);
     border-radius: 16px;
     box-shadow: 0 8px 32px var(--cor-sombra);
@@ -37,13 +37,13 @@
     border: 1px solid var(--cor-borda);
 }
 
-.sobreposicao-info.show .painel-info {
+.sobreposicao-modelo.show .painel-modelo {
     transform: scale(1);
     opacity: 1;
 }
 
 /* Cabeçalho do Modal */
-.cabecalho-info {
+.cabecalho-modelo {
     padding: 2rem;
     border-bottom: 2px solid var(--cor-borda);
     display: flex;
@@ -52,7 +52,7 @@
     flex-shrink: 0;
 }
 
-.cabecalho-info h2 {
+.cabecalho-modelo h2 {
     font-size: 1.75rem;
     font-weight: 700;
     color: var(--cor-texto);
@@ -86,7 +86,7 @@
 }
 
 /* Corpo do Modal */
-.corpo-info {
+.corpo-modelo {
     flex: 1;
     overflow-y: auto;
     padding: 2rem 2.5rem;
@@ -183,13 +183,13 @@
 
 
 
-.corpo-info {
+.corpo-modelo {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.info {
+.modelo {
     display: flex;
     flex-direction: column;
     justify-content: column;
@@ -221,7 +221,7 @@
 }
 
 /* ===== CONTAINER DOS CARDS ===== */
-.infos {
+.modelos {
     display: flex;
     flex-direction: column; /* um card por linha */
     align-items: center;
@@ -240,16 +240,16 @@
 }
 
 /* Scrollbar personalizada */
-.infos::-webkit-scrollbar {
+.modelos::-webkit-scrollbar {
     width: 8px;
 }
 
-.infos::-webkit-scrollbar-track {
+.modelos::-webkit-scrollbar-track {
     background: #E2E8F0;
     border-radius: 10px;
 }
 
-.infos::-webkit-scrollbar-thumb {
+.modelos::-webkit-scrollbar-thumb {
     background-color: #00B2B2;
     border-radius: 10px;
 }
@@ -290,7 +290,7 @@
 }
 
 /* ===== CONTEÚDO DO CARD ===== */
-.info-card-modelo {
+.modelo-card-modelo {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -306,7 +306,7 @@
     min-width: 260px;
 }
 
-.info-card-modelo p {
+.modelo-card-modelo p {
     margin: 0;
     line-height: 1.4;
     font-size: 0.95rem;

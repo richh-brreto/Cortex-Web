@@ -7,6 +7,9 @@ const headers = header.querySelectorAll('th')
 const form = document.getElementById('form-zona');
 const overlay = document.getElementById('sobreposicao-formulario');
 const overlayInfo = document.getElementById('sobreposicao-info')
+const overlayArq = document.getElementById("sobreposicao-arq")
+const overlayModelo = document.getElementById("sobreposicao-modelo")
+const overlayFunc = document.getElementById("sobreposicao-func")
 const tituloModal = document.getElementById('modal-title');
 const btnAdicionar = document.getElementById('btn-adicionar');
 const btnFechar = document.getElementById('btn-fechar-modal');
@@ -22,6 +25,100 @@ const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
 let idZonaSelect= null
+
+var caheArq = null
+var cacheModelo = null
+var cacheFunc = null
+function buscarPossibilidades(valor, tipo, id_zona){
+    
+    if(tipo == "arq"){
+        if(!cacheArq){
+                fetch(`/zona/posibilidadesArq/${fk_empresa}/${id_zona}`)
+        .then(res => res.json())
+        .then(posArq => {
+            console.log("Dados recebidos pelo frontend:", posArq);
+
+            cacheArq = posArq
+            searchComSelect(valor, cacheArq)
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar possibilidades Arquitetura:", erro);
+        });
+        }else{
+            searchComSelect(valor,cacheArq)
+        }
+
+        
+    }else if(tipo == "modelo"){
+             if(!cacheModelo){
+                fetch(`/zona/posibilidadesModelo/${fk_empresa}`)
+        .then(res => res.json())
+        .then(posM => {
+            console.log("Dados recebidos pelo frontend:", posM);
+
+            cacheModelo = posM
+            searchComSelect(valor, cacheModelo)
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar possibilidades Modelo:", erro);
+        });
+        }else{
+            searchComSelect(valor,cacheModelo)
+        }
+    }else if(tipo== "func"){
+              if(!cacheFunc){
+                fetch(`/zona/posibilidadesFunc/${fk_empresa}/${id_zona}`)
+        .then(res => res.json())
+        .then(posFunc => {
+            console.log("Dados recebidos pelo frontend:", posFunc);
+
+            cacheFunc = posFunc
+            searchComSelect(valor, cacheFunc)
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar possibilidades Funcionario:", erro);
+        });
+        }else{
+            searchComSelect(valor,cacheFunc)
+        }
+    }
+   
+}
+
+function searchComSelect(valor,cache){
+    
+    var divSugestao = document.getElementById("sugestao")
+
+        const sugestao = []
+        const digitado = valor.trim().toLowerCase()
+        divSugestao.innerHTML = ""
+      
+
+       if(digitado.length === 0){
+          return
+}
+          
+        for(let i = 0; i< cache.length;i++){
+            if(cache[i].nome.toLowerCase().trim().startsWith(digitado)){
+                sugestao.push(cache[i])
+            }
+        }
+
+        for(let j =0; j<sugestao.length;j++){
+            const div = document.createElement("div")
+            div.textContent = sugestao[j].nome
+            div.style.cursor = "pointer"
+
+            div.addEventListener("click", () =>{
+                const ipt = document.getElementById("itpAdd")
+                ipt.value = sugestao[j].nome
+                divSugestao.innerHTML = ""
+            })
+
+            divSugestao.appendChild(div)
+        }         
+
+}
 
 function abrirModalInfo(nome, id_zona){
     overlayInfo.classList.add('show')
@@ -64,6 +161,40 @@ function formatarData(dataISO) {
     return data.toLocaleDateString('pt-BR');
 }
 
+function pesquisarEmZona(termo, nomeCard){
+    const envoltorio = document.getElementById("infos")
+    const card = envoltorio.querySelectorAll(`.card-${nomeCard}`)
+
+    const pesquisa = termo.trim().toLowerCase()
+    card.forEach(n =>{
+        var nome = n.querySelector("[name='nome']")
+        var valor = nome.textContent.trim().toLowerCase()
+        if(valor.startsWith(pesquisa)){
+            n.style.display = ""
+        }else{
+            n.style.display = "none"
+        }
+    })
+}
+
+function adicionarEmZona(tipo, id_zona){
+    if(tipo == "arquitetura"){
+      overlayArq.classList.add('show')      
+      document.body.style.overflow = 'hidden'
+      idZonaSelect = id_zona
+      addArquiteturaEmZona()
+    }else if(tipo == "modelo"){
+        overlayModelo.classList.add('show')
+        document.body.style.overflow = 'hidden'
+        idZonaSelect = id_zona
+        addModeloEmZona()
+    }else if(tipo == "funcionario"){
+        overlayFunc.classList.add('show')
+        document.body.style.overflow = 'hidden'
+        idZonaSelect = id_zona
+        addFuncionarioEmZona()
+    }
+}
 
 const mapaColunas = {
     'todos': 'todos',
@@ -135,12 +266,111 @@ function carregarArq(){
         .then(arq => {
             console.log("Dados recebidos pelo frontend:", arq);
 
-            const envoltorio = document.getElementById("infos")
-            const conteudo = document.createElement("div")
+            
+            const topo = document.getElementById("topo-infos")
+            topo.innerHTML = ""
 
+           
+
+            const envoltorio = document.getElementById("infos")
+            envoltorio.innerHTML = ""
+           
             // nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd
 
-      
+                 arq.forEach(a => {          
+        
+                const card = document.createElement("div")
+                card.className = "card-arq"
+
+               card.innerHTML = `  
+                           
+                        <div class="nome-arq">
+                            <h4 name="nome">${a.nome}</h4>
+                        </div>
+                        <div class="qtd"> 
+                                <div class="qtd_total">
+                                    <p>Qtd. Total:</p>
+                                    <p>${a.qtd}</p>
+                                </div>   
+                        </div>
+                        <div class="meio">
+                            <div class="esquerda">
+                                <div class="modelo-cpu">
+                                    <p>Modelo Cpu:</p>
+                                    <p>${a.modelo_cpu}</p>
+                                </div>
+                                <div class="modelo-gpu">
+                                    <p>Modelo Gpu:</p>
+                                    <p>${a.modelo_gpu}</p>
+                                </div>
+
+                            </div>
+                            <div class="direita">
+                                <div class="qtd-cpu"> 
+                                    <p>Qtd. Cpu:</p>
+                                    <p>${a.qtd_cpu}</p>
+                                </div>
+                                <div class="max-disco">
+                                    <p>Máx. Disco:</p>
+                                    <p>${a.maxDisco}</p>
+                                </div>
+                                <div class="qtd-ram">
+                                    <p>Qtd. Ram:</p>
+                                    <p>${a.qtd_ram}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="baixo">
+                            <p>Sistema Operacional:</p>
+                            <p>${a.so}</p>
+                        </div>
+                        <div class="botao-del-usuario">
+                                    <button class="botao-del">
+                                        <img src="../assets/icon/deletar.png">
+                                    </button>
+                                    <button class="btn-del" title="Editar">
+                                        <img src="../assets/icon/1159633.png">
+                                    </button>
+                                </div>
+                    
+               `
+                envoltorio.appendChild(card)
+           
+            });
+             const inputPesquisa = document.createElement("input")
+            inputPesquisa.type = "text"
+            inputPesquisa.placeholder = "Pesquisar Nome Arquitetura..."
+            inputPesquisa.classList.add("input-pesquisa")
+            topo.appendChild(inputPesquisa)
+
+            inputPesquisa.addEventListener("input", () => pesquisarEmZona(inputPesquisa.value, "arq"))
+
+            
+
+            const inputAdd = document.createElement("input")
+            inputAdd.type = "search"
+            inputAdd.placeholder = "Adicionar Arquitetura..."
+            inputAdd.classList.add("input-pesquisa")
+            inputAdd.id = "iptAdd"
+            topo.appendChild(inputAdd)
+
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "arq",idZonaSelect))
+
+            const divSugestao = document.createElement("div")
+            divSugestao.id = "sugestao"
+            topo.appendChild(divSugestao)
+
+            const inputQtd = document.createElement("input")
+            inputQtd.type = "number"
+            inputQtd.placeholder = "Quantidade"
+            topo.appendChild(inputQtd)
+
+            const botao = document.createElement("button")
+            botao.textContent = "Adicionar"
+            botao.classList.add("btn-primario")
+            topo.appendChild(botao)
+            
+            botao.addEventListener("click", () => adicionarEmZona("arquitetura",idZonaSelect))
                
         })
         .catch(erro => {
@@ -156,13 +386,121 @@ function carregarModelos(){
         .then(modelos => {
             console.log("Dados recebidos pelo frontend:", modelos);
 
-             const envoltorio = document.getElementById("infos")
+            const topo = document.getElementById("topo-infos")
+            topo.innerHTML = ""
 
-           // nome, qtd_disco, descricao, nome_cliente, ip, hostname, tempo, cpu, ram, disco, gpu, nome_arq
-            modelos.forEach(z => {
-            
-              
+          
+
+             const envoltorio = document.getElementById("infos")
+             envoltorio.innerHTML = ""
+             
+
+           // nome, descricao, nome_cliente, nome_arq
+           // qtd_disco, ip, hostname
+           // tempo, cpu, ram, disco, gpu, 
+            modelos.forEach(m => {          
+        
+                const card = document.createElement("div")
+                card.className = "card-modelo"
+
+               card.innerHTML = `  
+                    
+                        <div class="titulo">
+                            <h4 name="nome">${m.nome}</h4>
+                        </div>
+                        <div class="info-card-modelo">
+                            <div class="esquerda">
+                                <div class="descricao">
+                                    <p>Descrição:</p>
+                                    <p>${m.descricao}</p>
+                                </div>
+                                <div class="cliente">
+                                    <p>Cliente:</p>
+                                    <p>${m.nome_cliente}</p>
+                                </div>
+                                <div class="arquitetura">
+                                    <p>Arquitetura:</p>
+                                    <p>${m.nome_arq}</p>
+                                </div>
+                                <div class="qtd_disco">
+                                    <p>Qtd. Disco:</p>
+                                    <p>${m.qtd_disco}Tb</p>
+                                </div>
+                            </div>
+                            <div class="direita">
+                                <div class="ip">
+                                    <p>IP:</p>
+                                    <p>${m.ip}</p>
+                                </div>
+                                <div class="hostname">
+                                    <p>Hostname:</p>
+                                    <p>${m.hostname}</p>
+                                </div>
+                                <div class="parametros">
+                                    <div class="tempo">
+                                        <p>Tempo:</p>
+                                        <p>${m.tempo} min</p>
+                                    </div>
+                                    <div class="grid_par">
+                                        <div class="cpu">
+                                            <p>CPU:</p>
+                                            <p>${m.cpu}%</p>
+                                        </div>
+                                        <div class="ram">
+                                            <p>RAM:</p>
+                                            <p>${m.ram}%</p>
+                                        </div>
+                                        <div class="disco">
+                                            <p>Disco:</p>
+                                            <p>${m.disco}%</p>
+                                        </div>
+                                        <div class="gpu">
+                                            <p>GPU:</p>
+                                            <p>${m.gpu}%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="botao-del-usuario">
+                                    <button class="botao-del">
+                                        <img src="../assets/icon/deletar.png">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+               `
+                envoltorio.appendChild(card)
+           
             });
+              const inputPesquisa = document.createElement("input")
+            inputPesquisa.type = "text"
+            inputPesquisa.placeholder = "Pesqusar Nome Modelo..."
+            inputPesquisa.classList.add("input-pesquisa")
+            
+            topo.appendChild(inputPesquisa)
+
+            inputPesquisa.addEventListener("input", () => pesquisarEmZona(inputPesquisa.value, "modelo"))
+
+               const inputAdd = document.createElement("input")
+            inputAdd.type = "search"
+            inputAdd.placeholder = "Adicionar Modelo..."
+            inputAdd.classList.add("input-pesquisa")
+            inputAdd.id = "iptAdd"
+            topo.appendChild(inputAdd)
+
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "modelo",idZonaSelect))
+
+             const divSugestao = document.createElement("div")
+            divSugestao.id = "sugestao"
+            topo.appendChild(divSugestao)
+
+            const botao = document.createElement("button")
+            botao.textContent = "Adicionar"
+            botao.classList.add("btn-primario")
+            topo.appendChild(botao)
+            
+            botao.addEventListener("click", () => adicionarEmZona("modelo",idZonaSelect))
+
         })
         .catch(erro => {
             console.error("Erro ao carregar modelos:", erro);
@@ -176,10 +514,17 @@ function carregarFuncionarios(){
         .then(res => res.json())
         .then(func => {
             console.log("Dados recebidos pelo frontend:", func);
+
+            
+            const topo = document.getElementById("topo-infos")
+            topo.innerHTML = ""
+
+           
             
              const envoltorio = document.getElementById("infos")
-             const divContainer = document.createElement("div")
-            divContainer.className = "tamanho"
+             envoltorio.innerHTML = ""
+
+    
             // foto, nome, email,telefone, cargo, ativo
             var linha = document.createElement("div")
             linha.className = "linha"
@@ -187,7 +532,7 @@ function carregarFuncionarios(){
             for(let i =0; i<func.length; i++){
 
                 if(i % 3 == 0 && i != 0){
-                    divContainer.appendChild(linha)
+                    envoltorio.appendChild(linha)
                     linha = document.createElement("div")
                     linha.className = "linha"
                 }
@@ -199,7 +544,7 @@ function carregarFuncionarios(){
                                 <img src=${func[i].foto} class="foto">
 
                                 <div class="conteudo-usuario">
-                                    <h5>${func[i].nome}</h5>
+                                    <h5 name="nome">${func[i].nome}</h5>
 
                                     <div class="linha-conteudo">
                                         <h6>Email: </h6>
@@ -233,10 +578,36 @@ function carregarFuncionarios(){
             }
 
               if (linha.children.length > 0) {
-                divContainer.appendChild(linha);
+                envoltorio.appendChild(linha);
             }
 
-            envoltorio.appendChild(divContainer)
+             const inputPesquisa = document.createElement("input")
+            inputPesquisa.type = "text"
+            inputPesquisa.placeholder = "Pesqusar Nome Funcionário..."
+            inputPesquisa.classList.add("input-pesquisa")
+            topo.appendChild(inputPesquisa)
+
+            inputPesquisa.addEventListener("input", () => pesquisarEmZona(inputPesquisa.value, "usuario"))
+
+            const inputAdd = document.createElement("input")
+            inputAdd.type = "search"
+            inputAdd.placeholder = "Adicionar Funcionário..."
+            inputAdd.classList.add("input-pesquisa")
+            inputAdd.id = "iptAdd"
+            topo.appendChild(inputAdd)
+
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "func",idZonaSelect))
+
+             const divSugestao = document.createElement("div")
+            divSugestao.id = "sugestao"
+            topo.appendChild(divSugestao)
+
+            const botao = document.createElement("button")
+            botao.textContent = "Adicionar"
+            botao.classList.add("btn-primario")
+            topo.appendChild(botao)
+            
+            botao.addEventListener("click", () => adicionarEmZona("funcionario",idZonaSelect))
 
         })
         .catch(erro => {
