@@ -600,3 +600,123 @@ body {
         min-height: 250px;
     }
 }
+
+#procesosModal .modal-body {
+    padding: 10px 15px 20px 15px;
+    background-color: #f8f9fa; }
+
+#procesosModal .envoltorio-tabela {
+    max-height: 55vh; 
+    overflow-y: auto;
+    border: none; 
+    background-color: #fff; 
+    border-radius: var(--raio-borda, 8px); 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+
+#procesosModal table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#procesosModal th {
+    background-color: #e9ecef; 
+    padding: 10px 15px; 
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8em;
+    color: #495057; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    position: sticky; top: 0; z-index: 1;
+    border-bottom: 1px solid var(--cor-destaque-medio); }
+
+#procesosModal th:nth-child(2),
+#procesosModal th:nth-child(3), 
+#procesosModal th:nth-child(4), 
+#procesosModal th:nth-child(5) { 
+    text-align: right;
+}
+#procesosModal th:last-child {
+     text-align: center; 
+     padding-right: 15px;
+}
+
+#procesosModal td {
+    padding: 12px 15px; 
+    border-bottom: 0.1px solid #006e6752;
+    vertical-align: middle;
+    font-size: 0.9em;
+    color: #212529;}
+
+#procesosModal tbody tr:last-child td {
+    border-bottom: none;
+}
+#procesosModal tbody tr:hover td {
+    background-color: #f1f3f5;
+}
+
+
+#procesosModal td:nth-child(2),
+#procesosModal td:nth-child(3),
+#procesosModal td:nth-child(4),
+#procesosModal td:nth-child(5) {
+    text-align: right;
+    font-family: monospace; 
+}
+/* Célula das Ações */
+#procesosModal td:last-child {
+   text-align: center;
+   white-space: nowrap;
+   padding-right: 15px;
+}
+
+
+.btn-icone-texto {
+    background-color: #e9ecef; 
+    border: 1px solid #ced4da; 
+    color: #495057; 
+    cursor: pointer;
+    padding: 4px 10px; 
+    border-radius: 15px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75em; 
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin: 0 3px; 
+}
+
+.btn-icone-texto .material-icons { 
+    width: 1em; /* Ajusta a largura ao tamanho da fonte */
+    height: 1em; 
+    font-size: 1.1em; 
+    line-height: 1; 
+    vertical-align: middle; 
+}
+
+.btn-icone-texto span {
+    vertical-align: middle;
+}
+
+.btn-add-blacklist:hover {
+     background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460; 
+  
+}
+
+.btn-kill:hover {
+     background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24; 
+    
+}
+
+
+#procesosModal .modal-content {
+    max-width: 900px; 
+    width: 90%;
+}

@@ -1,3 +1,69 @@
+const tituloH1 = document.getElementById('titulo-dashboard');
+const spanUltimaAtualizacao = document.getElementById('ultima-atualizacao'); // CORRIGIR ID AQUI TAMBÉM
+// ... (outros elementos da página) ...
+
+// --- Referências aos Modais ---
+const modelModal = document.getElementById('modelModal');
+const serverModal = document.getElementById('serverModal');
+
+
+// --- Referências aos Spans DENTRO dos Modais ---
+// ... (spans de modelModal e serverModal) ...
+
+// --- Referências aos Modais de Aviso e Confirmação ---
+// ESTAS VARIÁVEIS PRECISAM ESTAR AQUI:
+const fundoConfirmacao = document.getElementById('fundo-confirmacao');
+const tituloConfirmacao = document.getElementById('titulo-confirmacao');
+// ... (resto do modal de confirmação) ...
+const fundoAviso = document.getElementById('fundo-aviso');
+const tituloAviso = document.getElementById('titulo-aviso');
+const mensagemAviso = document.getElementById('mensagem-aviso');
+const botaoAvisoOK = document.getElementById('botao-aviso-ok');
+
+
+// --- DEFINIÇÕES DAS FUNÇÕES (Incluindo as dos modais de aviso/confirmação) ---
+
+// Funções para os modais de INFORMAÇÃO (modelModal, serverModal, procesosModal)
+function openModal(modalId) { // Sua função original
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'flex'; // Ou 'block'
+    document.body.style.overflow = 'hidden';
+}
+function closeModal(modalId) { // Sua função original
+    const modal = document.getElementById(modalId);
+    if(modal) modal.style.display = 'none';
+    // Adicionar lógica para verificar outros modais antes de restaurar scroll
+    if (!document.querySelector('.modal[style*="display: flex"]') && !document.querySelector('.fundo-dialogo.show')) {
+        document.body.style.overflow = '';
+    }
+}
+
+// Funções para o Modal de AVISO (COLOQUE-AS AQUI)
+function mostrarAviso(mensagem, titulo) {
+    console.log("-> Dentro de mostrarAviso:", mensagem); // Mantenha os logs por enquanto
+    if (titulo === undefined) { titulo = 'Aviso'; }
+    if (tituloAviso) tituloAviso.textContent = titulo; else console.error("Elemento tituloAviso não encontrado!");
+    if (mensagemAviso) mensagemAviso.textContent = mensagem; else console.error("Elemento mensagemAviso não encontrado!");
+    if (fundoAviso) fundoAviso.classList.add('show'); else { console.error("Elemento fundoAviso não encontrado!"); return; }
+    document.body.style.overflow = 'hidden';
+}
+function fecharAviso() {
+    console.log("-> Tentando fechar Aviso"); // Log
+    if (fundoAviso) fundoAviso.classList.remove('show');
+    if (!document.querySelector('.modal[style*="display: flex"]') && !document.querySelector('.fundo-dialogo.show')) {
+        document.body.style.overflow = '';
+    }
+}
+// Adiciona listener ao botão OK do Aviso (garante que botão existe)
+if (botaoAvisoOK) {
+    botaoAvisoOK.removeEventListener('click', fecharAviso);
+    botaoAvisoOK.addEventListener('click', fecharAviso);
+} else {
+    console.error("Elemento botaoAvisoOK não encontrado!");
+}
+
+
+
 function infoModeloGet(idModelo) {
     console.log("Buscando dados completos para o modelo:", idModelo);
     fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
@@ -41,13 +107,146 @@ function infoModeloGet(idModelo) {
         });
 }
 
+const processosModal = document.getElementById('procesosModal');
+const tabelaProcessosAtivosCorpo = document.getElementById('tabela-processos-ativos-corpo');
+const listaProcessosSimulados = [
+            { nome: "chrome.exe", cpu: 15.2, ram: 51, disco: 0.1, gpu: 8.5 },
+            { nome: "explorer.exe", cpu: 2.1, ram: 12, disco: 0.0, gpu: 1.0 },
+            { nome: "svchost.exe", cpu: 0.5, ram: 4.1, disco: 0.0, gpu: 0.0 },
+            { nome: "python_script_dados.py", cpu: 5.8, ram: 1.2, disco: 5.5, gpu: 0.0 },
+            { nome: "java_api_backend.jar", cpu: 22.0, ram: 10.2, disco: 1.2, gpu: 0.0 },
+            { nome: "msedge.exe", cpu: 8.9, ram: 5.0, disco: 0.2, gpu: 4.3 },
+            { nome: "code.exe", cpu: 1.5, ram: 8.0, disco: 0.1, gpu: 2.0 },
+            { nome: "runtimebroker.exe", cpu: 0.1, ram: 1.2, disco: 0.0, gpu: 0.0 }
+        ];
 
+        function popularTabelaProcessosAtivos(listaProcessos) {
+            if (!tabelaProcessosAtivosCorpo) { /* ... (verificação) ... */ return; }
+            tabelaProcessosAtivosCorpo.innerHTML = '';
+            if (!listaProcessos || listaProcessos.length === 0) { /* ... (mensagem vazio) ... */ return; }
+
+            var linhasHtml = '';
+            for (var i = 0; i < listaProcessos.length; i++) {
+                const processo = listaProcessos[i];
+                const cpuFormatado = processo.cpu != null ? processo.cpu.toFixed(1) : '-';
+                const ramFormatado = processo.ram != null ? Math.round(processo.ram) : '-';
+                const discoFormatado = processo.disco != null ? processo.disco.toFixed(1) : '-';
+                const gpuFormatado = processo.gpu != null ? processo.gpu.toFixed(1) : '-';
+
+                // Usa <i> com classes do Material Icons
+                var iconeAddBlacklist = `<i class="material-icons">block</i>`; // Ícone "block" ou "remove_circle_outline"
+                var iconeKill = `<i class="material-icons">close</i>`; // Ícone "close" ou "dangerous"
+
+                linhasHtml += `
+                    <tr>
+                        <td>${processo.nome}</td>
+                        <td>${cpuFormatado}</td>
+                        <td>${ramFormatado}</td>
+                        <td>${discoFormatado}</td>
+                        <td>${gpuFormatado}</td>
+                        <td>
+                            <button class="btn-icone-texto btn-add-blacklist" onclick="adicionarProcessoBlacklist('${processo.nome}')">
+                                ${iconeAddBlacklist}
+                                <span>Adicionar à Blacklist</span> 
+                            </button>
+                            <button class="btn-icone-texto btn-kill" onclick="matarProcesso('${processo.nome}')">
+                                 ${iconeKill}
+                                 <span>Kill</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+            tabelaProcessosAtivosCorpo.innerHTML = linhasHtml;
+        }
+
+        let idModeloAtualGlobal = null;
+
+function adicionarProcessoBlacklist(nomeProcesso) {
+            if (!idModeloAtualGlobal) {
+                mostrarAviso("Não foi possível identificar o modelo atual.", "Erro");
+                return;
+            }
+            console.log(`Adicionar PROIBIDO '${nomeProcesso}', matar=0 para modelo ID: ${idModeloAtualGlobal}`);
+
+            const dados = { fk_modelo: idModeloAtualGlobal, nome: nomeProcesso };
+
+            fetch('/info-modelo/blacklist/adicionarProibido', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+            })
+            .then(function(res) {
+                if (!res.ok) { 
+                    // Tenta ler o erro do servidor
+                    return res.text().then(function(textoErro) {
+                        throw new Error(textoErro || `Erro ${res.status}`); // Lança um erro com a mensagem
+                    });
+                }
+                return res.json(); // Se OK, processa o JSON da resposta
+            })
+            .then(function(resposta) {
+                // Sucesso: Mostra a mensagem do backend ou uma padrão
+                mostrarAviso( "Processo adicionado à blacklist!", "Sucesso");
+                // TODO: Chamar função para recarregar a Tabela 2 (Blacklist)
+                // buscarBlacklistDoModelo(idModeloAtualGlobal);
+            })
+            .catch(function(erro) {
+                // Erro (seja do fetch ou lançado no .then anterior)
+                console.error("Erro ao adicionar à blacklist:", erro);
+                mostrarAviso(`Falha ao adicionar: ${erro.message}`, "Erro"); // Mostra a mensagem de erro
+            });
+        }
+
+        // --- Função Chamada pelo Botão "Kill" (SIMPLES E DIRETA) ---
+        function matarProcesso(nomeProcesso) {
+             if (!idModeloAtualGlobal) {
+                mostrarAviso("Não foi possível identificar o modelo atual.", "Erro");
+                return;
+            }
+            console.log(`Registrar KILL (Neutro), matar=1 para '${nomeProcesso}', modelo ID: ${idModeloAtualGlobal}`);
+
+            const dados = { fk_modelo: idModeloAtualGlobal, nome: nomeProcesso };
+
+            // Faz o fetch direto para a rota
+            fetch('/info-modelo/blacklist/registrarNeutro', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dados)
+            })
+            .then(function(res) {
+                 if (!res.ok) {
+                    return res.text().then(function(textoErro) {
+                        throw new Error(textoErro || `Erro ${res.status}`);
+                    });
+                }
+                return res.json();
+            })
+            .then(function(resposta) {
+               
+                mostrarAviso( `O processo ${nomeProcesso} será matado nos próximos segundos.`, "Info");
+
+                // Remove da lista simulada APÓS sucesso do fetch
+                const index = listaProcessosSimulados.findIndex(p => p.nome === nomeProcesso);
+                if (index > -1) {
+                    listaProcessosSimulados.splice(index, 1);
+                    popularTabelaProcessosAtivos(listaProcessosSimulados); // Redesenha a tabela
+                } else {
+                    console.warn("Processo não encontrado na lista simulada:", nomeProcesso);
+                }
+            })
+            .catch(function(erro) {
+                // Erro: Mostra a mensagem
+                console.error("Erro ao registrar kill:", erro);
+                mostrarAviso(`Falha ao registrar kill: ${erro.message}`, "Erro");
+            });
+        }
 
 window.addEventListener("load", function () {
 
     const idModeloAtual = sessionStorage.getItem('ID_MODELO_SELECIONADO');
     const nomeModeloAtual = sessionStorage.getItem('NOME_MODELO_SELECIONADO');
-
+    idModeloAtualGlobal = idModeloAtual;
     if (idModeloAtual) {
         document.title = `Dashboard - ${nomeModeloAtual}`;
     } else {
@@ -74,6 +273,7 @@ window.addEventListener("load", function () {
     infoNomeModelo.textContent = nomeModeloAtual;
 
     infoModeloGet(idModeloAtual)
+    popularTabelaProcessosAtivos(listaProcessosSimulados)
 
 
 })

@@ -42,6 +42,25 @@ WHERE
     return database.executar(instrucao);
 }
 
+function adicionarBlacklist(fkModelo, nomeProcesso, status,matarProcesso) {
+    console.log(`Model: Adicionando/Atualizando '${nomeProcesso}' na blacklist com status '${status}' para modelo ${fkModelo}`);
+
+   
+ var instrucaoSql = `
+        INSERT INTO black_list (fk_modelo, nome, status, matar_processo)
+        VALUES (${fkModelo}, '${nomeProcesso}', '${status}', ${matarProcesso})
+        ON DUPLICATE KEY UPDATE 
+            status = VALUES(status), 
+            matar_processo = VALUES(matar_processo);
+    `;
+    
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
-    infoModeloGet
+    infoModeloGet,
+    adicionarBlacklist
 };

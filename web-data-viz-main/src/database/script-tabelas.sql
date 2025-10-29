@@ -190,19 +190,34 @@ CREATE TABLE black_list (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar_processo TINYINT,
-    status ENUM("proibido","verificado","automatico"),
+    matar_processo boolean default true,
+    status ENUM("proibido","neutro","automatico"),
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
 );
 
-INSERT INTO black_list (fk_modelo, nome, matar_processo, status) VALUES
-(1, 'processoA', 1, 'automatico'),
-(1, 'processoB', 0, 'automatico'),
-(1, 'processoC', 0, 'verificado'),
-(1, 'processoD', 1, 'proibido'),
-(1, 'processoE', 1, 'automatico');
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'calc.exe', 'proibido', 0);
+
+-- Exemplo 2: Processo 'java_update.exe' marcado para autokill (status='automatico') para o modelo 1, autokill LIGADO (matar_processo=1)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'java_update.exe', 'automatico', 1);
+
+-- Exemplo 3: Processo 'algum_script.bat' proibido para o modelo 2, autokill DESLIGADO (matar_processo=0)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (2, 'algum_script.bat', 'proibido', 0);
+
+-- Exemplo 4: Processo 'svchost.exe' foi morto (status='neutro') para o modelo 1, flag matar LIGADA (matar_processo=1) 
+-- (Este NÃO aparecerá na tabela da blacklist, mas o registo existe)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'svchost.exe', 'neutro', 1)
+ON DUPLICATE KEY UPDATE status = 'neutro', matar_processo = 1; -- Garante que atualiza se já existia
+
+-- Exemplo 5: Processo 'discord.exe' marcado para autokill para o modelo 3, autokill LIGADO
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (3, 'discord.exe', 'automatico', 1);
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
@@ -239,3 +254,4 @@ VALUES
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
 
+select * from usuario;

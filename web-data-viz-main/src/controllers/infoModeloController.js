@@ -25,6 +25,44 @@ function infoModeloGet(req, res) {
     }
 }
 
-module.exports = {
-    infoModeloGet
+
+
+function adicionarProcessoProibido(req, res) {
+    const { fk_modelo, nome } = req.body;
+    if (!fk_modelo || !nome) {
+        return res.status(400).send("Dados incompletos (fk_modelo, nome).");
+    }
+    console.log(`Controller: Add Proibido '${nome}', matar=0 para modelo ${fk_modelo}`);
+
+    infoModeloModel.adicionarBlacklist(fk_modelo, nome, 'proibido', 0)
+        .then(function (resultado) {
+            res.status(201).json({ mensagem: "Processo adicionado como proibido (Autokill=OFF)." });
+        })
+        .catch(function (erro) {
+            console.error("Erro Controller (add Proibido):", erro.sqlMessage || erro);
+            res.status(500).json(erro.sqlMessage || "Erro interno.");
+        });
 }
+
+
+function registrarProcessoNeutro(req, res) {
+    const { fk_modelo, nome } = req.body;
+    if (!fk_modelo || !nome) {
+        return res.status(400).send("Dados incompletos (fk_modelo, nome).");
+    }
+    console.log(`Controller: Registrar Neutro '${nome}', matar=1 para modelo ${fk_modelo}`);
+    infoModeloModel.adicionarBlacklist(fk_modelo, nome, 'neutro', 1)
+        .then(function (resultado) {
+            res.status(201).json({ mensagem: "Processo registrado como neutro (Kill acionado)." });
+        })
+        .catch(function (erro) {
+            console.error("Erro Controller (reg Neutro):", erro.sqlMessage || erro);
+            res.status(500).json(erro.sqlMessage || "Erro interno.");
+        });
+}
+
+module.exports = {
+    infoModeloGet,
+    adicionarProcessoProibido,
+    registrarProcessoNeutro
+};
