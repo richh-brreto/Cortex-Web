@@ -54,8 +54,8 @@
 
 
     <a class="item-usuario" href="perfil-analista.html">
-      <img src="../../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-      <span class="texto-usuario">José</span>
+      <img id="foto" alt="Avatar" class="avatar-usuario">
+      <span id="nome" class="texto-usuario"></span>
     </a>
 
     <div class="divisor"></div>
@@ -168,6 +168,11 @@
                         </div>
 
                         <div class="campo-form">
+                            <label for="foto-funcionario">Foto</label>
+                            <input type="file" id="foto-funcionario" accept="image/*" required>
+                        </div>
+
+                        <div class="campo-form">
                             <label for="status-funcionario">Status</label>
                             <select id="status-funcionario" required>
                                 <option value="ativo" selected>Ativo</option>
@@ -188,3 +193,9 @@
 </body>
 <script src="../js/gerenciamento_de_funcionario.js"></script>
 </html>
+<script>
+    var id = document.getElementById('foto')
+    id.src = `../assets/imgs/${sessionStorage.FOTO}`
+
+    nome.innerText = sessionStorage.NOME_USUARIO
+</script>

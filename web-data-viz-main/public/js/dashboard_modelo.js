@@ -1,3 +1,85 @@
+function infoModeloGet(idModelo) {
+    console.log("Buscando dados completos para o modelo:", idModelo);
+    fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
+        .then(function (response) {
+            if (!response.ok) { throw new Error('Falha ao buscar dados: ' + response.status + ' ' + response.statusText); }
+            return response.json();
+        })
+        .then(function (dados) {
+            console.log("Dados brutos recebidos:", dados);
+
+
+            if (dados && dados.length > 0) {
+                const dadosBanco = dados[0];
+
+                document.getElementById('info-modelo-cliente').textContent = dadosBanco.cliente_nome;
+                document.getElementById('info-modelo-descricao').textContent = dadosBanco.descricao;
+                document.getElementById('info-modelo-zona').textContent = dadosBanco.zona_nome;
+                document.getElementById('info-modelo-arquitetura').textContent = dadosBanco.nome_arquitetura;
+                document.getElementById('info-modelo-descricao').textContent = dadosBanco.descricao;
+                document.getElementById('info-modelo-ip').textContent = dadosBanco.ip;
+                document.getElementById('info-modelo-hostname').textContent = dadosBanco.hostname;
+
+                document.getElementById('modal-arq-nome').textContent = dadosBanco.nome_arquitetura || '--';
+                document.getElementById('modal-arq-cpu-modelo').textContent = dadosBanco.modelo_cpu || '--';
+                document.getElementById('modal-arq-cpu-qtd').textContent = dadosBanco.qtd_cpu || '--';
+                document.getElementById('modal-arq-ram-qtd').textContent = dadosBanco.qtd_ram || '--';
+                document.getElementById('modal-arq-gpu-modelo').textContent = dadosBanco.modelo_gpu || '--';
+                document.getElementById('modal-arq-so').textContent = dadosBanco.so || '--';
+                document.getElementById('modal-arq-disco-max').textContent = dadosBanco.maxDisco || '--';
+
+
+
+            } else {
+                throw new Error("Modelo não encontrado ou dados inválidos recebidos.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro ao buscar/processar dados da dashboard:", error);
+            mostrarAviso("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
+            limparSpansModais();
+        });
+}
+
+
+
+window.addEventListener("load", function () {
+
+    const idModeloAtual = sessionStorage.getItem('ID_MODELO_SELECIONADO');
+    const nomeModeloAtual = sessionStorage.getItem('NOME_MODELO_SELECIONADO');
+
+    if (idModeloAtual) {
+        document.title = `Dashboard - ${nomeModeloAtual}`;
+    } else {
+
+        alert("Erro: ID do modelo não encontrado!");
+        window.location.href = 'Gerenciamento_modelos-analista.html';
+    }
+
+    //carregando informações do session storage
+    var titulo = document.getElementById('nome-modelo')
+    titulo.textContent = nomeModeloAtual;
+
+    var titulo = document.getElementById('codigo-modelo')
+    titulo.textContent = idModeloAtual;
+
+    var ultimaAtualizacao = document.getElementById('ultima-atualizacao')
+    const agora = new Date();
+    const horaFormatada = agora.toLocaleTimeString('pt-BR');
+    const dataFormatada = agora.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    ultimaAtualizacao.textContent = `${dataFormatada} ${horaFormatada}`;
+
+    var infoNomeModelo = document.getElementById('info-nome')
+    infoNomeModelo.textContent = nomeModeloAtual;
+
+    infoModeloGet(idModeloAtual)
+
+
+})
+
+
+
 // Funções de Modal
 function openModal(modalId) {
     document.getElementById(modalId).style.display = 'block';
@@ -8,7 +90,7 @@ function closeModal(modalId) {
 }
 
 // Fechar modal ao clicar fora
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
     }
@@ -62,7 +144,7 @@ new Chart(resourceCtx, {
             },
             tooltip: {
                 callbacks: {
-                    label: function(context) {
+                    label: function (context) {
                         return context.dataset.label + ': ' + context.parsed.x + '%';
                     }
                 }
@@ -118,7 +200,8 @@ new Chart(alertsCtx, {
                 display: false
             },
             tooltip: {
-                callbacks: {label: function(context) {
+                callbacks: {
+                    label: function (context) {
                         return 'Alertas: ' + context.parsed.y;
                     }
                 }

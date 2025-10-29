@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Modelo H333</title>
-    <link rel="stylesheet" href="/public/css/dashboard_modelo.css">
+    <link rel="stylesheet" href="../css/dashboard_modelo.css">
     <link rel="stylesheet" href="../base/navbar.css">
 </head>
 <body>
@@ -66,9 +66,9 @@
         <div class="header">
             <div class="header-content">
                 <div class="header-info">
-                    <h1>Modelo H333</h1>
-                    <p>Código:<strong>MDL-H333-2024</strong></p>
-                    <p>Última atualização: <strong>12:00</strong></p>
+                    <h1 id="nome-modelo">Modelo H333</h1>
+                    <p >Código:<strong id="codigo-modelo">MDL-H333-2024</strong></p>
+                    <p>Última atualização: <strong id="ultima-atualizacao">12:00</strong></p>
                 </div>
                 <div class="status-badge active">
                     <div class="status-indicator active"></div>
@@ -232,28 +232,44 @@
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="info-items-inline">
-                        <div class="info-item-inline">
-                            <span class="info-item-label">Nome:</span>
-                            <span class="info-item-value">H333</span>
-                        </div>
-                        <div class="info-item-inline">
-                            <span class="info-item-label">Versão:</span>
-                            <span class="info-item-value">2.4.1</span>
-                        </div>
-                        <div class="info-item-inline">
-                            <span class="info-item-label">Tipo:</span>
-                            <span class="info-item-value">Machine Learning</span>
-                        </div>
-                        <div class="info-item-inline">
-                            <span class="info-item-label">Parâmetros:</span>
-                            <span class="info-item-value">1.2B</span>
-                        </div>
-                        <div class="info-item-inline">
-                            <span class="info-item-label">Deploy:</span>
-                            <span class="info-item-value">15/10/2024</span>
-                        </div>
-                    </div>
+                   <div class="info-items-inline">
+        
+        <div class="info-item-inline">
+            <span class="info-item-label">Nome:</span>
+            <span id="info-nome" class="info-item-value">--</span> 
+        </div>
+
+        <div class="info-item-inline">
+            <span class="info-item-label">Cliente:</span> 
+            <span id="info-modelo-cliente" class="info-item-value">--</span> 
+        </div>
+
+        <div class="info-item-inline">
+            <span class="info-item-label">Zona:</span> 
+            <span id="info-modelo-zona" class="info-item-value">--</span>
+        </div>
+        
+        <div class="info-item-inline">
+            <span class="info-item-label">Arquitetura:</span>
+            <span id="info-modelo-arquitetura" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item-inline">
+            <span class="info-item-label">Descrição:</span> 
+            <span id="info-modelo-descricao" class="info-item-value">--</span>
+        </div>
+        
+        <div class="info-item-inline">
+            <span class="info-item-label">IP:</span>
+            <span id="info-modelo-ip" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item-inline">
+            <span class="info-item-label">Hostname:</span> 
+            <span id="info-modelo-hostname" class="info-item-value">--</span>
+        </div>
+
+    </div>
                 </div>
             </div>
         </div>
@@ -266,38 +282,53 @@
                     <button class="modal-close" onclick="closeModal('serverModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="info-items">
-                        <div class="info-item">
-                            <span class="info-item-label">Hostname:</span>
-                            <span class="info-item-value">srv-ml-prod-01</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">IP:</span>
-                            <span class="info-item-value">192.168.1.100</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">Sistema Operacional:</span>
-                            <span class="info-item-value">Ubuntu 22.04 LTS</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">CPU:</span>
-                            <span class="info-item-value">Intel Xeon 32 cores</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">RAM Total:</span>
-                            <span class="info-item-value">128 GB</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">Disco:</span>
-                            <span class="info-item-value">1 TB</span>
-                        </div>
-                    </div>
+                   <div class="info-items">
+        
+        <div class="info-item">
+            <span class="info-item-label">Nome Arq.:</span> <!-- Rótulo Ajustado -->
+            <!-- ID adicionado -->
+            <span id="modal-arq-nome" class="info-item-value">--</span> 
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">Modelo CPU:</span>
+            <span id="modal-arq-cpu-modelo" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">Qtd. CPU:</span>
+            <span id="modal-arq-cpu-qtd" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">Qtd. RAM (GB):</span> 
+            <span id="modal-arq-ram-qtd" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">Modelo GPU:</span> 
+            <span id="modal-arq-gpu-modelo" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">SO:</span> 
+            <span id="modal-arq-so" class="info-item-value">--</span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-item-label">Disco Máx. (GB):</span> 
+            <span id="modal-arq-disco-max" class="info-item-value">--</span>
+        </div>
+
+       
+
+    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="/public/js/dashboard_modelo.js"></script>
+    <script src="../js/dashboard_modelo.js"></script>
 </body>
 </html>

@@ -232,15 +232,15 @@ form.addEventListener('submit', (ev) => {
     }else{
          statusB = 0
     }
-    const funcionario = {
-        nome: nomeInput.value.trim(),
-        email: emailInput.value.trim(),
-        senha: senhaInput.value.trim(),
-        cargo: cargoB,
-        telefone: telefoneInput.value.trim(),
-        status: statusB
 
-    };
+    const funcionario = new FormData();
+    funcionario.append("nome", nomeInput.value.trim());
+    funcionario.append("email", emailInput.value.trim());
+    funcionario.append("senha", senhaInput.value.trim());
+    funcionario.append("cargo", cargoB);
+    funcionario.append("telefone", telefoneInput.value.trim());
+    funcionario.append("foto", fotoInput.files[0]);
+    funcionario.append("status", statusB);
 
     if (linhaEditando) {
         const id_funcionario = linhaEditando.children[0].textContent;
@@ -248,8 +248,7 @@ form.addEventListener('submit', (ev) => {
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
