@@ -4,6 +4,7 @@ const senhaInput = document.getElementById('senha-funcionario');
 const cargoInput = document.getElementById('cargo-funcionario')
 const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
+const fotoInput = document.getElementById('foto-funcionario');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
 const header = document.getElementById('header');

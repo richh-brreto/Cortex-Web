@@ -256,6 +256,23 @@ body {
     line-height: 1.6;
 }
 
+.card-botao{
+    display: flex;
+}
+
+.botao{
+    color: white;
+    background-color: #1a202c;
+    width: 300px;
+    height: 30px;
+    gap: 5px;
+    border-radius: 5px;
+}
+
+.botao:hover{
+    background-color: #34415d;
+}
+
 @media (max-width: 1400px) {
     .cards-grid {
         grid-template-columns: 1fr;

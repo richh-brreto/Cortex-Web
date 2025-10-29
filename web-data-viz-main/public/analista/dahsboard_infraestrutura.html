@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/dahsboard_infraestrutura.css">
+    <title>Dashboard Infraestrutura</title>
+</head>
+<body>
+
+    
+
+    <div class="dashboard">
+        <div class="header">
+            <h1>Infraestrutura</h1>
+        </div>
+
+        <div class="kpis-grid">
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="kpi-title">Média de Modelo por Cliente</div>
+                </div>
+                <div class="kpi-value">2.5</div>
+            </div>
+
+            <!-- Arquitetura Mais Utilizada -->
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <div class="kpi-title">Arquitetura Mais Utilizada</div>
+                </div>
+                <div class="kpi-value">x86_64</div>
+                <div class="kpi-details">
+                    <div class="kpi-detail-item">
+                        <span class="kpi-detail-label">Total</span>
+                        <span class="kpi-detail-value">150</span>
+                    </div>
+                    <div class="kpi-detail-item">
+                        <span class="kpi-detail-label">Usado</span>
+                        <span class="kpi-detail-value">120</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Servidores Ativos -->
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
+                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                        </svg>
+                    </div>
+                    <div class="kpi-title">Servidores Ativos</div>
+                </div>
+                <div class="kpi-details">
+                    <div class="kpi-detail-item">
+                        <span class="kpi-detail-label">Total</span>
+                        <span class="kpi-detail-value">45</span>
+                    </div>
+                    <div class="kpi-detail-item">
+                        <span class="kpi-detail-label">Usado</span>
+                        <span class="kpi-detail-value">38</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="charts-grid">
+            <!-- Gráfico de Linha - Utilização de Arquiteturas -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Utilização de Arquiteturas</h3>
+                    <div class="multiselect-container">
+                        <div class="multiselect-trigger" onclick="toggleMultiselect()">
+                            <span id="selectedCount">3 selecionadas</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="multiselect-dropdown" id="multiselectDropdown">
+                            <div class="multiselect-search">
+                                <input type="text" placeholder="Pesquisar..." id="searchInput" oninput="filterOptions()">
+                            </div>
+                            <div class="multiselect-options" id="optionsList">
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="x86_64" checked onchange="updateSelection()">
+                                    <span>x86_64</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="ARM" checked onchange="updateSelection()">
+                                    <span>ARM</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="RISC-V" checked onchange="updateSelection()">
+                                    <span>RISC-V</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="PowerPC" onchange="updateSelection()">
+                                    <span>PowerPC</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>MIPS</span>
+                                </label>
+                            </div>
+                            <div class="multiselect-actions">
+                                <button class="multiselect-select-btn" onclick="applySelection()">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico de Barra - Ocupação de Componentes -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Ocupação de Componentes</h3>
+                    <select class="simple-select" id="zonaSelect" onchange="updateBarChart()">
+                        <option value="todas">Todas</option>
+                        <option value="zona1">Zona 1</option>
+                        <option value="zona2">Zona 2</option>
+                        <option value="zona3">Zona 3</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Multiselect
+        function toggleMultiselect() {
+            const dropdown = document.getElementById('multiselectDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function filterOptions() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const options = document.querySelectorAll('.multiselect-option');
+            
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(filter) ? 'flex' : 'none';
+            });
+        }
+
+        function updateSelection() {
+            const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
+            const count = Array.from(checkboxes).filter(cb => cb.checked).length;
+            document.getElementById('selectedCount').textContent = `${count} selecionada${count !== 1 ? 's' : ''}`;
+        }
+
+        function applySelection() {
+            toggleMultiselect();
+            updateLineChart();
+        }
+
+        // Fechar dropdown ao clicar fora
+        document.addEventListener('click', (e) => {
+            const container = document.querySelector('.multiselect-container');
+            if (!container.contains(e.target)) {
+                document.getElementById('multiselectDropdown').classList.remove('active');
+            }
+        });
+
+        // Gráfico de Linha
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        let lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                datasets: [
+                    {
+                        label: 'x86_64',
+                        data: [65, 70, 75, 80, 85, 90, 88, 92, 95, 100, 98, 105],
+                        borderColor: '#00B2B2',
+                        backgroundColor: 'rgba(0, 178, 178, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'ARM',
+                        data: [28, 32, 35, 40, 42, 45, 48, 50, 52, 55, 58, 60],
+                        borderColor: '#006E66',
+                        backgroundColor: 'rgba(0, 110, 102, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'RISC-V',
+                        data: [10, 12, 15, 18, 20, 22, 25, 28, 30, 32, 35, 38],
+                        borderColor: '#F59E0B',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Mês'
+                        }
+                    }
+                }
+            }
+        });
+
+        function updateLineChart() {
+            const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
+            const selected = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+            
+            lineChart.data.datasets = lineChart.data.datasets.filter(dataset => 
+                selected.includes(dataset.label)
+            );
+            lineChart.update();
+        }
+
+        // Gráfico de Barra
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        let barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['GPU', 'RAM', 'Disco', 'CPU'],
+                datasets: [
+                    {
+                        label: 'Utilizado',
+                        data: [120, 96, 450, 28],
+                        backgroundColor: '#00B2B2'
+                    },
+                    {
+                        label: 'Disponível',
+                        data: [150, 128, 1000, 32],
+                        backgroundColor: '#E2E8F0'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Componentes'
+                        }
+                    }
+                }
+            }
+        });
+
+        function updateBarChart() {
+            const zona = document.getElementById('zonaSelect').value;
+            
+            // Simulação de dados diferentes por zona
+            const dados = {
+                'todas': {
+                    utilizado: [120, 96, 450, 28],
+                    disponivel: [150, 128, 1000, 32]
+                },
+                'zona1': {
+                    utilizado: [80, 64, 300, 18],
+                    disponivel: [100, 80, 500, 20]
+                },
+                'zona2': {
+                    utilizado: [60, 48, 200, 16],
+                    disponivel: [80, 64, 400, 18]
+                },
+                'zona3': {
+                    utilizado: [90, 72, 350, 22],
+                    disponivel: [120, 96, 600, 24]
+                }
+            };
+            
+            barChart.data.datasets[0].data = dados[zona].utilizado;
+            barChart.data.datasets[1].data = dados[zona].disponivel;
+            barChart.update();
+        }
+    </script>
+</body>
+</html>
