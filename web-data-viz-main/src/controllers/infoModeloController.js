@@ -25,6 +25,28 @@ function infoModeloGet(req, res) {
     }
 }
 
+function listarBlacklist(req, res) {
+    var idModelo = req.params.idmodelo
+    if (idModelo == undefined){
+        res.status(400).send("idModelo indefinido")
+    } else {
+
+        infoModeloModel.listarBlacklist(idModelo)
+            .then(
+                function(resultado) {
+                    console.log("Tudo certo no controller blacklist")
+                    res.status(200).json(resultado)
+                }
+            ).catch(
+                function(erro){
+                    console.log(erro)
+                    console.log("\nErro ao buscar informações do modelo", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            )
+    }
+}
+
 
 
 function adicionarProcessoProibido(req, res) {
@@ -33,6 +55,7 @@ function adicionarProcessoProibido(req, res) {
         return res.status(400).send("Dados incompletos (fk_modelo, nome).");
     }
     console.log(`Controller: Add Proibido '${nome}', matar=0 para modelo ${fk_modelo}`);
+
 
     infoModeloModel.adicionarBlacklist(fk_modelo, nome, 'proibido', 0)
         .then(function (resultado) {
@@ -64,5 +87,6 @@ function registrarProcessoNeutro(req, res) {
 module.exports = {
     infoModeloGet,
     adicionarProcessoProibido,
-    registrarProcessoNeutro
+    registrarProcessoNeutro,
+    listarBlacklist
 };

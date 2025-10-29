@@ -16,4 +16,8 @@ router.post("/blacklist/registrarNeutro", function (req, res) {
     infoModeloController.registrarProcessoNeutro(req, res);
 });
 
+router.get("/blacklist/listarBlacklist/:idmodelo",function (req, res) {
+    infoModeloController.listarBlacklist(req, res)
+});
+
 module.exports = router;

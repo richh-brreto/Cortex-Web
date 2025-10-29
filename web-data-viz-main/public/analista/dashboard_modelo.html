@@ -255,9 +255,15 @@
                 </div>
                 <span>Processos Ativos</span>
             </button>
+
+            <button class="info-btn" onclick="openModal('blacklistModal')">
+                <div class="info-btn-icon">
+                    <i style="color:#00B2B2;" class="material-icons">block</i>
+                </div>
+                <span>Blacklist</span>
+            </button>
         </div>
 
-        <!-- Modal - Informações do Modelo -->
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -395,6 +401,41 @@
                 </div>
             </div>
         </div>
+
+         <div id="blacklistModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Blacklist de processos</h3>
+                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-items">
+
+                        <section class="container-tabela">
+                            <div class="envoltorio-tabela">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>   
+                                            <th>Autokill</th>
+                                            <th style="width: 200px;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabelablacklistcorpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tabela-rodape">
+
+                            </div>
+                        </section>
+                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>

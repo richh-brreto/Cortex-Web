@@ -107,6 +107,85 @@ function infoModeloGet(idModelo) {
         });
 }
 
+function listarBlacklist(idModelo) {
+    fetch(`/info-modelo/blacklist/listarBlacklist/${idModelo}`)
+        .then(function (response) {
+            if (!response.ok) { throw new Error('Falha ao buscar dados: ' + response.status + ' ' + response.statusText); }
+            return response.json();
+        })
+        .then(function (dados) {
+            console.log("chegooou:", dados);
+
+
+            if (dados && dados.length > 0) {
+                const dadosBanco = dados[0];
+             console.log(dadosBanco);        
+             
+             
+
+                     var linhasHtml = '';
+            for (var i = 0; i < dadosBanco.length; i++) {
+                const processo = listaProcessos[i];
+               
+               
+                // Usa <i> com classes do Material Icons
+                var iconeAddBlacklist = `<i class="material-icons">block</i>`; // Ícone "block" ou "remove_circle_outline"
+                var iconeKill = `<i class="material-icons">close</i>`; // Ícone "close" ou "dangerous"
+
+                linhasHtml += `
+                    <tr>
+                        <td>${dadosBanco[i].nome}</td>
+                        <td>${dadosBanco[i].status}</td>
+                        <td>
+                            <button class="btn-icone-texto btn-add-blacklist" onclick="adicionarProcessoBlacklist('${processo.nome}')">
+                                ${iconeAddBlacklist}
+                                <span>Adicionar à Blacklist</span> 
+                            </button>
+                            <button class="btn-icone-texto btn-kill" onclick="matarProcesso('${processo.nome}')">
+                                 ${iconeKill}
+                                 <span>Kill</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+            tabelablacklistcorpo.innerHTML = linhasHtml;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+
+            } else {
+                throw new Error("Modelo não encontrado ou dados inválidos recebidos.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro ao buscar/processar dados da dashboard:", error);
+            console.error("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
+            
+        });
+}
+
 const processosModal = document.getElementById('procesosModal');
 const tabelaProcessosAtivosCorpo = document.getElementById('tabela-processos-ativos-corpo');
 const listaProcessosSimulados = [
@@ -274,6 +353,7 @@ window.addEventListener("load", function () {
 
     infoModeloGet(idModeloAtual)
     popularTabelaProcessosAtivos(listaProcessosSimulados)
+    listarBlacklist(idModeloAtual)
 
 
 })
