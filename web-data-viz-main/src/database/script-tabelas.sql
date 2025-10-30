@@ -38,7 +38,7 @@ CREATE TABLE usuario (
     senha VARCHAR(20) NOT NULL,
     telefone VARCHAR(30),
     fk_cargo INT,
-    foto VARCHAR(500) default "../assets/icon/sem_foto.png",
+    foto VARCHAR(500) default '/public/assets/icon/sem-foto.png',
     ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)

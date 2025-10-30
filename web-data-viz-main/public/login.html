@@ -135,6 +135,10 @@
           sessionStorage.CARGO_USUARIO = usuario.cargo;
           sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
           sessionStorage.FOTO=usuario.foto;
+          // salva a URL completa do avatar para uso imediato na navbar
+          try {
+            sessionStorage.USER_AVATAR = usuario.foto && usuario.foto.trim() !== '' ? `/assets/imgs/${usuario.foto}` : '/assets/icon/sem-foto.png';
+          } catch (e) {}
           sessionStorage.ATIVADO_USUARIO=usuario.ativo;
           console.log(sessionStorage)
 

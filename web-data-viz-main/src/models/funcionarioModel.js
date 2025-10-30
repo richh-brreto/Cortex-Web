@@ -25,8 +25,8 @@ function listar(fk_empresa) {
 
 function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa, foto) {
     // Se foto for fornecida, insere na coluna foto, caso contrário insere NULL
-    var colunaFoto = (foto && String(foto).trim() !== 'null') ? `, foto` : ``;
-    var valorFoto = (foto && String(foto).trim() !== 'null') ? `, '${foto}'` : `, NULL`;
+    var colunaFoto = `, foto`;
+    var valorFoto = (foto && String(foto).trim() !== 'null') ? `, '${foto}'` : `, 'sem-foto.png'`;
 
     var instrucao = `
         INSERT INTO usuario (nome, email, senha, fk_cargo, telefone, ativo, fk_empresa${colunaFoto})
