@@ -26,10 +26,10 @@ const filtroSelect = document.getElementById('filtro-select');
 
 let idZonaSelect= null
 
-var caheArq = null
+var cacheArq = null
 var cacheModelo = null
 var cacheFunc = null
-function buscarPossibilidades(valor, tipo, id_zona){
+function buscarPossibilidades(valor, tipo, id_zona, foco){
     
     if(tipo == "arq"){
         if(!cacheArq){
@@ -39,13 +39,13 @@ function buscarPossibilidades(valor, tipo, id_zona){
             console.log("Dados recebidos pelo frontend:", posArq);
 
             cacheArq = posArq
-            searchComSelect(valor, cacheArq)
+            searchComSelect(valor, cacheArq, foco)
         })
         .catch(erro => {
             console.error("Erro ao carregar possibilidades Arquitetura:", erro);
         });
         }else{
-            searchComSelect(valor,cacheArq)
+            searchComSelect(valor,cacheArq, foco)
         }
 
         
@@ -57,15 +57,16 @@ function buscarPossibilidades(valor, tipo, id_zona){
             console.log("Dados recebidos pelo frontend:", posM);
 
             cacheModelo = posM
-            searchComSelect(valor, cacheModelo)
+            searchComSelect(valor, cacheModelo, foco)
         })
         .catch(erro => {
             console.error("Erro ao carregar possibilidades Modelo:", erro);
         });
         }else{
-            searchComSelect(valor,cacheModelo)
+            searchComSelect(valor,cacheModelo, foco)
         }
     }else if(tipo== "func"){
+        console.log(fk_empresa)
               if(!cacheFunc){
                 fetch(`/zona/posibilidadesFunc/${fk_empresa}/${id_zona}`)
         .then(res => res.json())
@@ -79,39 +80,41 @@ function buscarPossibilidades(valor, tipo, id_zona){
             console.error("Erro ao carregar possibilidades Funcionario:", erro);
         });
         }else{
-            searchComSelect(valor,cacheFunc)
+            searchComSelect(valor,cacheFunc,foco)
         }
     }
    
 }
 
-function searchComSelect(valor,cache){
+function searchComSelect(valor,cache,foco){
     
     var divSugestao = document.getElementById("sugestao")
+
 
         const sugestao = []
         const digitado = valor.trim().toLowerCase()
         divSugestao.innerHTML = ""
-      
 
-       if(digitado.length === 0){
-          return
-}
           
         for(let i = 0; i< cache.length;i++){
-            if(cache[i].nome.toLowerCase().trim().startsWith(digitado)){
+            if(cache[i].nome.toLowerCase().trim().includes(digitado)){
+                sugestao.push(cache[i])
+            }else if (foco === 1 && !digitado){
                 sugestao.push(cache[i])
             }
         }
 
         for(let j =0; j<sugestao.length;j++){
             const div = document.createElement("div")
+            console.log(sugestao)
             div.textContent = sugestao[j].nome
+            div.dataset.id = sugestao[j].id;
             div.style.cursor = "pointer"
 
             div.addEventListener("click", () =>{
-                const ipt = document.getElementById("itpAdd")
+                const ipt = document.getElementById("iptAdd")
                 ipt.value = sugestao[j].nome
+                ipt.dataset.id = sugestao[j].id
                 divSugestao.innerHTML = ""
             })
 
@@ -119,6 +122,8 @@ function searchComSelect(valor,cache){
         }         
 
 }
+
+
 
 function abrirModalInfo(nome, id_zona){
     overlayInfo.classList.add('show')
@@ -136,6 +141,9 @@ function fecharModalInfo(){
     overlayInfo.classList.remove('show');
     document.body.style.overflow = '';
     idZonaSelect = null
+    caheArq = null
+    cacheModelo = null
+    cacheFunc = null
 }
 
 function abrirModal(modo = 'novo') {
@@ -169,7 +177,7 @@ function pesquisarEmZona(termo, nomeCard){
     card.forEach(n =>{
         var nome = n.querySelector("[name='nome']")
         var valor = nome.textContent.trim().toLowerCase()
-        if(valor.startsWith(pesquisa)){
+        if(valor.includes(pesquisa)){
             n.style.display = ""
         }else{
             n.style.display = "none"
@@ -178,21 +186,133 @@ function pesquisarEmZona(termo, nomeCard){
 }
 
 function adicionarEmZona(tipo, id_zona){
+    const iptAdd = document.getElementById("iptAdd")
+    const id = iptAdd.dataset.id
+
+    if(!iptAdd){
+        alert("Preeencha todos os campos para a vinculação.")
+        return
+    }
     if(tipo == "arquitetura"){
-      overlayArq.classList.add('show')      
-      document.body.style.overflow = 'hidden'
-      idZonaSelect = id_zona
-      addArquiteturaEmZona()
+      const qtd = document.getElementById("iptQtdArq")
+      if(!qtd){
+        alert("Preeencha todos os campos para a vinculação.")
+        return
+      }
+       fetch("/zona/vincularArquitetura/" + id_zona, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idArq : id,
+                qtdArq : qtd
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Arquitetura Vinculada com sucesso!");
+                    carregarArq();
+                } else {
+                    alert("Erro ao vincular arquitetura");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao vincular:", erro);
+                alert("Erro ao vincular arquitetura");
+            });
     }else if(tipo == "modelo"){
-        overlayModelo.classList.add('show')
-        document.body.style.overflow = 'hidden'
-        idZonaSelect = id_zona
-        addModeloEmZona()
+           fetch("/zona/vincularModelo/" + id_zona, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idModelo : id
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Modelo vinculado com sucesso!");
+
+                    carregarModelos();
+                } else {
+                    alert("Erro ao vincular modelo");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao vincular:", erro);
+                alert("Erro ao vincular modelo");
+            });
     }else if(tipo == "funcionario"){
-        overlayFunc.classList.add('show')
-        document.body.style.overflow = 'hidden'
-        idZonaSelect = id_zona
-        addFuncionarioEmZona()
+           fetch("/zona/vincularFuncionario/" + id_zona, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idFunc : id
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("funcionario vinculado com sucesso!");
+                    carregarFuncionarios()
+                } else {
+                    alert("Erro ao vincular funcionario");
+                }
+            })
+            .catch(erro => {
+                console.error("Erro ao vincular:", erro);
+                alert("Erro ao vincular funcionario");
+            });
+    }
+}
+
+
+function deletarEmZona(id,tipo,id_zona){
+    if(tipo == "arq"){
+        if (confirm("Deseja realmente desvincular esta arquitetura?")) {
+            fetch(`/zona/desvincularArquitetura/${id}/${id_zona}`, { method: "DELETE" })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Arquitetura desvinculada!");
+                        carregarArq()
+                    } else {
+                        alert("Erro ao desvincular arquitetura");
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao desvincular:", erro);
+                    alert("Erro ao desvincular arquitetura");
+                });
+        }
+    }else if(tipo == "modelo"){
+        if (confirm("Deseja realmente desvincular este modelo?")) {
+            fetch(`/zona/desvincularModelo/${id}`, { method: "PUT" })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Modelo desvinculada!");
+                        carregarModelos()
+                    } else {
+                        alert("Erro ao desvincular modelo");
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao desvincular:", erro);
+                    alert("Erro ao desvincular modelo");
+                });
+        }
+    }else if(tipo == "func"){
+        if (confirm("Deseja realmente desvincular este funcionario?")) {
+            fetch(`/zona/desvincularFuncionario/${id}/${id_zona}`, { method: "DELETE" })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Funcionario desvinculada!");
+                        carregarFuncionarios()
+                    } else {
+                        alert("Erro ao desvincular funcionario");
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao desvincular:", erro);
+                    alert("Erro ao desvincular funcionario");
+                });
+        }
     }
 }
 
@@ -237,6 +357,8 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 btnFecharInfo.addEventListener('click', fecharModalInfo);
+
+
 
 aba.forEach(a =>
     a.addEventListener('click', function () {
@@ -325,7 +447,7 @@ function carregarArq(){
                             <p>${a.so}</p>
                         </div>
                         <div class="botao-del-usuario">
-                                    <button class="botao-del">
+                                    <button class="botao-del" name="botaoDel">
                                         <img src="../assets/icon/deletar.png">
                                     </button>
                                     <button class="btn-del" title="Editar">
@@ -334,6 +456,9 @@ function carregarArq(){
                                 </div>
                     
                `
+                    const del = card.querySelector("[name='botaoDel']")
+                    del.addEventListener('click', () => deletarEmZona(a.id_arquitetura, "arq",idZonaSelect))
+
                 envoltorio.appendChild(card)
            
             });
@@ -354,23 +479,32 @@ function carregarArq(){
             inputAdd.id = "iptAdd"
             topo.appendChild(inputAdd)
 
-            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "arq",idZonaSelect))
 
             const divSugestao = document.createElement("div")
             divSugestao.id = "sugestao"
             topo.appendChild(divSugestao)
 
+            inputAdd.addEventListener("blur", () => { setTimeout(() => {divSugestao.innerHTML = ""}, 150)})
+            inputAdd.addEventListener("focus", () => buscarPossibilidades(inputAdd.value, "arq",idZonaSelect,1))
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputAdd.value, "arq",idZonaSelect,0))
+
+            
+
             const inputQtd = document.createElement("input")
             inputQtd.type = "number"
             inputQtd.placeholder = "Quantidade"
+            inputQtd.classList.add("input-pesquisa")
+            inputQtd.id = "iptQtdArq"
             topo.appendChild(inputQtd)
 
             const botao = document.createElement("button")
             botao.textContent = "Adicionar"
+            botao.classList.add("btn")
             botao.classList.add("btn-primario")
             topo.appendChild(botao)
             
             botao.addEventListener("click", () => adicionarEmZona("arquitetura",idZonaSelect))
+
                
         })
         .catch(erro => {
@@ -461,7 +595,7 @@ function carregarModelos(){
                                     </div>
                                 </div>
                                 <div class="botao-del-usuario">
-                                    <button class="botao-del">
+                                    <button class="botao-del" name="botaoDel">
                                         <img src="../assets/icon/deletar.png">
                                     </button>
                                 </div>
@@ -469,6 +603,9 @@ function carregarModelos(){
                         </div>
                     
                `
+
+               const del = card.querySelector("[name='botaoDel']")
+                    del.addEventListener('click', () => deletarEmZona(m.id_modelo, "modelo"))
                 envoltorio.appendChild(card)
            
             });
@@ -488,14 +625,18 @@ function carregarModelos(){
             inputAdd.id = "iptAdd"
             topo.appendChild(inputAdd)
 
-            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "modelo",idZonaSelect))
-
-             const divSugestao = document.createElement("div")
+            const divSugestao = document.createElement("div")
             divSugestao.id = "sugestao"
             topo.appendChild(divSugestao)
+            inputAdd.addEventListener("blur", () => { setTimeout(() => {divSugestao.innerHTML = ""}, 150)})
+            inputAdd.addEventListener("focus", () => buscarPossibilidades(inputAdd.value, "modelo",idZonaSelect,1))
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputAdd.value, "modelo",idZonaSelect,0))
+
+             
 
             const botao = document.createElement("button")
             botao.textContent = "Adicionar"
+            botao.classList.add("btn")
             botao.classList.add("btn-primario")
             topo.appendChild(botao)
             
@@ -568,12 +709,15 @@ function carregarFuncionarios(){
                                 </div>
 
                                 <div class="botao-del-usuario">
-                                    <button class="botao-del">
+                                    <button class="botao-del" name="botaoDel">
                                         <img src="../assets/icon/deletar.png">
                                     </button>
                                 </div>
                             </div>
                `
+                const del = card.querySelector("[name='botaoDel']")
+                    del.addEventListener('click', () => deletarEmZona(func[i].id, "func",idZonaSelect))
+
                 linha.appendChild(card)
             }
 
@@ -596,14 +740,19 @@ function carregarFuncionarios(){
             inputAdd.id = "iptAdd"
             topo.appendChild(inputAdd)
 
-            inputAdd.addEventListener("input", () => buscarPossibilidades(inputPesquisa.value, "func",idZonaSelect))
-
-             const divSugestao = document.createElement("div")
+            const divSugestao = document.createElement("div")
             divSugestao.id = "sugestao"
             topo.appendChild(divSugestao)
 
+            inputAdd.addEventListener("blur", () => { setTimeout(() => {divSugestao.innerHTML = ""}, 150)})
+             inputAdd.addEventListener("focus", () => buscarPossibilidades(inputAdd.value, "func",idZonaSelect,1))
+            inputAdd.addEventListener("input", () => buscarPossibilidades(inputAdd.value, "func",idZonaSelect,0))
+
+             
+
             const botao = document.createElement("button")
             botao.textContent = "Adicionar"
+            botao.classList.add("btn")
             botao.classList.add("btn-primario")
             topo.appendChild(botao)
             
@@ -640,7 +789,7 @@ window.addEventListener("load", () => {
                     <td>${z.qtd_arquiteturas}</td>
                     <td>
                         <div class="coluna-acoes">
-                            <button class="btn-icone" title="VerMais"><span class="material-icons">Ver mais</span></button>
+                            <button class="btn-icone" title="VerMais"><span class="btn btn-secundario">Ver mais</span></button>
                             <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
                             <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                         </div>

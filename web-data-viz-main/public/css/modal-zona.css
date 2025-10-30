@@ -259,7 +259,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: white;
+    background: rgb(153, 151, 151);
     border: 2px solid var(--cor-borda);
     border-radius: 8px;
     max-height: 200px;

@@ -54,7 +54,7 @@ function listarArq(fk_zona) {
 
     var instrucao = `
     SELECT 
-        a.nome, a.modelo_cpu, a.qtd_cpu, a.qtd_ram,
+        a.id_arquitetura, a.nome, a.modelo_cpu, a.qtd_cpu, a.qtd_ram,
         a.modelo_gpu, a.so, a.maxDisco, az.qtd
     FROM 
         arquitetura as a
@@ -75,7 +75,7 @@ function listarModelos(fk_zona) {
 
     var instrucao = `
     SELECT 
-       m.nome, m.descricao, m.qtd_disco, m.ip, m.hostname, m.tempo_parametro_min as tempo,
+       m.id_modelo, m.nome, m.descricao, m.qtd_disco, m.ip, m.hostname, m.tempo_parametro_min as tempo,
        m.limite_cpu as cpu ,m.limite_disco as disco ,
        m.limite_ram as ram , m.limite_gpu as gpu,
        c.nome as nome_cliente, a.nome as nome_arq
@@ -102,7 +102,7 @@ function listarFuncionario(fk_zona) {
 
     var instrucao = `
     SELECT 
-       f.foto, f.nome, f.email, f.telefone, c.nome as cargo, f.ativo
+       f.id, f.foto, f.nome, f.email, f.telefone, c.nome as cargo, f.ativo
     FROM 
         usuario as f
     INNER JOIN 
@@ -148,7 +148,7 @@ function posibilidadesModelo(fk_empresa) {
 
     var instrucao = `
     SELECT 
-       m.id_modelo, m.nome
+       m.id_modelo as id, m.nome
     FROM
        modelo as m
 	INNER JOIN
@@ -159,8 +159,7 @@ function posibilidadesModelo(fk_empresa) {
         m.fk_zona_disponibilidade IS NULL 
     AND 
         c.fk_empresa = ${fk_empresa}
-    ;
-    ;
+     ;
 
     `;
 
@@ -173,7 +172,7 @@ function posibilidadesArq(fk_empresa, fk_zona) {
 
     var instrucao = `
     SELECT 
-        a.id_arquitetura, a.nome
+        a.id_arquitetura as id, a.nome
     FROM
         arquitetura AS a
     WHERE
@@ -192,23 +191,96 @@ function posibilidadesArq(fk_empresa, fk_zona) {
     return database.executar(instrucao);
 }
 
-function posibilidadesFunc(fk_zona) {
+function posibilidadesFunc(fk_empresa,id_zona) {
 
     var instrucao = `
-    SELECT 
-       f.foto, f.nome, f.email, f.telefone, c.nome as cargo, f.ativo
+      SELECT 
+       f.id, f.nome
     FROM 
         usuario as f
-    INNER JOIN 
-        acesso_zona az 
-    ON 
-        f.id = az.fk_usuario
-    INNER JOIN
-        cargo as c
-    ON
-        c.id = f.fk_cargo
     WHERE
-        az.fk_zona = ${fk_zona};
+        f.fk_empresa = ${fk_empresa} AND f.id NOT IN (
+        SELECT f.id FROM usuario as f 
+        Left Join acesso_zona as az on f.id = az.fk_usuario
+        WHERE az.fk_zona = ${id_zona}
+    );
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function vincularArquitetura(idArq, id_zona,qtdArq) {
+
+    var instrucao = `
+        INSERT INTO 
+            arquitetura_zona (fk_arquitetura, fk_zona, qtd) 
+        VALUES
+            (${idArq},${id_zona},${qtdArq});
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function vincularModelo(idModelo, id_zona) {
+
+    var instrucao = `
+        UPDATE  
+            modelo
+        SET
+            fk_zona_disponibilidade = ${id_zona}
+        WHERE
+            id_modelo = ${idModelo};
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function vincularFuncionario(idFunc, id_zona) {
+
+    var instrucao = `
+        INSERT INTO 
+            acesso_zona (fk_usuario, fk_zona) 
+        VALUES
+            (${idFunc},${id_zona});
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function desvincularArquitetura(id,id_zona) {
+
+    var instrucao = `
+        DELETE FROM arquitetura_zona WHERE fk_arquitetura = ${id} AND fk_zona = ${id_zona};
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function desvincularModelo(id) {
+
+    var instrucao = `
+        UPDATE modelo SET fk_zona = null WHERE id_modelo = ${id};
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function desvincularFuncionario(id,id_zona) {
+
+    var instrucao = `
+        DELETE FROM acesso_zona WHERE fk_zona = ${id_zona} AND fk_usuario = ${id};
     `;
 
 
@@ -226,5 +298,11 @@ module.exports = {
     listarModelos,
     posibilidadesFunc,
     posibilidadesArq,
-    posibilidadesModelo
+    posibilidadesModelo,
+    vincularArquitetura,
+    vincularModelo,
+    vincularFuncionario,
+    desvincularArquitetura,
+    desvincularModelo,
+    desvincularFuncionario
 };
