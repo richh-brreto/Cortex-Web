@@ -37,7 +37,7 @@ function login(email, senha) {
 
 function buscarPorId(idUsuario) {
     var instrucaoSql = `
-        SELECT id, nome, email, cargo, fk_empresa, ativo, telefone
+        SELECT id, nome, email, fk_cargo AS fk_cargo, fk_empresa, ativo, telefone, foto
         FROM usuario
         WHERE id = ${idUsuario};
     `;

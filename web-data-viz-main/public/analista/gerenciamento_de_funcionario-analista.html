@@ -213,8 +213,11 @@
 <script src="../js/gerenciamento_de_funcionario.js"></script>
 </html>
 <script>
-    var id = document.getElementById('foto')
-    id.src = `../assets/imgs/${sessionStorage.FOTO}`
-
-    nome.innerText = sessionStorage.NOME_USUARIO
+    (function(){
+        const fotoEl = document.getElementById('foto');
+        const nomeEl = document.getElementById('nome');
+        const userAvatar = sessionStorage.USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : '/assets/icon/sem-foto.png');
+        if (fotoEl) fotoEl.src = userAvatar;
+        if (nomeEl) nomeEl.innerText = sessionStorage.NOME_USUARIO || '';
+    })();
 </script>

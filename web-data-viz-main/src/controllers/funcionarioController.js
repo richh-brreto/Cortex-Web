@@ -20,13 +20,14 @@ function listar(req, res) {
 
 function cadastrar(req, res) {
     var { nome, email, senha, cargo, telefone, status} = req.body;
+    var foto = req.file ? req.file.filename : null;
     var fk_empresa = req.params.fkEmpresa;
 
     if (!nome || !email || !cargo || !fk_empresa || !senha) {
         return res.status(400).json({ erro: "Campos obrigatórios: nome, email, cargo, senha, departamento, fk_empresa" });
     }
 
-    funcionarioModel.cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa)
+    funcionarioModel.cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa, foto)
         .then(() => {
             console.log("Funcionário cadastrado com sucesso!");
             res.status(201).json({ mensagem: "Funcionário cadastrado com sucesso!" });
@@ -39,7 +40,7 @@ function cadastrar(req, res) {
 
 function atualizar(req, res) {
     var id_funcionario = req.params.id;
-    var foto = req.file.filename;
+    var foto = req.file ? req.file.filename : null;
     var { nome, email, senha, cargo, telefone, status} = req.body;
     
     if (!id_funcionario) {

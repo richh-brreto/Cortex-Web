@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.perfil-foto img');
             if (img && usuario.avatar) img.src = usuario.avatar;
 
-            // atualiza avatar da navbar e salva em sessionStorage
-            const navAvatar = document.getElementById('avatar-user');
-            if (navAvatar && usuario.avatar) {
-                navAvatar.src = usuario.avatar;
-                try { sessionStorage.USER_AVATAR = usuario.avatar; } catch (e) { }
-            }
+            // atualiza avatares na navbar e outros elementos de avatar e salva em sessionStorage
+            const avatarUrl = usuario.avatar || (sessionStorage.USER_AVATAR || '/assets/icon/sem-foto.png');
+            document.querySelectorAll('img.avatar-usuario, img#avatar-user, img#foto, .perfil-foto img').forEach(el => {
+                try { if (el) el.src = avatarUrl; } catch (e) { }
+            });
+            try { sessionStorage.USER_AVATAR = avatarUrl; } catch (e) { }
         })
         .catch(err => {
             console.error(err);

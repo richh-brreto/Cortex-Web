@@ -91,7 +91,7 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
-window.addEventListener("load", () => {
+function atualizarTabela() {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
         alert("Erro ao carregar dados. Por favor, faça o login novamente.");
@@ -112,9 +112,14 @@ window.addEventListener("load", () => {
                 }
 
                 const tr = document.createElement("tr");
+                    const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
                 tr.innerHTML = `
                     <td>${f.id}</td>
                     <td>${f.nome}</td>
+                    <td>
+                        <img src="${imgSrc}" alt="Foto de ${f.nome}" 
+                             style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                    </td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
                     <td>${f.senha}</td>
@@ -134,8 +139,15 @@ window.addEventListener("load", () => {
             console.error("Erro ao carregar funcionários:", erro);
             alert("Erro ao carregar funcionários");
         });
+}
 
-
+window.addEventListener("load", () => {
+    if (!fk_empresa) {
+        console.error("ID da empresa não encontrado na sessão.");
+        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
+        return;
+    }
+    atualizarTabela();
 });
 
 
@@ -253,7 +265,7 @@ form.addEventListener('submit', (ev) => {
             .then(res => {
                 if (res.ok) {
                     alert("Funcionário atualizado com sucesso!");
-                    window.location.reload();
+                    atualizarTabela();
                 } else {
                     alert("Erro ao atualizar funcionário");
                 }
@@ -264,15 +276,15 @@ form.addEventListener('submit', (ev) => {
             });
     } else {
 
+        // Envia FormData para permitir upload da foto
         fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
                     alert("Funcionário cadastrado com sucesso!");
-                    window.location.reload();
+                    atualizarTabela();
                 } else {
                     alert("Erro ao cadastrar funcionário");
                 }
