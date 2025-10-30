@@ -52,11 +52,12 @@ const mapaColunas = {
     'todos': 'todos',
     'id': 0,
     'nome': 1,
-    'email': 2,
-    'cargo': 3,
-    'senha': 4,
-    'telefone': 5,
-    'status': 6
+    'foto': 2,
+    'email': 3,
+    'cargo': 4,
+    'senha': 5,
+    'telefone': 6,
+    'status': 7
 };
 
 function aplicarPesquisa() {
@@ -118,17 +119,17 @@ function atualizarTabela() {
                     <td>${f.nome}</td>
                     <td>
                         <img src="${imgSrc}" alt="Foto de ${f.nome}" 
-                             style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                            style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
                     </td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
-                    <td>${f.senha}</td>
                     <td>${f.telefone}</td>
                     <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
                     <td>
                         <div class="coluna-acoes">
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                            <button class="btn btn-secundario" title="Editar">Ver mais</span><button>
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span><button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete<span><button>
                         </div>
                     </td>
                 `;
@@ -180,29 +181,37 @@ window.addEventListener("load", () => {
 
 
 
+// ... código existente ...
+
 tabelaCorpo.addEventListener('click', (e) => {
-    const botao = e.target.closest('.btn-icone');
+    const botao = e.target.closest('.btn-icone, .btn-secundario');
     if (!botao) return;
 
     const linha = botao.closest('tr');
-    const id_funcionario = linha.children[0].textContent
+    const id_funcionario = linha.children[0].textContent;
     const acao = botao.getAttribute('title');
 
-    if (acao === 'Editar') {
+    // NOVO: Adicionar ação para "Ver mais"
+    if (acao === 'Ver mais' || botao.classList.contains('btn-secundario')) {
+        // Redirecionar para página de visualização do perfil
+        window.location.href = `perfil-funcionario-view.html?id=${id_funcionario}`;
+        return;
+    }
 
+    if (acao === 'Editar') {
         linhaEditando = linha;
         nomeInput.value = linha.children[1].textContent;
-        emailInput.value = linha.children[2].textContent;
+        emailInput.value = linha.children[3].textContent; // Corrigido: era [2], mas deve ser [3] por causa da foto
  
-        if (linha.children[3].textContent == "Técnico Supervisor") {
-            cargoInput.value = "TecnicoSupervisor"
-        } else if (linha.children[3].textContent == "Técnico") {
-            cargoInput.value = "Tecnico"
+        if (linha.children[4].textContent == "Técnico Supervisor") {
+            cargoInput.value = "TecnicoSupervisor";
+        } else if (linha.children[4].textContent == "Técnico") {
+            cargoInput.value = "Tecnico";
         } else {
-            cargoInput.value = "Analista"
+            cargoInput.value = "Analista";
         }
 
-        senhaInput.value = linha.children[4].textContent;
+        senhaInput.value = linha.children[5].textContent;
         telefoneInput.value = linha.children[5].textContent;
 
         statusInput.value = linha.children[6].textContent.trim().toLowerCase();
@@ -225,6 +234,7 @@ tabelaCorpo.addEventListener('click', (e) => {
         }
     }
 });
+
 
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();

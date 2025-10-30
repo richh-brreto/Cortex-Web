@@ -86,8 +86,8 @@
         </div>
 
         <a class="item-usuario" href="perfil-analista.html">
-            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-            <span class="texto-usuario">José</span>
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
         </a>
 
         <div class="divisor"></div>
@@ -98,6 +98,7 @@
         </a>
     </nav>
     <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
 
     <main class="conteudo-principal">
         <div class="container-modelos">
@@ -477,7 +478,7 @@
 
                         tr.innerHTML = `
                         <td>${m.id_modelo}</td>
-                        <td><a href="#" onclick="irParaDashboardModelo(${m.id_modelo}, '${m.nome}')" title="Ver dashboard do modelo ${m.nome}">${m.nome}</a></td>
+                        <td>${m.nome}</td>
                         <td>${m.descricao || '-'}</td>
                         <td>${m.zona_nome || '-'}</td>
                         <td>${m.cliente_nome || '-'}</td>
@@ -486,6 +487,7 @@
                         <td>${m.arquitetura_nome || '-'}</td> <!-- Nome da Arquitetura -->
                         <td>
                             <div class="coluna-acoes">
+                                <button class="btn btn-secundario" onclick="irParaDashboardModelo(${m.id_modelo}, '${m.nome}')" title="Ver mais">Ver mais</button>
                                 <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
                                 <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                             </div>

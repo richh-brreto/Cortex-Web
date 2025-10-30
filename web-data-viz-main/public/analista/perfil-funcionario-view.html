@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil | Cortex</title>
+    <title>Perfil do Funcionário | Cortex</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/perfil.css">
@@ -92,52 +92,22 @@
 
     <main class="conteudo-principal">
         <section class="perfil-container">
-            <h1 class="titulo-pagina">Meu Perfil</h1>
+                <h1 class="titulo-pagina">Perfil do Funcionário</h1>
+            </div>
 
             <div class="perfil-conteudo">
                 <div class="perfil-foto">
-                    <img src="" alt="Foto do Usuário">
+                    <img src="../assets/icon/teste-perfil.webp" alt="Foto do Usuário" id="foto-perfil-funcionario">
                 </div>
 
-                <div class="perfil-info">
-                    <p><strong>Nome:</strong> XXXXXXXXX</p>
-                    <p><strong>Cargo:</strong> XXXXXXXXX</p>
-                    <p><strong>CPF:</strong> XXXXXXXXX</p>
-                    <p><strong>Telefone:</strong> XXXXXXXXX</p>
-                    <p><strong>Email:</strong> XXXXXXXXX</p>
-
-                    <div class="campo-senha">
-                        <p><strong>Senha:</strong> •••••••••</p>
-                        <button class="mostrar-senha" title="Mostrar senha">
-                            <img src="../assets/icon/eye-password.svg" alt="Mostrar senha" class="mostrar-senha-img" />
-                        </button>
-                    </div>
-
-
-                    <button class="button-cadastro-secondary botao-mudar-senha">Mudar Senha</button>
+                <div class="perfil-info" id="perfil-info-funcionario">
+                    <p>Carregando...</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <div id="modal-senha" class="modal"
-        style="display:none; position:fixed; inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
-        <div style="background:#fff;padding:20px;border-radius:8px;max-width:420px;width:100%;">
-            <h3>Mudar senha</h3>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
-                <input id="senha-atual" type="password" placeholder="Senha atual" />
-                <input id="senha-nova" type="password" placeholder="Nova senha" />
-                <input id="senha-nova-confirm" type="password" placeholder="Confirmar nova senha" />
-            </div>
-            <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
-                <button id="btn-cancel-senha">Cancelar</button>
-                <button id="btn-salvar-senha">Salvar</button>
-            </div>
-            <div id="mensagem-senha" style="margin-top:8px;color:red;display:none;"></div>
-        </div>
-    </div>
-
 </body>
-<script src="../js/perfil.js"></script>
+<script src="../js/perfil-funcionario-view.js"></script>
 
 </html>

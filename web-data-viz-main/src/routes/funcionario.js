@@ -9,5 +9,9 @@ router.get("/listar/:fkEmpresa", funcionarioController.listar);
 router.post("/cadastrar/:fkEmpresa", upload.single("foto"), funcionarioController.cadastrar);
 router.put("/atualizar/:id", upload.single("foto"), funcionarioController.atualizar);
 router.delete("/deletar/:id", funcionarioController.deletar);
+router.get("/buscar/:id", function (req, res) {funcionarioController.buscarPorId(req, res);});
+router.get("/dados/:id", function (req, res) {
+funcionarioController.buscarPorId(req, res);});
+router.post("/alterarSenha", function (req, res) {funcionarioController.alterarSenha(req, res);});
 
 module.exports = router;

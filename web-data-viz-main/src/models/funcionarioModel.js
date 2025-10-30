@@ -60,9 +60,41 @@ function deletar(id_funcionario) {
     return database.executar(instrucao);
 }
 
+function buscarPorId(id_usuario) {
+    var instrucao = `
+        SELECT 
+            f.id, 
+            f.nome, 
+            f.email, 
+            c.nome as cargo,
+            f.telefone,
+            f.ativo,
+            f.senha,
+            f.foto
+        FROM 
+            usuario AS f
+        INNER JOIN
+            cargo AS c on c.id = f.fk_cargo 
+        WHERE 
+            f.id = ${id_usuario};
+    `;
+    return database.executar(instrucao);
+}
+
+function alterarSenha(id_usuario, senhaNova) {
+    var instrucao = `
+        UPDATE usuario
+        SET senha = '${senhaNova}'
+        WHERE id = ${id_usuario};
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    buscarPorId,
+    alterarSenha 
 };
