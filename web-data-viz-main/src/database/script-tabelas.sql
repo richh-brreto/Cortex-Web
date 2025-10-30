@@ -47,7 +47,7 @@ CREATE TABLE usuario (
 
 INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) VALUES
 ('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, "(11) 98583-1860"), -- Analista
-('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1, "(11) 92057-3048"), -- Técnico Supervisor
+('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 1, 0, "(11) 92057-3048"), -- Técnico Supervisor
 ('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, "(11) 90940-1920"), -- Técnico
 ('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', null, 4, 1, null); -- Cortex
 
@@ -191,19 +191,34 @@ CREATE TABLE black_list (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar_processo TINYINT,
-    status ENUM("proibido","verificado","automatico"),
+    matar_processo boolean default true,
+    status ENUM("proibido","neutro","automatico"),
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
 );
 
-INSERT INTO black_list (fk_modelo, nome, matar_processo, status) VALUES
-(1, 'processoA', 1, 'automatico'),
-(1, 'processoB', 0, 'automatico'),
-(1, 'processoC', 0, 'verificado'),
-(1, 'processoD', 1, 'proibido'),
-(1, 'processoE', 1, 'automatico');
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'calc.exe', 'proibido', 0);
+
+-- Exemplo 2: Processo 'java_update.exe' marcado para autokill (status='automatico') para o modelo 1, autokill LIGADO (matar_processo=1)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'java_update.exe', 'automatico', 1);
+
+-- Exemplo 3: Processo 'algum_script.bat' proibido para o modelo 2, autokill DESLIGADO (matar_processo=0)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (2, 'algum_script.bat', 'proibido', 0);
+
+-- Exemplo 4: Processo 'svchost.exe' foi morto (status='neutro') para o modelo 1, flag matar LIGADA (matar_processo=1) 
+-- (Este NÃO aparecerá na tabela da blacklist, mas o registo existe)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'svchost.exe', 'neutro', 1)
+ON DUPLICATE KEY UPDATE status = 'neutro', matar_processo = 1; -- Garante que atualiza se já existia
+
+-- Exemplo 5: Processo 'discord.exe' marcado para autokill para o modelo 3, autokill LIGADO
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (3, 'discord.exe', 'automatico', 1);
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,

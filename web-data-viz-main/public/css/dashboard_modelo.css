@@ -94,11 +94,13 @@ body {
 .status-badge {
     display: flex;
     align-items: center;
+    flex-direction: row;
     gap: 12px;
     padding: 8px 18px;
     border-radius: 8px;
     border: 2px solid;
     white-space: nowrap;
+    
 }
 
 .status-badge.active {
@@ -608,4 +610,197 @@ body {
     .chart-container {
         min-height: 250px;
     }
+}
+
+#procesosModal .modal-body {
+    padding: 10px 15px 20px 15px;
+    background-color: #f8f9fa; }
+
+#procesosModal .envoltorio-tabela {
+    max-height: 55vh; 
+    overflow-y: auto;
+    border: none; 
+    background-color: #fff; 
+    border-radius: var(--raio-borda, 8px); 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); 
+}
+
+#procesosModal table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#procesosModal th {
+    background-color: #e9ecef; 
+    padding: 10px 15px; 
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8em;
+    color: #495057; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    position: sticky; top: 0; z-index: 1;
+    border-bottom: 1px solid var(--cor-destaque-medio); }
+
+#procesosModal th:nth-child(2),
+#procesosModal th:nth-child(3), 
+#procesosModal th:nth-child(4), 
+#procesosModal th:nth-child(5) { 
+    text-align: right;
+}
+#procesosModal th:last-child {
+     text-align: center; 
+     padding-right: 15px;
+}
+
+#procesosModal td {
+    padding: 12px 15px; 
+    border-bottom: 0.1px solid #006e6752;
+    vertical-align: middle;
+    font-size: 0.9em;
+    color: #212529;}
+
+#procesosModal tbody tr:last-child td {
+    border-bottom: none;
+}
+#procesosModal tbody tr:hover td {
+    background-color: #f1f3f5;
+}
+
+
+#procesosModal td:nth-child(2),
+#procesosModal td:nth-child(3),
+#procesosModal td:nth-child(4),
+#procesosModal td:nth-child(5) {
+    text-align: right;
+    font-family: monospace; 
+}
+/* Célula das Ações */
+#procesosModal td:last-child {
+   text-align: center;
+   white-space: nowrap;
+   padding-right: 15px;
+}
+
+
+.btn-icone-texto {
+    background-color: #e9ecef; 
+    border: 1px solid #ced4da; 
+    color: #495057; 
+    cursor: pointer;
+    padding: 4px 10px; 
+    border-radius: 15px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75em; 
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin: 0 3px; 
+}
+
+.btn-icone-texto .material-icons { 
+    width: 1em; /* Ajusta a largura ao tamanho da fonte */
+    height: 1em; 
+    font-size: 1.1em; 
+    line-height: 1; 
+    vertical-align: middle; 
+}
+
+.btn-icone-texto span {
+    vertical-align: middle;
+}
+
+.btn-add-blacklist:hover {
+     background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460; 
+  
+}
+
+.btn-kill:hover {
+     background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24; 
+    
+}
+
+
+#procesosModal .modal-content {
+    max-width: 900px; 
+    width: 90%;
+}
+.btn-autokill {
+  border: none;
+  /* Usar um raio grande para criar a forma de "pílula" */
+  border-radius: 999px;
+  padding: 8px 16px; /* Um pouco mais de padding horizontal */
+  font-size: 13px; /* Ligeiramente menor para um visual mais limpo */
+  font-weight: 600; /* Mais pesado */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* Transição suave para todas as propriedades */
+  transition: all 0.3s ease;
+  min-width: 95px;
+  text-transform: uppercase;
+  color: #ffffff;
+  
+  /* Sombra subtil para dar profundidade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estado 'ON': Verde */
+.btn-autokill.autokill-on {
+  background-color: #209e4e; /* Um verde mais vibrante (tailwind green-500) */
+}
+
+/* Efeito ao passar o rato (ON) */
+.btn-autokill.autokill-on:hover {
+  background-color: #2bb75e; /* Verde mais escuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado 'OFF': Cinza */
+.btn-autokill.autokill-off {
+  background-color: #6b7280; /* Um cinza neutro (tailwind gray-500) */
+}
+
+/* Efeito ao passar o rato (OFF) */
+.btn-autokill.autokill-off:hover {
+  background-color: #4b5563; /* Cinza mais escuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado desabilitado (durante o fetch) */
+.btn-autokill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none; /* Remove a sombra quando desabilitado */
+}
+
+.modal .modal-body {
+
+  max-height: 60vh;
+  overflow-y: auto;
+
+ 
+}
+
+/* Centraliza as colunas "AUTOKILL" e "AÇÕES" na tabela de Blacklist */
+
+/* Centraliza os TÍTULOS (Autokill e Ações) */
+#blacklistModal .envoltorio-tabela table th:nth-child(2),
+#blacklistModal .envoltorio-tabela table th:nth-child(3) {
+  text-align: center;
+}
+
+/* Centraliza o CONTEÚDO (os botões) */
+#blacklistModal .envoltorio-tabela table tbody tr td:nth-child(2),
+#blacklistModal .envoltorio-tabela table tbody tr td:nth-child(3) {
+  text-align: center;
+  vertical-align: middle; /* Alinha os botões verticalmente ao centro da célula */
 }

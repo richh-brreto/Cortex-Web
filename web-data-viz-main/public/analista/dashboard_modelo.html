@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,13 @@
     <link rel="stylesheet" href="../css/dashboard_modelo.css">
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=manage_search" />
+
 </head>
+
 <body>
 
 <nav class="barra-lateral">
@@ -92,7 +99,7 @@
             <div class="header-content">
                 <div class="header-info">
                     <h1 id="nome-modelo">Modelo H333</h1>
-                    <p >Código:<strong id="codigo-modelo">MDL-H333-2024</strong></p>
+                    <p>Código:<strong id="codigo-modelo">MDL-H333-2024</strong></p>
                     <p>Última atualização: <strong id="ultima-atualizacao">12:00</strong></p>
                 </div>
                 <div class="status-badge active">
@@ -136,7 +143,9 @@
                 <div class="kpi-header">
                     <div class="kpi-icon warning">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
                             <line x1="12" y1="9" x2="12" y2="13"></line>
                             <line x1="12" y1="17" x2="12.01" y2="17"></line>
                         </svg>
@@ -206,15 +215,16 @@
                 </div>
             </div>
 
-            <!-- Gráfico de Alertas Semanais -->
+            
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Alertas Semanais</h3>
                     <div class="chart-filters">
-                        <button class="filter-btn active">CPU</button>
-                        <button class="filter-btn">RAM</button>
-                        <button class="filter-btn">DISCO</button>
-                        <button class="filter-btn">GPU</button>
+                        <button class="filter-btn active" onclick="atualizarGrafico('CPU', this)">CPU</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('RAM', this)">RAM</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('DISCO', this)">DISCO</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('GPU', this)">GPU</button>
+
                     </div>
                 </div>
                 <div class="chart-container">
@@ -223,7 +233,7 @@
             </div>
         </div>
 
-        <!-- Botões para Informações -->
+        
         <div class="info-buttons-grid">
             <button class="info-btn" onclick="openModal('modelModal')">
                 <div class="info-btn-icon">
@@ -236,6 +246,23 @@
                 <span>Informações do Modelo</span>
             </button>
 
+            <div class="fundo-dialogo" id="fundo-aviso">
+                <div class="modal-dialogo">
+
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                        <h3 id="titulo-aviso" style="margin: 0;">Aviso</h3>
+
+                        <button class="modal-close" onclick="fecharAviso()"
+                            style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
+                    </div>
+                    <p id="mensagem-aviso">Mensagem de aviso aqui.</p>
+                    <div class="botoes-dialogo">
+                        <button class="btn-dialogo btn-ok" id="botao-aviso-ok">OK</button>
+                    </div>
+                </div>
+            </div>
+
             <button class="info-btn" onclick="openModal('serverModal')">
                 <div class="info-btn-icon">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
@@ -247,9 +274,24 @@
                 </div>
                 <span>Informações do Servidor</span>
             </button>
+
+            <button class="info-btn" onclick="openModal('procesosModal')">
+                <div class="info-btn-icon">
+                    <span style="color: #00B2B2;" class="material-symbols-outlined">
+                        manage_search
+                    </span>
+                </div>
+                <span>Processos Ativos</span>
+            </button>
+
+            <button class="info-btn" onclick="openModal('blacklistModal')">
+                <div class="info-btn-icon">
+                    <i style="color:#00B2B2;" class="material-icons">block</i>
+                </div>
+                <span>Blacklist</span>
+            </button>
         </div>
 
-        <!-- Modal - Informações do Modelo -->
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -257,44 +299,44 @@
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                   <div class="info-items-inline">
-        
-        <div class="info-item-inline">
-            <span class="info-item-label">Nome:</span>
-            <span id="info-nome" class="info-item-value">--</span> 
-        </div>
+                    <div class="info-items-inline">
 
-        <div class="info-item-inline">
-            <span class="info-item-label">Cliente:</span> 
-            <span id="info-modelo-cliente" class="info-item-value">--</span> 
-        </div>
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Nome:</span>
+                            <span id="info-nome" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item-inline">
-            <span class="info-item-label">Zona:</span> 
-            <span id="info-modelo-zona" class="info-item-value">--</span>
-        </div>
-        
-        <div class="info-item-inline">
-            <span class="info-item-label">Arquitetura:</span>
-            <span id="info-modelo-arquitetura" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Cliente:</span>
+                            <span id="info-modelo-cliente" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item-inline">
-            <span class="info-item-label">Descrição:</span> 
-            <span id="info-modelo-descricao" class="info-item-value">--</span>
-        </div>
-        
-        <div class="info-item-inline">
-            <span class="info-item-label">IP:</span>
-            <span id="info-modelo-ip" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Zona:</span>
+                            <span id="info-modelo-zona" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item-inline">
-            <span class="info-item-label">Hostname:</span> 
-            <span id="info-modelo-hostname" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Arquitetura:</span>
+                            <span id="info-modelo-arquitetura" class="info-item-value">--</span>
+                        </div>
 
-    </div>
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Descrição:</span>
+                            <span id="info-modelo-descricao" class="info-item-value">--</span>
+                        </div>
+
+                        <div class="info-item-inline">
+                            <span class="info-item-label">IP:</span>
+                            <span id="info-modelo-ip" class="info-item-value">--</span>
+                        </div>
+
+                        <div class="info-item-inline">
+                            <span class="info-item-label">Hostname:</span>
+                            <span id="info-modelo-hostname" class="info-item-value">--</span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -307,53 +349,148 @@
                     <button class="modal-close" onclick="closeModal('serverModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                   <div class="info-items">
-        
-        <div class="info-item">
-            <span class="info-item-label">Nome Arq.:</span> <!-- Rótulo Ajustado -->
-            <!-- ID adicionado -->
-            <span id="modal-arq-nome" class="info-item-value">--</span> 
-        </div>
+                    <div class="info-items">
 
-        <div class="info-item">
-            <span class="info-item-label">Modelo CPU:</span>
-            <span id="modal-arq-cpu-modelo" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Nome Arq.:</span> <!-- Rótulo Ajustado -->
+                            <!-- ID adicionado -->
+                            <span id="modal-arq-nome" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item">
-            <span class="info-item-label">Qtd. CPU:</span>
-            <span id="modal-arq-cpu-qtd" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Modelo CPU:</span>
+                            <span id="modal-arq-cpu-modelo" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item">
-            <span class="info-item-label">Qtd. RAM (GB):</span> 
-            <span id="modal-arq-ram-qtd" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Qtd. CPU:</span>
+                            <span id="modal-arq-cpu-qtd" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item">
-            <span class="info-item-label">Modelo GPU:</span> 
-            <span id="modal-arq-gpu-modelo" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Qtd. RAM (GB):</span>
+                            <span id="modal-arq-ram-qtd" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item">
-            <span class="info-item-label">SO:</span> 
-            <span id="modal-arq-so" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Modelo GPU:</span>
+                            <span id="modal-arq-gpu-modelo" class="info-item-value">--</span>
+                        </div>
 
-        <div class="info-item">
-            <span class="info-item-label">Disco Máx. (GB):</span> 
-            <span id="modal-arq-disco-max" class="info-item-value">--</span>
-        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">SO:</span>
+                            <span id="modal-arq-so" class="info-item-value">--</span>
+                        </div>
 
-       
+                        <div class="info-item">
+                            <span class="info-item-label">Disco Máx. (GB):</span>
+                            <span id="modal-arq-disco-max" class="info-item-value">--</span>
+                        </div>
 
-    </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="procesosModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Processos Ativos</h3>
+                    <button class="modal-close" onclick="closeModal('procesosModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-items">
+
+                        <section class="container-tabela">
+                            <div class="envoltorio-tabela">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th style="width: 80px; text-align: right;">CPU (%)</th>
+                                            <th style="width: 100px; text-align: right;">ㅤ RAM (%)</th>
+                                            <th style="width: 80px; text-align: right;">Disco (%)</th>
+                                            <th style="width: 80px; text-align: right;">GPU (%)</th>
+                                            <th style="width: 200px;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-processos-ativos-corpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tabela-rodape">
+
+                            </div>
+                        </section>
+                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="blacklistModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Blacklist de processos</h3>
+                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-items">
+
+                        <section class="container-tabela">
+                            <div class="envoltorio-tabela">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Autokill</th>
+                                            <th style="width: 200px;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-blacklist-corpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tabela-rodape">
+
+                            </div>
+                        </section>
+                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fundo-dialogo" id="fundo-confirmacao">
+            <div class="modal-dialogo">
+                <!-- Header -->
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                    <h3 id="titulo-confirmacao" style="margin: 0;">Confirmação</h3>
+                    <!-- NOTA: O botão X aqui chama o 'botaoConfirmarCancelar' no JS, por isso o ID dele é esse -->
+                    <button class="modal-close" id="botao-confirmar-cancelar-x"
+                        onclick="document.getElementById('botao-confirmar-cancelar').click()"
+                        style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
+                </div>
+                <!-- Corpo -->
+                <p id="mensagem-confirmacao">Mensagem de confirmação aqui.</p>
+                <!-- Rodapé com Botões -->
+                <div class="botoes-dialogo">
+                    <button class="btn-dialogo btn-cancelar" id="botao-confirmar-cancelar">Cancelar</button>
+                    <button class="btn-dialogo btn-ok" id="botao-confirmar-ok">OK</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="../js/dashboard_modelo.js"></script>
 </body>
+<script>
+
+</script>
+
 </html>
