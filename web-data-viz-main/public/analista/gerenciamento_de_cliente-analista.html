@@ -5,68 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes - Cortex</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../base/navbar.css">
-  <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link rel="stylesheet" href="../base/navbar.css">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
 </head>
 <body>
 
     
-      <nav class="barra-lateral">
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
 
-    <a class="item-logo">
-      <img src="../../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-      <span class="texto-logo">Cortex</span>
-    </a>
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+        </a>
 
-    <a class="item-navegacao" href="dashboard_analista-analista.html">
-      <img src="../../assets/icon/graficos.png" id="dash-zona" alt="">
-      <span class="texto" id="texto-dash">Dashboard Analista</span>
-    </a>
+        <div class="divisor"></div>
 
-    <a class="item-navegacao" href="dash_tecnico-analista.html">
-      <img src="../../assets/icon/alerta.png" id="alerta" alt="">
-      <span class="texto">Dashboard Alerta</span>
-    </a>
+        <h3 class="subTitulo">Gerenciamento</h3>
 
-    <div class="divisor"></div>
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
 
-    <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-      <img src="../../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
-      <span class="texto">Clientes</span>
-    </a>
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
 
-    <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-      <img src="../../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
-      <span class="texto">Funcionários</span>
-    </a>
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
 
-    <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-      <img src="../../assets/icon/modelo.png" id="modelo" alt="">
-      <span class="texto">Modelos</span>
-    </a>
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
 
-        <a class="item-notificacao" href="zona-analista.html">
-      <img src="../../assets/icon/sino.png" id="sino" alt="">
-      <span class="texto-notificacao" id="notificacoes">Zonas</span>
-    </a>
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
 
-    <div class="divisor"></div>
+        <div class="divisor"></div>
 
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
 
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Jira</div>
+                <div class="submenu-item">Slack</div>
+            </div>
+        </div>
 
-    <a class="item-usuario" href="perfil-analista.html">
-      <img src="../../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-      <span class="texto-usuario">José</span>
-    </a>
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
 
-    <div class="divisor"></div>
+        <div class="divisor"></div>
 
-    <a class="item-notificacao">
-      <img src="../../assets/icon/sair (1).png" id="sair-imagem" alt="">
-      <span class="texto-notificacao" id="sair">Sair</span>
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
         </a>
     </nav>
 
+    <script src="../js/logout.js"></script>
 
     <main class="conteudo-principal">
         <div class="container-clientes">
@@ -136,6 +156,56 @@
             
             <div class="corpo-formulario">
                 <form id="form-cliente">
+                        </nav>
+
+    <main class="conteudo-principal">
+        <div class="cabecalho">
+            <h1>Gerenciamento de Clientes</h1>
+            <button id="btn-adicionar" class="btn btn-primario">
+                <span class="material-icons">add</span>
+                Adicionar Cliente
+            </button>
+        </div>
+
+        <div class="conteudo">
+            <div class="filtros">
+                <div class="campo-busca">
+                    <span class="material-icons">search</span>
+                    <input type="text" id="busca" placeholder="Buscar cliente...">
+                </div>
+            </div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome do Cliente</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-clientes">
+                        <!-- Dados serão inseridos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="modal-adicionar">
+        <div class="modal-conteudo">
+            <div class="cabecalho-modal">
+                <h2 id="modal-title">Adicionar Cliente</h2>
+                <button class="btn-fechar" id="btn-fechar-modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="corpo-formulario">
+                <form id="form-cliente">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                         <div class="campo-form">
                             <label for="nome-cliente">Nome do Cliente</label>
@@ -173,4 +243,5 @@
     </div>
 </body>
 <script src="../js/gerenciamento_de_cliente.js" defer></script>
+<script src="../js/logout.js"></script>
 </html>

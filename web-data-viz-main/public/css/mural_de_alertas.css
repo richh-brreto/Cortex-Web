@@ -13,12 +13,11 @@ body {
 }
 
 .container {
-    margin-left: 100px;
-    padding: 24px 40px;
-    height: 100vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    padding: 2.5rem;
+    width: 100%;
 }
 
 .header {

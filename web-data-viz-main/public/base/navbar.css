@@ -43,7 +43,7 @@
         }
 
         .barra-lateral:hover {
-            width: 420px;
+            width: 270px;
             box-shadow: 2px 0 20px rgba(0,0,0,0.1);
             z-index: 200;
         }
@@ -54,6 +54,22 @@
 
         .barra-lateral:not(:hover) .item-com-submenu.aberto .submenu {
             max-height: 0;
+        }
+        
+        .subTitulo {
+            left: 55px;
+            font-weight: bold;
+            opacity: 0;
+            margin-left: 50px;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .barra-lateral:hover .subTitulo {
+            opacity: 1;
         }
 
         .item-logo {

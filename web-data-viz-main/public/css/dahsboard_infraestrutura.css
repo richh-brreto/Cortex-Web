@@ -32,9 +32,12 @@
             height: 100vh;
             padding: 16px;
             overflow-y: auto;
+            width: calc(100% - 70px);
+            transition: margin-left 0.3s ease, width 0.3s ease;
             display: flex;
             flex-direction: column;
             gap: 12px;
+            box-sizing: border-box;
         }
 
         /* Header */
@@ -137,6 +140,7 @@
             gap: 12px;
             flex: 1;
             min-height: 400px;
+            max-width: 100%;
         }
 
         .chart-card {
@@ -288,6 +292,11 @@
             flex: 1;
             position: relative;
             min-height: 0;
+        }
+
+        /* Ensure canvas never grows beyond its container */
+        .chart-container canvas {
+            max-width: 100% !important;
         }
 
         /* Responsive */
