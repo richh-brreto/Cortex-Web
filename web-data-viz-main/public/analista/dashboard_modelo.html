@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../base/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento_geral.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=manage_search" />
+
 </head>
 
 <body>
@@ -187,15 +190,16 @@
                 </div>
             </div>
 
-            <!-- Gráfico de Alertas Semanais -->
+            
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Alertas Semanais</h3>
                     <div class="chart-filters">
-                        <button class="filter-btn active">CPU</button>
-                        <button class="filter-btn">RAM</button>
-                        <button class="filter-btn">DISCO</button>
-                        <button class="filter-btn">GPU</button>
+                        <button class="filter-btn active" onclick="atualizarGrafico('CPU', this)">CPU</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('RAM', this)">RAM</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('DISCO', this)">DISCO</button>
+                        <button class="filter-btn" onclick="atualizarGrafico('GPU', this)">GPU</button>
+
                     </div>
                 </div>
                 <div class="chart-container">
@@ -204,7 +208,7 @@
             </div>
         </div>
 
-        <!-- Botões para Informações -->
+        
         <div class="info-buttons-grid">
             <button class="info-btn" onclick="openModal('modelModal')">
                 <div class="info-btn-icon">
@@ -218,19 +222,21 @@
             </button>
 
             <div class="fundo-dialogo" id="fundo-aviso">
-    <div class="modal-dialogo">
-        <!-- Header simples com botão X -->
-         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-             <h3 id="titulo-aviso" style="margin: 0;">Aviso</h3>
-             <!-- Botão X chama fecharAviso -->
-             <button class="modal-close" onclick="fecharAviso()" style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
-         </div>
-        <p id="mensagem-aviso">Mensagem de aviso aqui.</p>
-        <div class="botoes-dialogo">
-            <button class="btn-dialogo btn-ok" id="botao-aviso-ok">OK</button>
-        </div>
-    </div>
-</div>
+                <div class="modal-dialogo">
+
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                        <h3 id="titulo-aviso" style="margin: 0;">Aviso</h3>
+
+                        <button class="modal-close" onclick="fecharAviso()"
+                            style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
+                    </div>
+                    <p id="mensagem-aviso">Mensagem de aviso aqui.</p>
+                    <div class="botoes-dialogo">
+                        <button class="btn-dialogo btn-ok" id="botao-aviso-ok">OK</button>
+                    </div>
+                </div>
+            </div>
 
             <button class="info-btn" onclick="openModal('serverModal')">
                 <div class="info-btn-icon">
@@ -246,12 +252,9 @@
 
             <button class="info-btn" onclick="openModal('procesosModal')">
                 <div class="info-btn-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
+                    <span style="color: #00B2B2;" class="material-symbols-outlined">
+                        manage_search
+                    </span>
                 </div>
                 <span>Processos Ativos</span>
             </button>
@@ -379,7 +382,7 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nome</th>   
+                                            <th>Nome</th>
                                             <th style="width: 80px; text-align: right;">CPU (%)</th>
                                             <th style="width: 100px; text-align: right;">ㅤ RAM (%)</th>
                                             <th style="width: 80px; text-align: right;">Disco (%)</th>
@@ -402,7 +405,7 @@
             </div>
         </div>
 
-         <div id="blacklistModal" class="modal">
+        <div id="blacklistModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Blacklist de processos</h3>
@@ -416,12 +419,12 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Nome</th>   
+                                            <th>Nome</th>
                                             <th>Autokill</th>
                                             <th style="width: 200px;">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tabelablacklistcorpo">
+                                    <tbody id="tabela-blacklist-corpo">
 
                                     </tbody>
                                 </table>
@@ -435,6 +438,26 @@
                 </div>
             </div>
         </div>
+        <div class="fundo-dialogo" id="fundo-confirmacao">
+            <div class="modal-dialogo">
+                <!-- Header -->
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+                    <h3 id="titulo-confirmacao" style="margin: 0;">Confirmação</h3>
+                    <!-- NOTA: O botão X aqui chama o 'botaoConfirmarCancelar' no JS, por isso o ID dele é esse -->
+                    <button class="modal-close" id="botao-confirmar-cancelar-x"
+                        onclick="document.getElementById('botao-confirmar-cancelar').click()"
+                        style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
+                </div>
+                <!-- Corpo -->
+                <p id="mensagem-confirmacao">Mensagem de confirmação aqui.</p>
+                <!-- Rodapé com Botões -->
+                <div class="botoes-dialogo">
+                    <button class="btn-dialogo btn-cancelar" id="botao-confirmar-cancelar">Cancelar</button>
+                    <button class="btn-dialogo btn-ok" id="botao-confirmar-ok">OK</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -442,6 +465,7 @@
     <script src="../js/dashboard_modelo.js"></script>
 </body>
 <script>
-    
+
 </script>
+
 </html>

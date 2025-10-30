@@ -89,11 +89,13 @@ body {
 .status-badge {
     display: flex;
     align-items: center;
+    flex-direction: row;
     gap: 12px;
     padding: 8px 18px;
     border-radius: 8px;
     border: 2px solid;
     white-space: nowrap;
+    
 }
 
 .status-badge.active {
@@ -719,4 +721,77 @@ body {
 #procesosModal .modal-content {
     max-width: 900px; 
     width: 90%;
+}
+.btn-autokill {
+  border: none;
+  /* Usar um raio grande para criar a forma de "pílula" */
+  border-radius: 999px;
+  padding: 8px 16px; /* Um pouco mais de padding horizontal */
+  font-size: 13px; /* Ligeiramente menor para um visual mais limpo */
+  font-weight: 600; /* Mais pesado */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  /* Transição suave para todas as propriedades */
+  transition: all 0.3s ease;
+  min-width: 95px;
+  text-transform: uppercase;
+  color: #ffffff;
+  
+  /* Sombra subtil para dar profundidade */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estado 'ON': Verde */
+.btn-autokill.autokill-on {
+  background-color: #209e4e; /* Um verde mais vibrante (tailwind green-500) */
+}
+
+/* Efeito ao passar o rato (ON) */
+.btn-autokill.autokill-on:hover {
+  background-color: #2bb75e; /* Verde mais escuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado 'OFF': Cinza */
+.btn-autokill.autokill-off {
+  background-color: #6b7280; /* Um cinza neutro (tailwind gray-500) */
+}
+
+/* Efeito ao passar o rato (OFF) */
+.btn-autokill.autokill-off:hover {
+  background-color: #4b5563; /* Cinza mais escuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado desabilitado (durante o fetch) */
+.btn-autokill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none; /* Remove a sombra quando desabilitado */
+}
+
+.modal .modal-body {
+
+  max-height: 60vh;
+  overflow-y: auto;
+
+ 
+}
+
+/* Centraliza as colunas "AUTOKILL" e "AÇÕES" na tabela de Blacklist */
+
+/* Centraliza os TÍTULOS (Autokill e Ações) */
+#blacklistModal .envoltorio-tabela table th:nth-child(2),
+#blacklistModal .envoltorio-tabela table th:nth-child(3) {
+  text-align: center;
+}
+
+/* Centraliza o CONTEÚDO (os botões) */
+#blacklistModal .envoltorio-tabela table tbody tr td:nth-child(2),
+#blacklistModal .envoltorio-tabela table tbody tr td:nth-child(3) {
+  text-align: center;
+  vertical-align: middle; /* Alinha os botões verticalmente ao centro da célula */
 }

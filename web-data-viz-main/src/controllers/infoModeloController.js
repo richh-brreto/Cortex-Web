@@ -25,6 +25,24 @@ function infoModeloGet(req, res) {
     }
 }
 
+function atualizarStatusAutokill(req, res) {
+    
+    var idProcesso = req.body.id_processo;
+    var novoStatus = req.body.novo_status;
+
+    
+    infoModeloModel.atualizarStatus(idProcesso, novoStatus)
+        .then(function (resultado) {
+           
+            res.json({ mensagem: "Atualizado com sucesso" });
+        })
+        .catch(function (erro) {
+            
+            console.log("Erro no controller ao atualizar status:", erro);
+            res.status(500).send(erro.message);
+        });
+}
+
 function listarBlacklist(req, res) {
     var idModelo = req.params.idmodelo
     if (idModelo == undefined){
@@ -84,9 +102,42 @@ function registrarProcessoNeutro(req, res) {
         });
 }
 
+function removerDaBlacklist(req, res) {
+    var idProcesso = req.params.idProcesso;
+    console.log(`Controller: Tentando remover processo da blacklist ID: ${idProcesso}`);
+
+    // Validação básica para garantir que o ID é um número válido
+    if (idProcesso == undefined || isNaN(idProcesso)) {
+        console.error("Controller: ID do processo inválido ou não fornecido.");
+        return res.status(400).send("ID do processo inválido!"); // Retorna erro 400 Bad Request
+    }
+
+    infoModeloModel.removerDaBlacklist(idProcesso)
+        .then(function (resultado) {
+            
+            console.log("Controller: Resultado da remoção no model:", resultado);
+
+           
+            if (resultado && resultado.affectedRows > 0) {
+                 res.status(200).json({ mensagem: "Processo removido da blacklist com sucesso!" }); 
+            } else {
+                
+                 res.status(404).send("Processo não encontrado na blacklist com o ID fornecido."); 
+            }
+        })
+        .catch(function (erro) {
+            console.error("Erro Controller (remover Blacklist):", erro.sqlMessage || erro);
+            res.status(500).json(erro.sqlMessage || "Erro interno do servidor ao remover da blacklist."); // Retorna 
+        });
+}
+
+
+
 module.exports = {
     infoModeloGet,
     adicionarProcessoProibido,
     registrarProcessoNeutro,
-    listarBlacklist
+    listarBlacklist,
+    removerDaBlacklist,
+    atualizarStatusAutokill
 };

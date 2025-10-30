@@ -151,7 +151,7 @@ INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_c
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
 ('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
+('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.192 ', 'DESKTOP-N2E1DHL', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
 
 
 -- Modelos para CloudCorp (Cliente 2)
@@ -258,4 +258,6 @@ select * from usuario;
 
 -- Select para pegar os processos que estão na black-list
 select nome,status from black_list where status in('proibido','automatico') and fk_modelo=1;
+select * from black_list;
 
+select * from modelo;

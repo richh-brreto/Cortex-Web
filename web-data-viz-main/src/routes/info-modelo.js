@@ -20,4 +20,18 @@ router.get("/blacklist/listarBlacklist/:idmodelo",function (req, res) {
     infoModeloController.listarBlacklist(req, res)
 });
 
+
+
+router.post("/blacklist/remover/:idProcesso",function (req, res) {
+    infoModeloController.removerDaBlacklist(req, res)
+});
+
+router.post("/blacklist/atualizarStatus",function (req, res) {
+    infoModeloController.atualizarStatusAutokill(req, res)
+});
+
+
+
+
+
 module.exports = router;

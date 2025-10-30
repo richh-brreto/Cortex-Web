@@ -46,7 +46,7 @@ WHERE
 function listarBlacklist(idModelo) {
 
     var instrucao = `
-      select nome,status from black_list where status in('proibido','automatico') and 
+      select nome,status,id_processo from black_list where status in('proibido','automatico') and 
     fk_modelo = ${idModelo};
     `;
 
@@ -54,6 +54,18 @@ function listarBlacklist(idModelo) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
+function removerDaBlacklist(idProcesso) {
+
+    var instrucao = `
+      delete from black_list where id_processo=${idProcesso}
+    `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 function adicionarBlacklist(fkModelo, nomeProcesso, status,matarProcesso) {
     console.log(`Model: Adicionando/Atualizando '${nomeProcesso}' na blacklist com status '${status}' para modelo ${fkModelo}`);
@@ -72,9 +84,24 @@ function adicionarBlacklist(fkModelo, nomeProcesso, status,matarProcesso) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarStatus(idProcesso, novoStatus) {
+    
+   
+    var instrucaoSql = `
+        UPDATE black_list 
+        SET status = '${novoStatus}' 
+        WHERE id_processo = ${idProcesso};
+    `;
+    
+     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     infoModeloGet,
     adicionarBlacklist,
-    listarBlacklist
+    listarBlacklist,
+    removerDaBlacklist,
+    atualizarStatus
 };
