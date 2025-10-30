@@ -19,7 +19,7 @@ function listar(fk_empresa) {
         GROUP BY 
             c.id_cliente
         ORDER BY 
-            c.nome;
+            c.id_cliente;
     `;
     return database.executar(instrucao);
 }
