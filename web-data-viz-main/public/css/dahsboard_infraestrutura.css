@@ -1,0 +1,315 @@
+:root {
+            --cor-primaria-claro: #EBF4F8;
+            --cor-secundaria-claro: #E2E8F0;
+            --cor-destaque-claro: #00B2B2;
+            --cor-destaque-medio: #006E66;
+            --cor-detalhe-quente: #B74C4C;
+            --cor-texto-escuro: #0A202D;
+            --cor-fundo-primaria: var(--cor-secundaria-claro);
+            --cor-fundo-tela: #FFFFFF;
+            --cor-sombra: rgba(0, 0, 0, 0.08);
+            --cor-primaria: var(--cor-destaque-claro);
+            --cor-secundaria: var(--cor-destaque-medio);
+            --cor-perigo: var(--cor-detalhe-quente);
+            --cor-texto: var(--cor-texto-escuro);
+            --cor-texto-secondary: #64748b;
+            --font-principal: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-principal);
+            background: var(--cor-fundo-primaria);
+            overflow: hidden;
+        }
+
+        .dashboard {
+            height: 100vh;
+            padding: 16px;
+            overflow-y: auto;
+            width: calc(100% - 70px);
+            transition: margin-left 0.3s ease, width 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            background: var(--cor-fundo-tela);
+            border-radius: 12px;
+            padding: 14px 20px;
+            box-shadow: 0 2px 8px var(--cor-sombra);
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--cor-texto);
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* KPIs */
+        .kpis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .kpi-card {
+            background: var(--cor-fundo-tela);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--cor-sombra);
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .kpi-icon {
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 178, 178, 0.15);
+        }
+
+        .kpi-title {
+            font-size: 11px;
+            color: var(--cor-texto-secondary);
+            font-weight: 600;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--cor-texto);
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        .kpi-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--cor-secundaria-claro);
+        }
+
+        .kpi-detail-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .kpi-detail-label {
+            font-size: 11px;
+            color: var(--cor-texto-secondary);
+            text-transform: uppercase;
+        }
+
+        .kpi-detail-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--cor-primaria);
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            flex: 1;
+            min-height: 400px;
+            max-width: 100%;
+        }
+
+        .chart-card {
+            background: var(--cor-fundo-tela);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px var(--cor-sombra);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .chart-title {
+            margin: 0;
+            color: var(--cor-texto);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Multi-select customizado */
+        .multiselect-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .multiselect-trigger {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--cor-secundaria-claro);
+            background: var(--cor-fundo-tela);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .multiselect-trigger:hover {
+            border-color: var(--cor-primaria);
+        }
+
+        .multiselect-dropdown {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--cor-fundo-tela);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .multiselect-dropdown.active {
+            display: block;
+        }
+
+        .multiselect-search {
+            padding: 12px;
+            border-bottom: 1px solid var(--cor-secundaria-claro);
+        }
+
+        .multiselect-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--cor-secundaria-claro);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .multiselect-search input:focus {
+            outline: none;
+            border-color: var(--cor-primaria);
+        }
+
+        .multiselect-options {
+            padding: 8px;
+        }
+
+        .multiselect-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .multiselect-option:hover {
+            background: var(--cor-primaria-claro);
+        }
+
+        .multiselect-option input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        .multiselect-actions {
+            padding: 12px;
+            border-top: 1px solid var(--cor-secundaria-claro);
+        }
+
+        .multiselect-select-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--cor-primaria);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .multiselect-select-btn:hover {
+            background: var(--cor-secundaria);
+        }
+
+        /* Select simples */
+        .simple-select {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--cor-secundaria-claro);
+            background: var(--cor-fundo-tela);
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--cor-texto);
+        }
+
+        .simple-select:focus {
+            outline: none;
+            border-color: var(--cor-primaria);
+        }
+
+        .chart-container {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+        }
+
+        /* Ensure canvas never grows beyond its container */
+        .chart-container canvas {
+            max-width: 100% !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .kpis-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .multiselect-container {
+                width: 100%;
+            }
+        }

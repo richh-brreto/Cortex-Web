@@ -30,10 +30,15 @@ body {
 .dashboard {
     height: 100vh;
     padding: 16px;
-    overflow: hidden;
+    /* reserve space for collapsed sidebar */
+    width: calc(100% - 70px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: margin-left 0.3s ease, width 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -364,6 +369,10 @@ body {
     flex: 1;
     position: relative;
     min-height: 0;
+}
+
+.chart-container canvas {
+    max-width: 100% !important;
 }
 
 /* Botões de Informações */

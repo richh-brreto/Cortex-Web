@@ -147,17 +147,18 @@ create table if not exists modelo (
         ON DELETE SET NULL
 );
 
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
+INSERT INTO modelo (
+    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
+)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.192 ', 'DESKTOP-N2E1DHL', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
-
+('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
+('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
+('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
+('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
 
 
 
@@ -253,11 +254,3 @@ VALUES
 
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
-
-select * from usuario;
-
--- Select para pegar os processos que estão na black-list
-select nome,status from black_list where status in('proibido','automatico') and fk_modelo=1;
-select * from black_list;
-
-select * from modelo;

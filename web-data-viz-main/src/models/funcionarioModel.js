@@ -30,7 +30,7 @@ function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa) {
     return database.executar(instrucao);
 }
 
-function atualizar(id_funcionario, nome, email, senha, cargo, telefone, status) {
+function atualizar(id_funcionario, nome, email, senha, cargo, telefone, foto, status) {
     var instrucao = `
         UPDATE usuario
         SET nome = '${nome}', 
@@ -38,6 +38,7 @@ function atualizar(id_funcionario, nome, email, senha, cargo, telefone, status) 
             fk_cargo = ${cargo}, 
             senha = '${senha}',
             telefone = '${telefone}',
+            foto = '${foto}',
             ativo = ${status}
         WHERE id = ${id_funcionario};
     `;

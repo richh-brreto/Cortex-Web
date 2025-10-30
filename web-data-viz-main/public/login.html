@@ -134,6 +134,7 @@
           sessionStorage.ID_USUARIO = usuario.id;
           sessionStorage.CARGO_USUARIO = usuario.cargo;
           sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
+          sessionStorage.FOTO=usuario.foto;
           sessionStorage.ATIVADO_USUARIO=usuario.ativo;
           console.log(sessionStorage)
 
@@ -148,11 +149,11 @@
                location.href = './inativo.html';
             }else{
               if(usuario.fk_cargo=="2"){
-               location.href = './tecnico-supervisor/dash_tecnico-supervisor.html';
+               location.href = './tecnico-supervisor/mural_de_alertas-supervisor.html';
             }else if(usuario.fk_cargo=="3"){
-                location.href = './tecnico/dash_tecnico-tecnico.html';
+                location.href = './tecnico/mural_de_alertas-tecnico.html';
             }else if(usuario.fk_cargo=="1"){
-              location.href = './analista/dashboard_analista-analista.html';
+              location.href = './analista/dahsboard_infraestrutura.html';
             }else if(usuario.fk_cargo=="4"){
               location.href = './suporte-cortex/ativacaoCliente.html'
             }

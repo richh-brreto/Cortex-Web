@@ -1,486 +1,733 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelos - Cortex</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="../base/navbar.css">
-  <link rel="stylesheet" href="/public/css/gerenciamento_geral.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modelos - Cortex</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
 </head>
+<style>
+    .envoltorio-tabela table tbody td a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .envoltorio-tabela table tbody td a:hover {
+        color: var(--cor-primaria);
+    }
+</style>
+
 <body>
-  <nav class="barra-lateral">
-    <a class="item-logo">
-      <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-      <span class="texto-logo">Cortex</span>
-    </a>
-
-    <a class="item-navegacao" href="./dash_tecnico-supervisor.html">
-      <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
-      <span class="texto" id="texto-dash">Dashboard Alerta</span>
-    </a>
-
-    <div class="divisor"></div>
-
-    <a class="item-navegacao" href="./gerenciamento_de_cliente-supervisor.html">
-      <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
-      <span class="texto">Clientes</span>
-    </a>
-
-    <a class="item-navegacao" href="./gerenciamento_de_funcionario-supervisor.html">
-      <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
-      <span class="texto">Funcionários</span>
-    </a>
-
-    <a class="item-navegacao" href="./modelosGerenciamento-supervisor.html">
-      <img src="../assets/icon/modelo.png" id="modelo" alt="">
-      <span class="texto">Modelos</span>
-    </a>
-
-    <a class="item-notificacao" href="./zona-supervisor.html">
-      <img src="../assets/icon/sino.png" id="sino" alt="">
-      <span class="texto-notificacao" id="notificacoes">Zonas</span>
-    </a>
-
-    <div class="divisor"></div>
-
-    <a class="item-usuario" href="./perfil-supervisor.html">
-      <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-      <span class="texto-usuario">José</span>
-    </a>
-
-    <div class="divisor"></div>
-
-    <a class="item-notificacao">
-      <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-      <span class="texto-notificacao" id="sair">Sair</span>
-    </a>
-  </nav>
-
-  <main class="conteudo-principal">
-    <div class="container-modelos">
-      <div class="header-modelos">
-        <h1>Gerenciamento de Modelos</h1>
-      </div>
-
-      <div class="barra-acoes">
-        <div class="area-pesquisa-filtro">
-          <div class="pesquisa-cortex">
-            <span class="material-icons">search</span>
-            <input type="text" id="pesquisar-input" placeholder="Pesquisar modelo...">
-          </div>
-          <div class="filtro-coluna">
-            <label for="filtro-select">Filtrar por:</label>
-            <select id="filtro-select">
-              <option value="todos" selected>Todos os campos</option>
-              <option value="nome">Nome</option>
-              <option value="descricao">Descrição</option>
-              <option value="zona">Zona</option>
-              <option value="cliente">Cliente</option>
-              <option value="ip">IP</option>
-              <option value="hostname">Hostname</option>
-            </select>
-          </div>
-        </div>
+       <nav class="barra-lateral">
         
-        <div class="acoes-container">
-          <button id="btn-adicionar" class="btn btn-primario">
-            Adicionar <b>+</b>
-          </button>
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+         <a class="item-notificacao" href="mural_de_alertas-supervisor.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Gerenciamento</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-supervisor.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-supervisor.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-supervisor.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <a class="item-navegacao" href="zona-supervisor.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+       
+
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Jira</div>
+                <div class="submenu-item">Slack</div>
+            </div>
         </div>
-      </div>
 
-      <section class="container-tabela">
-        <div class="envoltorio-tabela">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Zona</th>
-                <th>Cliente</th>
-                <th>IP</th>
-                <th>Hostname</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="tabela-modelos-corpo"></tbody>
-          </table>
-        </div>
-        <div class="tabela-rodape"></div>
-      </section>
-    </div>
-  </main>
+        <a class="item-usuario" href="perfil-supervisor.html">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
 
-  <!-- Modal CRUD -->
-  <div id="sobreposicao-formulario" class="sobreposicao-formulario">
-    <div class="painel-formulario">
-      <div class="cabecalho-formulario">
-        <h2 id="modal-title">Adicionar Modelo</h2>
-        <button class="btn-fechar" id="btn-fechar-modal">
-          <span class="material-icons">close</span>
-        </button>
-      </div>
-      
-      <div class="corpo-formulario">
-        <form id="form-modelo">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <!-- Coluna Esquerda -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-              <div class="campo-form">
-                <label for="nome-modelo">Nome:</label>
-                <input type="text" id="nome-modelo" placeholder="Nome do seu modelo" required>
-              </div>
+        <div class="divisor"></div>
 
-              <div class="campo-form">
-                <label for="descricao-modelo">Descrição:</label>
-                <textarea id="descricao-modelo" placeholder="Faça uma Descrição" required></textarea>
-              </div>
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+    <main class="conteudo-principal">
+        <div class="container-modelos">
+            <div class="header-modelos">
+                <h1>Gerenciamento de Modelos</h1>
 
-              <div class="campo-form">
-                <label for="zona-modelo">Zona de disponibilidade:</label>
-                <select id="zona-modelo" required>
-                  <option value="">Selecione...</option>
-                </select>
-              </div>
-
-              <div class="campo-form">
-                <label for="cliente-modelo">Cliente:</label>
-                <select id="cliente-modelo" required>
-                  <option value="">Selecione...</option>
-                </select>
-              </div>
-
-              <div class="campo-form">
-                <label for="ip-modelo">IP:</label>
-                <input type="text" id="ip-modelo" placeholder="123.4.567.89" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="hostname-modelo">Hostname:</label>
-                <input type="text" id="hostname-modelo" placeholder="User" required>
-              </div>
             </div>
 
-            <!-- Coluna Direita - Parâmetros -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem; background-color: #E2E8F0; padding: 1.5rem; border-radius: 12px; border: 2px solid var(--cor-borda);">
-              <h3 style="color: var(--cor-primaria); font-size: 1.25rem; font-weight: 700; margin: 0; padding-bottom: 1rem; border-bottom: 2px solid var(--cor-primaria);">Parâmetros</h3>
+            <div class="barra-acoes">
+                <div class="area-pesquisa-filtro">
+                    <div class="pesquisa-cortex">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="pesquisar-input" placeholder="Pesquisar modelo...">
+                    </div>
+                    <div class="filtro-coluna">
+                        <label for="filtro-select">Filtrar por:</label>
+                        <select id="filtro-select">
+                            <option value="todos" selected>Todos os campos</option>
+                            <option value="id">ID</option>
+                            <option value="nome">Nome</option>
+                            <option value="descricao">Descrição</option>
+                            <option value="zona">Zona</option>
+                            <option value="cliente">Cliente</option>
+                            <option value="ip">IP</option>
+                            <option value="hostname">Hostname</option>
 
-              <div class="campo-form">
-                <label for="tempo-modelo">Tempo dos parâmetros (em Min):</label>
-                <input type="text" id="tempo-modelo" placeholder="Ex: 30" required>
-              </div>
+                        </select>
+                    </div>
+                </div>
 
-              <div class="campo-form">
-                <label for="limite-cpu-modelo">Limite CPU (%):</label>
-                <input type="text" id="limite-cpu-modelo" placeholder="80%" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="limite-disco-modelo">Limite Disco (%):</label>
-                <input type="text" id="limite-disco-modelo" placeholder="60%" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="limite-ram-modelo">Limite RAM (%):</label>
-                <input type="text" id="limite-ram-modelo" placeholder="75%" required>
-              </div>
-
-              <div class="campo-form">
-                <label for="limite-gpu-modelo">Limite GPU (%):</label>
-                <input type="text" id="limite-gpu-modelo" placeholder="92%" required>
-              </div>
+                <div class="acoes-container">
+                    <button id="btn-adicionar" class="btn btn-primario">
+                        Adicionar <b>+</b>
+                    </button>
+                </div>
             </div>
-          </div>
-        </form>
-      </div>
 
-      <div class="rodape-formulario">
-        <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
-        <button id="btn-salvar" type="submit" form="form-modelo" class="btn btn-primario">Salvar Modelo</button>
-      </div>
+            <section class="container-tabela">
+                <div class="envoltorio-tabela">
+                    <table>
+                        <thead>
+                            <tr>
+
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Zona</th>
+                                <th>Cliente</th>
+                                <th>IP</th>
+                                <th>Hostname</th>
+                                <th>Arquitetura</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-modelos-corpo">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabela-rodape">
+
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+        <div class="painel-formulario">
+            <div class="cabecalho-formulario">
+                <h2 id="modal-title">Adicionar Modelo</h2>
+                <button class="btn-fechar" id="btn-fechar-modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="corpo-formulario">
+                <form id="form-modelo">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div class="campo-form">
+                                <label for="nome-modelo">Nome:</label>
+                                <input type="text" id="nome-modelo" placeholder="Nome do seu modelo" required>
+                            </div>
+                            <div class="campo-form">
+                                <label for="descricao-modelo">Descrição:</label>
+                                <textarea id="descricao-modelo" placeholder="Faça uma Descrição"></textarea>
+                            </div>
+                            <div class="campo-form">
+                                <label for="cliente-modelo">Cliente:</label>
+                                <select id="cliente-modelo" required>
+                                    <option value="">Selecione...</option>
+                                </select>
+                            </div>
+                            <div class="campo-form">
+                                <label for="zona-modelo">Zona de disponibilidade:</label>
+                                <select id="zona-modelo">
+                                    <option value="">Selecione...</option>
+                                </select>
+                            </div>
+
+                            <div class="campo-form">
+                                <label for="arquitetura-modelo">Arquitetura:</label>
+                                <select id="arquitetura-modelo" required>
+                                    <option value="">Selecione...</option>
+                                </select>
+                            </div>
+                            <div class="campo-form">
+                                <label for="ip-modelo">IP:</label>
+                                <input type="text" id="ip-modelo" placeholder="Ex: 192.168.1.10">
+                            </div>
+                            <div class="campo-form">
+                                <label for="hostname-modelo">Hostname:</label>
+                                <input type="text" id="hostname-modelo" placeholder="Ex: servidor-modelo-01">
+                            </div>
+                        </div>
+
+
+                        <div
+                            style="display: flex; flex-direction: column; gap: 1.5rem; background-color: #E2E8F0; padding: 1.5rem; border-radius: 12px; border: 2px solid var(--cor-borda);">
+                            <h3
+                                style="color: var(--cor-primaria); font-size: 1.25rem; font-weight: 700; margin: 0; padding-bottom: 1rem; border-bottom: 2px solid var(--cor-primaria);">
+                                Parâmetros de Monitoramento</h3>
+                            <div class="campo-form">
+                                <label for="tempo-modelo">Intervalo (Minutos):</label>
+                                <input type="number" id="tempo-modelo" placeholder="Ex: 5">
+                            </div>
+                            <div class="campo-form">
+                                <label for="limite-cpu-modelo">Limite CPU (%):</label>
+                                <input type="number" step="0.1" id="limite-cpu-modelo" placeholder="Ex: 80.0">
+                            </div>
+                            <div class="campo-form">
+                                <label for="limite-disco-modelo">Limite Disco (%):</label>
+                                <input type="number" step="0.1" id="limite-disco-modelo" placeholder="Ex: 75.0">
+                            </div>
+                            <div class="campo-form">
+                                <label for="limite-ram-modelo">Limite RAM (%):</label>
+                                <input type="number" step="0.1" id="limite-ram-modelo" placeholder="Ex: 70.0">
+                            </div>
+                            <div class="campo-form">
+                                <label for="limite-gpu-modelo">Limite GPU (%):</label>
+                                <input type="number" step="0.1" id="limite-gpu-modelo" placeholder="Ex: 85.0">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="rodape-formulario">
+                <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button id="btn-salvar" type="submit" form="form-modelo" class="btn btn-primario">Salvar Modelo</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-const nomeInput = document.getElementById('nome-modelo');
-const descricaoInput = document.getElementById('descricao-modelo');
-const zonaInput = document.getElementById('zona-modelo');
-const clienteInput = document.getElementById('cliente-modelo');
-const ipInput = document.getElementById('ip-modelo');
-const hostnameInput = document.getElementById('hostname-modelo');
-const statusModeloInput = document.getElementById('status-modelo');
-const tempoInput = document.getElementById('tempo-modelo');
-const limiteCpuInput = document.getElementById('limite-cpu-modelo');
-const limiteDiscoInput = document.getElementById('limite-disco-modelo');
-const limiteRamInput = document.getElementById('limite-ram-modelo');
-const limiteGpuInput = document.getElementById('limite-gpu-modelo');
 
-const tabelaCorpo = document.getElementById('tabela-modelos-corpo');
-const form = document.getElementById('form-modelo');
-const overlay = document.getElementById('sobreposicao-formulario');
-const tituloModal = document.getElementById('modal-title');
-const btnAdicionar = document.getElementById('btn-adicionar');
-const btnFechar = document.getElementById('btn-fechar-modal');
-const btnCancelar = document.getElementById('btn-cancelar');
+    <div class="fundo-dialogo" id="fundo-confirmacao">
+        <div class="modal-dialogo">
+            <h3 id="titulo-confirmacao">Confirmação</h3>
+            <p id="mensagem-confirmacao">Deseja realmente excluir este item?</p>
+            <div class="botoes-dialogo">
+                <button class="btn-dialogo btn-cancelar" id="botao-confirmar-cancelar">Cancelar</button>
+                <button class="btn-dialogo btn-ok" id="botao-confirmar-ok">OK</button>
+            </div>
+        </div>
+    </div>
 
-let linhaEditando = null;
-const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
-const pesquisaInput = document.getElementById('pesquisar-input');
-const filtroSelect = document.getElementById('filtro-select');
+    <div class="fundo-dialogo" id="fundo-aviso">
+        <div class="modal-dialogo">
+            <h3 id="titulo-aviso">Aviso</h3>
+            <p id="mensagem-aviso">Operação realizada com sucesso!</p>
+            <div class="botoes-dialogo">
+                <button class="btn-dialogo btn-ok" id="botao-aviso-ok">OK</button>
+            </div>
+        </div>
+    </div>
 
-function abrirModal(modo = 'novo') {
-    overlay.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    tituloModal.textContent = modo === 'novo' ? 'Adicionar Modelo' : 'Editar Modelo';
-    if (modo === 'novo') form.reset();
-}
+    <script>
+        const nomeInput = document.getElementById('nome-modelo');
+        const descricaoInput = document.getElementById('descricao-modelo');
+        const zonaInput = document.getElementById('zona-modelo');
+        const clienteInput = document.getElementById('cliente-modelo');
+        const ipInput = document.getElementById('ip-modelo');
+        const hostnameInput = document.getElementById('hostname-modelo');
+        const tempoInput = document.getElementById('tempo-modelo');
+        const limiteCpuInput = document.getElementById('limite-cpu-modelo');
+        const limiteDiscoInput = document.getElementById('limite-disco-modelo');
+        const limiteRamInput = document.getElementById('limite-ram-modelo');
+        const limiteGpuInput = document.getElementById('limite-gpu-modelo');
+        const arquiteturaInput = document.getElementById('arquitetura-modelo');
 
-function fecharModal() {
-    overlay.classList.remove('show');
-    document.body.style.overflow = '';
-    linhaEditando = null;
-}
 
-const mapaColunas = {
-    'todos': 'todos',
-    'id': 0,
-    'nome': 1,
-    'descricao': 2,
-    'zona': 3,
-    'cliente': 4,
-    'ip': 5,
-    'hostname': 6,
-    'status': 7 
-};
+        const tabelaCorpo = document.getElementById('tabela-modelos-corpo');
+        const form = document.getElementById('form-modelo');
+        const overlay = document.getElementById('sobreposicao-formulario');
+        const tituloModal = document.getElementById('modal-title');
+        const btnAdicionar = document.getElementById('btn-adicionar');
+        const btnFechar = document.getElementById('btn-fechar-modal');
+        const btnCancelar = document.getElementById('btn-cancelar');
+        const btnSalvar = document.getElementById('btn-salvar');
 
-function aplicarPesquisa() {
-    const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
-    const colunaFiltro = filtroSelect.value;
-    const linhas = tabelaCorpo.querySelectorAll('tr');
 
-    linhas.forEach(linha => {
-        let textoParaPesquisar = '';
+        const fundoConfirmacao = document.getElementById('fundo-confirmacao');
+        const tituloConfirmacao = document.getElementById('titulo-confirmacao');
+        const mensagemConfirmacao = document.getElementById('mensagem-confirmacao');
+        const botaoConfirmarOK = document.getElementById('botao-confirmar-ok');
+        const botaoConfirmarCancelar = document.getElementById('botao-confirmar-cancelar');
+        const fundoAviso = document.getElementById('fundo-aviso');
+        const tituloAviso = document.getElementById('titulo-aviso');
+        const mensagemAviso = document.getElementById('mensagem-aviso');
+        const botaoAvisoOK = document.getElementById('botao-aviso-ok');
 
-        if (colunaFiltro === 'todos') {
-            for (let i = 0; i < linha.children.length - 1; i++) {
-                textoParaPesquisar += linha.children[i].textContent.toLowerCase() + ' ';
-            }
-        } else {
-            const indiceCelula = mapaColunas[colunaFiltro];
-            textoParaPesquisar = linha.children[indiceCelula].textContent.toLowerCase();
-        }
+        const pesquisaInput = document.getElementById('pesquisar-input');
+        const filtroSelect = document.getElementById('filtro-select');
+        const headers = document.querySelectorAll('.envoltorio-tabela thead th');
+        let linhaEditando = null;
+        const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
-        if (textoParaPesquisar.includes(termoPesquisa)) {
-            linha.style.display = '';
-        } else {
-            linha.style.display = 'none';
-        }
-    });
-}
+        function irParaDashboardModelo(idModelo, nomeModelo) {
+            console.log(`Redirecionando para dashboard do modelo ID: ${idModelo}, Nome: ${nomeModelo}`);
 
-pesquisaInput.addEventListener('input', aplicarPesquisa);
-filtroSelect.addEventListener('change', aplicarPesquisa);
+            // Guarda o ID e o Nome no sessionStorage para  dps a outra página usar
+            sessionStorage.setItem('ID_MODELO_SELECIONADO', idModelo);
+            sessionStorage.setItem('NOME_MODELO_SELECIONADO', nomeModelo);
+            window.location.href = 'dashboard_modelo.html';
+        }
 
-btnAdicionar.addEventListener('click', () => abrirModal('novo'));
-btnFechar.addEventListener('click', fecharModal);
-btnCancelar.addEventListener('click', fecharModal);
+        function abrirModalFormulario(modo) {
+            if (modo === undefined) { modo = 'novo'; }
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            tituloModal.textContent = modo === 'novo' ? 'Adicionar Modelo' : 'Editar Modelo';
+            btnSalvar.textContent = modo === 'novo' ? 'Salvar Modelo' : 'Atualizar Modelo';
+            if (modo === 'novo' && form) {
+                form.reset();
+                // Garante que os selects voltem ao placeholder
+                if (zonaInput) zonaInput.selectedIndex = 0;
+                if (clienteInput) clienteInput.selectedIndex = 0;
+                if (arquiteturaInput) arquiteturaInput.selectedIndex = 0;
+            }
+        }
+        function fecharModalFormulario() {
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+            linhaEditando = null;
+            if (form) form.reset();
+        }
 
-window.addEventListener("load", () => {
-    if (!fk_empresa) {
-        console.error("ID da empresa não encontrado na sessão.");
-        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
-        return;
-    }
+        function mostrarAviso(mensagem, titulo) {
+            if (titulo === undefined) { titulo = 'Aviso'; }
+            tituloAviso.textContent = titulo;
+            mensagemAviso.textContent = mensagem;
+            fundoAviso.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        function fecharAviso() {
+            fundoAviso.classList.remove('show');
+            if (!overlay.classList.contains('show') && !fundoConfirmacao.classList.contains('show')) {
+                document.body.style.overflow = '';
+            }
+        }
+        botaoAvisoOK.addEventListener('click', fecharAviso);
 
-    buscarDadosDoFormulario(fk_empresa);
+        function mostrarConfirmacao(mensagem, titulo) {
+            if (titulo === undefined) { titulo = 'Confirmação'; }
+            return new Promise(function (resolve) {
+                tituloConfirmacao.textContent = titulo;
+                mensagemConfirmacao.textContent = mensagem;
+                fundoConfirmacao.classList.add('show');
+                document.body.style.overflow = 'hidden';
 
-    fetch(`/modelos/listar/${fk_empresa}`)
-        .then(res => res.json())
-        .then(modelos => {
-            console.log("Modelos recebidos:", modelos);
+                function cliqueConfirmarOK() {
+                    fundoConfirmacao.classList.remove('show');
+                    if (!overlay.classList.contains('show') && !fundoAviso.classList.contains('show')) { document.body.style.overflow = ''; }
+                    botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+                    botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+                    resolve(true);
+                }
+                function cliqueConfirmarCancelar() {
+                    fundoConfirmacao.classList.remove('show');
+                    if (!overlay.classList.contains('show') && !fundoAviso.classList.contains('show')) { document.body.style.overflow = ''; }
+                    botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+                    botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+                    resolve(false);
+                }
+                botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+                botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+                botaoConfirmarOK.addEventListener('click', cliqueConfirmarOK);
+                botaoConfirmarCancelar.addEventListener('click', cliqueConfirmarCancelar);
+            });
+        }
 
-            tabelaCorpo.innerHTML = "";
-            modelos.forEach(m => {
-                const tr = document.createElement("tr");
-                tr.setAttribute("data-id", m.id_modelo);
-                tr.setAttribute("data-zona", m.fk_zona);
-                tr.setAttribute("data-cliente", m.fk_cliente);
-                tr.setAttribute("data-tempo", m.tempo_parametros || '');
-                tr.setAttribute("data-limite-cpu", m.limite_cpu || '');
-                tr.setAttribute("data-limite-disco", m.limite_disco || '');
-                tr.setAttribute("data-limite-ram", m.limite_ram || '');
-                tr.setAttribute("data-limite-gpu", m.limite_gpu || '');
-                
-                tr.innerHTML = `
-                    <td>${m.id_modelo}</td>
-                    <td>${m.nome}</td>
-                    <td>${m.descricao || '-'}</td>
-                    <td>${m.zona_nome || '-'}</td>
-                    <td>${m.cliente_nome || '-'}</td>
-                    <td>${m.ip || '-'}</td>
-                    <td>${m.hostname || '-'}</td>
-                    <td><span class="badge ${m.status}">${m.status}</span></td>
-                    <td>
-                        <div class="coluna-acoes">
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
-                        </div>
-                    </td>
-                `;
-                tabelaCorpo.appendChild(tr);
-            });
-        })
-        .catch(erro => {
-            console.error("Erro ao carregar modelos:", erro);
-            alert("Erro ao carregar modelos");
-        });
-});
+        const mapaColunas = {
+            'todos': 'todos',
+            'id': 0,
+            'nome': 1,
+            'descricao': 2,
+            'zona': 3,
+            'cliente': 4,
+            'ip': 5,
+            'hostname': 6,
+            'arquitetura': 7
 
-function buscarDadosDoFormulario(idEmpresa) {
-    fetch('/empresaDados/formulario/' + idEmpresa)
-        .then(function(resposta) { 
-            if (resposta.ok) {
-                return resposta.json();
-            } else {
-                throw new Error('Falha ao buscar os dados do formulário.');
-            }
-        })
-        .then(function(dadosRecebidos) { 
-            popularSelects(dadosRecebidos);
-        })
-        .catch(function(error) {
-            console.error('Erro ao buscar dados do formulário:', error);
-        });
-}
+        };
+        function aplicarPesquisa() {
+            const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
+            const colunaFiltro = filtroSelect.value;
+            const linhas = tabelaCorpo.querySelectorAll('tr');
+            for (let i = 0; i < linhas.length; i++) {
+                const linha = linhas[i];
+                let textoParaPesquisar = '';
+                if (colunaFiltro === 'todos') {
+                    for (let j = 0; j < linha.children.length - 1; j++) {
+                        textoParaPesquisar += linha.children[j].textContent.toLowerCase() + ' ';
+                    }
+                } else {
+                    const indiceCelula = mapaColunas[colunaFiltro];
+                    if (indiceCelula !== undefined && linha.children[indiceCelula]) {
+                        textoParaPesquisar = linha.children[indiceCelula].textContent.toLowerCase();
+                    }
+                }
+                if (textoParaPesquisar.includes(termoPesquisa)) {
+                    linha.style.display = '';
+                } else {
+                    linha.style.display = 'none';
+                }
+            }
+        }
 
-function popularSelects(dados) {
-    const selectZona = zonaInput;
-    const selectCliente = clienteInput;
 
-    selectZona.innerHTML = '<option value="" disabled selected>Selecione uma zona...</option>';
-    selectCliente.innerHTML = '<option value="" disabled selected>Selecione um cliente...</option>';
+        pesquisaInput.addEventListener('input', aplicarPesquisa);
+        filtroSelect.addEventListener('change', aplicarPesquisa);
+        btnAdicionar.addEventListener('click', function () { abrirModalFormulario('novo'); });
+        btnFechar.addEventListener('click', fecharModalFormulario);
+        btnCancelar.addEventListener('click', fecharModalFormulario);
 
-    console.log(dados);
-    
-    for (let i = 0; i < dados.length; i++) {
-        const item = dados[i];
-        const option = document.createElement('option');
-        option.value = item.id;
-        option.textContent = item.nome;
 
-        if (item.tipo === 'zona') {
-            selectZona.appendChild(option);
-        } else if (item.tipo === 'cliente') {
-            selectCliente.appendChild(option);
-        }
-    }
-}
+        window.addEventListener("load", function () {
+            if (!fk_empresa) {
+                mostrarAviso("ID da empresa não encontrado. Faça o login novamente.", "Erro de Sessão");
+                return;
+            }
 
-tabelaCorpo.addEventListener('click', (e) => {
-    const botao = e.target.closest('.btn-icone');
-    if (!botao) return;
+            buscarDadosParaDropdowns(fk_empresa);
 
-    const linha = botao.closest('tr');
-    const id_modelo = linha.getAttribute("data-id");
-    const acao = botao.getAttribute('title');
+            fetch(`/modelos/listar/${fk_empresa}`)
+                .then(function (res) {
+                    if (!res.ok) { throw new Error('Falha ao buscar modelos: ' + res.statusText); }
+                    return res.json();
+                })
+                .then(function (modelos) {
+                    console.log("Modelos recebidos:", modelos);
+                    tabelaCorpo.innerHTML = "";
+                    if (!modelos || modelos.length === 0) {
 
-    if (acao === 'Editar') {
-        linhaEditando = linha;
-        nomeInput.value = linha.children[1].textContent;
-        descricaoInput.value = linha.children[2].textContent === '-' ? '' : linha.children[2].textContent;
-        zonaInput.value = linha.getAttribute("data-zona");
-        clienteInput.value = linha.getAttribute("data-cliente");
-        ipInput.value = linha.children[5].textContent === '-' ? '' : linha.children[5].textContent;
-        hostnameInput.value = linha.children[6].textContent === '-' ? '' : linha.children[6].textContent;
-        statusModeloInput.value = linha.children[7].textContent.trim().toLowerCase();
-        tempoInput.value = linha.getAttribute("data-tempo");
-        limiteCpuInput.value = linha.getAttribute("data-limite-cpu");
-        limiteDiscoInput.value = linha.getAttribute("data-limite-disco");
-        limiteRamInput.value = linha.getAttribute("data-limite-ram");
-        limiteGpuInput.value = linha.getAttribute("data-limite-gpu");
-        abrirModal('editar');
-    } else if (acao === 'Excluir') {
-        if (confirm("Deseja realmente excluir este modelo?")) {
-            fetch(`/modelos/deletar/${id_modelo}`, { method: "DELETE" })
-                .then(res => {
-                    if (res.ok) {
-                        linha.remove();
-                        alert("Modelo excluído!");
-                    } else {
-                        alert("Erro ao excluir modelo");
-                    }
-                })
-                .catch(erro => {
-                    console.error("Erro ao excluir:", erro);
-                    alert("Erro ao excluir modelo");
-                });
-        }
-    }
-});
+                        return;
+                    }
 
-form.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    const modelo = {
-        nome: nomeInput.value.trim(),
-        descricao: descricaoInput.value.trim(),
-        fk_zona: zonaInput.value,
-        fk_cliente: clienteInput.value,
-        ip: ipInput.value.trim(),
-        hostname: hostnameInput.value.trim(),
-        status: statusModeloInput.value.trim(),
-        tempo_parametros: tempoInput.value.trim(),
-        limite_cpu: limiteCpuInput.value.trim(),
-        limite_disco: limiteDiscoInput.value.trim(),
-        limite_ram: limiteRamInput.value.trim(),
-        limite_gpu: limiteGpuInput.value.trim()
-    };
+                    for (let i = 0; i < modelos.length; i++) {
+                        const m = modelos[i];
+                        const tr = document.createElement("tr");
+                        tr.setAttribute("data-id", m.id_modelo);
+                        tr.setAttribute("data-nome", m.nome);
+                        tr.setAttribute("data-descricao", m.descricao || '');
+                        tr.setAttribute("data-ip", m.ip || '');
+                        tr.setAttribute("data-hostname", m.hostname || '');
+                        tr.setAttribute("data-tempo", m.tempo_parametro_min || '');
+                        tr.setAttribute("data-limite-cpu", m.limite_cpu || '');
+                        tr.setAttribute("data-limite-disco", m.limite_disco || '');
+                        tr.setAttribute("data-limite-ram", m.limite_ram || '');
+                        tr.setAttribute("data-limite-gpu", m.limite_gpu || '');
+                        tr.setAttribute("data-fk_cliente", m.fk_cliente);
+                        tr.setAttribute("data-fk_zona", m.fk_zona_disponibilidade);
+                        tr.setAttribute("data-fk_arquitetura", m.fk_arquitetura);
 
-    if (linhaEditando) {
-        const id_modelo = linhaEditando.getAttribute("data-id");
+                        tr.innerHTML = `
+                        <td>${m.id_modelo}</td>
+                        <td><a href="#" onclick="irParaDashboardModelo(${m.id_modelo}, '${m.nome}')" title="Ver dashboard do modelo ${m.nome}">${m.nome}</a></td>
+                        <td>${m.descricao || '-'}</td>
+                        <td>${m.zona_nome || '-'}</td>
+                        <td>${m.cliente_nome || '-'}</td>
+                        <td>${m.ip || '-'}</td>
+                        <td>${m.hostname || '-'}</td>
+                        <td>${m.arquitetura_nome || '-'}</td> <!-- Nome da Arquitetura -->
+                        <td>
+                            <div class="coluna-acoes">
+                                <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                                <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                            </div>
+                        </td>
+                    `;
+                        tabelaCorpo.appendChild(tr);
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro ao carregar modelos:", erro);
+                    mostrarAviso("Erro ao carregar modelos: " + erro.message, "Erro");
+                });
+        });
 
-        fetch(`/modelos/atualizar/${id_modelo}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(modelo)
-        })
-      .then(res => {
-            if (res.ok) {
-                alert("Modelo atualizado com sucesso!");
-                window.location.reload();
-            } else {
-                alert("Erro ao atualizar modelo");
-            }
-        })
-        .catch(erro => {
-            console.error("Erro ao atualizar:", erro);
-            alert("Erro ao atualizar modelo");
-        });
-    } else {
-        fetch("/modelos/cadastrar", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(modelo)
-        })
-        .then(res => {
-            if (res.ok) {
-                alert("Modelo cadastrado com sucesso!");
-                window.location.reload();
-            } else {
-                alert("Erro ao cadastrar modelo");
-            }
-        })
-        .catch(erro => {
-            console.error("Erro ao cadastrar:", erro);
-            alert("Erro ao cadastrar modelo");
-        });
-    }
+        // Função para buscar dados de Zonas, Clientes e Arquiteturas
+        function buscarDadosParaDropdowns(idEmpresa) {
 
-    fecharModal();
-});
-</script>
+            fetch(`/empresaDados/formulario/${idEmpresa}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) { throw new Error('Falha ao buscar Zonas/Clientes.'); }
+                    return resposta.json();
+                })
+                .then(function (dadosRecebidos) {
+                    popularSelectsZonaCliente(dadosRecebidos);
+                })
+                .catch(function (error) {
+                    console.error('Erro ao buscar Zonas/Clientes:', error);
+                    mostrarAviso('Erro ao carregar opções de Zona/Cliente!', 'Erro');
+                });
+
+            // Busca Arquiteturas
+            fetch(`/arquiteturas/listar/${idEmpresa}`)
+                .then(function (resposta) {
+                    if (!resposta.ok) { throw new Error('Falha ao buscar Arquiteturas.'); }
+                    return resposta.json();
+                })
+                .then(function (arquiteturas) {
+                    popularSelectArquitetura(arquiteturas);
+                })
+                .catch(function (error) {
+                    console.error('Erro ao buscar Arquiteturas:', error);
+                    mostrarAviso('Erro ao carregar opções de Arquitetura!', 'Erro');
+                });
+        }
+
+        // Popula selects de Zona e Cliente
+        function popularSelectsZonaCliente(dados) {
+            const selectZona = zonaInput;
+            const selectCliente = clienteInput;
+            selectZona.innerHTML = '<option value="" disabled selected>Selecione uma zona...</option>';
+            selectCliente.innerHTML = '<option value="" disabled selected>Selecione um cliente...</option>';
+
+            if (!dados) return;
+
+            for (let i = 0; i < dados.length; i++) {
+                const item = dados[i];
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.nome;
+                if (item.tipo === 'zona') {
+                    selectZona.appendChild(option);
+                } else if (item.tipo === 'cliente') {
+                    selectCliente.appendChild(option);
+                }
+            }
+        }
+
+
+        function popularSelectArquitetura(arquiteturas) {
+            const selectArquitetura = arquiteturaInput;
+            if (!selectArquitetura) {
+                console.error("Elemento <select id='arquitetura-modelo'> não encontrado!");
+                mostrarAviso("Erro interno: Campo de seleção de arquitetura não encontrado.", "Erro de Configuração");
+                return;
+            }
+            selectArquitetura.innerHTML = '<option value="" disabled selected>Selecione uma arquitetura...</option>';
+
+            if (!arquiteturas) return;
+
+            for (let i = 0; i < arquiteturas.length; i++) {
+                const arq = arquiteturas[i];
+                const option = document.createElement('option');
+                option.value = arq.id_arquitetura;
+                option.textContent = arq.nome;
+                selectArquitetura.appendChild(option);
+            }
+        }
+
+
+        tabelaCorpo.addEventListener('click', function (e) {
+            const botao = e.target.closest('.btn-icone');
+            if (!botao) return;
+            const linha = botao.closest('tr');
+            const id_modelo = linha.getAttribute("data-id");
+            const acao = botao.getAttribute('title');
+
+            if (acao === 'Editar') {
+                linhaEditando = linha;
+                nomeInput.value = linha.getAttribute("data-nome");
+                descricaoInput.value = linha.getAttribute("data-descricao");
+                ipInput.value = linha.getAttribute("data-ip");
+                hostnameInput.value = linha.getAttribute("data-hostname");
+                tempoInput.value = linha.getAttribute("data-tempo");
+                limiteCpuInput.value = linha.getAttribute("data-limite-cpu");
+                limiteDiscoInput.value = linha.getAttribute("data-limite-disco");
+                limiteRamInput.value = linha.getAttribute("data-limite-ram");
+                limiteGpuInput.value = linha.getAttribute("data-limite-gpu");
+                clienteInput.value = linha.getAttribute("data-fk_cliente");
+                zonaInput.value = linha.getAttribute("data-fk_zona");
+                if (arquiteturaInput) arquiteturaInput.value = linha.getAttribute("data-fk_arquitetura");
+
+
+                abrirModalFormulario('editar');
+
+            } else if (acao === 'Excluir') {
+                mostrarConfirmacao("Deseja realmente excluir este modelo? Todos os alertas vinculados também serão excluídos.", "Confirmar Exclusão")
+                    .then(function (confirmacao) {
+                        if (confirmacao) {
+                            fetch(`/modelos/deletar/${id_modelo}`, { method: "POST" })
+                                .then(function (res) {
+                                    if (res.ok) {
+                                        linha.remove();
+                                        mostrarAviso("Modelo excluído com sucesso!", "Sucesso");
+                                    } else {
+                                        res.text().then(function (errorText) {
+                                            console.error("Erro do servidor:", errorText);
+                                            mostrarAviso("Erro ao excluir modelo: " + errorText, "Erro");
+                                        });
+                                    }
+                                })
+                                .catch(function (erro) {
+                                    console.error("Erro ao excluir:", erro);
+                                    mostrarAviso("Erro de conexão ao excluir modelo.", "Erro");
+                                });
+                        }
+                    });
+            }
+        });
+
+        //SALVAR
+        form.addEventListener('submit', function (ev) {
+            ev.preventDefault();
+
+
+            const modelo = {
+                nome: nomeInput.value.trim(),
+                descricao: descricaoInput.value.trim(),
+                ip: ipInput.value.trim(),
+                hostname: hostnameInput.value.trim(),
+                tempo_parametro_min: tempoInput.value,
+                limite_cpu: limiteCpuInput.value,
+                limite_disco: limiteDiscoInput.value,
+                limite_ram: limiteRamInput.value,
+                limite_gpu: limiteGpuInput.value,
+                fk_cliente: clienteInput.value,
+                fk_zona_disponibilidade: zonaInput.value,
+                fk_arquitetura: arquiteturaInput ? arquiteturaInput.value : null,
+                fk_empresa: fk_empresa
+
+            };
+
+
+            if (!modelo.nome || !modelo.fk_cliente || !modelo.fk_zona_disponibilidade || !modelo.fk_arquitetura) {
+                mostrarAviso("Os campos Nome, Cliente, Zona e Arquitetura são obrigatórios.", "Campos Obrigatórios");
+                return;
+            }
+
+            let url = `/modelos/cadastrar`;
+            let method = 'POST';
+
+            if (linhaEditando) {
+                const id_modelo = linhaEditando.getAttribute("data-id");
+                url = `/modelos/atualizar/${id_modelo}`;
+                method = 'POST';
+            }
+
+            fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(modelo)
+            })
+                .then(function (res) {
+                    if (res.ok) {
+                        mostrarAviso(`Modelo ${linhaEditando ? 'atualizado' : 'cadastrado'} com sucesso!`, "Sucesso");
+                        function recarregarAposOK() {
+                            window.location.reload();
+                            botaoAvisoOK.removeEventListener('click', recarregarAposOK);
+                        }
+                        botaoAvisoOK.removeEventListener('click', recarregarAposOK);
+                        botaoAvisoOK.addEventListener('click', recarregarAposOK);
+
+                    } else {
+                        res.text().then(function (texto) {
+                            console.error("Erro do servidor:", texto);
+                            mostrarAviso(`Erro ao ${linhaEditando ? 'atualizar' : 'cadastrar'} modelo: ` + texto, "Erro");
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro na requisição:", erro);
+                    mostrarAviso(`Erro de conexão ao ${linhaEditando ? 'atualizar' : 'cadastrar'} modelo.`, "Erro");
+                });
+
+            fecharModalFormulario();
+        });
+
+
+
+        for (let i = 0; i < headers.length; i++) {
+            const h = headers[i];
+            const indice = i;
+            // Pula a última coluna (Ações)
+            if (indice === headers.length - 1) { continue; }
+
+            h.style.cursor = 'pointer';
+
+            h.addEventListener('click', function () {
+                const linhas = Array.from(tabelaCorpo.querySelectorAll('tr'));
+
+                const isNumeric = (indice === 0);
+                const currentDir = h.dataset.sortDir || 'desc';
+                const newDir = (currentDir === 'asc') ? 'desc' : 'asc';
+
+
+                for (let j = 0; j < headers.length; j++) { headers[j].dataset.sortDir = ''; }
+                h.dataset.sortDir = newDir;
+
+                // Ordena
+                linhas.sort(function (linhaA, linhaB) {
+                    let valorA = linhaA.children[indice].textContent;
+                    let valorB = linhaB.children[indice].textContent;
+                    if (isNumeric) {
+                        valorA = parseFloat(valorA) || 0;
+                        valorB = parseFloat(valorB) || 0;
+                    } else {
+                        valorA = valorA.toLowerCase();
+                        valorB = valorB.toLowerCase();
+                    }
+                    if (valorA < valorB) { return newDir === 'asc' ? -1 : 1; }
+                    if (valorA > valorB) { return newDir === 'asc' ? 1 : -1; }
+                    return 0;
+                });
+
+
+                tabelaCorpo.innerHTML = "";
+                for (let k = 0; k < linhas.length; k++) {
+                    tabelaCorpo.appendChild(linhas[k]);
+                }
+            });
+        }
+
+    </script>
 </body>
 </html>

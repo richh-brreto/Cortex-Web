@@ -39,8 +39,9 @@ function cadastrar(req, res) {
 
 function atualizar(req, res) {
     var id_funcionario = req.params.id;
+    var foto = req.file.filename;
     var { nome, email, senha, cargo, telefone, status} = req.body;
-
+    
     if (!id_funcionario) {
         return res.status(400).json({ erro: "ID do funcionário não fornecido" });
     }
@@ -51,9 +52,9 @@ function atualizar(req, res) {
 
     status = status || 'ativo';
 
-    console.log("Atualizando funcionário:", { id_funcionario, nome, email, senha, cargo, telefone, status});
+    console.log("Atualizando funcionário:", { id_funcionario, nome, email, senha, cargo, telefone, foto, status});
 
-    funcionarioModel.atualizar(id_funcionario, nome, email, senha, cargo, telefone, status)
+    funcionarioModel.atualizar(id_funcionario, nome, email, senha, cargo, telefone, foto, status)
         .then(() => {
             console.log("Funcionário atualizado com sucesso!");
             res.status(200).json({ mensagem: "Funcionário atualizado com sucesso!" });

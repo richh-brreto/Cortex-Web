@@ -4,6 +4,7 @@ const senhaInput = document.getElementById('senha-funcionario');
 const cargoInput = document.getElementById('cargo-funcionario')
 const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
+const fotoInput = document.getElementById('foto-funcionario');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
 const header = document.getElementById('header');
@@ -231,15 +232,15 @@ form.addEventListener('submit', (ev) => {
     }else{
          statusB = 0
     }
-    const funcionario = {
-        nome: nomeInput.value.trim(),
-        email: emailInput.value.trim(),
-        senha: senhaInput.value.trim(),
-        cargo: cargoB,
-        telefone: telefoneInput.value.trim(),
-        status: statusB
 
-    };
+    const funcionario = new FormData();
+    funcionario.append("nome", nomeInput.value.trim());
+    funcionario.append("email", emailInput.value.trim());
+    funcionario.append("senha", senhaInput.value.trim());
+    funcionario.append("cargo", cargoB);
+    funcionario.append("telefone", telefoneInput.value.trim());
+    funcionario.append("foto", fotoInput.files[0]);
+    funcionario.append("status", statusB);
 
     if (linhaEditando) {
         const id_funcionario = linhaEditando.children[0].textContent;
@@ -247,8 +248,7 @@ form.addEventListener('submit', (ev) => {
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
