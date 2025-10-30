@@ -841,3 +841,13 @@ input[type="checkbox"] {
     background-color: #5a6268;
     transform: translateY(-2px);
 }
+
+/* Estilo das fotos na tabela de gerenciamento */
+.tabela-container table td img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cor-primaria);
+    display: inline-block;
+}

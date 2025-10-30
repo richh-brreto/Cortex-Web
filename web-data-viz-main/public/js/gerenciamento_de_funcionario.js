@@ -115,6 +115,10 @@ window.addEventListener("load", () => {
                 tr.innerHTML = `
                     <td>${f.id}</td>
                     <td>${f.nome}</td>
+                    <td>
+                        <img src="../assets/perfil/${f.foto || 'perfil-padrao.png'}" alt="Foto de ${f.nome}" 
+                             style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                    </td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
                     <td>${f.senha}</td>
@@ -264,10 +268,10 @@ form.addEventListener('submit', (ev) => {
             });
     } else {
 
+        // Envia FormData para permitir upload da foto
         fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
