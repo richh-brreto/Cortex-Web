@@ -66,7 +66,7 @@
             carregarUsuariosPendentes();
         };
 
-       
+
         function carregarUsuariosPendentes() {
             fetch('/admin/pendentes')
                 .then(function(resposta) {
@@ -115,7 +115,7 @@
             });
         }
 
-       
+    
         function recusarUsuario(idUsuario) {
             fetch('/admin/recusar', {
                 method: 'POST',

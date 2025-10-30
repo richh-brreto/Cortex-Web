@@ -40,11 +40,10 @@
             transition: all 0.3s ease;
             overflow: hidden;
             overflow-y: auto;
-            height: 100%;
         }
 
         .barra-lateral:hover {
-            width: 290px;
+            width: 270px;
             box-shadow: 2px 0 20px rgba(0,0,0,0.1);
             z-index: 200;
         }
@@ -55,6 +54,24 @@
 
         .barra-lateral:not(:hover) .item-com-submenu.aberto .submenu {
             max-height: 0;
+        }
+        
+        .subTitulo {
+            left: 55px;
+            font-weight: bolder;
+            opacity: 0;
+            margin-left: 50px;
+            transition: opacity 0.3s ease 0.1s;
+            white-space: nowrap;
+            background: var(--branco);
+            padding: 0 10px;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            font-size:20px;
+        }
+
+        .barra-lateral:hover .subTitulo {
+            opacity: 1;
         }
 
         .item-logo {
@@ -155,7 +172,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
-            padding-left: 50px;
+            padding-left: 30px;
             opacity: 0;
         }
 
@@ -164,7 +181,7 @@
         }
 
         .item-com-submenu.aberto .submenu {
-            max-height: 200px;
+            max-height: 300px;
         }
 
         .submenu-item {
@@ -172,10 +189,10 @@
             color: var(--preto);
             cursor: pointer;
             border-radius: 8px;
+            margin: 4px 0;
             transition: all 0.2s ease;
             font-size: 14px;
             white-space: nowrap;
-            width: 100%;
         }
 
         .submenu-item:hover {
@@ -323,8 +340,4 @@
         #sair-imagem{
             width: 20px;
             height: 20px;
-        }
-
-        #texto-dash{
-            margin-bottom: 10px;
         }
