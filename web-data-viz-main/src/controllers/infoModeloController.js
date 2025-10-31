@@ -75,7 +75,7 @@ function adicionarProcessoProibido(req, res) {
     console.log(`Controller: Add Proibido '${nome}', matar=0 para modelo ${fk_modelo}`);
 
 
-    infoModeloModel.adicionarBlacklist(fk_modelo, nome, 'proibido', 0)
+    infoModeloModel.adicionarBlacklist(fk_modelo, nome)
         .then(function (resultado) {
             res.status(201).json({ mensagem: "Processo adicionado como proibido (Autokill=OFF)." });
         })
@@ -92,7 +92,7 @@ function registrarProcessoNeutro(req, res) {
         return res.status(400).send("Dados incompletos (fk_modelo, nome).");
     }
     console.log(`Controller: Registrar Neutro '${nome}', matar=1 para modelo ${fk_modelo}`);
-    infoModeloModel.adicionarBlacklist(fk_modelo, nome, 'neutro', 1)
+    infoModeloModel.matarProcesso(fk_modelo, nome)
         .then(function (resultado) {
             res.status(201).json({ mensagem: "Processo registrado como neutro (Kill acionado)." });
         })

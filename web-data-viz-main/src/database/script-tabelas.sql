@@ -187,38 +187,29 @@ INSERT INTO acesso_zona (fk_usuario, fk_zona) VALUES
 
 
 
-CREATE TABLE black_list (
+CREATE TABLE whitelist (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar_processo boolean default true,
-    status ENUM("proibido","neutro","automatico"),
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
     ON DELETE CASCADE,
-	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
+	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome)
 );
 
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'calc.exe', 'proibido', 0);
+INSERT INTO whitelist (fk_modelo, nome) VALUES
+(1, 'System'),
+(1, 'explorer.exe'),
+(1, 'python.exe'),
+(1, 'mysqld.exe'),
+(1, 'chrome.exe'),
+(1, 'svchost.exe'),
+(1, 'cmd.exe'),
+(1, 'code.exe'),     
+(1, 'docker.exe'),
+(1, 'idea64.exe'),      
+(1, 'Discord.exe');
 
--- Exemplo 2: Processo 'java_update.exe' marcado para autokill (status='automatico') para o modelo 1, autokill LIGADO (matar_processo=1)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'java_update.exe', 'automatico', 1);
-
--- Exemplo 3: Processo 'algum_script.bat' proibido para o modelo 2, autokill DESLIGADO (matar_processo=0)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (2, 'algum_script.bat', 'proibido', 0);
-
--- Exemplo 4: Processo 'svchost.exe' foi morto (status='neutro') para o modelo 1, flag matar LIGADA (matar_processo=1) 
--- (Este NÃO aparecerá na tabela da blacklist, mas o registo existe)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'svchost.exe', 'neutro', 1)
-ON DUPLICATE KEY UPDATE status = 'neutro', matar_processo = 1; -- Garante que atualiza se já existia
-
--- Exemplo 5: Processo 'discord.exe' marcado para autokill para o modelo 3, autokill LIGADO
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (3, 'discord.exe', 'automatico', 1);
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
