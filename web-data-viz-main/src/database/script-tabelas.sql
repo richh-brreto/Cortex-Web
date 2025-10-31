@@ -35,20 +35,21 @@ CREATE TABLE usuario (
     fk_empresa INT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    telefone VARCHAR(30),
     senha VARCHAR(20) NOT NULL,
+    telefone VARCHAR(30),
     fk_cargo INT,
-    ativo TINYINT DEFAULT FALSE NOT NULL,
+    foto VARCHAR(500) default '/public/assets/icon/sem-foto.png',
+    ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
+    ON DELETE CASCADE
 );
 
 INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) VALUES
-('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, '(11) 91234-5678'), -- Analista
-('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 2, 1, '(11) 92345-6789'), -- Técnico Supervisor
-('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, '(11) 93456-7890'), -- Técnico
-('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 1, 4, 1, '(11) 90000-0000'); -- Cortex
-
+('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, "(11) 98583-1860"), -- Analista
+('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 1, 0, "(11) 92057-3048"), -- Técnico Supervisor
+('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, "(11) 90940-1920"), -- Técnico
+('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', null, 4, 1, null); -- Cortex
 
 
 CREATE TABLE zonadisponibilidade (
@@ -78,6 +79,7 @@ CREATE TABLE cliente (
     telefone VARCHAR(20),
     cnpj VARCHAR(18),
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+    ON DELETE CASCADE
 );
 
 INSERT INTO cliente (nome, descricao, email, telefone, cnpj, fk_empresa) 
@@ -86,11 +88,8 @@ VALUES
 ('Matrix TI', 'Consultoria em tecnologia e cloud', 'contato@matrixti.com', '(11) 98765-4321', '11.111.111/0001-11', 1),
 ('CloudCorp', 'Infraestrutura em nuvem e segurança', 'contato@cloudcorp.com', '(11) 91234-5678', '11.111.111/0001-22', 1);
 
-
-
-    
   create table arquitetura (
-        id_arquitetura int primary key auto_increment,
+        id_arquitetura int primary key,
         nome varchar(55),
         modelo_cpu varchar(55),
         qtd_cpu int,
@@ -98,25 +97,36 @@ VALUES
         modelo_gpu varchar(55),
         so varchar(55),
         maxDisco int,
-        qtd int,
-        fk_zona int,
-        fk_empresa int,
-        foreign key (fk_zona) references zonadisponibilidade(id_zona),
+        fk_empresa int not null,
         foreign key (fk_empresa) references empresa(id)
-        ON DELETE SET NULL
         );
         
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona,fk_empresa)
-VALUES (1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 512, 1, 1,1);
+INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
+VALUES 
+(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1),
+(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1);
 
-     
-INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona,fk_empresa)
-VALUES (2, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 2, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 256, 1, 1,1);
+create table arquitetura_zona (
+	fk_arquitetura int,
+    fk_zona int,
+    qtd int,
+    primary key (fk_arquitetura, fk_zona),
+    foreign key (fk_zona) references zonadisponibilidade(id_zona)
+    on delete cascade,
+    foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
+    on delete cascade
+);
+
+INSERT INTO arquitetura_zona (fk_arquitetura, fk_zona, qtd) VALUES
+(1, 1, 3), 
+(1, 2, 2), 
+(2, 1, 4), 
+(2, 3, 1); 
+
 
 create table if not exists modelo (
     id_modelo int primary key auto_increment,
     nome varchar(100) not null,
-    nome_processo varchar (60),
     qtd_disco int,
     descricao text,
     ip varchar(45),
@@ -129,29 +139,32 @@ create table if not exists modelo (
     fk_cliente int not null,
     fk_zona_disponibilidade int,
     fk_arquitetura int,
-        foreign key (fk_cliente) references cliente(id_cliente),
-        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona),
+        foreign key (fk_cliente) references cliente(id_cliente)
+        ON DELETE CASCADE,
+        foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona)
+        ON DELETE SET NULL,
         foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
+INSERT INTO modelo (
+    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
+)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
-
+('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
+('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.0.192', 'DESKTOP-N2E1DHL', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
+('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
+('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
 
 
 
 CREATE TABLE acesso_zona (
-    fk_usuario INT NOT NULL,
-    fk_zona INT NOT NULL,
+    fk_usuario INT,
+    fk_zona INT,
     PRIMARY KEY (fk_usuario, fk_zona),
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id) ON DELETE CASCADE,
     FOREIGN KEY (fk_zona) REFERENCES zonadisponibilidade(id_zona) ON DELETE CASCADE
@@ -178,29 +191,85 @@ CREATE TABLE black_list (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar_processo TINYINT,
-    automatico TINYINT,
+    matar_processo boolean default true,
+    status ENUM("proibido","neutro","automatico"),
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+    ON DELETE CASCADE,
+	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
 );
 
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'calc.exe', 'proibido', 0);
+
+-- Exemplo 2: Processo 'java_update.exe' marcado para autokill (status='automatico') para o modelo 1, autokill LIGADO (matar_processo=1)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'java_update.exe', 'automatico', 1);
+
+-- Exemplo 3: Processo 'algum_script.bat' proibido para o modelo 2, autokill DESLIGADO (matar_processo=0)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (2, 'algum_script.bat', 'proibido', 0);
+
+-- Exemplo 4: Processo 'svchost.exe' foi morto (status='neutro') para o modelo 1, flag matar LIGADA (matar_processo=1) 
+-- (Este NÃO aparecerá na tabela da blacklist, mas o registo existe)
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (1, 'svchost.exe', 'neutro', 1)
+ON DUPLICATE KEY UPDATE status = 'neutro', matar_processo = 1; -- Garante que atualiza se já existia
+
+-- Exemplo 5: Processo 'discord.exe' marcado para autokill para o modelo 3, autokill LIGADO
+INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
+VALUES (3, 'discord.exe', 'automatico', 1);
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
-    tipo VARCHAR(50),
-    data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
-    descricao VARCHAR(255),
+    tipo VARCHAR(50),  -- gpu,ram,disco,cpu,processo
+    parametro INT,
+    valor_maximo_encontrado INT,
+    data_hora_inicio DATETIME DEFAULT CURRENT_TIMESTAMP,  
+    data_hora_fim_chamado DATETIME,  -- referente ao chamado (é setado esse campo quando algum técnico resolve o chamado)
+     data_hora_fim_alerta DATETIME, -- referente ao alerta, então quando se encerrou aquele alerta
     status VARCHAR(50),
     fk_modelo INT,
-    componente VARCHAR(50),
+    fk_usuario INT,
+    relatorio VARCHAR(400),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+    ON DELETE CASCADE,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
     ON DELETE CASCADE
 );
 
-INSERT INTO alerta (tipo, componente, descricao, status, fk_modelo) 
-VALUES 
-('Risco', 'CPU', 'Uso de CPU excedeu 95% por mais de 5 minutos.', 'Ativo', 1);
+INSERT INTO alerta 
+(tipo, parametro, valor_maximo_encontrado, status, fk_modelo, fk_usuario, data_hora_fim_chamado, data_hora_fim_alerta, relatorio)
+VALUES
 
-select * from usuario;
-select * from arquitetura;
-select * from modelo;
+('cpu', 85.50, 93.20, 'Ativo', 1, NULL, NULL, NULL, NULL),
+
+('ram', 65.00, 78.50, 'Resolvido', 1, 2, '2025-10-27 14:40:00', '2025-10-27 14:35:00',
+ 'Ricardo analisou os logs de memória e identificou scripts consumindo mais RAM que o previsto, ajustou configurações e liberou recursos, garantindo operação normal do sistema.'),
+
+('disco', 70.00, 95.10, 'Ativo', 1, NULL, NULL, NULL, NULL),
+
+('gpu', 10.00, 15.20, 'Resolvido', 1, 3, '2025-10-26 17:50:00', '2025-10-26 17:45:00',
+ 'Juliana monitorou o uso da GPU, detectou alto consumo nos containers de IA e otimizou os processos, reduzindo o impacto e estabilizando a performance do sistema.'),
+
+('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
+ 'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
+
+
+CREATE TABLE log_processos (
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50), 
+    dataKill DATETIME,
+    fk_modelo INT,
+    FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+);
+
+INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES 
+('Processo_A', '2025-10-31 08:30:00', 1),
+('Processo_B', '2025-10-31 09:15:00', 1),
+('Processo_C', '2025-10-31 10:00:00', 1),
+('Processo_D', '2025-10-31 10:45:00', 1),
+('Processo_E', '2025-10-31 11:30:00', 1),
+('Processo_F', '2025-10-31 12:15:00', 1),
+('Processo_G', '2025-10-31 13:00:00', 1),
+('Processo_H', '2025-10-31 13:45:00', 1);

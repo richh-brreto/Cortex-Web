@@ -9,7 +9,8 @@ function listar(fk_empresa) {
             c.nome as cargo,
             f.telefone,
             f.ativo,
-            f.senha
+            f.senha,
+            f.foto
         FROM 
             usuario AS f
         INNER JOIN
@@ -22,15 +23,22 @@ function listar(fk_empresa) {
     return database.executar(instrucao);
 }
 
-function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa) {
+function cadastrar(nome, email, senha, cargo, telefone, status, fk_empresa, foto) {
+    // Se foto for fornecida, insere na coluna foto, caso contrário insere NULL
+    var colunaFoto = `, foto`;
+    var valorFoto = (foto && String(foto).trim() !== 'null') ? `, '${foto}'` : `, 'sem-foto.png'`;
+
     var instrucao = `
-        INSERT INTO usuario (nome, email, senha, fk_cargo, telefone, ativo, fk_empresa)
-        VALUES ('${nome}', '${email}', "${senha}", ${cargo}, '${telefone}', '${status}', ${fk_empresa});
+        INSERT INTO usuario (nome, email, senha, fk_cargo, telefone, ativo, fk_empresa${colunaFoto})
+        VALUES ('${nome}', '${email}', "${senha}", ${cargo}, '${telefone}', '${status}', ${fk_empresa}${valorFoto});
     `;
     return database.executar(instrucao);
 }
 
-function atualizar(id_funcionario, nome, email, senha, cargo, telefone, status) {
+function atualizar(id_funcionario, nome, email, senha, cargo, telefone, foto, status) {
+    // Atualiza a foto apenas se um novo nome de arquivo for fornecido
+    var setFoto = (foto && String(foto).trim() !== 'null') ? `, foto = '${foto}'` : ``;
+
     var instrucao = `
         UPDATE usuario
         SET nome = '${nome}', 
@@ -39,6 +47,7 @@ function atualizar(id_funcionario, nome, email, senha, cargo, telefone, status) 
             senha = '${senha}',
             telefone = '${telefone}',
             ativo = ${status}
+            ${setFoto}
         WHERE id = ${id_funcionario};
     `;
     return database.executar(instrucao);
@@ -51,9 +60,41 @@ function deletar(id_funcionario) {
     return database.executar(instrucao);
 }
 
+function buscarPorId(id_usuario) {
+    var instrucao = `
+        SELECT 
+            f.id, 
+            f.nome, 
+            f.email, 
+            c.nome as cargo,
+            f.telefone,
+            f.ativo,
+            f.senha,
+            f.foto
+        FROM 
+            usuario AS f
+        INNER JOIN
+            cargo AS c on c.id = f.fk_cargo 
+        WHERE 
+            f.id = ${id_usuario};
+    `;
+    return database.executar(instrucao);
+}
+
+function alterarSenha(id_usuario, senhaNova) {
+    var instrucao = `
+        UPDATE usuario
+        SET senha = '${senhaNova}'
+        WHERE id = ${id_usuario};
+    `;
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    buscarPorId,
+    alterarSenha 
 };

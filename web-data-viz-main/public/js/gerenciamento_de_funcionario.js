@@ -4,6 +4,7 @@ const senhaInput = document.getElementById('senha-funcionario');
 const cargoInput = document.getElementById('cargo-funcionario')
 const telefoneInput = document.getElementById('telefone-funcionario');
 const statusInput = document.getElementById('status-funcionario');
+const fotoInput = document.getElementById('foto-funcionario');
 
 const tabelaCorpo = document.getElementById('tabela-funcionarios-corpo');
 const header = document.getElementById('header');
@@ -51,11 +52,12 @@ const mapaColunas = {
     'todos': 'todos',
     'id': 0,
     'nome': 1,
-    'email': 2,
-    'cargo': 3,
-    'senha': 4,
-    'telefone': 5,
-    'status': 6
+    'foto': 2,
+    'email': 3,
+    'cargo': 4,
+    'senha': 5,
+    'telefone': 6,
+    'status': 7
 };
 
 function aplicarPesquisa() {
@@ -90,7 +92,7 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
-window.addEventListener("load", () => {
+function atualizarTabela() {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
         alert("Erro ao carregar dados. Por favor, faça o login novamente.");
@@ -111,18 +113,23 @@ window.addEventListener("load", () => {
                 }
 
                 const tr = document.createElement("tr");
+                    const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
                 tr.innerHTML = `
                     <td>${f.id}</td>
                     <td>${f.nome}</td>
+                    <td>
+                        <img src="${imgSrc}" alt="Foto de ${f.nome}" 
+                            style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                    </td>
                     <td>${f.email}</td>
                     <td>${f.cargo}</td>
-                    <td>${f.senha}</td>
                     <td>${f.telefone}</td>
                     <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
                     <td>
                         <div class="coluna-acoes">
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                            <button class="btn btn-secundario" title="Editar">Ver mais</span><button>
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span><button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete<span><button>
                         </div>
                     </td>
                 `;
@@ -133,8 +140,15 @@ window.addEventListener("load", () => {
             console.error("Erro ao carregar funcionários:", erro);
             alert("Erro ao carregar funcionários");
         });
+}
 
-
+window.addEventListener("load", () => {
+    if (!fk_empresa) {
+        console.error("ID da empresa não encontrado na sessão.");
+        alert("Erro ao carregar dados. Por favor, faça o login novamente.");
+        return;
+    }
+    atualizarTabela();
 });
 
 
@@ -167,29 +181,37 @@ window.addEventListener("load", () => {
 
 
 
+// ... código existente ...
+
 tabelaCorpo.addEventListener('click', (e) => {
-    const botao = e.target.closest('.btn-icone');
+    const botao = e.target.closest('.btn-icone, .btn-secundario');
     if (!botao) return;
 
     const linha = botao.closest('tr');
-    const id_funcionario = linha.children[0].textContent
+    const id_funcionario = linha.children[0].textContent;
     const acao = botao.getAttribute('title');
 
-    if (acao === 'Editar') {
+    // NOVO: Adicionar ação para "Ver mais"
+    if (acao === 'Ver mais' || botao.classList.contains('btn-secundario')) {
+        // Redirecionar para página de visualização do perfil
+        window.location.href = `perfil-funcionario-view.html?id=${id_funcionario}`;
+        return;
+    }
 
+    if (acao === 'Editar') {
         linhaEditando = linha;
         nomeInput.value = linha.children[1].textContent;
-        emailInput.value = linha.children[2].textContent;
+        emailInput.value = linha.children[3].textContent; // Corrigido: era [2], mas deve ser [3] por causa da foto
  
-        if (linha.children[3].textContent == "Técnico Supervisor") {
-            cargoInput.value = "TecnicoSupervisor"
-        } else if (linha.children[3].textContent == "Técnico") {
-            cargoInput.value = "Tecnico"
+        if (linha.children[4].textContent == "Técnico Supervisor") {
+            cargoInput.value = "TecnicoSupervisor";
+        } else if (linha.children[4].textContent == "Técnico") {
+            cargoInput.value = "Tecnico";
         } else {
-            cargoInput.value = "Analista"
+            cargoInput.value = "Analista";
         }
 
-        senhaInput.value = linha.children[4].textContent;
+        senhaInput.value = linha.children[5].textContent;
         telefoneInput.value = linha.children[5].textContent;
 
         statusInput.value = linha.children[6].textContent.trim().toLowerCase();
@@ -213,6 +235,7 @@ tabelaCorpo.addEventListener('click', (e) => {
     }
 });
 
+
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
@@ -231,15 +254,15 @@ form.addEventListener('submit', (ev) => {
     }else{
          statusB = 0
     }
-    const funcionario = {
-        nome: nomeInput.value.trim(),
-        email: emailInput.value.trim(),
-        senha: senhaInput.value.trim(),
-        cargo: cargoB,
-        telefone: telefoneInput.value.trim(),
-        status: statusB
 
-    };
+    const funcionario = new FormData();
+    funcionario.append("nome", nomeInput.value.trim());
+    funcionario.append("email", emailInput.value.trim());
+    funcionario.append("senha", senhaInput.value.trim());
+    funcionario.append("cargo", cargoB);
+    funcionario.append("telefone", telefoneInput.value.trim());
+    funcionario.append("foto", fotoInput.files[0]);
+    funcionario.append("status", statusB);
 
     if (linhaEditando) {
         const id_funcionario = linhaEditando.children[0].textContent;
@@ -247,13 +270,12 @@ form.addEventListener('submit', (ev) => {
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
                     alert("Funcionário atualizado com sucesso!");
-                    window.location.reload();
+                    atualizarTabela();
                 } else {
                     alert("Erro ao atualizar funcionário");
                 }
@@ -264,15 +286,15 @@ form.addEventListener('submit', (ev) => {
             });
     } else {
 
+        // Envia FormData para permitir upload da foto
         fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(funcionario)
+            body: funcionario
         })
             .then(res => {
                 if (res.ok) {
                     alert("Funcionário cadastrado com sucesso!");
-                    window.location.reload();
+                    atualizarTabela();
                 } else {
                     alert("Erro ao cadastrar funcionário");
                 }

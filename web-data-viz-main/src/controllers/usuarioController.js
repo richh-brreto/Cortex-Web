@@ -137,7 +137,14 @@ function buscarPorId(req, res) {
 
     usuarioModel.buscarPorId(idUsuario).then((resultado) => {
         if (resultado.length > 0) {
-            res.status(200).json(resultado[0]);
+            const usuario = resultado[0];
+            // monta URL da imagem de avatar
+            const avatar = usuario.foto && String(usuario.foto).trim() !== ''
+                ? `/assets/imgs/${usuario.foto}`
+                : '/assets/icon/sem-foto.png';
+            // devolve os dados junto com a URL do avatar
+            const resposta = Object.assign({}, usuario, { avatar });
+            res.status(200).json(resposta);
         } else {
             res.status(404).json({ message: 'Usuário não encontrado' });
         }

@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="base/navbar.css">
-    <title>Barra de Navegação Lateral</title>
+    <title>Navbar com Submenu</title>
 </head>
 <body>
     <nav class="barra-lateral">
         
         <a class="item-logo">
-            <img src="assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <img src="/public/assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
         </a>
 
         <a class="item-navegacao">
             <img src="assets/icon/graficos.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Dashboard de Zona</span>
+            <span class="texto" id="texto-dash">Zona de disponibilidade</span>
         </a>
 
         <a class="item-navegacao">
@@ -36,10 +35,21 @@
             <span class="texto">Gerenciamento Funcionario</span>
         </a>
 
-        <a class="item-navegacao">
-            <img src="assets/icon/modelo.png" id="modelo" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="assets/icon/modelo.png" id="modelo" alt="">
+                <span class="texto">
+                    Modelos
+                    <span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Opção 1</div>
+                <div class="submenu-item">Opção 2</div>
+                <div class="submenu-item">Opção 3</div>
+            </div>
+        </div>
 
         <div class="divisor"></div>
 
@@ -61,42 +71,50 @@
         </a>
     </nav>
 
-    <!-- Conteúdo principal -->
-
     <div class="conteudo-principal">
         <div class="placeholder-conteudo">
-            <h2>Itens para ultilizar</h2>
-            <input type="text" class="input" placeholder="input para ultilizar  em formulario">
-            <button class="botao">Enviar</button>
-            <table class="tabela-simples">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>André</td>
-            <td>andre@exemplo.com</td>
-            <td class="coluna-acoes">
-                <button class="botao-editar">Editar</button>
-                <button class="botao-deletar">Deletar</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="kpi">
-    <h3 id="kpi-texto">KPI</h3>
-</div>
-
-<textarea name="" class="area-de-texto" placeholder="Escreva aqui..."></textarea>
-
+            <h1>Conteúdo Principal</h1>
         </div>
     </div>
+
+    <script>
+        // 1. Pega a barra lateral
+const barra = document.querySelector('.barra-lateral');
+
+// 2. Abre/fecha o submenu quando clica
+function toggleSubmenu(event, element) {
+    event.preventDefault();
+    const submenu = element.closest('.item-com-submenu');
+    
+    // Fecha todos os outros
+    document.querySelectorAll('.item-com-submenu').forEach(item => {
+        if (item !== submenu) {
+            item.classList.remove('aberto');
+        }
+    });
+    
+    // Abre/fecha o clicado
+    submenu.classList.toggle('aberto');
+}
+
+// 3. Fecha tudo quando o mouse sai da barra
+barra.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.item-com-submenu').forEach(item => {
+        item.classList.remove('aberto');
+    });
+});
+
+// 4. Marca qual item do submenu foi clicado
+document.querySelectorAll('.submenu-item').forEach(item => {
+    item.addEventListener('click', () => {
+        // Remove ativo de todos
+        document.querySelectorAll('.submenu-item').forEach(i => {
+            i.classList.remove('ativo');
+        });
+        // Adiciona no clicado
+        item.classList.add('ativo');
+    });
+});
+    </script>
 </body>
 </html>

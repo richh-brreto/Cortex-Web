@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arquiteturas - Cortex</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+</head>
+<style>
+.header-modelos{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+</style>
+<body>
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+         <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Informações</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-tecnico.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-tecnico.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <div class="divisor"></div>
+
+       
+
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Jira</div>
+                <div class="submenu-item">Slack</div>
+            </div>
+        </div>
+
+        <a class="item-usuario" href="perfil-tecnico.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
+
+    <main class="conteudo-principal">
+    <div class="container-modelos">
+      <div class="header-modelos">
+        <h1>Gerenciamento de Arquiteturas de servidores</h1> <img src="../assets/icon/servidor.png" style="margin-left: 10px; margin-top: -10px;" alt="" width="65PX" height="65PX"> 
+    
+      </div>
+
+      <div class="barra-acoes">
+        <div class="area-pesquisa-filtro">
+          <div class="pesquisa-cortex">
+            <span class="material-icons">search</span>
+            <input type="text" id="pesquisar-input" placeholder="Pesquisar arquitetura...">
+          </div>
+          <div class="filtro-coluna">
+            <label for="filtro-select">Filtrar por:</label>
+            <select id="filtro-select">
+                <option value="todos" selected>Todos os campos</option>
+                <option value="id">ID</option>
+                <option value="nome">Nome</option>
+                <option value="modelo_cpu">Modelo CPU</option>
+                <option value="modelo_gpu">Modelo GPU</option>
+                <option value="so">SO</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="acoes-container">
+          <button id="btn-adicionar" class="btn btn-primario">
+            Adicionar <b>+</b>
+          </button>
+        </div>
+      </div>
+
+      <section class="container-tabela">
+        <div class="envoltorio-tabela">
+          <table>
+            <thead>
+              <tr>
+               <th>ID</th>
+               <th>Nome</th>
+               <th>Modelo CPU</th>
+               <th>Qtd. CPU</th>
+               <th>Modelo GPU</th>
+               <th>SO</th>
+               <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-modelos-corpo"></tbody>
+          </table>
+        </div>
+        <div class="tabela-rodape"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+    <div class="painel-formulario">
+      <div class="cabecalho-formulario">
+        <h2 id="modal-title">Adicionar Arquitetura</h2> <button class="btn-fechar" id="btn-fechar-modal">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      
+      <div class="corpo-formulario">
+        <form id="form-arquitetura"> 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+    
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="campo-form">
+                        <label for="nome-arq">Nome:</label>
+                        <input type="text" id="nome-arq" placeholder="Ex: Servidor de Produção 01" required>
+                    </div>
+    
+                    <div class="campo-form">
+                        <label for="modelo-cpu-arq">Modelo CPU:</label>
+                        <input type="text" id="modelo-cpu-arq" placeholder="Ex: Intel Xeon Gold 6248R" required>
+                    </div>
+    
+                    <div class="campo-form">
+                        <label for="qtd-cpu-arq">Qtd. CPU:</label>
+                        <input type="number" id="qtd-cpu-arq" placeholder="Ex: 2" required>
+                    </div>
+    
+                    <div class="campo-form">
+                        <label for="qtd-ram-arq">Qtd. RAM (GB):</label>
+                        <input type="number" id="qtd-ram-arq" placeholder="Ex: 128" required>
+                    </div>
+
+                      <div class="campo-form">
+                        <label for="zona-modelo">Zona de disponibilidade:</label>
+                        <select id="zona-modelo" required> 
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="campo-form">
+                        <label for="modelo-gpu-arq">Modelo GPU:</label>
+                        <input type="text" id="modelo-gpu-arq" placeholder="Ex: NVIDIA T4">
+                    </div>
+    
+                    <div class="campo-form">
+                        <label for="so-arq">Sistema Operacional (SO):</label>
+                        <input type="text" id="so-arq" placeholder="Ex: Ubuntu Server 22.04" required>
+                    </div>
+    
+                    <div class="campo-form">
+                        <label for="max-disco-arq">Max. Disco (GB):</label>
+                        <input type="number" id="max-disco-arq" placeholder="Ex: 4000" required>
+                    </div>
+
+                    <div class="campo-form">
+                        <label for="qtd-arq">Qtd. Máquinas:</label>
+                        <input type="number" id="qtd-arq" placeholder="Ex: 1" required>
+                    </div>
+    
+                  
+                </div>
+            </div>
+        </form>
+      </div>
+
+      <div class="rodape-formulario">
+        <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+        <button id="btn-salvar" type="submit" form="form-arquitetura" class="btn btn-primario">Salvar Arquitetura</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="fundo-dialogo" id="fundo-confirmacao">
+    <div class="modal-dialogo">
+        <h3 id="titulo-confirmacao">Confirmação</h3>
+        <p id="mensagem-confirmacao">Deseja realmente excluir este item?</p>
+        <div class="botoes-dialogo">
+            <button class="btn-dialogo btn-cancelar" id="botao-confirmar-cancelar">Cancelar</button>
+            <button class="btn-dialogo btn-ok" id="botao-confirmar-ok">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Aviso (Ex: "Sucesso!") -->
+<div class="fundo-dialogo" id="fundo-aviso">
+    <div class="modal-dialogo">
+        <h3 id="titulo-aviso">Aviso</h3>
+        <p id="mensagem-aviso">Operação realizada com sucesso!</p>
+        <div class="botoes-dialogo">
+            <button class="btn-dialogo btn-ok" id="botao-aviso-ok">OK</button>
+        </div>
+    </div>
+</div>
+  
+ <script>
+   
+// IDs dos campos
+const nomeInput = document.getElementById('nome-arq');
+const modeloCpuInput = document.getElementById('modelo-cpu-arq');
+const qtdCpuInput = document.getElementById('qtd-cpu-arq');
+const qtdRamInput = document.getElementById('qtd-ram-arq');
+const modeloGpuInput = document.getElementById('modelo-gpu-arq');
+const soInput = document.getElementById('so-arq');
+const maxDiscoInput = document.getElementById('max-disco-arq');
+const qtdInput = document.getElementById('qtd-arq');
+const zonaInput = document.getElementById('zona-modelo'); 
+
+const tabelaCorpo = document.getElementById('tabela-modelos-corpo'); 
+const form = document.getElementById('form-arquitetura'); 
+const overlay = document.getElementById('sobreposicao-formulario');
+const tituloModal = document.getElementById('modal-title');
+const btnAdicionar = document.getElementById('btn-adicionar');
+const btnFechar = document.getElementById('btn-fechar-modal');
+const btnCancelar = document.getElementById('btn-cancelar');
+const btnSalvar = document.getElementById('btn-salvar'); 
+
+
+const pesquisaInput = document.getElementById('pesquisar-input');
+const filtroSelect = document.getElementById('filtro-select');
+const headers = document.querySelectorAll('.envoltorio-tabela thead th');
+let linhaEditando = null;
+const fk_empresa = sessionStorage.EMPRESA_USUARIO; 
+
+const fundoConfirmacao = document.getElementById('fundo-confirmacao');
+const tituloConfirmacao = document.getElementById('titulo-confirmacao');
+const mensagemConfirmacao = document.getElementById('mensagem-confirmacao');
+const botaoConfirmarOK = document.getElementById('botao-confirmar-ok');
+const botaoConfirmarCancelar = document.getElementById('botao-confirmar-cancelar');
+const fundoAviso = document.getElementById('fundo-aviso');
+const tituloAviso = document.getElementById('titulo-aviso');
+const mensagemAviso = document.getElementById('mensagem-aviso');
+const botaoAvisoOK = document.getElementById('botao-aviso-ok');
+
+console.log("Variáveis do Modal de Confirmação:", {
+    fundo: fundoConfirmacao,
+    titulo: tituloConfirmacao,
+    mensagem: mensagemConfirmacao,
+    botaoOK: botaoConfirmarOK,
+    botaoCancelar: botaoConfirmarCancelar
+});
+
+function abrirModal(modo) {
+    if (modo === undefined) { modo = 'novo'; }
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    tituloModal.textContent = modo === 'novo' ? 'Adicionar Arquitetura' : 'Editar Arquitetura';
+    btnSalvar.textContent = modo === 'novo' ? 'Salvar Arquitetura' : 'Atualizar Arquitetura';
+    if (modo === 'novo' && form) form.reset(); 
+}
+function fecharModal() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    linhaEditando = null;
+    if (form) form.reset(); 
+}
+
+
+const mapaColunas = { 'todos': 'todos', 'id': 0, 'nome': 1, 'modelo_cpu': 2, 'qtd_cpu': 3, 'modelo_gpu': 4, 'so': 5 };
+
+
+function mostrarAviso(mensagem, titulo) {
+        if (titulo === undefined) { titulo = 'Aviso'; }
+        tituloAviso.textContent = titulo;
+        mensagemAviso.textContent = mensagem;
+        fundoAviso.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function fecharAviso() {
+        fundoAviso.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    botaoAvisoOK.addEventListener('click', fecharAviso);
+
+    function mostrarConfirmacao(mensagem, titulo) {
+    console.log("7. Função mostrarConfirmacao chamada."); 
+    if (titulo === undefined) { titulo = 'Confirmação'; }
+    
+    return new Promise(function(resolve, reject) { 
+        try { 
+            tituloConfirmacao.textContent = titulo;
+            mensagemConfirmacao.textContent = mensagem;
+            fundoConfirmacao.classList.add('show');
+            document.body.style.overflow = 'hidden';
+           
+
+            function cliqueConfirmarOK() {
+                
+                fundoConfirmacao.classList.remove('show');
+                document.body.style.overflow = '';
+                botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+                botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+                resolve(true); 
+            }
+
+            function cliqueConfirmarCancelar() {
+                
+                fundoConfirmacao.classList.remove('show');
+                document.body.style.overflow = '';
+                botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+                botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+                resolve(false); 
+            }
+
+            
+            botaoConfirmarOK.removeEventListener('click', cliqueConfirmarOK);
+            botaoConfirmarCancelar.removeEventListener('click', cliqueConfirmarCancelar);
+
+            botaoConfirmarOK.addEventListener('click', cliqueConfirmarOK);
+            botaoConfirmarCancelar.addEventListener('click', cliqueConfirmarCancelar);
+            
+         
+
+        } catch (erro) {
+            console.error("Erro ao tentar mostrar ou configurar modal de confirmação:", erro);
+            reject(erro); 
+        }
+    });
+}
+
+function aplicarPesquisa() {
+    const termoPesquisa = pesquisaInput.value.toLowerCase().trim();
+    const colunaFiltro = filtroSelect.value;
+    const linhas = tabelaCorpo.querySelectorAll('tr');
+    for (let i = 0; i < linhas.length; i++) {
+        const linha = linhas[i];
+        let textoParaPesquisar = '';
+        if (colunaFiltro === 'todos') {
+            for (let j = 0; j < linha.children.length - 1; j++) {
+                textoParaPesquisar += linha.children[j].textContent.toLowerCase() + ' ';
+            }
+        } else {
+            const indiceCelula = mapaColunas[colunaFiltro];
+            if (linha.children[indiceCelula]) { 
+                 textoParaPesquisar = linha.children[indiceCelula].textContent.toLowerCase();
+            }
+        }
+        if (textoParaPesquisar.includes(termoPesquisa)) {
+            linha.style.display = '';
+        } else {
+            linha.style.display = 'none';
+        }
+    }
+}
+
+
+pesquisaInput.addEventListener('input', aplicarPesquisa);
+filtroSelect.addEventListener('change', aplicarPesquisa);
+btnAdicionar.addEventListener('click', function() { abrirModal('novo'); });
+btnFechar.addEventListener('click', fecharModal);
+btnCancelar.addEventListener('click', fecharModal);
+
+
+window.addEventListener("load", function() {
+    if (!fk_empresa) {
+        console.warn("ID da empresa não encontrado (fk_empresa). Carregando Zonas de forma genérica.");
+    }
+    buscarDadosDoFormulario(fk_empresa); 
+    fetch(`/arquiteturas/listar/${fk_empresa}`) 
+        .then(function(res) { return res.json(); })
+        .then(function(arquiteturas) {
+            console.log("Arquiteturas recebidas:", arquiteturas);
+            tabelaCorpo.innerHTML = "";
+            for (let i = 0; i < arquiteturas.length; i++) {
+                const arq = arquiteturas[i];
+                const tr = document.createElement("tr");
+                tr.setAttribute("data-id", arq.id_arquitetura);
+                tr.setAttribute("data-nome", arq.nome);
+                tr.setAttribute("data-modelo_cpu", arq.modelo_cpu);
+                tr.setAttribute("data-qtd_cpu", arq.qtd_cpu);
+                tr.setAttribute("data-qtd_ram", arq.qtd_ram);
+                tr.setAttribute("data-modelo_gpu", arq.modelo_gpu || '');
+                tr.setAttribute("data-so", arq.so);
+                tr.setAttribute("data-maxDisco", arq.maxDisco);
+                tr.setAttribute("data-qtd", arq.qtd);
+                tr.setAttribute("data-fk_zona", arq.fk_zona);
+                tr.innerHTML = `
+                    <td>${arq.id_arquitetura}</td>
+                    <td>${arq.nome}</td>
+                    <td>${arq.modelo_cpu}</td>
+                    <td>${arq.qtd_cpu}</td>
+                    <td>${arq.modelo_gpu || '-'}</td>
+                    <td>${arq.so}</td>
+                    <td>
+                        <div class="coluna-acoes">
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
+                        </div>
+                    </td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            }
+        })
+        .catch(function(erro) {
+            console.error("Erro ao carregar arquiteturas:", erro);
+            alert("Erro ao carregar arquiteturas");
+        });
+});
+
+function buscarDadosDoFormulario(idEmpresa) {
+   
+    const url = idEmpresa ? `` : `/empresaDados/formulario/generico`; 
+
+    fetch('/empresaDados/formulario/'+idEmpresa)
+        .then(function(resposta) { 
+            if (resposta.ok) { return resposta.json(); } 
+            else { throw new Error('Falha ao buscar os dados do formulário.'); }
+        })
+        .then(function(dadosRecebidos) { 
+            const selectZona = zonaInput; 
+            selectZona.innerHTML = '<option value="" disabled selected>Selecione uma zona...</option>';
+            for (let i = 0; i < dadosRecebidos.length; i++) {
+                const item = dadosRecebidos[i];
+                 if (item.tipo === 'zona') {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.nome;
+                    selectZona.appendChild(option);
+                 }
+            }
+        })
+        .catch(function(error) {
+            console.error('Erro ao buscar dados do formulário:', error);
+        });
+}
+
+
+// --- Ações de Editar e Excluir ---
+tabelaCorpo.addEventListener('click', function(e) {
+    const botao = e.target.closest('.btn-icone');
+    console.log("Clique detectado na tabela!"); // <-- ADICIONE AQUI
+    if (!botao) return;
+    const linha = botao.closest('tr');
+    const id_arquitetura = linha.getAttribute("data-id");
+    const acao = botao.getAttribute('title');
+
+    if (acao === 'Editar') {
+        linhaEditando = linha; 
+        nomeInput.value = linha.getAttribute("data-nome");
+        modeloCpuInput.value = linha.getAttribute("data-modelo_cpu");
+        qtdCpuInput.value = linha.getAttribute("data-qtd_cpu");
+        qtdRamInput.value = linha.getAttribute("data-qtd_ram");
+        modeloGpuInput.value = linha.getAttribute("data-modelo_gpu");
+        soInput.value = linha.getAttribute("data-so");
+        maxDiscoInput.value = linha.getAttribute("data-maxDisco");
+        qtdInput.value = linha.getAttribute("data-qtd");
+        zonaInput.value = linha.getAttribute("data-fk_zona");
+        abrirModal('editar');
+        
+
+    } else if (acao === 'Excluir') {
+    mostrarConfirmacao("Deseja realmente excluir esta arquitetura? Ao confirmar você apagara todos os modelos e informações vinculadas a ela.", "Confirmar Exclusão")
+        .then(function(confirmacao) { 
+
+            if (confirmacao) { 
+            
+                fetch(`/arquiteturas/deletar/${id_arquitetura}`, { method: "POST" })
+                    .then(function(res) {
+                        if (res.ok) {
+                            linha.remove();
+                            mostrarAviso("Arquitetura excluída com sucesso!", "Sucesso"); 
+                        } else {
+                            res.text().then(function(errorText) {
+                                console.error("Erro do servidor:", errorText);
+                                mostrarAviso("Erro ao excluir arquitetura: " + errorText, "Erro"); 
+                            });
+                        }
+                    })
+                    .catch(function(erro) {
+                        console.error("Erro ao excluir:", erro);
+                        mostrarAviso("Erro de conexão ao excluir arquitetura.", "Erro"); 
+                    });
+            }
+         
+        }); 
+        
+    }
+});
+
+
+form.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    const arquitetura = {
+        nome: nomeInput.value.trim(),
+        modelo_cpu: modeloCpuInput.value.trim(),
+        qtd_cpu: parseInt(qtdCpuInput.value),
+        qtd_ram: parseInt(qtdRamInput.value),
+        modelo_gpu: modeloGpuInput.value.trim(),
+        so: soInput.value.trim(),
+        maxDisco: parseInt(maxDiscoInput.value),
+        qtd: parseInt(qtdInput.value),
+        fk_zona: parseInt(zonaInput.value),
+        fk_empresa: fk_empresa
+    };
+
+    
+    let url = `/arquiteturas/cadastrar`;
+    let method = 'POST';
+
+    if (linhaEditando) {
+        const id_arquitetura = linhaEditando.getAttribute("data-id");
+        url = `/arquiteturas/atualizar/${id_arquitetura}`;
+        method = 'POST';
+    }
+
+    fetch(url, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(arquitetura)
+    })
+    .then(function(res) {
+        if (res.ok) {
+            alert(`Arquitetura ${linhaEditando ? 'atualizada' : 'cadastrada'} com sucesso!`);
+            window.location.reload(); 
+        } else {
+            res.text().then(function(texto) {
+                console.error("Erro do servidor:", texto);
+                alert(`Erro ao ${linhaEditando ? 'atualizar' : 'cadastrar'} arquitetura.`);
+            });
+        }
+    })
+    .catch(function(erro) {
+        console.error("Erro na requisição:", erro);
+        alert(`Erro ao ${linhaEditando ? 'atualizar' : 'cadastrar'} arquitetura.`);
+    });
+    fecharModal();
+});
+
+
+// --- LÓGICA DE ORDENAÇÃO (igual) ---
+for (let i = 0; i < headers.length; i++) {
+    const h = headers[i];
+    const indice = i; 
+    if (indice === headers.length - 1) { continue; }
+    h.style.cursor = 'pointer';
+
+    h.addEventListener('click', function() {
+        const linhas = Array.from(tabelaCorpo.querySelectorAll('tr'));
+        const isNumeric = (indice === 0 || indice === 3); 
+        const currentDir = h.dataset.sortDir || 'desc'; 
+        const newDir = (currentDir === 'asc') ? 'desc' : 'asc';
+        
+        for (let j = 0; j < headers.length; j++) {
+            headers[j].dataset.sortDir = '';
+        }
+        h.dataset.sortDir = newDir; 
+
+        linhas.sort(function(linhaA, linhaB) {
+            let valorA = linhaA.children[indice].textContent;
+            let valorB = linhaB.children[indice].textContent;
+            if (isNumeric) {
+                valorA = parseFloat(valorA) || 0;
+                valorB = parseFloat(valorB) || 0;
+            } else {
+                valorA = valorA.toLowerCase();
+                valorB = valorB.toLowerCase();
+            }
+            if (valorA < valorB) { return newDir === 'asc' ? -1 : 1; }
+            if (valorA > valorB) { return newDir === 'asc' ? 1 : -1; }
+            return 0; 
+        });
+
+        tabelaCorpo.innerHTML = "";
+        for (let k = 0; k < linhas.length; k++) {
+            tabelaCorpo.appendChild(linhas[k]);
+        }
+    });
+}
+
+</script>
+</body>
+</html>

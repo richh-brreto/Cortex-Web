@@ -8,4 +8,30 @@ router.get("/info-modelo-rota/:idmodelo", function (req, res) {
     infoModeloController.infoModeloGet(req, res)
 });
 
+router.post("/blacklist/adicionarProibido", function (req, res) {
+    infoModeloController.adicionarProcessoProibido(req, res);
+});
+
+router.post("/blacklist/registrarNeutro", function (req, res) {
+    infoModeloController.registrarProcessoNeutro(req, res);
+});
+
+router.get("/blacklist/listarBlacklist/:idmodelo",function (req, res) {
+    infoModeloController.listarBlacklist(req, res)
+});
+
+
+
+router.post("/blacklist/remover/:idProcesso",function (req, res) {
+    infoModeloController.removerDaBlacklist(req, res)
+});
+
+router.post("/blacklist/atualizarStatus",function (req, res) {
+    infoModeloController.atualizarStatusAutokill(req, res)
+});
+
+
+
+
+
 module.exports = router;

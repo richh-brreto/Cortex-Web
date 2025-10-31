@@ -28,7 +28,7 @@ function buscarId(cnpj) {
 
 function login(email, senha) {
     var instrucaoSql = `
-    select email,nome,id, fk_cargo,fk_empresa,ativo from usuario
+    select email, nome, id, fk_cargo, fk_empresa, ativo, foto from usuario
     where email = '${email}' and senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -37,7 +37,7 @@ function login(email, senha) {
 
 function buscarPorId(idUsuario) {
     var instrucaoSql = `
-        SELECT id, nome, email, cargo, fk_empresa, ativo, telefone
+        SELECT id, nome, email, fk_cargo AS fk_cargo, fk_empresa, ativo, telefone, foto
         FROM usuario
         WHERE id = ${idUsuario};
     `;

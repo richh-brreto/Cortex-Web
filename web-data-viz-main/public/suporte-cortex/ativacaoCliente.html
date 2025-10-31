@@ -6,9 +6,7 @@
     <title>Painel Admin - Ativação</title>
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/ativacao.css">
-    <style>
-      
-    </style>
+    <link rel="stylesheet" href="../base/navbar.css">
 </head>
 <body>
     <nav class="barra-lateral">
@@ -68,7 +66,7 @@
             carregarUsuariosPendentes();
         };
 
-       
+
         function carregarUsuariosPendentes() {
             fetch('/admin/pendentes')
                 .then(function(resposta) {
@@ -117,7 +115,7 @@
             });
         }
 
-       
+    
         function recusarUsuario(idUsuario) {
             fetch('/admin/recusar', {
                 method: 'POST',
