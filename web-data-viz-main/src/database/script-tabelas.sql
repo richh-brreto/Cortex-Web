@@ -55,8 +55,9 @@ CREATE TABLE zonadisponibilidade (
     id_zona INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     descricao VARCHAR(255),
-    fk_empresa INT NOT NULL,
+    fk_empresa INT,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+     ON DELETE SET NULL
 );
 
 INSERT INTO zonadisponibilidade (nome, descricao, fk_empresa) VALUES
@@ -102,7 +103,7 @@ VALUES
         fk_empresa int,
         foreign key (fk_zona) references zonadisponibilidade(id_zona),
         foreign key (fk_empresa) references empresa(id)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
         );
         
 INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona,fk_empresa)
@@ -126,8 +127,8 @@ create table if not exists modelo (
     limite_ram decimal(5,2),
     limite_gpu decimal(5,2),
     fk_cliente int not null,
-    fk_zona_disponibilidade int not null,
-    fk_arquitetura int not null,
+    fk_zona_disponibilidade int,
+    fk_arquitetura int,
         foreign key (fk_cliente) references cliente(id_cliente),
         foreign key (fk_zona_disponibilidade) references zonadisponibilidade(id_zona),
         foreign key (fk_arquitetura) references arquitetura(id_arquitetura)
