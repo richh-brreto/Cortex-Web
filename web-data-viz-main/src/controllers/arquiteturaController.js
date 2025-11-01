@@ -73,10 +73,29 @@ function deletar(req, res) {
         });
 }
 
+function contarArquiteturas(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+
+    if (fk_empresa == undefined) {
+        res.status(400).send("fk_empresa está undefined!");
+    } else {
+        arquiteturaModel.contarArquiteturas(fk_empresa)
+            .then(function (resultado) {
+                console.log("Tudo certo no controller - contagem de arquiteturas");
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao contar arquiteturas: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
 
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    contarArquiteturas
 };

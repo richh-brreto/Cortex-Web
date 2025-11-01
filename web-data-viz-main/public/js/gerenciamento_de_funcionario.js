@@ -19,8 +19,6 @@ const btnCancelar = document.getElementById('btn-cancelar');
 let linhaEditando = null;
 const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
-
-
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
@@ -47,7 +45,6 @@ function formatarData(dataISO) {
     return data.toLocaleDateString('pt-BR');
 }
 
-
 const mapaColunas = {
     'todos': 'todos',
     'id': 0,
@@ -55,9 +52,8 @@ const mapaColunas = {
     'foto': 2,
     'email': 3,
     'cargo': 4,
-    'senha': 5,
-    'telefone': 6,
-    'status': 7
+    'telefone': 5,
+    'status': 6
 };
 
 function aplicarPesquisa() {
@@ -92,6 +88,21 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
+function atualizarTotal() {
+    if (!fk_empresa) return;
+    
+    fetch(`/usuario/contarFuncionarios/${fk_empresa}`)
+        .then(res => res.json())
+        .then(resultado => {
+            console.log("Total recebido:", resultado);
+            const total = resultado[0].total;
+            document.querySelector('.numero-total').textContent = total;
+        })
+        .catch(erro => {
+            console.error("Erro ao contar funcionários:", erro);
+        });
+}
+
 function atualizarTabela() {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
@@ -113,7 +124,7 @@ function atualizarTabela() {
                 }
 
                 const tr = document.createElement("tr");
-                    const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
+                const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
                 tr.innerHTML = `
                     <td>${f.id}</td>
                     <td>${f.nome}</td>
@@ -127,14 +138,15 @@ function atualizarTabela() {
                     <td><span class="badge ${f.ativo}">${f.ativo}</span></td>
                     <td>
                         <div class="coluna-acoes">
-                            <button class="btn btn-secundario" title="Editar">Ver mais</span><button>
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span><button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete<span><button>
+                            <button class="btn btn-secundario" title="Ver mais">Ver mais</button>
+                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
+                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                         </div>
                     </td>
                 `;
                 tabelaCorpo.appendChild(tr);
             });
+            atualizarTotal();
         })
         .catch(erro => {
             console.error("Erro ao carregar funcionários:", erro);
@@ -149,39 +161,34 @@ window.addEventListener("load", () => {
         return;
     }
     atualizarTabela();
+    atualizarTotal();
 });
 
-
-    headers.forEach(h =>{
-    h.addEventListener('click', () =>{
+headers.forEach(h => {
+    h.addEventListener('click', () => {
         var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
         const indice = parseInt(h.id)
         for(let i = 0; i < linhas.length; i++){
             var menor = i
-            for(let j = i + 1; j < linhas.length;j++){
+            for(let j = i + 1; j < linhas.length; j++){
                 var valorA = linhas[menor].children[indice].textContent.toLowerCase()
                 var valorB = linhas[j].children[indice].textContent.toLowerCase()
-              if(valorA.localeCompare(valorB)  > 0){
-                menor = j;
-              }
+                if(valorA.localeCompare(valorB) > 0){
+                    menor = j;
+                }
             }
             var aux = linhas[i]
             linhas[i] = linhas[menor]
             linhas[menor] = aux
-            
         }
 
         tabelaCorpo.innerHTML = ""
 
-        for(let i = 0; i < linhas.length;i++){
+        for(let i = 0; i < linhas.length; i++){
             tabelaCorpo.appendChild(linhas[i])
         }
     })
 })
-
-
-
-// ... código existente ...
 
 tabelaCorpo.addEventListener('click', (e) => {
     const botao = e.target.closest('.btn-icone, .btn-secundario');
@@ -191,31 +198,39 @@ tabelaCorpo.addEventListener('click', (e) => {
     const id_funcionario = linha.children[0].textContent;
     const acao = botao.getAttribute('title');
 
-    // NOVO: Adicionar ação para "Ver mais"
     if (acao === 'Ver mais' || botao.classList.contains('btn-secundario')) {
-        // Redirecionar para página de visualização do perfil
         window.location.href = `perfil-funcionario-view.html?id=${id_funcionario}`;
         return;
     }
 
     if (acao === 'Editar') {
         linhaEditando = linha;
-        nomeInput.value = linha.children[1].textContent;
-        emailInput.value = linha.children[3].textContent; // Corrigido: era [2], mas deve ser [3] por causa da foto
- 
-        if (linha.children[4].textContent == "Técnico Supervisor") {
-            cargoInput.value = "TecnicoSupervisor";
-        } else if (linha.children[4].textContent == "Técnico") {
-            cargoInput.value = "Tecnico";
-        } else {
-            cargoInput.value = "Analista";
-        }
-
-        senhaInput.value = linha.children[5].textContent;
-        telefoneInput.value = linha.children[5].textContent;
-
-        statusInput.value = linha.children[6].textContent.trim().toLowerCase();
-        abrirModal('editar');
+        
+        // Busca os dados completos do funcionário no banco
+        fetch(`/funcionario/buscar/${id_funcionario}`)
+            .then(res => res.json())
+            .then(funcionario => {
+                nomeInput.value = funcionario.nome;
+                emailInput.value = funcionario.email;
+                senhaInput.value = funcionario.senha;
+                telefoneInput.value = funcionario.telefone;
+                
+                if (funcionario.cargo == "Técnico Supervisor") {
+                    cargoInput.value = "TecnicoSupervisor";
+                } else if (funcionario.cargo == "Técnico") {
+                    cargoInput.value = "Tecnico";
+                } else {
+                    cargoInput.value = "Analista";
+                }
+                
+                statusInput.value = funcionario.ativo == 1 ? 'ativo' : 'inativo';
+                
+                abrirModal('editar');
+            })
+            .catch(erro => {
+                console.error("Erro ao buscar funcionário:", erro);
+                alert("Erro ao carregar dados do funcionário");
+            });
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {
             fetch(`/funcionario/deletar/${id_funcionario}`, { method: "DELETE" })
@@ -223,6 +238,7 @@ tabelaCorpo.addEventListener('click', (e) => {
                     if (res.ok) {
                         linha.remove();
                         alert("Funcionário excluído!");
+                        atualizarTotal();
                     } else {
                         alert("Erro ao excluir funcionário");
                     }
@@ -235,24 +251,23 @@ tabelaCorpo.addEventListener('click', (e) => {
     }
 });
 
-
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-        var cargoB = null
-        var statusB = null
+    var cargoB = null
+    var statusB = null
     if(cargoInput.value == "Analista"){
-         cargoB = 1
+        cargoB = 1
     }else if(cargoInput.value == "TecnicoSupervisor"){
         cargoB = 2
     }else if(cargoInput.value == "Tecnico"){
-         cargoB = 3
+        cargoB = 3
     }
 
     if(statusInput.value == "ativo"){
-         statusB = 1
+        statusB = 1
     }else{
-         statusB = 0
+        statusB = 0
     }
 
     const funcionario = new FormData();
@@ -266,7 +281,7 @@ form.addEventListener('submit', (ev) => {
 
     if (linhaEditando) {
         const id_funcionario = linhaEditando.children[0].textContent;
-     console.log(linhaEditando.children[0].textContent)
+        console.log(linhaEditando.children[0].textContent)
 
         fetch(`/funcionario/atualizar/${id_funcionario}`, {
             method: "PUT",
@@ -285,8 +300,6 @@ form.addEventListener('submit', (ev) => {
                 alert("Erro ao atualizar funcionário");
             });
     } else {
-
-        // Envia FormData para permitir upload da foto
         fetch("/funcionario/cadastrar/" + fk_empresa, {
             method: "POST",
             body: funcionario

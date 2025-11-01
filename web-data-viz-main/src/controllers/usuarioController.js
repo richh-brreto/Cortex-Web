@@ -185,11 +185,30 @@ function alterarSenha(req, res) {
 
 }
 
+function contarFuncionarios(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+
+    if (fk_empresa == undefined) {
+        res.status(400).send("fk_empresa está undefined!");
+    } else {
+        usuarioModel.contarFuncionarios(fk_empresa)
+            .then(function (resultado) {
+                res.json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao contar funcionários: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     cadastrarUsuario,
     buscarId,
     cadastrarEmpresa,
     login,
     buscarPorId, 
-    alterarSenha
+    alterarSenha,
+    contarFuncionarios 
 }

@@ -288,6 +288,17 @@ function desvincularFuncionario(id,id_zona) {
     return database.executar(instrucao);
 }
 
+function contarZonas(fk_empresa) {
+    var instrucao = `
+        SELECT COUNT(*) as total 
+        FROM zonadisponibilidade 
+        WHERE fk_empresa = ${fk_empresa};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -304,5 +315,6 @@ module.exports = {
     vincularFuncionario,
     desvincularArquitetura,
     desvincularModelo,
-    desvincularFuncionario
+    desvincularFuncionario,
+    contarZonas  // ADICIONE AQUI
 };
