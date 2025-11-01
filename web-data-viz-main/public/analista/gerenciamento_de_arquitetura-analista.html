@@ -181,12 +181,7 @@
                         <input type="number" id="qtd-ram-arq" placeholder="Ex: 128" required>
                     </div>
 
-                      <div class="campo-form">
-                        <label for="zona-modelo">Zona de disponibilidade:</label>
-                        <select id="zona-modelo" required> 
-                            <option value="">Selecione...</option>
-                        </select>
-                    </div>
+            
                 </div>
     
                 <div style="display: flex; flex-direction: column; gap: 1.5rem;">
@@ -203,11 +198,6 @@
                     <div class="campo-form">
                         <label for="max-disco-arq">Max. Disco (GB):</label>
                         <input type="number" id="max-disco-arq" placeholder="Ex: 4000" required>
-                    </div>
-
-                    <div class="campo-form">
-                        <label for="qtd-arq">Qtd. Máquinas:</label>
-                        <input type="number" id="qtd-arq" placeholder="Ex: 1" required>
                     </div>
     
                   
@@ -426,8 +416,6 @@ window.addEventListener("load", function() {
                 tr.setAttribute("data-modelo_gpu", arq.modelo_gpu || '');
                 tr.setAttribute("data-so", arq.so);
                 tr.setAttribute("data-maxDisco", arq.maxDisco);
-                tr.setAttribute("data-qtd", arq.qtd);
-                tr.setAttribute("data-fk_zona", arq.fk_zona);
                 tr.innerHTML = `
                     <td>${arq.id_arquitetura}</td>
                     <td>${arq.nome}</td>
