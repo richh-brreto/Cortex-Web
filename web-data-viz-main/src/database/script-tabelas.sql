@@ -8,14 +8,15 @@ CREATE TABLE empresa (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     cnpj VARCHAR(18) UNIQUE NOT NULL,
-    ativo TINYINT DEFAULT TRUE NOT NULL, 
+    ativo TINYINT DEFAULT FALSE NOT NULL, 
     nome_responsavel VARCHAR(100) NOT NULL,
     telefone_responsavel VARCHAR(15) UNIQUE NOT NULL
 );
 
-INSERT INTO empresa (nome, cnpj, nome_responsavel, telefone_responsavel)
+INSERT INTO empresa (nome, cnpj, nome_responsavel, telefone_responsavel, ativo)
 VALUES 
-('Tech Soluções LTDA', '12.345.678/0001-99', 'Ana Souza', '(11) 91234-5678');
+('Tech Soluções LTDA', '12.345.678/0001-99', 'Ana Souza', '(11) 91234-5678', TRUE),
+('Cortex', '00.000.000/0000-00', "Cortex", "(00) 00000-0000", TRUE);
 
 
 CREATE TABLE cargo (
@@ -37,8 +38,8 @@ CREATE TABLE usuario (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(20) NOT NULL,
     telefone VARCHAR(30),
-    fk_cargo INT,
-    foto VARCHAR(500),
+    fk_cargo INT DEFAULT 1,
+    foto VARCHAR(500) DEFAULT 'sem-foto.png',
     ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
@@ -49,7 +50,7 @@ INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) 
 ('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, "(11) 98583-1860"), -- Analista
 ('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 1, 0, "(11) 92057-3048"), -- Técnico Supervisor
 ('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, "(11) 90940-1920"), -- Técnico
-('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', null, 4, 1, null); -- Cortex
+('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 2, 4, 1, "(00) 00000-0000"); -- Cortex
 
 
 CREATE TABLE zonadisponibilidade (
