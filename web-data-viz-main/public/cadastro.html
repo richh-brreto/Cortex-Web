@@ -225,6 +225,7 @@
     var nomeVar = nomeResponsavel_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
+    var telVar = telefoneResponsavel_input.value
 
     console.log(emailVar)
     console.log(senhaVar)
@@ -254,7 +255,8 @@
         idEmpresaServer: idEmpresaVar,
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar
+        senhaServer: senhaVar,
+        telServer : telVar
       }),
     })
       .then(function (resposta) {

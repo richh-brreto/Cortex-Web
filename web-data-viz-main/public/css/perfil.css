@@ -67,6 +67,25 @@ body {
     flex-direction: column;
 }
 
+.topo-perfil{
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
+
+.topo-perfil button{
+  background: none;    
+  border: none;                 
+  cursor: pointer;    
+  color: inherit;         
+  font: inherit;          
+  outline: none;
+  margin-bottom: 5%;
+}
+
+
+
+
 .titulo-pagina {
     font-family: var(--font-titulo);
     font-size: 2.5rem;
