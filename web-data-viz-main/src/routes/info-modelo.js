@@ -20,7 +20,7 @@ router.get("/blacklist/listarBlacklist/:idmodelo",function (req, res) {
     infoModeloController.listarBlacklist(req, res)
 });
 
-router.get("/procMortos/:idmodelo",function (req, res) {
+router.get("/procMortos/:idModelo",function (req, res) {
     infoModeloController.procMortos(req, res)
 });
 

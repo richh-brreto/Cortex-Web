@@ -430,6 +430,7 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     animation: fadeIn 0.3s ease;
+
 }
 
 @keyframes fadeIn {
@@ -443,9 +444,16 @@ body {
     padding: 0;
     border-radius: 12px;
     width: 90%;
+    height: 75%;
     max-width: 600px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     animation: slideDown 0.3s ease;
+
+}
+
+.container-tabela{
+    height: 70%;
+
 }
 
 @keyframes slideDown {
@@ -482,6 +490,7 @@ body {
     align-items: center;
     gap: 8px;
     transition: 0.5s;
+ 
 }
 
 .modal-title {
@@ -504,6 +513,7 @@ body {
     border-bottom-color: #00B2B2;
     transition: 0.5s;
     color: #000000;
+    
 }
 
 .modal-close {
@@ -531,6 +541,7 @@ body {
 
 .modal-body {
     padding: 24px;
+           
 }
 
 /* Informações do Modelo - Inline */
