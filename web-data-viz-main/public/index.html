@@ -11,9 +11,11 @@
     <script src="../js/sessao.js"></script>
 
     <link rel="stylesheet" href="./css/styleIndex.css">
+  <link rel="stylesheet" href="./css/validacoes.css">
     <link rel="stylesheet" href="./css/responsiveIndex.css">
     <link rel="icon" href="./assets/icon/favicon2.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="./js/validacoes.js"></script>
 </head>
 
 <body>
@@ -244,6 +246,64 @@
         <span class="version">v1.0</span>
       </div>
     </div>
+  <script>
+    (function () {
+      const btn = document.getElementById('solicitarAjuda');
+      if (!btn) return;
+      btn.addEventListener('click', function (ev) {
+        ev.preventDefault();
+
+        const campos = [
+          { id: 'ipt_nome', tipo: 'texto', nome: 'Nome' },
+          { id: 'ipt_telefone', tipo: 'texto', nome: 'Telefone' },
+          { id: 'ipt_empresa', tipo: 'texto', nome: 'Empresa' },
+          { id: 'ipt_cnpj', tipo: 'texto', nome: 'CNPJ' },
+          { id: 'ipt_email', tipo: 'texto', nome: 'E-mail' },
+          { id: 'ipt_mensagem', tipo: 'texto', nome: 'Mensagem' }
+        ];
+
+        // usa validarFormulario se presente
+        let erros = [];
+        if (typeof validarFormulario === 'function') {
+          erros = validarFormulario(campos);
+        } /*else {
+          // fallback: checagem mínima
+          campos.forEach(c => {
+            const el = document.getElementById(c.id);
+            if (!el || !el.value || el.value.trim() === '') {
+              erros.push('O campo ' + c.nome + ' é obrigatório');
+              if (el && typeof mostrarErro === 'function') mostrarErro(el, 'O campo ' + c.nome + ' é obrigatório');
+            } else if (el && typeof mostrarErro === 'function') {
+              mostrarErro(el, null);
+            } 
+          });
+        } */
+
+        if (erros.length) { alert(erros.join('\n')); return; }
+
+        const emailEl = document.getElementById('ipt_email');
+        const cnpjEl = document.getElementById('ipt_cnpj');
+        const telEl = document.getElementById('ipt_telefone');
+        if (emailEl && typeof validarEmail === 'function') {
+          if (!validarEmail(emailEl.value.trim())) { mostrarErro(emailEl, 'E-mail inválido'); erros.push('E-mail inválido'); }
+          else if (typeof mostrarErro === 'function') mostrarErro(emailEl, null);
+        }
+        if (cnpjEl && typeof validarCNPJ === 'function') {
+          if (!validarCNPJ(cnpjEl.value.trim())) { mostrarErro(cnpjEl, 'CNPJ inválido'); erros.push('CNPJ inválido'); }
+          else if (typeof mostrarErro === 'function') mostrarErro(cnpjEl, null);
+        }
+        if (telEl && typeof validarTelefone === 'function') {
+          if (!validarTelefone(telEl.value.trim())) { mostrarErro(telEl, 'Telefone inválido'); erros.push('Telefone inválido'); }
+          else if (typeof mostrarErro === 'function') mostrarErro(telEl, null);
+        }
+
+        if (erros.length) { alert(erros.join('\n')); return; }
+
+        /*alert('Mensagem enviada com sucesso!');
+        campos.forEach(c => { const el = document.getElementById(c.id); if (el) el.value = ''; if (el && typeof mostrarErro === 'function') mostrarErro(el, null); }); */
+      });
+    })();
+  </script>
   </body>
 
 </html>
