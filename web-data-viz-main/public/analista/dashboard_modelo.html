@@ -288,14 +288,14 @@
                 <div class="info-btn-icon">
                     <i style="color:#00B2B2;" class="material-icons">block</i>
                 </div>
-                <span>Blacklist</span>
+                <span>Whitelist</span>
             </button>
         </div>
 
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Informações do Modelo</h3>
+                    <h3 class="modal-title active">Informações do Modelo</h3>
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -396,8 +396,11 @@
         <div id="procesosModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Processos Ativos</h3>
+                    <h3 class="modal-title1">Processos Ativos</h3>
                     <button class="modal-close" onclick="closeModal('procesosModal')">&times;</button>
+                </div>
+                <div class="topo-whitelist">
+                    <input type="search" style="margin-left: 2%;">
                 </div>
                 <div class="modal-body">
                     <div class="info-items">
@@ -409,7 +412,7 @@
                                         <tr>
                                             <th>Nome</th>
                                             <th style="width: 80px; text-align: right;">CPU (%)</th>
-                                            <th style="width: 100px; text-align: right;">ㅤ RAM (%)</th>
+                                            <th style="width: 100px; text-align: right;"> RAM (%)</th>
                                             <th style="width: 80px; text-align: right;">Disco (%)</th>
                                             <th style="width: 80px; text-align: right;">GPU (%)</th>
                                             <th style="width: 200px;">Ações</th>
@@ -429,23 +432,26 @@
                 </div>
             </div>
         </div>
-
+ 
         <div id="blacklistModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Blacklist de processos</h3>
+             <!--  <div class="modal-content" id="conteudo">
+               <div class="modal-header">
+                    <h3 class="modal-title ativo">Whitelist de processos</h3>
+                    <h3 class="modal-title">Processos Mortos - log</h3>
                     <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modal-body">
                     <div class="info-items">
-
+                        <div class="topo-whitelist">
+                            <input type="search" class="input-pesquisa">
+                            <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
+                        </div>
                         <section class="container-tabela">
                             <div class="envoltorio-tabela">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Autokill</th>
                                             <th style="width: 200px;">Ações</th>
                                         </tr>
                                     </thead>
@@ -458,10 +464,10 @@
 
                             </div>
                         </section>
-                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
+                       
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div>-->
         </div>
         <div class="fundo-dialogo" id="fundo-confirmacao">
             <div class="modal-dialogo">

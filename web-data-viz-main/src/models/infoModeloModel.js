@@ -46,8 +46,7 @@ WHERE
 function listarBlacklist(idModelo) {
 
     var instrucao = `
-      select nome,status,id_processo from black_list where status in('proibido','automatico') and 
-    fk_modelo = ${idModelo};
+      select nome,id_processo from whitelist where fk_modelo = ${idModelo};
     `;
 
 
@@ -58,25 +57,32 @@ function listarBlacklist(idModelo) {
 function removerDaBlacklist(idProcesso) {
 
     var instrucao = `
-      delete from black_list where id_processo=${idProcesso}
+      delete from whitelist where id_processo=${idProcesso}
     `;
 
 
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
-
-
-function adicionarBlacklist(fkModelo, nomeProcesso, status,matarProcesso) {
-    console.log(`Model: Adicionando/Atualizando '${nomeProcesso}' na blacklist com status '${status}' para modelo ${fkModelo}`);
+function matarProcesso(fkModelo, nomeProcesso) {
 
    
  var instrucaoSql = `
-        INSERT INTO black_list (fk_modelo, nome, status, matar_processo)
-        VALUES (${fkModelo}, '${nomeProcesso}', '${status}', ${matarProcesso})
-        ON DUPLICATE KEY UPDATE 
-            status = VALUES(status), 
-            matar_processo = VALUES(matar_processo);
+        UPDATE whitelist SET matar = true WHERE fk_modelo = ${fkModelo} AND nome = "${nomeProcesso}";
+    `;
+    
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function adicionarBlacklist(fkModelo, nomeProcesso) {
+    
+
+   
+ var instrucaoSql = `
+        INSERT INTO whitelist (fk_modelo, nome)
+        VALUES (${fkModelo}, '${nomeProcesso}');
     `;
     
 
@@ -97,11 +103,24 @@ function atualizarStatus(idProcesso, novoStatus) {
     return database.executar(instrucaoSql);
 }
 
+function procMortos(idModelo) {
+    
+   
+    var instrucaoSql = `
+        SELECT id_log, nome, dataKill FROM log_processos WHERE fk_modelo = ${idModelo};
+    `;
+    
+     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     infoModeloGet,
     adicionarBlacklist,
     listarBlacklist,
     removerDaBlacklist,
-    atualizarStatus
+    atualizarStatus,
+    matarProcesso,
+    procMortos
 };

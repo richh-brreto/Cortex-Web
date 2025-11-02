@@ -15,10 +15,13 @@ const tituloAviso = document.getElementById('titulo-aviso');
 const mensagemAviso = document.getElementById('mensagem-aviso');
 const botaoAvisoOK = document.getElementById('botao-aviso-ok');
 
+var global = null
+
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    listarBlacklist(global)
 }
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -172,8 +175,52 @@ function infoModeloGet(idModelo) {
 function listarBlacklist(idModelo) {
 
 
-    const tabelaBlacklistCorpo = document.getElementById('tabela-blacklist-corpo');
 
+    const modalA = document.getElementById("blacklistModal")
+
+    modalA.innerHTML = ` <div class="modal-content" id="conteudo">
+               <div class="modal-header">
+                    <h3 class="modal-title ativo" id="white">Whitelist de processos</h3>
+                    <h3 class="modal-title" id="mortos">Processos Mortos - log</h3>
+                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div class="info-items">
+                        <div class="topo-whitelist">
+                            <input type="search" class="input-pesquisa">
+                            <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
+                        </div>
+                        <section class="container-tabela">
+                            <div class="envoltorio-tabela">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th style="width: 200px;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-blacklist-corpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tabela-rodape">
+
+                            </div>
+                        </section>
+                       
+                    </div>
+                </div> 
+            </div>`
+
+    const morto = document.getElementById("mortos")
+    morto.addEventListener("click", () => logProcMortos())
+
+    const white = document.getElementById("white")
+    white.addEventListener("click", () => listarBlacklist(global))
+
+    modalA.classList.add('modal');
+    const tabelaBlacklistCorpo = document.getElementById('tabela-blacklist-corpo');
     fetch(`/info-modelo/blacklist/listarBlacklist/${idModelo}`)
         .then(function (response) {
             if (!response.ok) { throw new Error('Falha ao buscar dados: ' + response.status + ' ' + response.statusText); }
@@ -187,48 +234,18 @@ function listarBlacklist(idModelo) {
                 const dadosBanco = dados;
 
 
-linhasHtml = ''
-for (var i = 0; i < dadosBanco.length; i++) {
-        
-        var iconeAddBlacklist = `<i class="material-icons">block</i>`; 
-       
-                    // --- Início da Modificação ---
-                    let status = dadosBanco[i].status;
-                    let idProcesso = dadosBanco[i].id_processo;
+                linhasHtml = ''
+                for (var i = 0; i < dadosBanco.length; i++) {
 
-                    let autokillClass = '';
-                    let autokillIcon = '';
-                    let autokillText = '';
-
-                    // Define a aparência do botão baseado no status
-                    if (status === 'automatico') {
-                        autokillClass = 'autokill-on'; 
-                        autokillIcon = 'toggle_on';
-                        autokillText = 'ON';
-                    } else { // 'proibido' ou qualquer outro
-                        autokillClass = 'autokill-off'; 
-                        autokillIcon = 'toggle_off';
-                        autokillText = 'OFF';
-                    }
-
-                    // Cria o HTML do botão de toggle
-                    let botaoAutokillHtml = `
-                        <button class="btn-icone-texto btn-autokill ${autokillClass}" 
-                                onclick="alternarAutokillProcesso(${idProcesso}, this)">
-                            <i class="material-icons">${autokillIcon}</i>
-                            <span>${autokillText}</span>
-                        </button>
-                    `;
-                    // --- Fim da Modificação ---
+                    var iconeAddBlacklist = `<i class="material-icons">block</i>`;
 
 
-        linhasHtml += `
+
+
+                    linhasHtml += `
           <tr>
             <td>${dadosBanco[i].nome}</td>
             
-                            <!-- Coluna do meio agora é o botão -->
-                            <td>${botaoAutokillHtml}</td> 
-
             <td>
               <button class="btn-icone-texto btn-add-blacklist" onclick="removerProcessoBlacklist(${dadosBanco[i].id_processo})">
                 ${iconeAddBlacklist}
@@ -238,25 +255,105 @@ for (var i = 0; i < dadosBanco.length; i++) {
             </td>
           </tr>
         `;
-      }
-
-      
-      
-      tabelaBlacklistCorpo.innerHTML = linhasHtml;
+                }
 
 
-      
 
-      } else {
-            // Se a blacklist estiver vazia, mostra uma mensagem
-            tabelaBlacklistCorpo.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px;">Nenhum processo na blacklist.</td></tr>`;
-      }
-    })
-    .catch(function (error) {
-      console.error("Erro ao buscar/processar dados da dashboard:", error);
-      console.error("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
-      tabelaBlacklistCorpo.innerHTML = `<tr><td colspan="3" style="text-align:center; color: red; padding: 20px;">Erro ao carregar blacklist.</td></tr>`;
-    });
+                tabelaBlacklistCorpo.innerHTML = linhasHtml;
+
+
+
+
+            } else {
+                // Se a blacklist estiver vazia, mostra uma mensagem
+                tabelaBlacklistCorpo.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px;">Nenhum processo na blacklist.</td></tr>`;
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro ao buscar/processar dados da dashboard:", error);
+            console.error("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
+            tabelaBlacklistCorpo.innerHTML = `<tr><td colspan="3" style="text-align:center; color: red; padding: 20px;">Erro ao carregar blacklist.</td></tr>`;
+        });
+}
+
+function logProcMortos() {
+
+
+    const modalA = document.getElementById("blacklistModal")
+
+    modalA.innerHTML = ` <div class="modal-content" id="conteudo">
+               <div class="modal-header">
+                    <h3 class="modal-title" id="white">Whitelist de processos</h3>
+                    <h3 class="modal-title ativo" id="mortos">Processos Mortos - log</h3>
+                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div class="info-items">
+                        <div class="topo-whitelist">
+                            <input type="search" class="input-pesquisa">           
+                        </div>
+                        <section class="container-tabela">
+                            <div class="envoltorio-tabela">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Data e Horário da Morte</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-blacklist-corpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tabela-rodape">
+
+                            </div>
+                        </section>
+                       
+                    </div>
+                </div> 
+            </div>`
+
+    const morto = document.getElementById("mortos")
+    morto.addEventListener("click", () => logProcMortos())
+
+    const white = document.getElementById("white")
+    white.addEventListener("click", () => listarBlacklist(global))
+    fetch(`/info-modelo/procMortos/${idModelo}`)
+        .then(function (res) {
+            if (!res.ok) {
+                return res.text().then(function (textoErro) {
+                    throw new Error(textoErro || `Erro ${res.status}`);
+                });
+            }
+            return res.json();
+        })
+        .then(function (resposta) {
+
+            const body = document.getElementById("tabela-blacklist-corpo")
+            for (let i = 0; i < resposta.length; i++) {
+
+
+                var linha = `
+     <tr>
+            <td>${resposta[i].id_log}</td>
+            <td>${resposta[i].nome}</td>
+            <td>${resposta[i].dataKill}</td>
+    </tr>
+        `
+
+                body.innerHTML += linha
+            }
+
+        })
+        .catch(function (erro) {
+            console.error("Erro ao remover da blacklist:", erro);
+            mostrarAviso(`Falha ao remover: ${erro.message}`, "Erro");
+        });
+
+
 }
 
 function removerProcessoBlacklist(idProcesso) {
@@ -268,7 +365,7 @@ function removerProcessoBlacklist(idProcesso) {
             if (confirmacao) {
 
                 fetch(`/info-modelo/blacklist/remover/${idProcesso}`, {
-                    method: 'POST'
+                    method: 'DELETE'
                 })
                     .then(function (res) {
                         if (!res.ok) {
@@ -292,62 +389,62 @@ function removerProcessoBlacklist(idProcesso) {
         });
 }
 
- function alternarAutokillProcesso(idProcesso, botaoElemento) {
-      
-      console.log(`Alternar Autokill (status) para processo ID: ${idProcesso}`);
-      
-           
-            botaoElemento.disabled = true;
+function alternarAutokillProcesso(idProcesso, botaoElemento) {
 
-            
-            const isOn = botaoElemento.classList.contains('autokill-on');
-            const novoStatus = isOn ? 'proibido' : 'automatico'; // Se está ON ('automatico'), o novo será 'proibido'. Se está OFF ('proibido'), o novo será 'automatico'.
+    console.log(`Alternar Autokill (status) para processo ID: ${idProcesso}`);
 
-            console.log(`Enviando novo status: ${novoStatus}`);
 
-            
-            fetch('/info-modelo/blacklist/atualizarStatus', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    id_processo: idProcesso, 
-                    novo_status: novoStatus 
-                })
-            })
-            .then(function(res) {
-                if (!res.ok) { 
-                    return res.text().then(function(textoErro) {
-                        throw new Error(textoErro || `Erro ${res.status}`);
-                    });
-                }
-                return res.json(); 
-            })
-            .then(function(resposta) {
-                
-                if (novoStatus === 'automatico') { 
-                    botaoElemento.classList.remove('autokill-off');
-                    botaoElemento.classList.add('autokill-on');
-                    botaoElemento.innerHTML = `<i class="material-icons">toggle_on</i><span>ON</span>`;
-                } else { 
-                    botaoElemento.classList.remove('autokill-on');
-                    botaoElemento.classList.add('autokill-off');
-                    botaoElemento.innerHTML = `<i class="material-icons">toggle_off</i><span>OFF</span>`;
-                }
-                
-                mostrarAviso(resposta.mensagem || "Status Autokill alterado com sucesso!", "Sucesso");
-            })
-            .catch(function(erro) {
-                console.error("Erro ao alterar status autokill:", erro);
-                mostrarAviso(`Falha ao alterar status: ${erro.message}`, "Erro");
-                
-            })
-            .finally(function() {
-                
-                botaoElemento.disabled = false;
-            });
- }
+    botaoElemento.disabled = true;
+
+
+    const isOn = botaoElemento.classList.contains('autokill-on');
+    const novoStatus = isOn ? 'proibido' : 'automatico'; // Se está ON ('automatico'), o novo será 'proibido'. Se está OFF ('proibido'), o novo será 'automatico'.
+
+    console.log(`Enviando novo status: ${novoStatus}`);
+
+
+    fetch('/info-modelo/blacklist/atualizarStatus', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id_processo: idProcesso,
+            novo_status: novoStatus
+        })
+    })
+        .then(function (res) {
+            if (!res.ok) {
+                return res.text().then(function (textoErro) {
+                    throw new Error(textoErro || `Erro ${res.status}`);
+                });
+            }
+            return res.json();
+        })
+        .then(function (resposta) {
+
+            if (novoStatus === 'automatico') {
+                botaoElemento.classList.remove('autokill-off');
+                botaoElemento.classList.add('autokill-on');
+                botaoElemento.innerHTML = `<i class="material-icons">toggle_on</i><span>ON</span>`;
+            } else {
+                botaoElemento.classList.remove('autokill-on');
+                botaoElemento.classList.add('autokill-off');
+                botaoElemento.innerHTML = `<i class="material-icons">toggle_off</i><span>OFF</span>`;
+            }
+
+            mostrarAviso(resposta.mensagem || "Status Autokill alterado com sucesso!", "Sucesso");
+        })
+        .catch(function (erro) {
+            console.error("Erro ao alterar status autokill:", erro);
+            mostrarAviso(`Falha ao alterar status: ${erro.message}`, "Erro");
+
+        })
+        .finally(function () {
+
+            botaoElemento.disabled = false;
+        });
+}
 
 
 
@@ -377,9 +474,9 @@ const listaProcessosSimulados = [
 ];
 
 function popularTabelaProcessosAtivos(listaProcessos) {
-    if (!tabelaProcessosAtivosCorpo) {  return; }
+    if (!tabelaProcessosAtivosCorpo) { return; }
     tabelaProcessosAtivosCorpo.innerHTML = '';
-    if (!listaProcessos || listaProcessos.length === 0) {  return; }
+    if (!listaProcessos || listaProcessos.length === 0) { return; }
 
     var linhasHtml = '';
     for (var i = 0; i < listaProcessos.length; i++) {
@@ -389,7 +486,7 @@ function popularTabelaProcessosAtivos(listaProcessos) {
         const discoFormatado = processo.disco != null ? processo.disco.toFixed(1) : '-';
         const gpuFormatado = processo.gpu != null ? processo.gpu.toFixed(1) : '-';
 
-      
+
         var iconeAddBlacklist = `<i class="material-icons">block</i>`; // Ícone "block" ou "remove_circle_outline"
         var iconeKill = `<i class="material-icons">close</i>`; // Ícone "close" ou "dangerous"
 
@@ -401,10 +498,6 @@ function popularTabelaProcessosAtivos(listaProcessos) {
                         <td>${discoFormatado}</td>
                         <td>${gpuFormatado}</td>
                         <td>
-                            <button class="btn-icone-texto btn-add-blacklist" onclick="adicionarProcessoBlacklist('${processo.nome}',this)">
-                                ${iconeAddBlacklist}
-                                <span>Adicionar à Blacklist</span> 
-                            </button>
                             <button class="btn-icone-texto btn-kill" onclick="matarProcesso('${processo.nome}')">
                                  ${iconeKill}
                                  <span>Kill</span>
@@ -418,19 +511,31 @@ function popularTabelaProcessosAtivos(listaProcessos) {
 
 let idModeloAtualGlobal = null;
 
-function adicionarProcessoBlacklist(nomeProcesso,botaoElemento) {
-    if (!idModeloAtualGlobal) {
-        mostrarAviso("Não foi possível identificar o modelo atual.", "Erro");
-        return;
-    }
 
-    if (botaoElemento) {
-        botaoElemento.disabled = true;
-        botaoElemento.innerHTML = `<i class="material-icons">hourglass_empty</i><span>Adicionando...</span>`;
-    }
-   
+function telaAddWhitelist() {
+    const modalBody = document.getElementById("blacklistModal")
+    modalBody.innerHTML = `
+    <div class="modal-content" id="conteudo">
+    <div class="modal-header">
+                    <button class="modal-close" onclick="listarBlacklist(global)">&#8592;</button>
+                    <h3 class="modal-title1">Adicionar a Whitelist</h3>
+                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                           <label for="add">Nome</label>
+                    <input type="text" id="add">
+                   <button class="btn btn-primario" style="padding: 1%;" onclick="adicionarProcessoBlacklist(document.getElementById('add').value)">Adicionar</button>
+                    </div>
+                    </div>
+    `
 
-    const dados = { fk_modelo: idModeloAtualGlobal, nome: nomeProcesso };
+
+}
+
+function adicionarProcessoBlacklist(nomeProcesso) {
+
+
+    const dados = { fk_modelo: global, nome: nomeProcesso };
 
     fetch('/info-modelo/blacklist/adicionarProibido', {
         method: 'POST',
@@ -439,24 +544,20 @@ function adicionarProcessoBlacklist(nomeProcesso,botaoElemento) {
     })
         .then(function (res) {
             if (!res.ok) {
-                
+
                 return res.text().then(function (textoErro) {
-                    throw new Error(textoErro || `Erro ${res.status}`); 
+                    throw new Error(textoErro || `Erro ${res.status}`);
                 });
             }
-            return res.json(); 
+            return res.json();
         })
         .then(function (resposta) {
-           
-            mostrarAviso("Processo adicionado à blacklist!", "Sucesso");
-            if (botaoElemento) {
-                botaoElemento.innerHTML = `<i class="material-icons">check</i><span>Adicionado</span>`;
-                botaoElemento.disabled = true;
-            }
+
+            mostrarAviso("Processo adicionado à whitelist!", "Sucesso");
             listarBlacklist(idModeloAtualGlobal)
         })
         .catch(function (erro) {
-            
+
             console.error("Erro ao adicionar à blacklist:", erro);
             mostrarAviso(`Falha ao adicionar: ${erro.message}`, "Erro"); // Mostra a mensagem de erro
         });
@@ -474,7 +575,7 @@ function matarProcesso(nomeProcesso) {
 
     // Faz o fetch direto para a rota
     fetch('/info-modelo/blacklist/registrarNeutro', {
-        method: 'POST',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
     })
@@ -526,6 +627,8 @@ window.addEventListener("load", function () {
     var titulo = document.getElementById('codigo-modelo')
     titulo.textContent = idModeloAtual;
 
+    global = idModeloAtual
+
     var ultimaAtualizacao = document.getElementById('ultima-atualizacao')
     const agora = new Date();
     const horaFormatada = agora.toLocaleTimeString('pt-BR');
@@ -546,13 +649,13 @@ window.addEventListener("load", function () {
 
 
 // Funções de Modal
-function openModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-}
+//function openModal(modalId) {
+// document.getElementById(modalId).style.display = 'block';
+//}
 
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
+//function closeModal(modalId) {
+//   document.getElementById(modalId).style.display = 'none';
+//}
 
 // Fechar modal ao clicar fora
 window.onclick = function (event) {

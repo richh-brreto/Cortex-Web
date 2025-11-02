@@ -467,11 +467,43 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.topo-whitelist{
+    display: flex;
+    gap: 50%;
+}
+.modal-title1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.5s;
+}
+
 .modal-title {
     margin: 0;
     color: var(--cor-texto);
     font-size: 20px;
     font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.5s;
+    color: #6b7280;
+}
+
+.modal-title.ativo {
+    border-bottom-color: #00B2B2;
+    transition: 0.5s;
+    color: #000000;
 }
 
 .modal-close {
@@ -676,6 +708,8 @@ body {
     text-align: right;
     font-family: monospace; 
 }
+
+
 /* Célula das Ações */
 #procesosModal td:last-child {
    text-align: center;
