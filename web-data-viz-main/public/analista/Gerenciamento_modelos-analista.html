@@ -9,6 +9,8 @@
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link rel="stylesheet" href="../css/validacoes.css">
+    <script src="../js/validacoes.js"></script>
 </head>
 <style>
     .envoltorio-tabela table tbody td a {
@@ -209,7 +211,7 @@
                             </div>
                             <div class="campo-form">
                                 <label for="ip-modelo">IP:</label>
-                                <input type="text" id="ip-modelo" placeholder="Ex: 192.168.1.10">
+                                <input type="text" id="ip-modelo" placeholder="Ex: 192.168.1.10" inputmode="numeric" pattern="^(\\d{1,3}\\.){3}\\d{1,3}$" maxlength="15" title="Formato IPv4: 192.168.1.10">
                             </div>
                             <div class="campo-form">
                                 <label for="hostname-modelo">Hostname:</label>
@@ -291,6 +293,18 @@
         const limiteRamInput = document.getElementById('limite-ram-modelo');
         const limiteGpuInput = document.getElementById('limite-gpu-modelo');
         const arquiteturaInput = document.getElementById('arquitetura-modelo');
+
+        // aplica filtro de IP e usa função compartilhada de validação
+        if (typeof aplicarFiltroIp === 'function') {
+            aplicarFiltroIp('ip-modelo');
+        } else {
+            if (ipInput) {
+                ipInput.addEventListener('input', function () {
+                    const cleaned = this.value.replace(/[^0-9.]/g, '');
+                    if (this.value !== cleaned) this.value = cleaned;
+                });
+            }
+        }
 
 
         const tabelaCorpo = document.getElementById('tabela-modelos-corpo');
@@ -631,6 +645,36 @@
         form.addEventListener('submit', function (ev) {
             ev.preventDefault();
 
+            // campos para validar
+            const camposParaValidar = [
+                { id: 'nome-modelo', tipo: 'texto', nome: 'Nome' },
+                { id: 'cliente-modelo', tipo: 'select', nome: 'Cliente' },
+                { id: 'zona-modelo', tipo: 'select', nome: 'Zona' },
+                { id: 'arquitetura-modelo', tipo: 'select', nome: 'Arquitetura' }
+            ];
+
+            const errosValidacao = validarFormulario(camposParaValidar);
+            if (errosValidacao.length > 0) {
+                mostrarAviso(errosValidacao.join('\n'), 'Erro de Validação');
+                return;
+            }
+
+            // valida IP se preenchido (usa função do validacoes.js)
+            const ipValor = ipInput ? ipInput.value.trim() : '';
+            if (ipValor) {
+                if (typeof validarIPv4 === 'function') {
+                    if (!validarIPv4(ipValor)) {
+                        mostrarAviso('IP inválido. Formato esperado: 192.168.1.10', 'Erro de Validação');
+                        return;
+                    }
+                } else {
+                    const reFallback = /^(\d{1,3}\.){3}\d{1,3}$/;
+                    if (!reFallback.test(ipValor)) {
+                        mostrarAviso('IP inválido. Formato esperado: 192.168.1.10', 'Erro de Validação');
+                        return;
+                    }
+                }
+            }
 
             const modelo = {
                 nome: nomeInput.value.trim(),
@@ -648,12 +692,6 @@
                 fk_empresa: fk_empresa
 
             };
-
-
-            if (!modelo.nome || !modelo.fk_cliente || !modelo.fk_zona_disponibilidade || !modelo.fk_arquitetura) {
-                mostrarAviso("Os campos Nome, Cliente, Zona e Arquitetura são obrigatórios.", "Campos Obrigatórios");
-                return;
-            }
 
             let url = `/modelos/cadastrar`;
             let method = 'POST';

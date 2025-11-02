@@ -8,6 +8,8 @@
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link rel="stylesheet" href="../css/validacoes.css">
+    <script src="../js/validacoes.js"></script>
 </head>
 <style>
 .header-modelos{
@@ -516,6 +518,25 @@ tabelaCorpo.addEventListener('click', function(e) {
 
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
+
+    // campos a validar 
+    const camposParaValidar = [
+        { id: 'nome-arq', tipo: 'texto', nome: 'Nome' },
+        { id: 'modelo-cpu-arq', tipo: 'texto', nome: 'Modelo CPU' },
+        { id: 'qtd-cpu-arq', tipo: 'numero', nome: 'Qtd. CPU' },
+        { id: 'qtd-ram-arq', tipo: 'numero', nome: 'Qtd. RAM' },
+        { id: 'so-arq', tipo: 'texto', nome: 'Sistema Operacional' },
+        { id: 'max-disco-arq', tipo: 'numero', nome: 'Max. Disco' },
+        { id: 'qtd-arq', tipo: 'numero', nome: 'Qtd. Máquinas' },
+        { id: 'zona-modelo', tipo: 'select', nome: 'Zona' }
+    ];
+
+    const erros = validarFormulario(camposParaValidar);
+    if (erros.length > 0) {
+        alert(erros.join('\n'));
+        return;
+    }
+
     const arquitetura = {
         nome: nomeInput.value.trim(),
         modelo_cpu: modeloCpuInput.value.trim(),

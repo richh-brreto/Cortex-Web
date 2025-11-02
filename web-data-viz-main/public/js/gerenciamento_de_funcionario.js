@@ -24,6 +24,13 @@ const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 
+telefoneInput && telefoneInput.addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+    value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+    e.target.value = value;
+});
+
 function abrirModal(modo = 'novo') {
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -239,7 +246,38 @@ tabelaCorpo.addEventListener('click', (e) => {
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
 
-        var cargoB = null
+    const camposParaValidar = [
+        { id: 'nome-funcionario', tipo: 'texto', nome: 'Nome' },
+        { id: 'email-funcionario', tipo: 'texto', nome: 'E-mail' },
+        { id: 'senha-funcionario', tipo: 'texto', nome: 'Senha' },
+        { id: 'cargo-funcionario', tipo: 'select', nome: 'Cargo' },
+        { id: 'telefone-funcionario', tipo: 'texto', nome: 'Telefone' },
+        { id: 'status-funcionario', tipo: 'select', nome: 'Status' }
+    ];
+
+    const erros = validarFormulario(camposParaValidar);
+
+    if (emailInput && !validarEmail(emailInput.value)) {
+        erros.push('E-mail inválido');
+        mostrarErro(emailInput, 'Formato de e-mail inválido');
+    }
+
+    if (telefoneInput && !validarTelefone(telefoneInput.value)) {
+        erros.push('Telefone inválido');
+        mostrarErro(telefoneInput, 'Formato de telefone inválido');
+    }
+
+    if (!fotoInput || !fotoInput.files || fotoInput.files.length === 0) {
+        erros.push('Selecione uma foto');
+        if (fotoInput) mostrarErro(fotoInput, 'Campo obrigatório');
+    }
+
+    if (erros.length > 0) {
+        alert(erros.join('\n'));
+        return;
+    }
+
+    var cargoB = null
         var statusB = null
     if(cargoInput.value == "Analista"){
          cargoB = 1

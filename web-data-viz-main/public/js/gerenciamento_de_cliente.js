@@ -20,7 +20,22 @@ const fk_empresa = sessionStorage.EMPRESA_USUARIO;
 
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
+// Adicionar máscaras aos campos
+document.getElementById('cnpj-cliente').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    value = value.replace(/(\d{4})(\d)/, '$1-$2');
+    e.target.value = value;
+});
 
+document.getElementById('telefone-cliente').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+    value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+    e.target.value = value;
+});
 
 // Transformar
 function abrirModal(modo = 'novo') {
@@ -197,8 +212,40 @@ tabelaCorpo.addEventListener('click', (e) => {
 
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
+        // define os campos a serem validados
+        const camposParaValidar = [
+            { id: 'nome-cliente', tipo: 'texto', nome: 'Nome do Cliente' },
+            { id: 'cnpj-cliente', tipo: 'texto', nome: 'CNPJ' },
+            { id: 'telefone-cliente', tipo: 'texto', nome: 'Telefone' },
+            { id: 'email-cliente', tipo: 'texto', nome: 'Email' }
+        ];
 
-    const cliente = {
+        // validar o formulário
+        const erros = validarFormulario(camposParaValidar);
+    
+        // validações específicas
+        if (emailInput.value && !validarEmail(emailInput.value)) {
+            erros.push('Email inválido');
+            mostrarErro(emailInput, 'Formato de email inválido');
+        }
+
+        if (!validarCNPJ(cnpjInput.value)) {
+            erros.push('CNPJ inválido');
+            mostrarErro(cnpjInput, 'Formato de CNPJ inválido');
+        }
+
+        if (!validarTelefone(telefoneInput.value)) {
+            erros.push('Telefone inválido');
+            mostrarErro(telefoneInput, 'Formato de telefone inválido');
+        }
+
+        // mostra os erros aqui
+        if (erros.length > 0) {
+            alert(erros.join('\n'));
+            return;
+        }
+
+        const cliente = {
         nome: nomeInput.value.trim(),
         descricao: descInput.value.trim(),
         cnpj: cnpjInput.value.trim(),

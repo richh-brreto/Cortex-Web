@@ -8,6 +8,7 @@
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
     <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link rel="stylesheet" href="../css/validacoes.css">
 </head>
 <style>
 .header-modelos{
@@ -246,6 +247,7 @@
 </div>
   
  <body>
+<script src="../js/validacoes.js"></script>
 <script>
 // IDs dos campos
 const nomeInput = document.getElementById('nome-arq');
@@ -534,12 +536,32 @@ tabelaCorpo.addEventListener('click', function(e) {
 
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
+    
+    const camposParaValidar = [
+        { id: 'nome-arq', tipo: 'texto', nome: 'Nome' },
+        { id: 'modelo-cpu-arq', tipo: 'texto', nome: 'Modelo CPU' },
+        { id: 'qtd-cpu-arq', tipo: 'numero', nome: 'Quantidade de CPU' },
+        { id: 'qtd-ram-arq', tipo: 'numero', nome: 'Quantidade de RAM' },
+        { id: 'so-arq', tipo: 'texto', nome: 'Sistema Operacional' },
+        { id: 'max-disco-arq', tipo: 'numero', nome: 'Máximo de Disco' },
+        { id: 'qtd-arq', tipo: 'numero', nome: 'Quantidade de Máquinas' },
+        { id: 'zona-modelo', tipo: 'select', nome: 'Zona' }
+    ];
+
+    const erros = validarFormulario(camposParaValidar);
+    if (erros.length > 0) {
+        mensagemAviso.textContent = erros.join('\n');
+        tituloAviso.textContent = 'Erro de Validação';
+        fundoAviso.classList.add('show');
+        return;
+    }
+
     const arquitetura = {
         nome: nomeInput.value.trim(),
         modelo_cpu: modeloCpuInput.value.trim(),
         qtd_cpu: parseInt(qtdCpuInput.value),
         qtd_ram: parseInt(qtdRamInput.value),
-        modelo_gpu: modeloGpuInput.value.trim(),
+        modelo_gpu: modeloGpuInput.value.trim() || null,
         so: soInput.value.trim(),
         maxDisco: parseInt(maxDiscoInput.value),
         qtd: parseInt(qtdInput.value),
