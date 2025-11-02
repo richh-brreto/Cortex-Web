@@ -135,8 +135,8 @@ function procMortos(req, res) {
     var idModelo = req.params.idModelo;
 
     if (idModelo == undefined) {
-        console.error("Controller: ID do processo inválido ou não fornecido.");
-        return res.status(400).send("ID do processo inválido!"); // Retorna erro 400 Bad Request
+        console.error("Controller: ID do modelo inválido ou não fornecido.");
+        return res.status(400).send("ID do modelo inválido!"); // Retorna erro 400 Bad Request
     }
 
     infoModeloModel.procMortos(idModelo)

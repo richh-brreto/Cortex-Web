@@ -119,16 +119,6 @@ function mostrarConfirmacao(mensagem, titulo) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 function infoModeloGet(idModelo) {
     console.log("Buscando dados completos para o modelo:", idModelo);
     fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
@@ -185,7 +175,7 @@ function listarBlacklist(idModelo) {
                     <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
                 </div>
                 <div class="modal-body" id="modal-body">
-                    <div class="info-items">
+                    <div class="info-items" >
                         <div class="topo-whitelist">
                             <input type="search" class="input-pesquisa">
                             <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
@@ -299,7 +289,7 @@ function logProcMortos() {
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Data e Horário da Morte</th>
+                                            <th>Data e Horário da Kill</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tabela-blacklist-corpo">
@@ -321,6 +311,8 @@ function logProcMortos() {
 
     const white = document.getElementById("white")
     white.addEventListener("click", () => listarBlacklist(global))
+    var idModelo = global
+
     fetch(`/info-modelo/procMortos/${idModelo}`)
         .then(function (res) {
             if (!res.ok) {
@@ -445,18 +437,6 @@ function alternarAutokillProcesso(idProcesso, botaoElemento) {
             botaoElemento.disabled = false;
         });
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
