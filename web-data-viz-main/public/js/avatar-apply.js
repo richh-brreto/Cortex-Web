@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        const defaultAvatar = '/assets/icon/sem-foto.png';
+        const defaultAvatar = '../assets/icon/sem-foto.png';
         const avatarUrl = sessionStorage.USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : defaultAvatar);
         const userName = sessionStorage.NOME_USUARIO || '';
 

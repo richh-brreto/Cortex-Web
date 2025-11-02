@@ -1,8 +1,9 @@
 var database = require("../database/config")
 
-function cadastrarUsuario(idEmpresa, nome, email, senha) {
+function cadastrarUsuario(idEmpresa, nome, email, senha, tel) {
     var instrucaoSql = `
-        INSERT INTO usuario (fk_empresa, nome, email, senha,ativo) VALUES ('${idEmpresa}','${nome}','${email}','${senha}','0');
+        INSERT INTO usuario (fk_empresa, nome, email, senha,telefone) 
+        VALUES ('${idEmpresa}','${nome}','${email}','${senha}','${tel}');
         
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -19,7 +20,7 @@ function cadastrarEmpresa(cnpj, nomeEmpresa, telefoneResponsavel, nomeResponsave
 
 function buscarId(cnpj) {
     var instrucaoSql = `
-        SELECT id_empresa FROM empresa
+        SELECT id FROM empresa
         WHERE cnpj = '${cnpj}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -28,8 +29,9 @@ function buscarId(cnpj) {
 
 function login(email, senha) {
     var instrucaoSql = `
-    select email, nome, id, fk_cargo, fk_empresa, ativo, foto from usuario
-    where email = '${email}' and senha = '${senha}';
+    select u.email, u.nome, u.id, u.fk_cargo, u.fk_empresa, u.ativo, u.foto, e.ativo as ativoE from usuario as u  
+    inner join empresa as e on e.id = u.fk_empresa
+    where u.email = '${email}' and u.senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

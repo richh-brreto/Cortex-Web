@@ -55,9 +55,8 @@ const mapaColunas = {
     'foto': 2,
     'email': 3,
     'cargo': 4,
-    'senha': 5,
-    'telefone': 6,
-    'status': 7
+    'telefone': 5,
+    'status': 6
 };
 
 function aplicarPesquisa() {
@@ -92,6 +91,7 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
+const senhas = []
 function atualizarTabela() {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
@@ -111,6 +111,8 @@ function atualizarTabela() {
                 } else {
                     f.ativo = "Inativo"
                 }
+                senhas.push(f.id)
+                senhas.push(f.senha)
 
                 const tr = document.createElement("tr");
                     const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
@@ -151,16 +153,19 @@ window.addEventListener("load", () => {
     atualizarTabela();
 });
 
-
+// header
     headers.forEach(h =>{
     h.addEventListener('click', () =>{
         var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
-        const indice = parseInt(h.id)
+        const indice = parseInt(h.id);
         for(let i = 0; i < linhas.length; i++){
             var menor = i
             for(let j = i + 1; j < linhas.length;j++){
-                var valorA = linhas[menor].children[indice].textContent.toLowerCase()
-                var valorB = linhas[j].children[indice].textContent.toLowerCase()
+                
+                var valorA = linhas[menor].children[indice].textContent.toLowerCase().trim()
+                var valorB = linhas[j].children[indice].textContent.toLowerCase().trim()
+                console.log(valorA)
+                console.log(valorB)
               if(valorA.localeCompare(valorB)  > 0){
                 menor = j;
               }
@@ -211,10 +216,19 @@ tabelaCorpo.addEventListener('click', (e) => {
             cargoInput.value = "Analista";
         }
 
-        senhaInput.value = linha.children[5].textContent;
+        console.log(linha.children[0].textContent)
+        var indice = 0
+        for(let i = 0; i< senhas.length; i++){
+            if(senhas[i] == linha.children[0].textContent){
+                indice = i+1
+            }
+        }
+        
+        senhaInput.value = senhas[indice]
         telefoneInput.value = linha.children[5].textContent;
 
         statusInput.value = linha.children[6].textContent.trim().toLowerCase();
+
         abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {
@@ -234,6 +248,7 @@ tabelaCorpo.addEventListener('click', (e) => {
         }
     }
 });
+
 
 
 form.addEventListener('submit', (ev) => {
