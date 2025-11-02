@@ -20,6 +20,10 @@ router.get("/blacklist/listarBlacklist/:idmodelo",function (req, res) {
     infoModeloController.listarBlacklist(req, res)
 });
 
+router.get("/procMortos/:idmodelo",function (req, res) {
+    infoModeloController.procMortos(req, res)
+});
+
 
 
 router.delete("/blacklist/remover/:idProcesso",function (req, res) {

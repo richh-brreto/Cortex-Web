@@ -245,3 +245,23 @@ VALUES
 
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
+
+
+CREATE TABLE log_processos (
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50), 
+    dataKill DATETIME,
+    fk_modelo INT,
+    FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+);
+
+
+INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES 
+('Processo_A', '2025-10-31 08:30:00', 1),
+('Processo_B', '2025-10-31 09:15:00', 1),
+('Processo_C', '2025-10-31 10:00:00', 1),
+('Processo_D', '2025-10-31 10:45:00', 1),
+('Processo_E', '2025-10-31 11:30:00', 1),
+('Processo_F', '2025-10-31 12:15:00', 1),
+('Processo_G', '2025-10-31 13:00:00', 1),
+('Processo_H', '2025-10-31 13:45:00', 1);

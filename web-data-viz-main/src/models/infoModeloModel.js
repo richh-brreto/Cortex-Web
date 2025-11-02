@@ -103,6 +103,17 @@ function atualizarStatus(idProcesso, novoStatus) {
     return database.executar(instrucaoSql);
 }
 
+function procMortos(idModelo) {
+    
+   
+    var instrucaoSql = `
+        SELECT id_log, nome, dataKill FROM log_processos WHERE fk_modelo = ${idModelo};
+    `;
+    
+     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     infoModeloGet,
@@ -110,5 +121,6 @@ module.exports = {
     listarBlacklist,
     removerDaBlacklist,
     atualizarStatus,
-    matarProcesso
+    matarProcesso,
+    procMortos
 };

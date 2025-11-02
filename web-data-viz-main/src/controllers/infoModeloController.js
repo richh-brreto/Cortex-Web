@@ -131,6 +131,26 @@ function removerDaBlacklist(req, res) {
         });
 }
 
+function procMortos(req, res) {
+    var idModelo = req.params.idModelo;
+
+    if (idModelo == undefined) {
+        console.error("Controller: ID do processo inválido ou não fornecido.");
+        return res.status(400).send("ID do processo inválido!"); // Retorna erro 400 Bad Request
+    }
+
+    infoModeloModel.procMortos(idModelo)
+        .then(function (resultado) {
+                    console.log("Tudo certo no controller")
+
+                    res.status(200).json(resultado)
+        })
+        .catch(function (erro) {
+            console.error("Erro Controller (listar log processos):", erro.sqlMessage || erro);
+            res.status(500).json(erro.sqlMessage || "Erro interno do servidor ao listar log de processos.");
+        });
+}
+
 
 
 module.exports = {
@@ -139,5 +159,6 @@ module.exports = {
     registrarProcessoNeutro,
     listarBlacklist,
     removerDaBlacklist,
-    atualizarStatusAutokill
+    atualizarStatusAutokill,
+    procMortos
 };
