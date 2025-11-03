@@ -99,13 +99,26 @@
             <div class="header-content">
                 <div class="header-info">
                     <h1 id="nome-modelo">Modelo H333</h1>
-                    <p>Código:<strong id="codigo-modelo">MDL-H333-2024</strong></p>
+                    <p>ID: <strong id="codigo-modelo">MDL-H333-2024</strong></p>
                     <p>Última atualização: <strong id="ultima-atualizacao">12:00</strong></p>
                 </div>
                 <div class="status-badge active">
                     <div class="status-indicator active"></div>
                     <span class="status-text active">ATIVO</span>
                 </div>
+                <div class="container-periodo">
+                <p>Período:</p>
+                <p>Início:</p>
+                <div class="container-sugestao">
+                    <input type="search" id="inicio" class="input-pesquisa">
+                    <div  id="sugestaoInicio"></div>
+                </div>
+                <p>Fim:</p>
+                <div class="container-sugestao">
+                    <input type="search" id="fim" class="input-pesquisa">
+                    <div id="sugestaoFim"></div>
+               </div>
+            </div>
             </div>
         </div>
 
@@ -119,9 +132,9 @@
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                         </svg>
                     </div>
-                    <div class="kpi-title">Execuções Bloqueadas em 24hrs</div>
+                    <div class="kpi-title">Processos Bloqueados</div>
                 </div>
-                <div class="kpi-value danger">2 Execuções Bloqueadas</div>
+                <div class="kpi-value danger">2 Processos Bloqueados</div>
             </div>
 
             <!-- Downtime -->
@@ -150,7 +163,7 @@
                             <line x1="12" y1="17" x2="12.01" y2="17"></line>
                         </svg>
                     </div>
-                    <div class="kpi-title">ALERTAS Semanais</div>
+                    <div class="kpi-title">QUANTIDADE DE ALERTAS</div>
                 </div>
                 <div class="alerts-grid-two-columns">
                     <div class="alerts-column">
@@ -209,7 +222,7 @@
         <div class="charts-grid">
             <!-- Gráfico de Recursos -->
             <div class="chart-card">
-                <h3 class="chart-title">Uso de Recursos mensais (CPU, RAM, Disco, GPU)</h3>
+                <h3 class="chart-title">Uso de Recursos (CPU, RAM, Disco, GPU)</h3>
                 <div class="chart-container">
                     <canvas id="resourceChart"></canvas>
                 </div>
@@ -218,7 +231,7 @@
             
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Alertas Semanais</h3>
+                    <h3 class="chart-title">Alertas</h3>
                     <div class="chart-filters">
                         <button class="filter-btn active" onclick="atualizarGrafico('CPU', this)">CPU</button>
                         <button class="filter-btn" onclick="atualizarGrafico('RAM', this)">RAM</button>
