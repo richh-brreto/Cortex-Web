@@ -1,3 +1,4 @@
+/*
 var mural = require("../models/mural");
 const axios = require("axios");
 const JIRA_BASE_URL = "https://sptech-hydroscan.atlassian.net";
@@ -65,3 +66,4 @@ async function listar(req, res) {
 module.exports = {
   listar,
 };
+*/
