@@ -309,6 +309,14 @@ body {
     min-width: 70px;
 }
 
+
+.storage-total {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    min-width: 70px;
+}
+
 /* ========== CHARTS ========== */
 .charts-grid {
     display: grid;
@@ -391,6 +399,60 @@ body {
     max-width: 100% !important;
 }
 
+.input-pesquisa {
+    flex: 1;
+    min-width: 100px;
+    padding: 0.3rem;
+    border: 2px solid var(--cor-borda);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: var(--cor-fundo-tela);
+}
+
+.input-pesquisa:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(0, 178, 178, 0.1);
+    outline: none;
+}
+
+
+.container-periodo{
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    margin-right: 2%;
+}
+.container-sugestao {
+    position: relative; 
+    display: inline-block;
+}
+
+#sugestaoInicio,
+#sugestaoFim {
+    position: absolute;
+    top: 2;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+#sugestaoInicio div,
+#sugestaoFim div {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+#sugestaoInicio div:hover,
+#sugestaoFim div:hover {
+    background-color: #f0f0f0;
+}
 /* ========== BOTÕES DE INFORMAÇÕES - MELHORADOS ========== */
 .info-buttons-grid {
     display: grid;
