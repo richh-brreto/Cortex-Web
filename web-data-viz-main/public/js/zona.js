@@ -198,12 +198,12 @@ function adicionarEmZona(tipo, id_zona){
     }
     
     if(tipo == "arquitetura"){
-        const qtd = document.getElementById("iptQtdArq")
-        if(!qtd.value){
-            alert("Preeencha todos os campos para a vinculação.")
-            return
-        }
-        fetch("/zona/vincularArquitetura/" + id_zona, {
+      const qtd = (document.getElementById("iptQtdArq").value);
+      if(!qtd){
+        alert("Preeencha todos os campos para a vinculação.")
+        return
+      }
+       fetch("/zona/vincularArquitetura/" + id_zona, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

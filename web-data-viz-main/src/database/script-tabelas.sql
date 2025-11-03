@@ -103,9 +103,15 @@ VALUES
         );
         
 INSERT INTO arquitetura (id_arquitetura, nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
-VALUES 
-(1, 'Servidor de Produção 01', 'Intel Xeon Gold 6248R', 8, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 4000, 1),
-(2, 'Servidor de Produção 02', 'Intel Xeon Gold 6248R', 16, 128, 'NVIDIA T4', 'Ubuntu Server 22.04', 2000, 1);
+VALUES
+-- Linha básica: para tarefas leves e processamento contínuo
+(1, 'Astra-Mini', 'Intel Xeon E-2378', 4, 16, 'NVIDIA T400', 'Ubuntu Server 22.04 LTS', 500, 1),
+(2, 'Astra-Core', 'Intel Xeon E-2388G', 8, 32, 'NVIDIA T1000', 'Ubuntu Server 22.04 LTS', 1000, 1),
+
+-- Linha equilibrada: performance e eficiência
+(3, 'Vortex-1', 'AMD EPYC 7313P', 16, 64, 'NVIDIA RTX A2000', 'Debian 12', 2000, 1),
+(4, 'Vortex-2', 'AMD EPYC 7443', 32, 128, 'NVIDIA RTX A4000', 'Debian 12', 4000, 1),
+(5, 'WAPX', 'AMD EPYC 7443', 32, 128, 'NVIDIA GB200', 'Debian 12', 4000, 1);
 
 create table arquitetura_zona (
 	fk_arquitetura int,
