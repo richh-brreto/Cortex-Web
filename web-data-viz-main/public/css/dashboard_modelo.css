@@ -309,6 +309,14 @@ body {
     min-width: 70px;
 }
 
+
+.storage-total {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    min-width: 70px;
+}
+
 /* ========== CHARTS ========== */
 .charts-grid {
     display: grid;
