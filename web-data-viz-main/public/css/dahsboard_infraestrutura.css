@@ -43,16 +43,41 @@ body {
 /* Header */
 .header {
     border-radius: 12px;
-    padding: 14px 20px;
-    box-shadow: 0 2px 8px var(--cor-sombra);
+    display: flex;
     flex-shrink: 0;
+}
+
+#selectZone {
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
 .header h1 {
     margin: 0;
     color: var(--cor-texto);
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+[data-tooltip] {
+  position: relative;
+  font-weight: bold;
+}
+
+[data-tooltip]:after {
+  display: none;
+  position: absolute;
+  top: -5px;
+  padding: 5px;
+  border-radius: 3px;
+  content: attr(data-tooltip);
+  white-space: nowrap;
+  background-color: #0095ff;
+  color: white;
+}
+
+[data-tooltip]:hover:after {
+  display: block;
 }
 
 /* KPIs */
