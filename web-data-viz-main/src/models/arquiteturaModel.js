@@ -17,8 +17,8 @@ function cadastrar(dados) {
     console.log("Model: Cadastrando nova arquitetura:", dados.nome);
     
     var instrucaoSql = `
-       INSERT INTO arquitetura (nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, qtd, fk_zona, fk_empresa)
-        VALUES ('${dados.nome}', '${dados.modelo_cpu}', ${dados.qtd_cpu}, ${dados.qtd_ram}, '${dados.modelo_gpu}', '${dados.so}', ${dados.maxDisco}, ${dados.qtd}, ${dados.fk_zona}, ${dados.fk_empresa});
+       INSERT INTO arquitetura (nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
+        VALUES ('${dados.nome}', '${dados.modelo_cpu}', ${dados.qtd_cpu}, ${dados.qtd_ram}, '${dados.modelo_gpu}', '${dados.so}', ${dados.maxDisco}, ${dados.fk_empresa});
     `;
     return database.executar(instrucaoSql);
 }

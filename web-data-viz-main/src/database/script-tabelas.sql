@@ -90,7 +90,7 @@ VALUES
 ('CloudCorp', 'Infraestrutura em nuvem e segurança', 'contato@cloudcorp.com', '(11) 91234-5678', '11.111.111/0001-22', 1);
 
   create table arquitetura (
-        id_arquitetura int primary key,
+        id_arquitetura int primary key AUTO_INCREMENT,
         nome varchar(55),
         modelo_cpu varchar(55),
         qtd_cpu int,
