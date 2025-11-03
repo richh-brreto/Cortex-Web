@@ -2,19 +2,19 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title> Cortex | Login</title>
+  <title> Cortex | Login</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.5/dist/sweetalert2.all.min.js"></script>
 
-    <link rel="stylesheet" href="./css/styleLogin.css">
-    <link rel="stylesheet" href="./css/responsiveLogin.css">
-    <link rel="icon" href="./assets/icon/favicon2.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="./css/styleLogin.css">
+  <link rel="stylesheet" href="./css/responsiveLogin.css">
+  <link rel="icon" href="./assets/icon/favicon2.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
 <body>
@@ -46,36 +46,36 @@
   </div>
 
 
-    <div class="cadastro">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
-        <div class="container-cadastro">
-            <div class="lado-esquerdo">
-                <h1>Bem-vindo <br> a <br> <strong>Cortex</strong> </h1>
-                <p>Não possui cadastro? <br> Realize-o abaixo!</p>
-                <button class="btn-login" onclick="location.href='cadastro.html';"> Fazer cadastro </button>
-            </div>
-            <hr class="linha">
-            <div class="lado-direito">
-                <h2>REALIZAR LOGIN</h2>
-                <div class="formulario">
-                    <div class="campo">
-                        <label> Email: </label>
-                        <input id="email_input" type="text" placeholder="meuemail@gmail.com" />
-                    </div>
-                    <div class="campo">
-                        <label> Senha: </label>
-                        <input id="senha_input" type="password" placeholder="*******" />
-                    </div>
-                    <button class="btn-cadastro" onclick="login()"> Entrar </button>
-                    <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
-                </div>
-            </div>
-        </div>
+  <div class="cadastro">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
     </div>
+    <div class="container-cadastro">
+      <div class="lado-esquerdo">
+        <h1>Bem-vindo <br> a <br> <strong>Cortex</strong> </h1>
+        <p>Não possui cadastro? <br> Realize-o abaixo!</p>
+        <button class="btn-login" onclick="location.href='cadastro.html';"> Fazer cadastro </button>
+      </div>
+      <hr class="linha">
+      <div class="lado-direito">
+        <h2>REALIZAR LOGIN</h2>
+        <div class="formulario">
+          <div class="campo">
+            <label> Email: </label>
+            <input id="email_input" type="text" placeholder="meuemail@gmail.com" />
+          </div>
+          <div class="campo">
+            <label> Senha: </label>
+            <input id="senha_input" type="password" placeholder="*******" />
+          </div>
+          <button class="btn-cadastro" onclick="login()"> Entrar </button>
+          <a href="#" class="esqueceu-a-senha">Esqueceu a senha?</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="footer">
     <div class="container">
@@ -92,120 +92,122 @@
 <script>
 
 
-    function login() {
+  function login() {
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
 
-        if (emailVar == "" || senhaVar == "" || senhaVar.length < 3 || !emailVar.includes("@") || !emailVar.includes(".")) {
-            Swal.fire({
-                icon: "error",
-                title: "Erro no login",
-                text: "Preencha os campos corretamente!"
-            });
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
+    if (emailVar == "" || senhaVar == "" || senhaVar.length < 3 || !emailVar.includes("@") || !emailVar.includes(".")) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro no login",
+        text: "Preencha os campos corretamente!"
+      });
+      return false;
+    }
+    else {
+      setInterval(sumirMensagem, 5000)
+    }
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuario/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
+    fetch("/usuario/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
 
-            if (resposta.ok) {
-                console.log(resposta);
+      if (resposta.ok) {
+        console.log(resposta);
 
         resposta.json().then(json => {
           console.log(json)
 
-                 if (!json || json == undefined || json == null || json == '') {
+          if (!json || json == undefined || json == null || json == '') {
             Swal.fire({
-                icon: "error",
-                title: "Erro no login",
-                text: "Preencha os campos corretamente!"
+              icon: "error",
+              title: "Erro no login",
+              text: "Preencha os campos corretamente!"
             });
             return false;
-        }
+          }
           const usuario = json[0]
 
           console.log(usuario)
 
-          if(usuario.ativoE == 0){
+          if (usuario.ativoE == 0) {
             location.href = "./inativo.html"
           }
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = usuario.email;
-          sessionStorage.NOME_USUARIO = usuario.nome;
-          sessionStorage.ID_USUARIO = usuario.id;
-          let cargo =""
-          if(usuario.fk_cargo == 1){
+          let dados_session = {}
+          dados_session.EMAIL_USUARIO = usuario.email;
+          dados_session.NOME_USUARIO = usuario.nome;
+          dados_session.ID_USUARIO = usuario.id;
+          let cargo = ""
+          if (usuario.fk_cargo == 1) {
             cargo = "Analista"
-          }else if (usuario.fk_cargo == 2){
+          } else if (usuario.fk_cargo == 2) {
             cargo = "Supervisor"
-          }else if(usuario.fk_cargo == 3){
+          } else if (usuario.fk_cargo == 3) {
             cargo = "tecnico"
           }
 
-          sessionStorage.CARGO_USUARIO = cargo
-          sessionStorage.FK_CARGO = usuario.fk_cargo
-          sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
-          sessionStorage.FOTO=usuario.foto;
+          dados_session.CARGO_USUARIO = cargo
+          dados_session.FK_CARGO = usuario.fk_cargo
+          dados_session.EMPRESA_USUARIO = usuario.fk_empresa;
+          dados_session.FOTO = usuario.foto;
           // salva a URL completa do avatar para uso imediato na navbar
           try {
-            sessionStorage.USER_AVATAR = usuario.foto && usuario.foto.trim() !== '' ? `/assets/imgs/${usuario.foto}` : '/assets/icon/sem-foto.png';
-          } catch (e) {}
-          sessionStorage.ATIVADO_USUARIO=usuario.ativo;
-          console.log(sessionStorage)
+            dados_session.USER_AVATAR = usuario.foto && usuario.foto.trim() !== '' ? `/assets/imgs/${usuario.foto}` : '/assets/icon/sem-foto.png';
+          } catch (e) { }
+          dados_session.ATIVADO_USUARIO = usuario.ativo;
+          sessionStorage.setItem("dados",JSON.stringify(dados_session))
+          console.log(dados_session)
 
-                    Swal.fire({
-                        icon: "success",
-                        title: "Login realizado",
-                        text: "Redirecionando..."
-                    });
+          Swal.fire({
+            icon: "success",
+            title: "Login realizado",
+            text: "Redirecionando..."
+          });
 
           setTimeout(function () {
-            if(usuario.ativo !="1"){
-               location.href = './inativoUsuario.html';
-            }else{
-              if(usuario.fk_cargo=="2"){
-               location.href = './tecnico-supervisor/mural_de_alertas-supervisor.html';
-            }else if(usuario.fk_cargo=="3"){
+            if (usuario.ativo != "1") {
+              location.href = './inativoUsuario.html';
+            } else {
+              if (usuario.fk_cargo == "2") {
+                location.href = './tecnico-supervisor/mural_de_alertas-supervisor.html';
+              } else if (usuario.fk_cargo == "3") {
                 location.href = './tecnico/mural_de_alertas-tecnico.html';
-            }else if(usuario.fk_cargo=="1"){
-              location.href = './analista/dahsboard_infraestrutura.html';
-            }else if(usuario.fk_cargo=="4"){
-              location.href = './suporte-cortex/ativacaoCliente.html'
+              } else if (usuario.fk_cargo == "1") {
+                location.href = './analista/dahsboard_infraestrutura.html';
+              } else if (usuario.fk_cargo == "4") {
+                location.href = './suporte-cortex/ativacaoCliente.html'
+              }
             }
-            }
-            
-            
+
+
           }, 3000);
 
-                });
+        });
 
-            } else {
+      } else {
 
-                Swal.fire({
-                    icon: "error",
-                    title: "Erro no login",
-                    text: "Email ou senha inválidos!"
-                });
+        Swal.fire({
+          icon: "error",
+          title: "Erro no login",
+          text: "Email ou senha inválidos!"
+        });
 
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
 
     }).catch(function (erro) {
       console.log(erro);
@@ -216,11 +218,11 @@
       });
     })
 
-        return false;
-    }
+    return false;
+  }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+  function sumirMensagem() {
+    cardErro.style.display = "none"
+  }
 
 </script>
