@@ -767,36 +767,31 @@ function atualizarGrafico(tipo, botao) {
 }
 
 function valorDefault(){
-    if(sessionStorage.getItem("FK_CARGO") == 1){
+    if(JSON.parse(sessionStorage.getItem("dados")).FK_CARGO == 1){
         document.getElementById("inicio").value = "04/10/2024"
         document.getElementById("fim").value = "04/11/2025"
+    }else if(JSON.parse(sessionStorage.getItem("dados")).FK_CARGO == 2 || JSON.parse(sessionStorage.getItem("dados")).FK_CARGO == 3){
+        document.getElementById("inicio").value = "01"
     }
 }
  const iptInicio = document.getElementById("inicio")
 const divInicio = document.getElementById("sugestaoInicio")
-const iptFim = document.getElementById("fim")
-const divFim = document.getElementById("sugestaoFim")
 
 iptInicio.addEventListener("blur", () => { setTimeout(() => {divInicio.innerHTML = ""}, 150)})
-iptInicio.addEventListener("focus", () => searchComSelect(iptInicio.value, iptFim.value,1,"inicio"))
-iptInicio.addEventListener("input", () => searchComSelect(iptInicio.value, iptFim.value,0,"inicio"))
-
-
-iptFim.addEventListener("blur", () => { setTimeout(() => {divFim.innerHTML = ""}, 150)})
-iptFim.addEventListener("focus", () => searchComSelect(iptInicio.value, iptFim.value,1,"fim"))
-iptFim.addEventListener("input", () => searchComSelect(iptInicio.value, iptFim.value,0,"fim"))
+iptInicio.addEventListener("focus", () => searchComSelect(iptInicio.value,1,"inicio"))
+iptInicio.addEventListener("input", () => searchComSelect(iptInicio.value,0,"inicio"))
 
 function searchComSelect(inicio, fim, foco,ipt){
     
 
     var sugestao = []
      var cache = []
-    const fkCargo = sessionStorage.getItem("FK_CARGO")
-
-    if(fkCargo == 1){
+    const fkCargo = JSON.parse(sessionStorage.getItem("dados")).FK_CARGO
+    console.log(fkCargo)
+if(fkCargo == 1){
 
 // datas_ultimos_12_meses.js
-var cache = [
+cache = [
 "03/11/2024","04/11/2024","05/11/2024","06/11/2024","07/11/2024","08/11/2024","09/11/2024","10/11/2024","11/11/2024","12/11/2024",
 "13/11/2024","14/11/2024","15/11/2024","16/11/2024","17/11/2024","18/11/2024","19/11/2024","20/11/2024","21/11/2024","22/11/2024",
 "23/11/2024","24/11/2024","25/11/2024","26/11/2024","27/11/2024","28/11/2024","29/11/2024","30/11/2024","01/12/2024","02/12/2024",
@@ -837,7 +832,7 @@ var cache = [
 ];
 
     }else if(fkCargo == 2 || fkCargo == 3){
-
+        cahce = ['01', "02","03"]
     }
 
    
