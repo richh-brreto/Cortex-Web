@@ -199,6 +199,8 @@ function adicionarEmZona(tipo, id_zona){
     
     if(tipo == "arquitetura"){
       const qtd = (document.getElementById("iptQtdArq").value);
+
+      console.log(qtd, id, id_zona)
       if(!qtd){
         alert("Preeencha todos os campos para a vinculação.")
         return
@@ -208,7 +210,7 @@ function adicionarEmZona(tipo, id_zona){
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 idArq: id,
-                qtdArq: qtd.value
+                qtdArq: qtd
             })
         })
             .then(res => {
@@ -649,8 +651,10 @@ function carregarFuncionarios(){
                 const card = document.createElement("div")
                 card.className = "card-usuario"
 
+                var fotoReal = "../assets/imgs/" + func[i].foto 
+                    console.log(fotoReal)
                 card.innerHTML = `  
-                    <img src=${func[i].foto} class="foto">
+                    <img src=${fotoReal} class="foto">
                     <div class="conteudo-usuario">
                         <h5 name="nome">${func[i].nome}</h5>
                         <div class="linha-conteudo">

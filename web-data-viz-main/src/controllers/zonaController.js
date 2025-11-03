@@ -268,7 +268,7 @@ function posibilidadesFunc(req, res) {
 function vincularArquitetura(req, res) {
     
     var id_zona = req.params.id_zona
-    var idArq = req.body.idModelo
+    var idArq = req.body.idArq
     var qtdArq = req.body.qtdArq
    
    if (!id_zona || !idArq || !qtdArq){
