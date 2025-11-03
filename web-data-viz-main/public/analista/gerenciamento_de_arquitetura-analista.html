@@ -96,7 +96,12 @@
     <main class="conteudo-principal">
     <div class="container-modelos">
       <div class="header-modelos">
-        <h1>Gerenciamento de Arquiteturas de servidores</h1> <img src="../assets/icon/servidor.png" style="margin-left: 10px; margin-top: -10px;" alt="" width="65PX" height="65PX"> 
+        <h1>Gerenciamento de Arquiteturas de servidores</h1>
+
+        <div class="total">
+                <span class="label-total">Total:</span>
+                <span class="numero-total"></span>
+            </div>
     
       </div>
 
@@ -393,6 +398,20 @@ btnAdicionar.addEventListener('click', function() { abrirModal('novo'); });
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
+function atualizarTotal() {
+    if (!fk_empresa) return;
+    
+    fetch(`/arquiteturas/contarArquiteturas/${fk_empresa}`)
+        .then(function(res) { return res.json(); })
+        .then(function(resultado) {
+            console.log("Total de arquiteturas recebido:", resultado);
+            const total = resultado[0].total;
+            document.querySelector('.numero-total').textContent = total;
+        })
+        .catch(function(erro) {
+            console.error("Erro ao contar arquiteturas:", erro);
+        });
+}
 
 window.addEventListener("load", function() {
     if (!fk_empresa) {
@@ -431,6 +450,7 @@ window.addEventListener("load", function() {
                 `;
                 tabelaCorpo.appendChild(tr);
             }
+            atualizarTotal();
         })
         .catch(function(erro) {
             console.error("Erro ao carregar arquiteturas:", erro);
@@ -496,6 +516,7 @@ tabelaCorpo.addEventListener('click', function(e) {
                     .then(function(res) {
                         if (res.ok) {
                             linha.remove();
+                            atualizarTotal();
                             mostrarAviso("Arquitetura excluída com sucesso!", "Sucesso"); 
                         } else {
                             res.text().then(function(errorText) {

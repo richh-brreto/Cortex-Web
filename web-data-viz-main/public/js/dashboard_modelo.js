@@ -177,7 +177,7 @@ function listarBlacklist(idModelo) {
                 <div class="modal-body" id="modal-body">
                     <div class="info-items" >
                         <div class="topo-whitelist">
-                            <input type="search" class="input-pesquisa">
+                            <input type="search" placeholder="Pesquisar..." class="input-pesquisa">
                             <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
                         </div>
                         <section class="container-tabela">
@@ -280,7 +280,7 @@ function logProcMortos() {
                 <div class="modal-body" id="modal-body">
                     <div class="info-items">
                         <div class="topo-whitelist">
-                            <input type="search" class="input-pesquisa">           
+                            <input type="search" placeholder="Pesquisar..." class="input-pesquisa">           
                         </div>
                         <section class="container-tabela">
                             <div class="envoltorio-tabela">
@@ -446,11 +446,6 @@ const listaProcessosSimulados = [
     { nome: "chrome.exe", cpu: 15.2, ram: 51, disco: 0.1, gpu: 8.5 },
     { nome: "explorer.exe", cpu: 2.1, ram: 12, disco: 0.0, gpu: 1.0 },
     { nome: "svchost.exe", cpu: 0.5, ram: 4.1, disco: 0.0, gpu: 0.0 },
-    { nome: "python_script_dados.py", cpu: 5.8, ram: 1.2, disco: 5.5, gpu: 0.0 },
-    { nome: "java_api_backend.jar", cpu: 22.0, ram: 10.2, disco: 1.2, gpu: 0.0 },
-    { nome: "msedge.exe", cpu: 8.9, ram: 5.0, disco: 0.2, gpu: 4.3 },
-    { nome: "code.exe", cpu: 1.5, ram: 8.0, disco: 0.1, gpu: 2.0 },
-    { nome: "runtimebroker.exe", cpu: 0.1, ram: 1.2, disco: 0.0, gpu: 0.0 }
 ];
 
 function popularTabelaProcessosAtivos(listaProcessos) {
@@ -659,14 +654,14 @@ new Chart(resourceCtx, {
                 borderWidth: 2
             },
             {
-                label: 'Pico',
+                label: 'Pico no ultimo mês',
                 data: [85, 76, 47, 99],
                 backgroundColor: 'rgba(0, 110, 102, 0.8)',
                 borderColor: '#006E66',
                 borderWidth: 2
             },
             {
-                label: 'Média',
+                label: 'Média mensal',
                 data: [65, 62, 35, 85],
                 backgroundColor: 'rgba(66, 153, 225, 0.8)',
                 borderColor: '#4299E1',

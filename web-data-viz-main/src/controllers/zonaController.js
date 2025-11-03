@@ -428,6 +428,25 @@ function desvincularFuncionario(req, res) {
 
 }
 
+function contarZonas(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+
+    if (fk_empresa == undefined) {
+        res.status(400).send("fk_empresa está undefined!");
+    } else {
+        zonaModel.contarZonas(fk_empresa)
+            .then(function (resultado) {
+                console.log("Tudo certo no controller - contagem de zonas");
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao contar zonas: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -445,5 +464,5 @@ module.exports = {
     desvincularArquitetura,
     desvincularModelo,
     desvincularFuncionario,
-    desvincularFuncionario
-}
+    contarZonas
+};

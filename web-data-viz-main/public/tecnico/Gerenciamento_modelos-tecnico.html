@@ -31,28 +31,46 @@
             <span class="texto-logo">Cortex</span>
         </a>
 
-         <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
         </a>
 
         <div class="divisor"></div>
 
-        <h3 class="subTitulo">Informações</h3>
+        <h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-tecnico.html">
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
             <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
             <span class="texto">Arquitetura</span>
         </a>
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-tecnico.html">
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
             <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
             <span class="texto">Modelos</span>
         </a>
 
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
         <div class="divisor"></div>
 
-       
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
 
         <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
@@ -67,7 +85,7 @@
             </div>
         </div>
 
-        <a class="item-usuario" href="perfil-tecnico.html">
+        <a class="item-usuario" href="perfil-analista.html">
             <img src="" alt="Foto de perfil" class="avatar-usuario">
             <span class="texto-usuario"></span>
         </a>
@@ -86,6 +104,11 @@
         <div class="container-modelos">
             <div class="header-modelos">
                 <h1>Gerenciamento de Modelos</h1>
+
+            <div class="total">
+                <span class="label-total">Total:</span>
+                <span class="numero-total"></span>
+            </div>
 
             </div>
 
@@ -419,6 +442,20 @@
         btnFechar.addEventListener('click', fecharModalFormulario);
         btnCancelar.addEventListener('click', fecharModalFormulario);
 
+        function atualizarTotal() {
+    if (!fk_empresa) return;
+    
+    fetch(`/modelos/contarModelos/${fk_empresa}`)
+        .then(function(res) { return res.json(); })
+        .then(function(resultado) {
+            console.log("Total de modelos recebido:", resultado);
+            const total = resultado[0].total;
+            document.querySelector('.numero-total').textContent = total;
+        })
+        .catch(function(erro) {
+            console.error("Erro ao contar arquiteturas:", erro);
+        });
+}
 
         window.addEventListener("load", function () {
             if (!fk_empresa) {
@@ -477,6 +514,7 @@
                     `;
                         tabelaCorpo.appendChild(tr);
                     }
+            atualizarTotal();
                 })
                 .catch(function (erro) {
                     console.error("Erro ao carregar modelos:", erro);

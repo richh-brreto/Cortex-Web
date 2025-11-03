@@ -8,14 +8,15 @@ CREATE TABLE empresa (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     cnpj VARCHAR(18) UNIQUE NOT NULL,
-    ativo TINYINT DEFAULT TRUE NOT NULL, 
+    ativo TINYINT DEFAULT FALSE NOT NULL, 
     nome_responsavel VARCHAR(100) NOT NULL,
     telefone_responsavel VARCHAR(15) UNIQUE NOT NULL
 );
 
-INSERT INTO empresa (nome, cnpj, nome_responsavel, telefone_responsavel)
+INSERT INTO empresa (nome, cnpj, nome_responsavel, telefone_responsavel, ativo)
 VALUES 
-('Tech Soluções LTDA', '12.345.678/0001-99', 'Ana Souza', '(11) 91234-5678');
+('Tech Soluções LTDA', '12.345.678/0001-99', 'Ana Souza', '(11) 91234-5678', TRUE),
+('Cortex', '00.000.000/0000-00', "Cortex", "(00) 00000-0000", TRUE);
 
 
 CREATE TABLE cargo (
@@ -37,8 +38,8 @@ CREATE TABLE usuario (
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(20) NOT NULL,
     telefone VARCHAR(30),
-    fk_cargo INT,
-    foto VARCHAR(500) default "../assets/icon/sem_foto.png",
+    fk_cargo INT DEFAULT 1,
+    foto VARCHAR(500) DEFAULT 'sem-foto.png',
     ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
@@ -49,7 +50,7 @@ INSERT INTO usuario (nome, email, senha, fk_empresa, fk_cargo, ativo, telefone) 
 ('Fernanda Lima', 'fernanda.lima@techsolucoes.com', 'senha123', 1, 1, 1, "(11) 98583-1860"), -- Analista
 ('Ricardo Torres', 'ricardo.torres@techsolucoes.com', 'senha456', 1, 1, 0, "(11) 92057-3048"), -- Técnico Supervisor
 ('Juliana Silva', 'juliana.silva@techsolucoes.com', 'senha789', 1, 3, 1, "(11) 90940-1920"), -- Técnico
-('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', null, 4, 1, null); -- Cortex
+('Sistema Cortex', 'sistema@cortex.com', 'cortexadmin', 2, 4, 1, "(00) 00000-0000"); -- Cortex
 
 
 CREATE TABLE zonadisponibilidade (
@@ -58,7 +59,7 @@ CREATE TABLE zonadisponibilidade (
     descricao VARCHAR(255),
     fk_empresa INT,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-    ON DELETE SET NULL
+     ON DELETE SET NULL
 );
 
 INSERT INTO zonadisponibilidade (nome, descricao, fk_empresa) VALUES
@@ -153,17 +154,18 @@ create table if not exists modelo (
         ON DELETE SET NULL
 );
 
-INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
+INSERT INTO modelo (
+    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
+)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.18.32.203', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
-('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.192', 'DESKTOP-N2E1DHL', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
-
+('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
+('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.128.41', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
-('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
-('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
+('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
+('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
+('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
 
 
 
@@ -196,24 +198,25 @@ CREATE TABLE whitelist (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar boolean default false,
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
     ON DELETE CASCADE,
-	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
+	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome)
 );
+
 INSERT INTO whitelist (fk_modelo, nome) VALUES
 (1, 'System'),
 (1, 'explorer.exe'),
-(2, 'python.exe'),
-(2, 'mysqld.exe'),
-(2, 'chrome.exe'),
-(2, 'svchost.exe'),
-(2, 'cmd.exe'),
-(2, 'code.exe'),     
-(2, 'docker.exe'),
-(2, 'idea64.exe'),      
-(2, 'Discord.exe');
+(1, 'python.exe'),
+(1, 'mysqld.exe'),
+(1, 'chrome.exe'),
+(1, 'svchost.exe'),
+(1, 'cmd.exe'),
+(1, 'code.exe'),     
+(1, 'docker.exe'),
+(1, 'idea64.exe'),      
+(1, 'Discord.exe');
+
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
@@ -250,22 +253,21 @@ VALUES
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
 
-select * from usuario;
 
--- Select para pegar os processos que estão na black-list
-SELECT count(*)  FROM whitelist where fk_modelo =2;
+CREATE TABLE log_processos (
+    id_log INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50), 
+    dataKill DATETIME,
+    fk_modelo INT,
+    FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
+);
 
-
-use cortex;
-
-select * from modelo;
-
-select * from whitelist where nome like '%steam%';
-delete from whitelist where nome like '%steam%' and fk_modelo=2;
-
-select * from whitelist;
-DESCRIBE whitelist;
-
-update whitelist set matar=true where id_processo=11;
-
-select * from whitelist where nome like 'ex';
+INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES 
+('Processo_A', '2025-10-31 08:30:00', 1),
+('Processo_B', '2025-10-31 09:15:00', 1),
+('Processo_C', '2025-10-31 10:00:00', 1),
+('Processo_D', '2025-10-31 10:45:00', 1),
+('Processo_E', '2025-10-31 11:30:00', 1),
+('Processo_F', '2025-10-31 12:15:00', 1),
+('Processo_G', '2025-10-31 13:00:00', 1),
+('Processo_H', '2025-10-31 13:45:00', 1);

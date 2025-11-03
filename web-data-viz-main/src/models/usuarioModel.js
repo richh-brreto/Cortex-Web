@@ -64,6 +64,16 @@ function alterarSenha(idUsuario, novaSenha) {
     return database.executar(instrucaoSql);
 }
 
+function contarFuncionarios(fk_empresa) {
+    var instrucaoSql = `
+        SELECT COUNT(*) as total 
+        FROM usuario 
+        WHERE fk_empresa = ${fk_empresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrarEmpresa,
     buscarId,
@@ -71,5 +81,6 @@ module.exports = {
     login,
     buscarPorId,
     verificarSenha,
-    alterarSenha
+    alterarSenha,
+    contarFuncionarios 
 }
