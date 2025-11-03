@@ -119,9 +119,9 @@
                             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                         </svg>
                     </div>
-                    <div class="kpi-title">PROCESSOS MORTOS</div>
+                    <div class="kpi-title">Execuções Bloqueadas em 24hrs</div>
                 </div>
-                <div class="kpi-value danger">2 Processos Mortos</div>
+                <div class="kpi-value danger">2 Execuções Bloqueadas</div>
             </div>
 
             <!-- Downtime -->
@@ -135,7 +135,7 @@
                     </div>
                     <div class="kpi-title">DOWNTIME</div>
                 </div>
-                <div class="kpi-value primary">30min</div>
+                <div class="kpi-value primary">2 Min</div>
             </div>
 
             <!-- Alertas -->
@@ -150,21 +150,21 @@
                             <line x1="12" y1="17" x2="12.01" y2="17"></line>
                         </svg>
                     </div>
-                    <div class="kpi-title">ALERTAS</div>
+                    <div class="kpi-title">ALERTAS Semanais</div>
                 </div>
                 <div class="alerts-grid-two-columns">
                     <div class="alerts-column">
                         <div class="alert-row">
                             <span class="alerts-label">CPU:</span>
-                            <span class="alerts-value">15</span>
+                            <span class="alerts-value">71</span>
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">Disco:</span>
-                            <span class="alerts-value">8</span>
+                            <span class="alerts-value">50</span>
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">RAM:</span>
-                            <span class="alerts-value">12</span>
+                            <span class="alerts-value">54</span>
                         </div>
                     </div>
                     <div class="alerts-column">
@@ -174,11 +174,11 @@
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">Processos:</span>
-                            <span class="alerts-value">5</span>
+                            <span class="alerts-value">2</span>
                         </div>
                         <div class="alert-row alert-total">
                             <span class="alerts-total-label">Total:</span>
-                            <span class="alerts-total-value">62</span>
+                            <span class="alerts-total-value">199</span>
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
         <div class="charts-grid">
             <!-- Gráfico de Recursos -->
             <div class="chart-card">
-                <h3 class="chart-title">Uso de Recursos (CPU, RAM, Disco, GPU)</h3>
+                <h3 class="chart-title">Uso de Recursos mensais (CPU, RAM, Disco, GPU)</h3>
                 <div class="chart-container">
                     <canvas id="resourceChart"></canvas>
                 </div>
@@ -288,50 +288,50 @@
                 <div class="info-btn-icon">
                     <i style="color:#00B2B2;" class="material-icons">block</i>
                 </div>
-                <span>Blacklist</span>
+                <span>Whitelist</span>
             </button>
         </div>
 
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Informações do Modelo</h3>
+                    <h3 class="modal-title active">Informações do Modelo</h3>
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="info-items-inline">
+                    <div class="info-items">
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Nome:</span>
                             <span id="info-nome" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Cliente:</span>
                             <span id="info-modelo-cliente" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Zona:</span>
                             <span id="info-modelo-zona" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Arquitetura:</span>
                             <span id="info-modelo-arquitetura" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Descrição:</span>
                             <span id="info-modelo-descricao" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">IP:</span>
                             <span id="info-modelo-ip" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item-inline">
+                        <div class="info-item">
                             <span class="info-item-label">Hostname:</span>
                             <span id="info-modelo-hostname" class="info-item-value">--</span>
                         </div>
@@ -349,7 +349,7 @@
                     <button class="modal-close" onclick="closeModal('serverModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="info-items">
+                    <div class="info-items" >
 
                         <div class="info-item">
                             <span class="info-item-label">Nome Arq.:</span> <!-- Rótulo Ajustado -->
@@ -396,8 +396,11 @@
         <div id="procesosModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Processos Ativos</h3>
+                    <h3 class="modal-title1">Processos Ativos</h3>
                     <button class="modal-close" onclick="closeModal('procesosModal')">&times;</button>
+                </div>
+                <div class="topo-whitelist">
+                    <input type="search" placeholder="Pesquisar..." style="margin-left: 2%;">
                 </div>
                 <div class="modal-body">
                     <div class="info-items">
@@ -409,7 +412,7 @@
                                         <tr>
                                             <th>Nome</th>
                                             <th style="width: 80px; text-align: right;">CPU (%)</th>
-                                            <th style="width: 100px; text-align: right;">ㅤ RAM (%)</th>
+                                            <th style="width: 100px; text-align: right;"> RAM (%)</th>
                                             <th style="width: 80px; text-align: right;">Disco (%)</th>
                                             <th style="width: 80px; text-align: right;">GPU (%)</th>
                                             <th style="width: 200px;">Ações</th>
@@ -429,23 +432,26 @@
                 </div>
             </div>
         </div>
-
+ 
         <div id="blacklistModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Blacklist de processos</h3>
+             <!--  <div class="modal-content" id="conteudo">
+               <div class="modal-header">
+                    <h3 class="modal-title ativo">Whitelist de processos</h3>
+                    <h3 class="modal-title">Processos Mortos - log</h3>
                     <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="modal-body">
                     <div class="info-items">
-
+                        <div class="topo-whitelist">
+                            <input type="search" class="input-pesquisa">
+                            <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
+                        </div>
                         <section class="container-tabela">
                             <div class="envoltorio-tabela">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Autokill</th>
                                             <th style="width: 200px;">Ações</th>
                                         </tr>
                                     </thead>
@@ -458,10 +464,10 @@
 
                             </div>
                         </section>
-                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
+                       
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div>-->
         </div>
         <div class="fundo-dialogo" id="fundo-confirmacao">
             <div class="modal-dialogo">

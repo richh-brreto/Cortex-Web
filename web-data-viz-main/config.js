@@ -2,12 +2,11 @@ require("dotenv").config({ path: ".env.dev" });
 var mysql = require("mysql2");
 
 var mySqlConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    host: "localhost",
+    database: "cortex",      // ← Nome do seu banco
+    user: "aluno01",            // ← Seu usuário MySQL
+    password: "senha123"    // ← COLOQUE A SENHA CORRETA AQUI
 };
-
 function executar(instrucao) {
     return new Promise(function (resolve, reject) {
         var conexao = mysql.createConnection(mySqlConfig);

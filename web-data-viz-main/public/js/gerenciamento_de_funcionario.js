@@ -103,6 +103,7 @@ function atualizarTotal() {
         });
 }
 
+const senhas = []
 function atualizarTabela() {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
@@ -122,6 +123,8 @@ function atualizarTabela() {
                 } else {
                     f.ativo = "Inativo"
                 }
+                senhas.push(f.id)
+                senhas.push(f.senha)
 
                 const tr = document.createElement("tr");
                 const imgSrc = f.foto ? `/assets/imgs/${f.foto}` : '/assets/icon/sem-foto.png';
@@ -167,7 +170,7 @@ window.addEventListener("load", () => {
 headers.forEach(h => {
     h.addEventListener('click', () => {
         var linhas = Array.from(tabelaCorpo.querySelectorAll('tr'))
-        const indice = parseInt(h.id)
+        const indice = parseInt(h.id);
         for(let i = 0; i < linhas.length; i++){
             var menor = i
             for(let j = i + 1; j < linhas.length; j++){
@@ -205,32 +208,31 @@ tabelaCorpo.addEventListener('click', (e) => {
 
     if (acao === 'Editar') {
         linhaEditando = linha;
+        nomeInput.value = linha.children[1].textContent;
+        emailInput.value = linha.children[3].textContent; // Corrigido: era [2], mas deve ser [3] por causa da foto
+ 
+        if (linha.children[4].textContent == "Técnico Supervisor") {
+            cargoInput.value = "TecnicoSupervisor";
+        } else if (linha.children[4].textContent == "Técnico") {
+            cargoInput.value = "Tecnico";
+        } else {
+            cargoInput.value = "Analista";
+        }
+
+        console.log(linha.children[0].textContent)
+        var indice = 0
+        for(let i = 0; i< senhas.length; i++){
+            if(senhas[i] == linha.children[0].textContent){
+                indice = i+1
+            }
+        }
         
-        // Busca os dados completos do funcionário no banco
-        fetch(`/funcionario/buscar/${id_funcionario}`)
-            .then(res => res.json())
-            .then(funcionario => {
-                nomeInput.value = funcionario.nome;
-                emailInput.value = funcionario.email;
-                senhaInput.value = funcionario.senha;
-                telefoneInput.value = funcionario.telefone;
-                
-                if (funcionario.cargo == "Técnico Supervisor") {
-                    cargoInput.value = "TecnicoSupervisor";
-                } else if (funcionario.cargo == "Técnico") {
-                    cargoInput.value = "Tecnico";
-                } else {
-                    cargoInput.value = "Analista";
-                }
-                
-                statusInput.value = funcionario.ativo == 1 ? 'ativo' : 'inativo';
-                
-                abrirModal('editar');
-            })
-            .catch(erro => {
-                console.error("Erro ao buscar funcionário:", erro);
-                alert("Erro ao carregar dados do funcionário");
-            });
+        senhaInput.value = senhas[indice]
+        telefoneInput.value = linha.children[5].textContent;
+
+        statusInput.value = linha.children[6].textContent.trim().toLowerCase();
+
+        abrirModal('editar');
     } else if (acao === 'Excluir') {
         if (confirm("Deseja realmente excluir este funcionário?")) {
             fetch(`/funcionario/deletar/${id_funcionario}`, { method: "DELETE" })

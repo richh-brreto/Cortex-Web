@@ -58,7 +58,6 @@
             <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
 
-        <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
             <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
                 <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
@@ -94,73 +93,259 @@
         <div class="kpis-grid">
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <div class="kpi-title">Média de Modelo por Cliente</div>
-                </div>
-                <div class="kpi-value">2.5</div>
-            </div>
+                    <div class="kpi-title">Arquiteturas Esgotando</div>
+                </div> 
 
-            <!-- Arquitetura Mais Utilizada -->
+                <div class="arch-compact-grid">
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">x86_64</span>
+                            <span class="arch-compact-percent">87%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 87%"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">130/150</span>
+                            <span class="arch-compact-remaining">20 rest.</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">ARM</span>
+                            <span class="arch-compact-percent">88%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 88%"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">105/120</span>
+                            <span class="arch-compact-remaining">15 rest.</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">RISC-V</span>
+                            <span class="arch-compact-percent">88%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 88%"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">70/80</span>
+                            <span class="arch-compact-remaining">10 rest.</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">PowerPC</span>
+                            <span class="arch-compact-percent">85%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 85%"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">85/100</span>
+                            <span class="arch-compact-remaining">15 rest.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                        </svg>
-                    </div>
-                    <div class="kpi-title">Arquitetura Mais Utilizada</div>
+                    <div class="kpi-title">Arquiteturas Mais Utilizadas</div>
                 </div>
-                <div class="kpi-value">x86_64</div>
-                <div class="kpi-details">
-                    <div class="kpi-detail-item">
-                        <span class="kpi-detail-label">Total</span>
-                        <span class="kpi-detail-value">150</span>
+                <div class="arch-compact-grid">
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">XLR8</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">1º</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 95%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">142/150</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">95%</span>
+                        </div>
                     </div>
-                    <div class="kpi-detail-item">
-                        <span class="kpi-detail-label">Usado</span>
-                        <span class="kpi-detail-value">120</span>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">PowerPC</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">2º</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 85%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">85/100</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">85%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">MIPS</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">3º</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 78%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">70/90</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">78%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">SPARC</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">4º</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 72%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">58/80</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">72%</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Servidores Ativos -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                        </svg>
+                    <div class="kpi-title">Total de Arquiteturas</div>
+                </div>
+                <div class="arch-compact-grid">
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Total</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">150</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 100%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">Capacidade</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">100%</span>
+                        </div>
                     </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Usado</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">120</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 80%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">120/150</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">80%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Disponível</span>
+                            <span class="arch-compact-percent" style="color: #F59E0B;">30</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 20%; background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">30/150</span>
+                            <span class="arch-compact-remaining" style="color: #F59E0B;">20%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Taxa Uso</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">80%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 80%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">Ocupação</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">Ótimo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
                     <div class="kpi-title">Servidores Ativos</div>
                 </div>
-                <div class="kpi-details">
-                    <div class="kpi-detail-item">
-                        <span class="kpi-detail-label">Total</span>
-                        <span class="kpi-detail-value">45</span>
+                <div class="arch-compact-grid">
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Total</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">45</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 100%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">Capacidade</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">100%</span>
+                        </div>
                     </div>
-                    <div class="kpi-detail-item">
-                        <span class="kpi-detail-label">Usado</span>
-                        <span class="kpi-detail-value">38</span>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Ativos</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">38</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 84%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">38/45</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">84%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Inativos</span>
+                            <span class="arch-compact-percent" style="color: #64748b;">7</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 16%; background: linear-gradient(90deg, #94a3b8 0%, #64748b 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">7/45</span>
+                            <span class="arch-compact-remaining" style="color: #64748b;">16%</span>
+                        </div>
+                    </div>
+
+                    <div class="arch-compact-item">
+                        <div class="arch-compact-header">
+                            <span class="arch-compact-name">Uptime</span>
+                            <span class="arch-compact-percent" style="color: #10B981;">99%</span>
+                        </div>
+                        <div class="arch-compact-bar">
+                            <div class="arch-compact-fill" style="width: 99%; background: linear-gradient(90deg, #10B981 0%, #059669 100%);"></div>
+                        </div>
+                        <div class="arch-compact-footer">
+                            <span class="arch-compact-detail">Disponibilidade</span>
+                            <span class="arch-compact-remaining" style="color: #10B981;">Excelente</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Gráficos -->
         <div class="charts-grid">
-            <!-- Gráfico de Linha - Utilização de Arquiteturas -->
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Utilização de Arquiteturas</h3>
@@ -192,7 +377,27 @@
                                 </label>
                                 <label class="multiselect-option">
                                     <input type="checkbox" value="MIPS" onchange="updateSelection()">
-                                    <span>MIPS</span>
+                                    <span>Fort</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>Nite</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>Calf</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>dutty</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>Emi</span>
+                                </label>
+                                <label class="multiselect-option">
+                                    <input type="checkbox" value="MIPS" onchange="updateSelection()">
+                                    <span>Nem</span>
                                 </label>
                             </div>
                             <div class="multiselect-actions">
@@ -206,22 +411,21 @@
                 </div>
             </div>
 
-            <!-- Gráfico de Barra - Ocupação de Componentes -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Ocupação de Componentes</h3>
-                    <select class="simple-select" id="zonaSelect" onchange="updateBarChart()">
-                        <option value="todas">Todas</option>
-                        <option value="zona1">Zona 1</option>
-                        <option value="zona2">Zona 2</option>
-                        <option value="zona3">Zona 3</option>
+                    <h3 class="chart-title">Ocupação de Componentes por Zona</h3>
+                    <select class="simple-select" id="zoneSelect" onchange="updateComponentChart()">
+                        <option value="zona1">Zona 1 - São Paulo</option>
+                        <option value="zona2">Zona 2 - Rio de Janeiro</option>
+                        <option value="zona3">Zona 3 - Brasília</option>
+                        <option value="zona4">Zona 4 - Belo Horizonte</option>
                     </select>
                 </div>
                 <div class="chart-container">
-                    <canvas id="barChart"></canvas>
+                    <canvas id="componentTrendChart"></canvas>
                 </div>
             </div>
-        </div>
+            </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -331,78 +535,164 @@
             lineChart.update();
         }
 
-        // Gráfico de Barra
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        let barChart = new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: ['GPU', 'RAM', 'Disco', 'CPU'],
-                datasets: [
-                    {
-                        label: 'Utilizado',
-                        data: [120, 96, 450, 28],
-                        backgroundColor: '#00B2B2'
-                    },
-                    {
-                        label: 'Disponível',
-                        data: [150, 128, 1000, 32],
-                        backgroundColor: '#E2E8F0'
-                    }
-                ]
+        // Dados de ocupação por zona e componente
+        const occupancyData = {
+            disco: {
+                zona1: { percent: 72, used: 720, total: 1000, trend: 8, forecast: '3 meses', forecastClass: 'critical' },
+                zona2: { percent: 45, used: 360, total: 800, trend: 2, forecast: '18 meses', forecastClass: 'safe' },
+                zona3: { percent: 88, used: 528, total: 600, trend: 12, forecast: '1 mês', forecastClass: 'critical' },
+                zona4: { percent: 65, used: 390, total: 600, trend: 1, forecast: '24+ meses', forecastClass: 'safe' }
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
+            gpu: {
+                zona1: { percent: 85, used: 170, total: 200, trend: 5, forecast: '4 meses', forecastClass: 'warning' },
+                zona2: { percent: 60, used: 96, total: 160, trend: 3, forecast: '12 meses', forecastClass: 'safe' },
+                zona3: { percent: 92, used: 138, total: 150, trend: 15, forecast: '2 semanas', forecastClass: 'critical' },
+                zona4: { percent: 55, used: 88, total: 160, trend: 2, forecast: '20 meses', forecastClass: 'safe' }
+            },
+            ram: {
+                zona1: { percent: 78, used: 1560, total: 2000, trend: 6, forecast: '5 meses', forecastClass: 'warning' },
+                zona2: { percent: 52, used: 832, total: 1600, trend: 1, forecast: '36+ meses', forecastClass: 'safe' },
+                zona3: { percent: 90, used: 1440, total: 1600, trend: 10, forecast: '1 mês', forecastClass: 'critical' },
+                zona4: { percent: 68, used: 1088, total: 1600, trend: 4, forecast: '8 meses', forecastClass: 'warning' }
+            },
+            cpu: {
+                zona1: { percent: 70, used: 560, total: 800, trend: 4, forecast: '8 meses', forecastClass: 'warning' },
+                zona2: { percent: 48, used: 307, total: 640, trend: 2, forecast: '16 meses', forecastClass: 'safe' },
+                zona3: { percent: 86, used: 550, total: 640, trend: 9, forecast: '2 meses', forecastClass: 'critical' },
+                zona4: { percent: 62, used: 397, total: 640, trend: 3, forecast: '10 meses', forecastClass: 'safe' }
+            }
+        };
+
+        // --- INÍCIO DA MODIFICAÇÃO ---
+        // Variável para guardar a instância do gráfico de colunas
+        let componentChartInstance = null;
+
+        // Plugin customizado para desenhar a tendência
+        const tendenciasPorColuna = {
+            id: "tendenciasPorColuna",
+            afterDatasetsDraw: (chart) => {
+                const { ctx } = chart;
+                const dataset = chart.data.datasets[0];
+                // Pega o array de tendências que passamos no dataset
+                const tendencias = dataset.customTrends; 
+                const meta = chart.getDatasetMeta(0);
+
+                ctx.save();
+                // Usei Poppins para combinar com o "código de base", mas pode ajustar
+                ctx.font = "bold 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+                ctx.textAlign = "center";
+
+                dataset.data.forEach((valor, i) => {
+                    const bar = meta.data[i];
+                    const x = bar.x;
+                    const y = bar.y;
+                    
+                    // Pega a tendência do nosso array, não calcula
+                    const variacao = tendencias[i]; 
+                    
+                    // Não precisamos mais pular o primeiro item
+                    // if (i === 0) return; 
+
+                    const positiva = variacao >= 0;
+                    const cor = positiva ? "#16a34a" : "#dc2626"; // Verde / Vermelho
+                    const icone = positiva ? "▲" : "▼";
+                    // Adiciona o sinal de + para valores positivos
+                    const texto = `${icone} ${positiva ? '+' : ''}${variacao.toFixed(0)}%`;
+
+                    ctx.fillStyle = cor;
+                    ctx.fillText(texto, x, y - 8); // Posição acima da barra
+                });
+
+                ctx.restore();
+            }
+        };
+
+        // Esta função substitui a antiga updateOccupancyChart
+        // Note que o onchange no HTML chama updateComponentChart()
+        function updateComponentChart() {
+            const selectedZone = document.getElementById('zoneSelect').value;
+            
+            const labels = ['Disco', 'GPU', 'RAM', 'CPU'];
+            const valores = [];
+            const tendencias = [];
+            const backgroundColors = [];
+
+            // Monta os arrays de dados com base na zona selecionada
+            labels.forEach(componentName => {
+                const componentKey = componentName.toLowerCase();
+                const data = occupancyData[componentKey][selectedZone];
+                
+                valores.push(data.percent);
+                tendencias.push(data.trend); // Pega a tendência direto do objeto
+
+                // Define a cor da barra com base no percentual
+                if (data.percent >= 85) {
+                    backgroundColors.push('rgba(220, 38, 38, 0.7)'); // Crítico (vermelho)
+                } else if (data.percent >= 70) {
+                    backgroundColors.push('rgba(245, 158, 11, 0.7)'); // Aviso (laranja)
+                } else {
+                    backgroundColors.push('rgba(0, 178, 178, 0.7)'); // OK (cor primária)
+                }
+            });
+
+            const ctx = document.getElementById('componentTrendChart').getContext('2d');
+
+            // Destrói o gráfico anterior antes de desenhar um novo
+            if (componentChartInstance) {
+                componentChartInstance.destroy();
+            }
+
+            componentChartInstance = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `Ocupação % (${selectedZone})`,
+                        data: valores,
+                        backgroundColor: backgroundColors,
+                        borderRadius: 6,
+                        customTrends: tendencias // Passa as tendências para o plugin
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Quantidade'
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
+                                }
+                            }
                         }
                     },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Componentes'
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100, // Eixo Y vai até 100%
+                            ticks: {
+                                callback: (value) => value + '%' // Adiciona '%' no eixo Y
+                            }
                         }
                     }
-                }
-            }
-        });
-
-        function updateBarChart() {
-            const zona = document.getElementById('zonaSelect').value;
-            
-            // Simulação de dados diferentes por zona
-            const dados = {
-                'todas': {
-                    utilizado: [120, 96, 450, 28],
-                    disponivel: [150, 128, 1000, 32]
                 },
-                'zona1': {
-                    utilizado: [80, 64, 300, 18],
-                    disponivel: [100, 80, 500, 20]
-                },
-                'zona2': {
-                    utilizado: [60, 48, 200, 16],
-                    disponivel: [80, 64, 400, 18]
-                },
-                'zona3': {
-                    utilizado: [90, 72, 350, 22],
-                    disponivel: [120, 96, 600, 24]
-                }
-            };
-            
-            barChart.data.datasets[0].data = dados[zona].utilizado;
-            barChart.data.datasets[1].data = dados[zona].disponivel;
-            barChart.update();
+                plugins: [tendenciasPorColuna] // Adiciona o plugin customizado
+            });
         }
+        
+        // Chamada inicial para desenhar o gráfico da direita ao carregar a página
+        updateComponentChart();
+        // --- FIM DA MODIFICAÇÃO ---
+        
     </script>
 </body>
 </html>

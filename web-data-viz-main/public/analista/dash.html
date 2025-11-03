@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortex AI - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    /* Reset Básico e Cores */
+:root {
+    --bg-dark-primary: #0a192f;   /* Fundo principal (azul bem escuro) */
+    --bg-dark-secondary: #0c2d48; /* Fundo dos widgets (azul escuro) */
+    --bg-sidebar: #07223a;       /* Fundo das barras laterais */
+    --accent-teal: #00c9a7;      /* Destaque principal (verde-água) */
+    --accent-active: #0d3b66;    /* Item ativo na sidebar */
+    --text-primary: #ffffff;     /* Texto principal (branco) */
+    --text-secondary: #b0c4de;   /* Texto secundário (cinza-azulado) */
+    --chart-line-color: #c90076; /* Cor da linha do gráfico (rosa/roxo) */
+    --chart-peak-color: #6c757d; /* Cor do gráfico de pico (cinza) */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-dark-primary);
+    color: var(--text-primary);
+    height: 100%;
+}
+
+/* Layout Principal */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Barra Lateral de Ícones */
+.sidebar-main {
+    width: 60px;
+    background-color: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-right: 1px solid var(--bg-dark-secondary);
+}
+
+.sidebar-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-icon.active, .sidebar-icon:hover {
+    background-color: var(--accent-active);
+}
+
+.sidebar-icon-bottom {
+    margin-top: auto;
+    margin-bottom: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Barra Lateral de Componentes */
+.sidebar-components {
+    width: 200px;
+    background-color: var(--bg-dark-primary);
+    padding: 20px;
+    border-right: 1px solid var(--bg-dark-secondary);
+}
+
+.component-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.component-item.active {
+    background-color: var(--accent-active);
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+}
+
+/* Widgets dos Gráficos */
+.chart-widget {
+    background-color: var(--bg-dark-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-active);
+}
+
+.chart-widget.large {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+.chart-widget.small {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.widget-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.widget-header p {
+    margin: 5px 0 15px;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+/* Painel de Estatísticas */
+.stats-panel {
+    background-color: var(--bg-dark-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-active);
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.stats-panel h4 {
+    margin-top: 0;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--accent-active);
+    padding-bottom: 10px;
+}
+
+.stats-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
+
+.stats-panel li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: var(--text-secondary);
+}
+
+.stats-panel li strong {
+    color: var(--text-primary);
+}
+
+/* Contêineres dos Gráficos */
+.chart-container-main {
+    position: relative;
+    height: 400px;
+}
+
+.chart-container-peak {
+    position: relative;
+    height: 200px;
+}
+</style>
+<body>
+    <div class="dashboard-container">
+        
+        <nav class="sidebar-main">
+            <div class="sidebar-icon" title="Relatórios">📄</div>
+            <div class="sidebar-icon active" title="Dashboards">📊</div>
+            <div class="sidebar-icon" title="Configurações">⚙️</div>
+            <div class="sidebar-icon-bottom" title="Sair">🚪</div>
+        </nav>
+
+        <aside class="sidebar-components">
+            <div class="component-list">
+                <div class="component-item active">CPU 01</div>
+                <div class="component-item">CPU 02</div>
+                <div class="component-item">Memory 01</div>
+                <div class="component-item">Memory 02</div>
+                <div class="component-item">Disk 01</div>
+                <div class="component-item">Disk 02</div>
+                <div class="component-item">Disk 03</div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="chart-grid">
+                
+                <div class="chart-widget large">
+                    <div class="widget-header">
+                        <h3>CPU 01</h3>
+                        <p>Tempo de atividade: 5 dias, 7 horas, 51</p>
+                    </div>
+                    <div class="chart-container-main">
+                        <canvas id="realTimeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="stats-panel">
+                    <h4>Detalhes do Componente</h4>
+                    <ul>
+                        <li><strong>Utilização:</strong> 14%</li>
+                        <li><strong>Velocidade:</strong> 1.78 GHz</li>
+                        <li><strong>Base de velocidade:</strong> 1.30 GHz</li>
+                        <li><strong>Processos:</strong> 270</li>
+                        <li><strong>Threads:</strong> 3979</li>
+                        <li><strong>Identificadores:</strong> 134386</li>
+                        <li><strong>Sockets:</strong> 1</li>
+                        <li><strong>Núcleos:</strong> 10</li>
+                        <li><strong>Processadores lógicos:</strong> 12</li>
+                        <li><strong>Virtualização:</strong> Habilitado</li>
+                        <li><strong>Cache L1:</strong> 928 KB</li>
+                        <li><strong>Cache L2:</strong> 6.5 MB</li>
+                        <li><strong>Cache L3:</strong> 12.0 MB</li>
+                    </ul>
+                </div>
+
+                <div class="chart-widget small">
+                    <div class="widget-header">
+                        <h3>Horário de maior pico de uso</h3>
+                    </div>
+                    <div class="chart-container-peak">
+                        <canvas id="peakUsageChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

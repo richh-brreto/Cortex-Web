@@ -127,14 +127,14 @@
                     <table>
                         <thead id="header">
                             <tr>
-                                <th id="0">*ID</th>
-                                <th id="1">*Nome</th>
-                                <th id="2">*Foto</th>
-                                <th id="3">*E-mail</th>
-                                <th id="4">*Cargo</th>
-                                <th id="6">Telefone</th>
-                                <th id="7">*Status</th>
-                                <th id="8">Ações</th>
+                                <th id="0"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">ID</th>
+                                <th id="1"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Nome</th>
+                                <th id="2">Foto</th>
+                                <th id="3"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">E-mail</th>
+                                <th id="4"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Cargo</th>
+                                <th id="5">Telefone</th>
+                                <th id="6"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Status</th>
+                                <th id="7">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-funcionarios-corpo">
@@ -225,4 +225,6 @@
         if (fotoEl) fotoEl.src = userAvatar;
         if (nomeEl) nomeEl.innerText = sessionStorage.NOME_USUARIO || '';
     })();
+    
+
 </script>

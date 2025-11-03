@@ -127,12 +127,38 @@
                 console.log(resposta);
 
         resposta.json().then(json => {
+          console.log(json)
+
+                 if (!json || json == undefined || json == null || json == '') {
+            Swal.fire({
+                icon: "error",
+                title: "Erro no login",
+                text: "Preencha os campos corretamente!"
+            });
+            return false;
+        }
           const usuario = json[0]
+
+          console.log(usuario)
+
+          if(usuario.ativoE == 0){
+            location.href = "./inativo.html"
+          }
           console.log(JSON.stringify(json));
           sessionStorage.EMAIL_USUARIO = usuario.email;
           sessionStorage.NOME_USUARIO = usuario.nome;
           sessionStorage.ID_USUARIO = usuario.id;
-          sessionStorage.CARGO_USUARIO = usuario.cargo;
+          let cargo =""
+          if(usuario.fk_cargo == 1){
+            cargo = "Analista"
+          }else if (usuario.fk_cargo == 2){
+            cargo = "Supervisor"
+          }else if(usuario.fk_cargo == 3){
+            cargo = "tecnico"
+          }
+
+          sessionStorage.CARGO_USUARIO = cargo
+          sessionStorage.FK_CARGO = usuario.fk_cargo
           sessionStorage.EMPRESA_USUARIO=usuario.fk_empresa;
           sessionStorage.FOTO=usuario.foto;
           // salva a URL completa do avatar para uso imediato na navbar
@@ -150,7 +176,7 @@
 
           setTimeout(function () {
             if(usuario.ativo !="1"){
-               location.href = './inativo.html';
+               location.href = './inativoUsuario.html';
             }else{
               if(usuario.fk_cargo=="2"){
                location.href = './tecnico-supervisor/mural_de_alertas-supervisor.html';

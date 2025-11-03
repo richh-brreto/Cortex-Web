@@ -38,7 +38,7 @@ CREATE TABLE usuario (
     senha VARCHAR(20) NOT NULL,
     telefone VARCHAR(30),
     fk_cargo INT,
-    foto VARCHAR(500) default '/public/assets/icon/sem-foto.png',
+    foto VARCHAR(500) default "../assets/icon/sem_foto.png",
     ativo TINYINT DEFAULT TRUE NOT NULL,
     FOREIGN KEY (fk_empresa) REFERENCES empresa(id),
     FOREIGN KEY (fk_cargo) REFERENCES cargo(id)
@@ -147,18 +147,17 @@ create table if not exists modelo (
         ON DELETE SET NULL
 );
 
-INSERT INTO modelo (
-    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
-)
+INSERT INTO modelo (nome, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura)
 VALUES 
 -- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
-('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
+('Modelo Previsor V1', 'Modelo para previsão de demanda', '10.18.32.203', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1,1),
+('Modelo Carga Horária', 'Distribuição de carga ao longo do dia', '192.168.0.192', 'DESKTOP-N2E1DHL', 10, 80.00, 65.00, 60.00, 8.00, 1, 2,1),
+
 
 -- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
-('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
-('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
+('Modelo Balanceador', 'Balanceamento de cargas entre servidores', '192.168.128.41', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1,2),
+('Modelo Cache', 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2,2),
+('Modelo Firewall', 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3,2);
 
 
 
@@ -187,38 +186,28 @@ INSERT INTO acesso_zona (fk_usuario, fk_zona) VALUES
 
 
 
-CREATE TABLE black_list (
+CREATE TABLE whitelist (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
-    matar_processo boolean default true,
-    status ENUM("proibido","neutro","automatico"),
+    matar boolean default false,
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
     ON DELETE CASCADE,
 	CONSTRAINT UQ_modelo_processo UNIQUE (fk_modelo, nome) 
 );
-
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'calc.exe', 'proibido', 0);
-
--- Exemplo 2: Processo 'java_update.exe' marcado para autokill (status='automatico') para o modelo 1, autokill LIGADO (matar_processo=1)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'java_update.exe', 'automatico', 1);
-
--- Exemplo 3: Processo 'algum_script.bat' proibido para o modelo 2, autokill DESLIGADO (matar_processo=0)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (2, 'algum_script.bat', 'proibido', 0);
-
--- Exemplo 4: Processo 'svchost.exe' foi morto (status='neutro') para o modelo 1, flag matar LIGADA (matar_processo=1) 
--- (Este NÃO aparecerá na tabela da blacklist, mas o registo existe)
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (1, 'svchost.exe', 'neutro', 1)
-ON DUPLICATE KEY UPDATE status = 'neutro', matar_processo = 1; -- Garante que atualiza se já existia
-
--- Exemplo 5: Processo 'discord.exe' marcado para autokill para o modelo 3, autokill LIGADO
-INSERT INTO black_list (fk_modelo, nome, status, matar_processo) 
-VALUES (3, 'discord.exe', 'automatico', 1);
+INSERT INTO whitelist (fk_modelo, nome) VALUES
+(1, 'System'),
+(1, 'explorer.exe'),
+(2, 'python.exe'),
+(2, 'mysqld.exe'),
+(2, 'chrome.exe'),
+(2, 'svchost.exe'),
+(2, 'cmd.exe'),
+(2, 'code.exe'),     
+(2, 'docker.exe'),
+(2, 'idea64.exe'),      
+(2, 'Discord.exe');
 
 CREATE TABLE alerta (
     id_alerta INT PRIMARY KEY AUTO_INCREMENT,
@@ -255,21 +244,22 @@ VALUES
 ('processo', 1.00, 1.00, 'Resolvido', 1, 2, '2025-10-27 09:15:00', '2025-10-27 09:10:00',
  'Ricardo identificou o processo processoA em execução indevida, finalizou-o e atualizou a blacklist, prevenindo novos conflitos e garantindo a estabilidade do ambiente.');
 
+select * from usuario;
 
-CREATE TABLE log_processos (
-    id_log INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50), 
-    dataKill DATETIME,
-    fk_modelo INT,
-    FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
-);
+-- Select para pegar os processos que estão na black-list
+SELECT count(*)  FROM whitelist where fk_modelo =2;
 
-INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES 
-('Processo_A', '2025-10-31 08:30:00', 1),
-('Processo_B', '2025-10-31 09:15:00', 1),
-('Processo_C', '2025-10-31 10:00:00', 1),
-('Processo_D', '2025-10-31 10:45:00', 1),
-('Processo_E', '2025-10-31 11:30:00', 1),
-('Processo_F', '2025-10-31 12:15:00', 1),
-('Processo_G', '2025-10-31 13:00:00', 1),
-('Processo_H', '2025-10-31 13:45:00', 1);
+
+use cortex;
+
+select * from modelo;
+
+select * from whitelist where nome like '%steam%';
+delete from whitelist where nome like '%steam%' and fk_modelo=2;
+
+select * from whitelist;
+DESCRIBE whitelist;
+
+update whitelist set matar=true where id_processo=11;
+
+select * from whitelist where nome like 'ex'
