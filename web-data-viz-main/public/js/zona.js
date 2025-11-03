@@ -194,7 +194,7 @@ function adicionarEmZona(tipo, id_zona){
         return
     }
     if(tipo == "arquitetura"){
-      const qtd = document.getElementById("iptQtdArq")
+      const qtd = (document.getElementById("iptQtdArq").value);
       if(!qtd){
         alert("Preeencha todos os campos para a vinculação.")
         return

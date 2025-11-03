@@ -245,8 +245,7 @@ const qtdRamInput = document.getElementById('qtd-ram-arq');
 const modeloGpuInput = document.getElementById('modelo-gpu-arq');
 const soInput = document.getElementById('so-arq');
 const maxDiscoInput = document.getElementById('max-disco-arq');
-const qtdInput = document.getElementById('qtd-arq');
-const zonaInput = document.getElementById('zona-modelo'); 
+
 
 const tabelaCorpo = document.getElementById('tabela-modelos-corpo'); 
 const form = document.getElementById('form-arquitetura'); 
@@ -449,15 +448,14 @@ function buscarDadosDoFormulario(idEmpresa) {
             else { throw new Error('Falha ao buscar os dados do formulário.'); }
         })
         .then(function(dadosRecebidos) { 
-            const selectZona = zonaInput; 
-            selectZona.innerHTML = '<option value="" disabled selected>Selecione uma zona...</option>';
+            
             for (let i = 0; i < dadosRecebidos.length; i++) {
                 const item = dadosRecebidos[i];
                  if (item.tipo === 'zona') {
                     const option = document.createElement('option');
                     option.value = item.id;
                     option.textContent = item.nome;
-                    selectZona.appendChild(option);
+                    
                  }
             }
         })
@@ -485,8 +483,6 @@ tabelaCorpo.addEventListener('click', function(e) {
         modeloGpuInput.value = linha.getAttribute("data-modelo_gpu");
         soInput.value = linha.getAttribute("data-so");
         maxDiscoInput.value = linha.getAttribute("data-maxDisco");
-        qtdInput.value = linha.getAttribute("data-qtd");
-        zonaInput.value = linha.getAttribute("data-fk_zona");
         abrirModal('editar');
         
 
@@ -530,8 +526,6 @@ form.addEventListener('submit', function(ev) {
         modelo_gpu: modeloGpuInput.value.trim(),
         so: soInput.value.trim(),
         maxDisco: parseInt(maxDiscoInput.value),
-        qtd: parseInt(qtdInput.value),
-        fk_zona: parseInt(zonaInput.value),
         fk_empresa: fk_empresa
     };
 
