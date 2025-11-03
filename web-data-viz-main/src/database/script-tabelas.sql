@@ -198,6 +198,7 @@ CREATE TABLE whitelist (
     id_processo INT AUTO_INCREMENT,
     fk_modelo INT,
     nome VARCHAR(70),
+    matar BOOLEAN,
     PRIMARY KEY (id_processo, fk_modelo),
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
     ON DELETE CASCADE,
