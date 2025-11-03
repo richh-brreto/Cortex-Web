@@ -74,9 +74,33 @@ function deletar(req, res) {
 }
 
 
+function checarLimiteZona(req, res) {
+    var idZona = req.params.idZona;
+
+    if (idZona == undefined) {
+        res.status(400).send("ID da zona está undefined!");
+        return;
+    }
+
+    arquiteturaModel.checarLimiteZona(idZona)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(404).json({ message: "Zona não encontrada" });
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar limite da zona:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    checarLimiteZona
 };

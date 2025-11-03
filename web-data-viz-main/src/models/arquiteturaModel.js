@@ -53,9 +53,25 @@ function deletar(idArquitetura) {
     return database.executar(instrucaoSql);
 }
 
+function checarLimiteZona(idZona) {
+    console.log(`Model: Checando limite para a zona: ${idZona}`);
+    
+    var instrucaoSql = `
+        SELECT 
+            az.qtd as limite_maximo,
+            COUNT(a.id_arquitetura) as quantidade_atual
+        FROM arquitetura_zona az
+        LEFT JOIN arquitetura a ON a.id_arquitetura = az.fk_arquitetura
+        WHERE az.fk_zona = ${idZona}
+        GROUP BY az.qtd;
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    checarLimiteZona
 }
