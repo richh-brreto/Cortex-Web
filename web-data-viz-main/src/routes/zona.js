@@ -69,4 +69,9 @@ router.delete("/desvincularFuncionario/:id/:id_zona", function (req, res) {
 router.put("/atualizar/:idZona", function (req, res) {
     zonaController.atualizar(req, res);
 });
+
+router.get("/contarZonas/:fk_empresa", function (req, res) {
+    zonaController.contarZonas(req, res);
+});
+
 module.exports = router; 

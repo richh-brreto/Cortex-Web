@@ -105,6 +105,11 @@
             <div class="header-modelos">
                 <h1>Gerenciamento de Modelos</h1>
 
+            <div class="total">
+                <span class="label-total">Total:</span>
+                <span class="numero-total"></span>
+            </div>
+
             </div>
 
             <div class="barra-acoes">
@@ -437,6 +442,20 @@
         btnFechar.addEventListener('click', fecharModalFormulario);
         btnCancelar.addEventListener('click', fecharModalFormulario);
 
+        function atualizarTotal() {
+    if (!fk_empresa) return;
+    
+    fetch(`/modelos/contarModelos/${fk_empresa}`)
+        .then(function(res) { return res.json(); })
+        .then(function(resultado) {
+            console.log("Total de modelos recebido:", resultado);
+            const total = resultado[0].total;
+            document.querySelector('.numero-total').textContent = total;
+        })
+        .catch(function(erro) {
+            console.error("Erro ao contar arquiteturas:", erro);
+        });
+}
 
         window.addEventListener("load", function () {
             if (!fk_empresa) {
@@ -495,6 +514,7 @@
                     `;
                         tabelaCorpo.appendChild(tr);
                     }
+            atualizarTotal();
                 })
                 .catch(function (erro) {
                     console.error("Erro ao carregar modelos:", erro);

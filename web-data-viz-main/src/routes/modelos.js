@@ -22,4 +22,8 @@ router.post("/deletar/:idModelo", function (req, res) {
     modelosController.deletar(req, res);
 });
 
+router.get("/contarModelos/:fk_empresa", function (req, res) {
+    modelosController.contarModelos(req, res);
+});
+
 module.exports = router;

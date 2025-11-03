@@ -53,9 +53,21 @@ function deletar(idArquitetura) {
     return database.executar(instrucaoSql);
 }
 
+function contarArquiteturas(fk_empresa) {
+    var instrucaoSql = `
+        SELECT COUNT(*) as total 
+        FROM arquitetura 
+        WHERE fk_empresa = ${fk_empresa};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    contarArquiteturas
 }

@@ -27,4 +27,8 @@ router.post("/cadastrarUsuario", function (req, res) {
     usuarioController.cadastrarUsuario(req, res);
 })
 
+router.get("/contarFuncionarios/:fk_empresa", function (req, res) {
+    usuarioController.contarFuncionarios(req, res);
+});
+
 module.exports = router;

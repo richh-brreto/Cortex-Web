@@ -25,4 +25,8 @@ router.post("/deletar/:id", function (req, res) {
     arquiteturaController.deletar(req, res);
 });
 
+router.get("/contarArquiteturas/:fk_empresa", function (req, res) {
+    arquiteturaController.contarArquiteturas(req, res);
+});
+
 module.exports = router;
