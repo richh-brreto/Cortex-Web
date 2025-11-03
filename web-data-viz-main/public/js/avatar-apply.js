@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     try {
         const defaultAvatar = '../assets/icon/sem-foto.png';
-        const avatarUrl = sessionStorage.USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : defaultAvatar);
-        const userName = sessionStorage.NOME_USUARIO || '';
+        const avatarUrl = JSON.parse(sessionStorage.getItem("dados")).USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : defaultAvatar);
+        const userName = JSON.parse(sessionStorage.getItem("dados")).NOME_USUARIO || '';
 
         document.querySelectorAll('img.avatar-usuario, img#avatar-user, img#foto, .nav-avatar img').forEach(img => {
             if (!img) return;

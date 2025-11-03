@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Verificar se usuário logado tem permissão (Analista)
-    const usuarioLogado = sessionStorage.ID_USUARIO;
+    const usuarioLogado = JSON.parse(sessionStorage.getItem("dados")).ID_USUARIO;
     
     if (!usuarioLogado) {
         alert('Você precisa estar logado para acessar esta página.');
@@ -30,8 +30,8 @@ function atualizarNavbar() {
     const textoUsuario = document.querySelector('.texto-usuario');
     const avatarUsuario = document.querySelector('.avatar-usuario');
     
-    const nomeUsuario = sessionStorage.NOME_USUARIO;
-    const avatarUrl = sessionStorage.USER_AVATAR || '/assets/icon/sem-foto.png';
+    const nomeUsuario = JSON.parse(sessionStorage.getItem("dados")).NOME_USUARIO;
+    const avatarUrl = JSON.parse(sessionStorage.getItem("dados")).USER_AVATAR || '/assets/icon/sem-foto.png';
 
     if (textoUsuario && nomeUsuario) {
         textoUsuario.textContent = nomeUsuario;

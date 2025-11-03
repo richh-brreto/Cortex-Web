@@ -18,7 +18,7 @@ const tituloInfo = document.getElementById('modal-title-info')
 const aba = Array.from(document.getElementsByClassName('aba')) 
 
 let linhaEditando = null;
-const fk_empresa = sessionStorage.EMPRESA_USUARIO;
+const fk_empresa = JSON.parse(sessionStorage.getItem("dados")).EMPRESA_USUARIO;
 
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');

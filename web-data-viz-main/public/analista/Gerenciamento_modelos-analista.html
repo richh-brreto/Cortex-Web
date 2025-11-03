@@ -322,7 +322,7 @@
         const filtroSelect = document.getElementById('filtro-select');
         const headers = document.querySelectorAll('.envoltorio-tabela thead th');
         let linhaEditando = null;
-        const fk_empresa = sessionStorage.EMPRESA_USUARIO;
+        const fk_empresa = JSON.parse(sessionStorage.getItem("dados")).EMPRESA_USUARIO;
 
         function irParaDashboardModelo(idModelo, nomeModelo) {
             console.log(`Redirecionando para dashboard do modelo ID: ${idModelo}, Nome: ${nomeModelo}`);

@@ -170,7 +170,7 @@ function listarBlacklist(idModelo) {
 
     modalA.innerHTML = ` <div class="modal-content" id="conteudo">
                <div class="modal-header">
-                    <h3 class="modal-title ativo" id="white">Whitelist de processos</h3>
+                    <h3 class="modal-title ativo" id="white">Processos Permitidos</h3>
                     <h3 class="modal-title" id="mortos">Processos Mortos - log</h3>
                     <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
                 </div>

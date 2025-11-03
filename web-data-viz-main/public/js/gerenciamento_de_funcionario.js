@@ -17,7 +17,7 @@ const btnFechar = document.getElementById('btn-fechar-modal');
 const btnCancelar = document.getElementById('btn-cancelar');
 
 let linhaEditando = null;
-const fk_empresa = sessionStorage.EMPRESA_USUARIO;
+const fk_empresa = JSON.parse(sessionStorage.getItem("dados")).EMPRESA_USUARIO;
 
 const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');

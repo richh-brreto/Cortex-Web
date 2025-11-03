@@ -146,9 +146,9 @@
           }
           console.log(JSON.stringify(json));
           let dados_session = {}
-          dados_session.EMAIL_USUARIO = usuario.email;
-          dados_session.NOME_USUARIO = usuario.nome;
-          dados_session.ID_USUARIO = usuario.id;
+          sessionStorage.EMAIL_USUARIO = usuario.email;
+          sessionStorage.NOME_USUARIO = usuario.nome;
+          sessionStorage.ID_USUARIO = usuario.id;
           let cargo = ""
           if (usuario.fk_cargo == 1) {
             cargo = "Analista"
@@ -158,15 +158,16 @@
             cargo = "tecnico"
           }
 
-          dados_session.CARGO_USUARIO = cargo
-          dados_session.FK_CARGO = usuario.fk_cargo
-          dados_session.EMPRESA_USUARIO = usuario.fk_empresa;
-          dados_session.FOTO = usuario.foto;
+          sessionStorage.CARGO_USUARIO = cargo
+          sessionStorage.FK_CARGO = usuario.fk_cargo
+          sessionStorage.EMPRESA_USUARIO = usuario.fk_empresa;
+          sessionStorage.FOTO = usuario.foto;
           // salva a URL completa do avatar para uso imediato na navbar
           try {
-            dados_session.USER_AVATAR = usuario.foto && usuario.foto.trim() !== '' ? `/assets/imgs/${usuario.foto}` : '/assets/icon/sem-foto.png';
+            sessionStorage.USER_AVATAR = usuario.foto && usuario.foto.trim() !== '' ? `/assets/imgs/${usuario.foto}` : '/assets/icon/sem-foto.png';
           } catch (e) { }
-          dados_session.ATIVADO_USUARIO = usuario.ativo;
+          sessionStorage.ATIVADO_USUARIO = usuario.ativo;
+          dados_session = sessionStorage
           sessionStorage.setItem("dados",JSON.stringify(dados_session))
           console.log(dados_session)
 

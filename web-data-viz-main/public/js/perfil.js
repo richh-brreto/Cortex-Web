@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Verificar se usuário está logado
-    const idUsuario = sessionStorage.ID_USUARIO;
-    const nomeUsuario = sessionStorage.NOME_USUARIO;
+    const idUsuario = JSON.parse(sessionStorage.getItem("dados")).ID_USUARIO;
+    const nomeUsuario = JSON.parse(sessionStorage.getItem("dados")).NOME_USUARIO;
 
     if (!idUsuario) {
         alert('Você precisa estar logado para acessar esta página.');
@@ -138,7 +138,7 @@ function configurarModalSenha() {
     // Abrir modal
     if (btnMudarSenha) {
         btnMudarSenha.onclick = () => {
-            if (!sessionStorage.ID_USUARIO) {
+            if (!JSON.parse(sessionStorage.getItem("dados")).ID_USUARIO) {
                 window.location.href = '../login.html';
                 return;
             }
@@ -219,7 +219,7 @@ async function alterarSenha() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                idUsuario: sessionStorage.ID_USUARIO,
+                idUsuario: JSON.parse(sessionStorage.getItem("dados")).ID_USUARIO,
                 senhaAtual: senhaAtual,
                 senhaNova: senhaNova
             })
