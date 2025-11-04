@@ -1,10 +1,10 @@
 
 var mural = require("../models/mural");
 const axios = require("axios");
-const JIRA_BASE_URL = "https://sptech-hydroscan.atlassian.net";
-const JIRA_EMAIL = "guilherme.conceicao@sptech.school";
+// const JIRA_BASE_URL = "https://sptech-hydroscan.atlassian.net";
+// const JIRA_EMAIL = "guilherme.conceicao@sptech.school";
 const JIRA_API_TOKEN =
-  "ATATT3xFfGF0nejL4Ey0-JSXUQfIzZZmDY0mrFLo14lMVIwiYzLPOJ-2PYUEc5LVyBzCvs88LKiMNM2Tj_7T_5N_srJHo95VAISv-GS20Od7ioKQ2hCzdXH1U7kqYexI9ZC5DbftGJyDwqeKGDTVdOrHgc5EDU56TNxODNPDq9V7a2VJUurNt-k=A2DC7A44";
+ // "ATATT3xFfGF03TBjFa2CcibRwtCKdCuTVniBCr27eL50F5iAs8dhz4XZBxTpfgpRqOL3PCzo6mxifJGq-skD69jCw5qlgdAGq-6C36HxXBd2DpCa3yG4qKQv5KKVyKz-KeeTF1_7T1do5IvfWzGBqu40afd5h7MHP4pH8gP8tSDu5G38dhdr2dg=100B3E50";
 
 async function buscarTickets(nome) {
   try {

@@ -2,226 +2,223 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/mural_de_alertas.css">
-    <script src="../js/navbar.js"></script>
-    <link rel="stylesheet" href="../base/navbar.css">
-    <title>Mural de Avisos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/mural_de_alertas.css">
+<script src="../js/navbar.js"></script>
+<link rel="stylesheet" href="../base/navbar.css">
+<title>Mural de Avisos</title>
 </head>
 
 <body>
 
-   <nav class="barra-lateral">
-        
-        <a class="item-logo">
-            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-            <span class="texto-logo">Cortex</span>
-        </a>
+<nav class="barra-lateral">
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-        </a>
+<a class="item-logo">
+<img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+<span class="texto-logo">Cortex</span>
+</a>
 
-        <div class="divisor"></div>
+<a class="item-navegacao" href="dahsboard_infraestrutura.html">
+<img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+<span class="texto" id="texto-dash">Infraestrutura</span>
+</a>
 
-        <h3 class="subTitulo">Gerenciamento</h3>
+<div class="divisor"></div>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
+<h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
+<a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+<img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+<span class="texto">Funcionários</span>
+</a>
 
-        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-            <span class="texto">Clientes</span>
-        </a>
+<a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+<img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+<span class="texto">Arquitetura</span>
+</a>
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+<a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+<img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+<span class="texto">Clientes</span>
+</a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+<a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+<img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+<span class="texto">Modelos</span>
+</a>
 
-        <div class="divisor"></div>
+<a class="item-navegacao" href="zona-analista.html">
+<img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+<span class="texto">Zonas</span>
+</a>
 
-        <a class="item-notificacao" href="mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
-        </a>
+<div class="divisor"></div>
 
-        <!-- ITEM COM SUBMENU -->
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-                </span>
-            </a>
-            <div class="submenu">
-                <div class="submenu-item ativo"><a href="https://spt
-                    ech-hydroscan.atlassian.net/jira/ser
-                    vicedesk/projects/CTX/list?jql=project
-                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
-                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
-                    style="text-decoration: none;color: inherit;">Slack</a></div>
-            </div>
-        </div>
+<a class="item-notificacao" href="mural_de_alertas.html">
+<img src="../assets/icon/alerta.png" id="sino" alt="">
+<span class="texto-notificacao" id="notificacoes">Alertas</span>
+</a>
 
-        <a class="item-usuario" href="perfil-analista.html">
-            <img src="" alt="Foto de perfil" class="avatar-usuario">
-            <span class="texto-usuario"></span>
-        </a>
+<!-- ITEM COM SUBMENU -->
+<div class="item-com-submenu">
+<a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+<img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+<span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+</span>
+</a>
+<div class="submenu">
+<div class="submenu-item ativo">Jira</div>
+<div class="submenu-item">Slack</div>
+</div>
+</div>
 
-        <div class="divisor"></div>
+<a class="item-usuario" href="perfil-analista.html">
+<img src="" alt="Foto de perfil" class="avatar-usuario">
+<span class="texto-usuario"></span>
+</a>
 
-        <a class="item-notificacao" onclick="logout()">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
-    </nav>
-    <script src="../js/logout.js"></script>
-    <script src="../js/avatar-apply.js"></script>
+<div class="divisor"></div>
 
-    <div class="container">
-        <div class="header">
-            <h1>Mural de Alertas</h1>
-            <div class="filters">
-                <div class="date-filter">
-                    <label>Início:</label>
-                    <input type="date" value="2024-10-01">
-                </div>
-                <div class="date-filter">
-                    <label>Final:</label>
-                    <input type="date" value="2024-10-27">
-                </div>
-            </div>
-        </div>
+<a class="item-notificacao" onclick="logout()">
+<img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+<span class="texto-notificacao" id="sair">Sair</span>
+</a>
+</nav>
+<script src="../js/logout.js"></script>
+<script src="../js/avatar-apply.js"></script>
 
-        <!-- 
-            <div class="tabs">
-                <div class="tab active">
-                    Todos
-                    <span class="tab-badge">12</span>
-                </div>
-                <div class="tab">
-                    Alerta 1
-                    <span class="tab-badge">3</span>
-                </div>
-                <div class="tab">
-                    Alerta 2
-                    <span class="tab-badge">5</span>
-                </div>
-                <div class="tab">
-                    Alerta 3
-                    <span class="tab-badge">4</span>
-                </div>
-            </div>
-        Tabs -->
+<div class="container">
+<div class="header">
+<h1>Mural de Alertas</h1>
+<div class="filters">
+<div class="date-filter">
+<label>Início:</label>
+<input type="date" value="2024-10-01">
+</div>
+<div class="date-filter">
+<label>Final:</label>
+<input type="date" value="2024-10-27">
+</div>
+</div>
+</div>
 
-        <!-- Cards Grid -->
-        <div class="cards-grid">
-            
-        </div>
-    </div>
-    <script>
-        var tabs = document.querySelectorAll('.tab');
-        var cards = document.querySelectorAll('.card');
+<!--
+<div class="tabs">
+<div class="tab active">
+Todos
+<span class="tab-badge">12</span>
+</div>
+<div class="tab">
+Alerta 1
+<span class="tab-badge">3</span>
+</div>
+<div class="tab">
+Alerta 2
+<span class="tab-badge">5</span>
+</div>
+<div class="tab">
+Alerta 3
+<span class="tab-badge">4</span>
+</div>
+</div>
+Tabs -->
 
-        function atualizarBadges() {
-            var totalGeral = cards.length;
-            var totalAlert1 = 0;
-            var totalAlert2 = 0;
-            var totalAlert3 = 0;
+<!-- Cards Grid -->
+<div class="cards-grid">
+</div>
+</div>
+<script>
+var tabs = document.querySelectorAll('.tab');
+var cards = document.querySelectorAll('.card');
 
-            for (var i = 0; i < cards.length; i++) {
-                if (cards[i].classList.contains('alert-1')) {
-                    totalAlert1++;
-                }
-                if (cards[i].classList.contains('alert-2')) {
-                    totalAlert2++;
-                }
-                if (cards[i].classList.contains('alert-3')) {
-                    totalAlert3++;
-                }
-            }
+function atualizarBadges() {
+var totalGeral = cards.length;
+var totalAlert1 = 0;
+var totalAlert2 = 0;
+var totalAlert3 = 0;
 
-            tabs[0].querySelector('.tab-badge').textContent = totalGeral;
-            tabs[1].querySelector('.tab-badge').textContent = totalAlert1;
-            tabs[2].querySelector('.tab-badge').textContent = totalAlert2;
-            tabs[3].querySelector('.tab-badge').textContent = totalAlert3;
-        }
+for (var i = 0; i < cards.length; i++) {
+if (cards[i].classList.contains('alert-1')) {
+totalAlert1++;
+}
+if (cards[i].classList.contains('alert-2')) {
+totalAlert2++;
+}
+if (cards[i].classList.contains('alert-3')) {
+totalAlert3++;
+}
+}
 
-        function filtrarCards(filtro) {
-            for (var i = 0; i < cards.length; i++) {
-                if (filtro === 'todos') {
-                    cards[i].style.display = 'block';
-                } else if (cards[i].classList.contains(filtro)) {
-                    cards[i].style.display = 'block';
-                } else {
-                    cards[i].style.display = 'none';
-                }
-            }
-        }
+/*
+tabs[0].querySelector('.tab-badge').textContent = totalGeral;
+tabs[1].querySelector('.tab-badge').textContent = totalAlert1;
+tabs[2].querySelector('.tab-badge').textContent = totalAlert2;
+tabs[3].querySelector('.tab-badge').textContent = totalAlert3;
+*/
+}
 
-        for (var i = 0; i < tabs.length; i++) {
-            tabs[i].onclick = function () {
-                for (var j = 0; j < tabs.length; j++) {
-                    tabs[j].classList.remove('active');
-                }
+function filtrarCards(filtro) {
+for (var i = 0; i < cards.length; i++) {
+if (filtro === 'todos') {
+cards[i].style.display = 'block';
+} else if (cards[i].classList.contains(filtro)) {
+cards[i].style.display = 'block';
+} else {
+cards[i].style.display = 'none';
+}
+}
+}
 
-                this.classList.add('active');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].onclick = function () {
+for (var j = 0; j < tabs.length; j++) {
+tabs[j].classList.remove('active');
+}
 
-                var texto = this.textContent;
-                if (texto.indexOf('Todos') !== -1) {
-                    filtrarCards('todos');
-                } else if (texto.indexOf('Alerta 1') !== -1) {
-                    filtrarCards('alert-1');
-                } else if (texto.indexOf('Alerta 2') !== -1) {
-                    filtrarCards('alert-2');
-                } else if (texto.indexOf('Alerta 3') !== -1) {
-                    filtrarCards('alert-3');
-                }
-            };
-        }
+this.classList.add('active');
 
-        async function html() {
-            try {
-                var data = JSON.parse(sessionStorage.getItem("dados"))
-                console.log(data,409)
-                let tickets = await (await fetch("/mural/"+data.EMPRESA_USUARIO)).json()
-                console.log(tickets)
-                for(let ticket of tickets){
-                    console.log(ticket)
-                    document.querySelector("body > div > div.cards-grid").innerHTML += `
-                <div class="card alert-1">
-                    <div class="card-header">
-                        <div class="card-label">
-                            <span class="card-indicator"></span>
-                            Atenção
-                        </div>
-                        <div class="card-date">${ticket.created}</div>
-                    </div>
-                    <h3 class="card-title">Nova Versão Disponível</h3>
-                    <p class="card-description">${ticket.summary}</p>
-                </div>
-                `
-                }
-            } catch (e) {}
+var texto = this.textContent;
+if (texto.indexOf('Todos') !== -1) {
+filtrarCards('todos');
+} else if (texto.indexOf('Alerta 1') !== -1) {
+filtrarCards('alert-1');
+} else if (texto.indexOf('Alerta 2') !== -1) {
+filtrarCards('alert-2');
+} else if (texto.indexOf('Alerta 3') !== -1) {
+filtrarCards('alert-3');
+}
+};
+}
 
-        }
-        html()
-        atualizarBadges();
-    </script>
+async function html() {
+try {
+var data = JSON.parse(sessionStorage.getItem("dados"))
+console.log(data,409)
+let tickets = await (await fetch("/mural/"+data.EMPRESA_USUARIO)).json()
+console.log(tickets)
+for(let ticket of tickets){
+console.log(ticket)
+document.querySelector("body > div > div.cards-grid").innerHTML += `
+<div class="card alert-1">
+<div class="card-header">
+<div class="card-label">
+<span class="card-indicator"></span>
+Atenção
+</div>
+<div class="card-date">${ticket.created}</div>
+</div>
+<h3 class="card-title">${ticket.summary.split("máquina")[1]}</h3>
+<p class="card-description">${ticket.summary}</p>
+</div>
+`
+}
+} catch (e) {}
+
+}
+html()
+atualizarBadges();
+</script>
 </body>
 
 </html>
