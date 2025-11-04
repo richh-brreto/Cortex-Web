@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,14 @@
     <link rel="stylesheet" href="../base/navbar.css">
     <title>Mural de Avisos</title>
 </head>
+
 <body>
 
-    <nav class="barra-lateral">
+   <nav class="barra-lateral">
         
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
-        </a>
-
-         <a class="item-notificacao" href="mural_de_alertas-supervisor.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
 
         <div class="divisor"></div>
@@ -48,6 +45,11 @@
 
         <div class="divisor"></div>
 
+        <a class="item-notificacao" href="mural_de_alertas-supervisor.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
         <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
             <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
@@ -56,13 +58,17 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
         <a class="item-usuario" href="perfil-supervisor.html">
-            <img src="" alt="Foto de Perfil" class="avatar-usuario">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
             <span class="texto-usuario"></span>
         </a>
 
@@ -75,6 +81,7 @@
     </nav>
     <script src="../js/logout.js"></script>
     <script src="../js/avatar-apply.js"></script>
+
     <div class="container">
         <div class="header">
             <h1>Mural de Alertas</h1>
@@ -90,227 +97,30 @@
             </div>
         </div>
 
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active">
-                Todos
-                <span class="tab-badge">12</span>
+        <!-- 
+            <div class="tabs">
+                <div class="tab active">
+                    Todos
+                    <span class="tab-badge">12</span>
+                </div>
+                <div class="tab">
+                    Alerta 1
+                    <span class="tab-badge">3</span>
+                </div>
+                <div class="tab">
+                    Alerta 2
+                    <span class="tab-badge">5</span>
+                </div>
+                <div class="tab">
+                    Alerta 3
+                    <span class="tab-badge">4</span>
+                </div>
             </div>
-            <div class="tab">
-                Alerta 1
-                <span class="tab-badge">3</span>
-            </div>
-            <div class="tab">
-                Alerta 2
-                <span class="tab-badge">5</span>
-            </div>
-            <div class="tab">
-                Alerta 3
-                <span class="tab-badge">4</span>
-            </div>
-        </div>
+        Tabs -->
 
         <!-- Cards Grid -->
         <div class="cards-grid">
-            <!-- Alerta 1 - Vermelho -->
-            <div class="card alert-1">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Crítico
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Falha Crítica no Servidor Principal</h3>
-                <p class="card-description">O servidor principal apresentou falha crítica às 14:30. Equipe de infraestrutura foi acionada para resolução imediata.</p>
-                <div class="card-botao">
-                    <button class="botao">fechar chamado</button>
-                    <button class="botao">jira</button>
-                </div>
-                    <button class="botao">Ver Modelo</button>
-            </div>
-
-            <div class="card alert-1">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Crítico
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Falha Crítica no Servidor Principal</h3>
-                <p class="card-description">O servidor principal apresentou falha crítica às 14:30. Equipe de infraestrutura foi acionada para resolução imediata.</p>
-            </div>
-
-            <div class="card alert-1">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Crítico
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Falha Crítica no Servidor Principal</h3>
-                <p class="card-description">O servidor principal apresentou falha crítica às 14:30. Equipe de infraestrutura foi acionada para resolução imediata.</p>
-            </div>
-
-            <div class="card alert-1">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Crítico
-                    </div>
-                    <div class="card-date">Ontem</div>
-                </div>
-                <h3 class="card-title">Sistema de Backup Offline</h3>
-                <p class="card-description">Sistema de backup está offline desde as 10:00. Procedimentos de contingência foram ativados.</p>
-            </div>
-
-            <!-- Alerta 2 - Laranja -->
-            <div class="card alert-2">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Importante
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Alto Uso de CPU Detectado</h3>
-                <p class="card-description">Uso de CPU atingiu 85% nos últimos 30 minutos. Monitoramento contínuo ativado para prevenir sobrecarga.</p>
-            </div>
-
-            <div class="card alert-2">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Importante
-                    </div>
-                    <div class="card-date">25/10/2024</div>
-                </div>
-                <h3 class="card-title">Manutenção Programada</h3>
-                <p class="card-description">Manutenção programada do sistema será realizada no dia 30/10 das 02:00 às 06:00.</p>
-            </div>
-
-            <!-- Alerta 3 - Amarelo -->
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Atualização de Segurança Disponível</h3>
-                <p class="card-description">Nova atualização de segurança disponível. Recomendamos aplicar assim que possível durante janela de manutenção.</p>
-            </div>
-
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Atualização de Segurança Disponível</h3>
-                <p class="card-description">Nova atualização de segurança disponível. Recomendamos aplicar assim que possível durante janela de manutenção.</p>
-            </div>
-
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">Hoje</div>
-                </div>
-                <h3 class="card-title">Atualização de Segurança Disponível</h3>
-                <p class="card-description">Nova atualização de segurança disponível. Recomendamos aplicar assim que possível durante janela de manutenção.</p>
-            </div>
-
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">Ontem</div>
-                </div>
-                <h3 class="card-title">Novo Relatório de Desempenho</h3>
-                <p class="card-description">Relatório mensal de desempenho disponível para análise. Verifique as métricas e indicadores do período.</p>
-            </div>
-
-            <div class="card alert-1">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Crítico
-                    </div>
-                    <div class="card-date">24/10/2024</div>
-                </div>
-                <h3 class="card-title">Banco de Dados com Lentidão</h3>
-                <p class="card-description">Queries apresentando lentidão acima do normal. Investigação em andamento para identificar causa raiz.</p>
-            </div>
-
-            <div class="card alert-2">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Importante
-                    </div>
-                    <div class="card-date">23/10/2024</div>
-                </div>
-                <h3 class="card-title">Espaço em Disco Reduzido</h3>
-                <p class="card-description">Espaço disponível em disco está abaixo de 20%. Considere limpeza ou expansão de armazenamento.</p>
-            </div>
-
-            <div class="card alert-2">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Importante
-                    </div>
-                    <div class="card-date">22/10/2024</div>
-                </div>
-                <h3 class="card-title">Conexões Simultâneas Elevadas</h3>
-                <p class="card-description">Número de conexões simultâneas está 30% acima da média. Monitoramento de performance ativado.</p>
-            </div>
-
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">21/10/2024</div>
-                </div>
-                <h3 class="card-title">Certificado SSL Expira em 30 Dias</h3>
-                <p class="card-description">O certificado SSL do domínio principal expira em 30 dias. Providencie renovação antecipada.</p>
-            </div>
-
-            <div class="card alert-2">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Importante
-                    </div>
-                    <div class="card-date">20/10/2024</div>
-                </div>
-                <h3 class="card-title">Pico de Tráfego Detectado</h3>
-                <p class="card-description">Pico de tráfego detectado às 16:00. Sistema respondeu adequadamente mas requer análise.</p>
-            </div>
-
-            <div class="card alert-3">
-                <div class="card-header">
-                    <div class="card-label">
-                        <span class="card-indicator"></span>
-                        Atenção
-                    </div>
-                    <div class="card-date">19/10/2024</div>
-                </div>
-                <h3 class="card-title">Nova Versão Disponível</h3>
-                <p class="card-description">Nova versão do sistema está disponível com melhorias de performance e correções de bugs.</p>
-            </div>
+            
         </div>
     </div>
     <script>
@@ -354,13 +164,13 @@
         }
 
         for (var i = 0; i < tabs.length; i++) {
-            tabs[i].onclick = function() {
+            tabs[i].onclick = function () {
                 for (var j = 0; j < tabs.length; j++) {
                     tabs[j].classList.remove('active');
                 }
-                
+
                 this.classList.add('active');
-                
+
                 var texto = this.textContent;
                 if (texto.indexOf('Todos') !== -1) {
                     filtrarCards('todos');
@@ -374,7 +184,34 @@
             };
         }
 
+        async function html() {
+            try {
+                var data = JSON.parse(sessionStorage.getItem("dados"))
+                console.log(data,409)
+                let tickets = await (await fetch("/mural/"+data.EMPRESA_USUARIO)).json()
+                console.log(tickets)
+                for(let ticket of tickets){
+                    console.log(ticket)
+                    document.querySelector("body > div > div.cards-grid").innerHTML += `
+                <div class="card alert-1">
+                    <div class="card-header">
+                        <div class="card-label">
+                            <span class="card-indicator"></span>
+                            Atenção
+                        </div>
+                        <div class="card-date">${ticket.created}</div>
+                    </div>
+                    <h3 class="card-title">Nova Versão Disponível</h3>
+                    <p class="card-description">${ticket.summary}</p>
+                </div>
+                `
+                }
+            } catch (e) {}
+
+        }
+        html()
         atualizarBadges();
     </script>
 </body>
+
 </html>

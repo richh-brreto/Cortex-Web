@@ -24,50 +24,31 @@
 </style>
 
 <body>
-    <nav class="barra-lateral">
+        <nav class="barra-lateral">
         
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
         </a>
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-        </a>
-
         <div class="divisor"></div>
 
         <h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-tecnico.html">
             <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
             <span class="texto">Arquitetura</span>
         </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-            <span class="texto">Clientes</span>
-        </a>
-
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+        <a class="item-navegacao" href="Gerenciamento_modelos-tecnico.html">
             <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
             <span class="texto">Modelos</span>
         </a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
-
         <div class="divisor"></div>
 
-        <a class="item-notificacao" href="mural_de_alertas.html">
+        <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
             <img src="../assets/icon/alerta.png" id="sino" alt="">
             <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
@@ -80,12 +61,16 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
-        <a class="item-usuario" href="perfil-analista.html">
+        <a class="item-usuario" href="perfil-tecnico.html">
             <img src="" alt="Foto de perfil" class="avatar-usuario">
             <span class="texto-usuario"></span>
         </a>
@@ -133,12 +118,6 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="acoes-container">
-                    <button id="btn-adicionar" class="btn btn-primario">
-                        Adicionar <b>+</b>
-                    </button>
-                </div>
             </div>
 
             <section class="container-tabela">
@@ -147,14 +126,14 @@
                         <thead>
                             <tr>
 
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                                <th>Zona</th>
-                                <th>Cliente</th>
-                                <th>IP</th>
-                                <th>Hostname</th>
-                                <th>Arquitetura</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">ID</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Nome</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Descrição</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Zona</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Cliente</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">IP</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Hostname</th>
+                                <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Arquitetura</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -174,10 +153,6 @@
     <div id="sobreposicao-formulario" class="sobreposicao-formulario">
         <div class="painel-formulario">
             <div class="cabecalho-formulario">
-                <h2 id="modal-title">Adicionar Modelo</h2>
-                <button class="btn-fechar" id="btn-fechar-modal">
-                    <span class="material-icons">close</span>
-                </button>
             </div>
 
             <div class="corpo-formulario">
@@ -302,7 +277,6 @@
         const form = document.getElementById('form-modelo');
         const overlay = document.getElementById('sobreposicao-formulario');
         const tituloModal = document.getElementById('modal-title');
-        const btnAdicionar = document.getElementById('btn-adicionar');
         const btnFechar = document.getElementById('btn-fechar-modal');
         const btnCancelar = document.getElementById('btn-cancelar');
         const btnSalvar = document.getElementById('btn-salvar');
@@ -322,7 +296,7 @@
         const filtroSelect = document.getElementById('filtro-select');
         const headers = document.querySelectorAll('.envoltorio-tabela thead th');
         let linhaEditando = null;
-        const fk_empresa = sessionStorage.EMPRESA_USUARIO;
+        const fk_empresa = JSON.parse(sessionStorage.getItem("dados")).EMPRESA_USUARIO;
 
         function irParaDashboardModelo(idModelo, nomeModelo) {
             console.log(`Redirecionando para dashboard do modelo ID: ${idModelo}, Nome: ${nomeModelo}`);
@@ -438,8 +412,6 @@
 
         pesquisaInput.addEventListener('input', aplicarPesquisa);
         filtroSelect.addEventListener('change', aplicarPesquisa);
-        btnAdicionar.addEventListener('click', function () { abrirModalFormulario('novo'); });
-        btnFechar.addEventListener('click', fecharModalFormulario);
         btnCancelar.addEventListener('click', fecharModalFormulario);
 
         function atualizarTotal() {
@@ -507,8 +479,6 @@
                         <td>
                             <div class="coluna-acoes">
                                 <button class="btn btn-secundario" onclick="irParaDashboardModelo(${m.id_modelo}, '${m.nome}')" title="Ver mais">Ver mais</button>
-                                <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                                <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
                             </div>
                         </td>
                     `;

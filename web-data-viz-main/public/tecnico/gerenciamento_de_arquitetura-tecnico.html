@@ -17,21 +17,17 @@
 }
 </style>
 <body>
-    <nav class="barra-lateral">
+       <nav class="barra-lateral">
         
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
         </a>
 
-         <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
-        </a>
-
         <div class="divisor"></div>
 
-        <h3 class="subTitulo">Informações</h3>
+        <h3 class="subTitulo">Gerenciamento</h3>
+
 
         <a class="item-navegacao" href="gerenciamento_de_arquitetura-tecnico.html">
             <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
@@ -45,7 +41,10 @@
 
         <div class="divisor"></div>
 
-       
+        <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
 
         <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
@@ -55,8 +54,12 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
@@ -83,7 +86,7 @@
         <div class="total">
                 <span class="label-total">Total:</span>
                 <span class="numero-total"></span>
-        </div>
+            </div>
     
       </div>
 
@@ -107,9 +110,6 @@
         </div>
         
         <div class="acoes-container">
-          <button id="btn-adicionar" class="btn btn-primario">
-            Adicionar <b>+</b>
-          </button>
         </div>
       </div>
 
@@ -118,13 +118,12 @@
           <table>
             <thead>
               <tr>
-               <th>ID</th>
-               <th>Nome</th>
-               <th>Modelo CPU</th>
-               <th>Qtd. CPU</th>
-               <th>Modelo GPU</th>
+               <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">ID</th>
+               <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Nome</th>
+               <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Modelo CPU</th>
+               <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Qtd. CPU</th>
+               <th><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Modelo GPU</th>
                <th>SO</th>
-               <th>Ações</th>
               </tr>
             </thead>
             <tbody id="tabela-modelos-corpo"></tbody>
@@ -138,9 +137,6 @@
   <div id="sobreposicao-formulario" class="sobreposicao-formulario">
     <div class="painel-formulario">
       <div class="cabecalho-formulario">
-        <h2 id="modal-title">Adicionar Arquitetura</h2> <button class="btn-fechar" id="btn-fechar-modal">
-          <span class="material-icons">close</span>
-        </button>
       </div>
       
       <div class="corpo-formulario">
@@ -168,12 +164,7 @@
                         <input type="number" id="qtd-ram-arq" placeholder="Ex: 128" required>
                     </div>
 
-                      <div class="campo-form">
-                        <label for="zona-modelo">Zona de disponibilidade:</label>
-                        <select id="zona-modelo" required> 
-                            <option value="">Selecione...</option>
-                        </select>
-                    </div>
+            
                 </div>
     
                 <div style="display: flex; flex-direction: column; gap: 1.5rem;">
@@ -190,11 +181,6 @@
                     <div class="campo-form">
                         <label for="max-disco-arq">Max. Disco (GB):</label>
                         <input type="number" id="max-disco-arq" placeholder="Ex: 4000" required>
-                    </div>
-
-                    <div class="campo-form">
-                        <label for="qtd-arq">Qtd. Máquinas:</label>
-                        <input type="number" id="qtd-arq" placeholder="Ex: 1" required>
                     </div>
     
                   
@@ -232,8 +218,8 @@
     </div>
 </div>
   
- <script>
-   
+ <body>
+<script>
 // IDs dos campos
 const nomeInput = document.getElementById('nome-arq');
 const modeloCpuInput = document.getElementById('modelo-cpu-arq');
@@ -242,8 +228,7 @@ const qtdRamInput = document.getElementById('qtd-ram-arq');
 const modeloGpuInput = document.getElementById('modelo-gpu-arq');
 const soInput = document.getElementById('so-arq');
 const maxDiscoInput = document.getElementById('max-disco-arq');
-const qtdInput = document.getElementById('qtd-arq');
-const zonaInput = document.getElementById('zona-modelo'); 
+
 
 const tabelaCorpo = document.getElementById('tabela-modelos-corpo'); 
 const form = document.getElementById('form-arquitetura'); 
@@ -259,7 +244,7 @@ const pesquisaInput = document.getElementById('pesquisar-input');
 const filtroSelect = document.getElementById('filtro-select');
 const headers = document.querySelectorAll('.envoltorio-tabela thead th');
 let linhaEditando = null;
-const fk_empresa = sessionStorage.EMPRESA_USUARIO; 
+const fk_empresa = JSON.parse(sessionStorage.getItem("dados")).EMPRESA_USUARIO;; 
 
 const fundoConfirmacao = document.getElementById('fundo-confirmacao');
 const tituloConfirmacao = document.getElementById('titulo-confirmacao');
@@ -283,8 +268,7 @@ function abrirModal(modo) {
     if (modo === undefined) { modo = 'novo'; }
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
-    tituloModal.textContent = modo === 'novo' ? 'Adicionar Arquitetura' : 'Editar Arquitetura';
-    btnSalvar.textContent = modo === 'novo' ? 'Salvar Arquitetura' : 'Atualizar Arquitetura';
+
     if (modo === 'novo' && form) form.reset(); 
 }
 function fecharModal() {
@@ -387,8 +371,6 @@ function aplicarPesquisa() {
 
 pesquisaInput.addEventListener('input', aplicarPesquisa);
 filtroSelect.addEventListener('change', aplicarPesquisa);
-btnAdicionar.addEventListener('click', function() { abrirModal('novo'); });
-btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
 function atualizarTotal() {
@@ -427,8 +409,6 @@ window.addEventListener("load", function() {
                 tr.setAttribute("data-modelo_gpu", arq.modelo_gpu || '');
                 tr.setAttribute("data-so", arq.so);
                 tr.setAttribute("data-maxDisco", arq.maxDisco);
-                tr.setAttribute("data-qtd", arq.qtd);
-                tr.setAttribute("data-fk_zona", arq.fk_zona);
                 tr.innerHTML = `
                     <td>${arq.id_arquitetura}</td>
                     <td>${arq.nome}</td>
@@ -436,12 +416,7 @@ window.addEventListener("load", function() {
                     <td>${arq.qtd_cpu}</td>
                     <td>${arq.modelo_gpu || '-'}</td>
                     <td>${arq.so}</td>
-                    <td>
-                        <div class="coluna-acoes">
-                            <button class="btn-icone" title="Editar"><span class="material-icons">edit</span></button>
-                            <button class="btn-icone" title="Excluir"><span class="material-icons">delete</span></button>
-                        </div>
-                    </td>
+
                 `;
                 tabelaCorpo.appendChild(tr);
             }
@@ -463,15 +438,14 @@ function buscarDadosDoFormulario(idEmpresa) {
             else { throw new Error('Falha ao buscar os dados do formulário.'); }
         })
         .then(function(dadosRecebidos) { 
-            const selectZona = zonaInput; 
-            selectZona.innerHTML = '<option value="" disabled selected>Selecione uma zona...</option>';
+            
             for (let i = 0; i < dadosRecebidos.length; i++) {
                 const item = dadosRecebidos[i];
                  if (item.tipo === 'zona') {
                     const option = document.createElement('option');
                     option.value = item.id;
                     option.textContent = item.nome;
-                    selectZona.appendChild(option);
+                    
                  }
             }
         })
@@ -499,8 +473,6 @@ tabelaCorpo.addEventListener('click', function(e) {
         modeloGpuInput.value = linha.getAttribute("data-modelo_gpu");
         soInput.value = linha.getAttribute("data-so");
         maxDiscoInput.value = linha.getAttribute("data-maxDisco");
-        qtdInput.value = linha.getAttribute("data-qtd");
-        zonaInput.value = linha.getAttribute("data-fk_zona");
         abrirModal('editar');
         
 
@@ -514,6 +486,7 @@ tabelaCorpo.addEventListener('click', function(e) {
                     .then(function(res) {
                         if (res.ok) {
                             linha.remove();
+                            atualizarTotal();
                             mostrarAviso("Arquitetura excluída com sucesso!", "Sucesso"); 
                         } else {
                             res.text().then(function(errorText) {
@@ -544,8 +517,6 @@ form.addEventListener('submit', function(ev) {
         modelo_gpu: modeloGpuInput.value.trim(),
         so: soInput.value.trim(),
         maxDisco: parseInt(maxDiscoInput.value),
-        qtd: parseInt(qtdInput.value),
-        fk_zona: parseInt(zonaInput.value),
         fk_empresa: fk_empresa
     };
 
@@ -622,7 +593,6 @@ for (let i = 0; i < headers.length; i++) {
         }
     });
 }
-
 </script>
 </body>
 </html>

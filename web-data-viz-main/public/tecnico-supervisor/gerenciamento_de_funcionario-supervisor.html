@@ -10,17 +10,11 @@
     <link rel="stylesheet" href="../css/gerenciamento_geral.css">
 </head>
 <body>
-
-    <nav class="barra-lateral">
+   <nav class="barra-lateral">
         
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
-        </a>
-
-         <a class="item-notificacao" href="mural_de_alertas-supervisor.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
 
         <div class="divisor"></div>
@@ -49,6 +43,11 @@
 
         <div class="divisor"></div>
 
+        <a class="item-notificacao" href="mural_de_alertas-supervisor.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
         <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
             <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
@@ -57,13 +56,17 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
         <a class="item-usuario" href="perfil-supervisor.html">
-            <img src="" alt="Foto de Perfil" class="avatar-usuario">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
             <span class="texto-usuario"></span>
         </a>
 
@@ -81,7 +84,11 @@
         <div class="container-funcionarios">
             <div class="header-funcionarios">
                 <h1>Funcionários</h1>
+            <div class="total">
+                <span class="label-total">Total:</span>
+                <span class="numero-total"></span>
             </div>
+        </div>
 
             <div class="barra-acoes">
                 <div class="area-pesquisa-filtro">
@@ -113,14 +120,14 @@
                     <table>
                         <thead id="header">
                             <tr>
-                                <th id="0">*ID</th>
-                                <th id="1">*Nome</th>
-                                <th id="2">*E-mail</th>
-                                <th id="3">*Cargo</th>
-                                <th id="">Senha</th>
-                                <th id="">Telefone</th>
-                                <th id="6">*Status</th>
-                                <th id="">Ações</th>
+                                <th id="0"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">ID</th>
+                                <th id="1"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Nome</th>
+                                <th id="2">Foto</th>
+                                <th id="3"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">E-mail</th>
+                                <th id="4"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Cargo</th>
+                                <th id="5">Telefone</th>
+                                <th id="6"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Status</th>
+                                <th id="7">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-funcionarios-corpo">
@@ -179,7 +186,7 @@
 
                         <div class="campo-form">
                             <label for="foto-funcionario">Foto</label>
-                            <input type="file" id="foto-funcionario" accept="image/*" required>
+                            <input type="file" id="foto-funcionario" accept="image/*">
                         </div>
 
                         <div class="campo-form">
@@ -204,8 +211,13 @@
 <script src="../js/gerenciamento_de_funcionario.js"></script>
 </html>
 <script>
-    var id = document.getElementById('foto')
-    id.src = `../assets/imgs/${sessionStorage.FOTO}`
+    (function(){
+        const fotoEl = document.getElementById('foto');
+        const nomeEl = document.getElementById('nome');
+        const userAvatar = sJSON.parse(sessionStorage.getItem("dados")).USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : '/assets/icon/sem-foto.png');
+        if (fotoEl) fotoEl.src = userAvatar;
+        if (nomeEl) nomeEl.innerText = sJSON.parse(sessionStorage.getItem("dados")).NOME_USUARIO || '';
+    })();
+    
 
-    nome.innerText = sessionStorage.NOME_USUARIO
 </script>

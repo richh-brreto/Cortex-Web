@@ -24,43 +24,24 @@
             <span class="texto-logo">Cortex</span>
         </a>
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-        </a>
-
         <div class="divisor"></div>
 
         <h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-tecnico.html">
             <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
             <span class="texto">Arquitetura</span>
         </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-            <span class="texto">Clientes</span>
-        </a>
-
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+        <a class="item-navegacao" href="Gerenciamento_modelos-tecnico.html">
             <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
             <span class="texto">Modelos</span>
         </a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
-
         <div class="divisor"></div>
 
-        <a class="item-notificacao" href="mural_de_alertas.html">
+        <a class="item-notificacao" href="mural_de_alertas-tecnico.html">
             <img src="../assets/icon/alerta.png" id="sino" alt="">
             <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
@@ -73,12 +54,16 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
-        <a class="item-usuario" href="perfil-analista.html">
+        <a class="item-usuario" href="perfil-tecnico.html">
             <img src="" alt="Foto de perfil" class="avatar-usuario">
             <span class="texto-usuario"></span>
         </a>
@@ -108,10 +93,16 @@
                 </div>
                 <div class="container-periodo">
                 <p>Período:</p>
+                <p>Início:</p>
                 <div class="container-sugestao">
                     <input type="search" id="inicio" class="input-pesquisa">
                     <div  id="sugestaoInicio"></div>
                 </div>
+                <p>Fim:</p>
+                <div class="container-sugestao">
+                    <input type="search" id="fim" class="input-pesquisa">
+                    <div id="sugestaoFim"></div>
+               </div>
             </div>
             </div>
         </div>
@@ -143,7 +134,7 @@
                     </div>
                     <div class="kpi-title">DOWNTIME</div>
                 </div>
-                <div class="kpi-value primary">19 Min</div>
+                <div class="kpi-value primary">2 Min</div>
             </div>
 
             <!-- Alertas -->
@@ -164,21 +155,21 @@
                     <div class="alerts-column">
                         <div class="alert-row">
                             <span class="alerts-label">CPU:</span>
-                            <span class="alerts-value">71</span>
+                            <span class="alerts-value">100</span>
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">Disco:</span>
-                            <span class="alerts-value">50</span>
+                            <span class="alerts-value">0</span>
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">RAM:</span>
-                            <span class="alerts-value">54</span>
+                            <span class="alerts-value">9</span>
                         </div>
                     </div>
                     <div class="alerts-column">
                         <div class="alert-row">
                             <span class="alerts-label">GPU:</span>
-                            <span class="alerts-value">22</span>
+                            <span class="alerts-value">0</span>
                         </div>
                         <div class="alert-row">
                             <span class="alerts-label">Processos:</span>
@@ -186,7 +177,7 @@
                         </div>
                         <div class="alert-row alert-total">
                             <span class="alerts-total-label">Total:</span>
-                            <span class="alerts-total-value">199</span>
+                            <span class="alerts-total-value">111</span>
                         </div>
                     </div>
                 </div>
@@ -206,9 +197,9 @@
                 </div>
                 <div class="storage-bar-container">
                     <div class="storage-bar">
-                        <div class="storage-bar-fill" style="width: 80%;"></div>
+                        <div class="storage-bar-fill" style="width: 30%;"></div>
                     </div>
-                    <div class="storage-percentage">80%</div>
+                    <div class="storage-percentage">30%</div>
                    
                 </div>
                  <div class="storage-total">Total: 100GB</div>
@@ -298,7 +289,7 @@
                 <div class="info-btn-icon">
                     <i style="color:#00B2B2;" class="material-icons">block</i>
                 </div>
-                <span>Whitelist</span>
+                <span>Processos Permitidos</span>
             </button>
         </div>
 
