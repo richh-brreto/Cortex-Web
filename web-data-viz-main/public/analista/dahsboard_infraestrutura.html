@@ -58,6 +58,7 @@
             <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
 
+        <!-- ITEM COM SUBMENU -->
         <div class="item-com-submenu">
             <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
                 <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
@@ -65,8 +66,12 @@
                 </span>
             </a>
             <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
             </div>
         </div>
 
@@ -88,6 +93,17 @@
     <div class="dashboard">
         <div class="header">
             <h1>Infraestrutura</h1>
+            <div class="container-zonas">
+                      <p>Zona:</p>
+                 <select class="simple-select" id="zoneSelect" onchange="updateComponentChart()">
+                    <option value="zona1">Todas</option>
+                        <option value="zona1">SP-01</option>
+                        <option value="zona2">SP-02</option>
+                        <option value="zona3">MG-01</option>
+                        
+                    </select>
+            </div>
+      
         </div>
 
         <div class="kpis-grid">
@@ -100,13 +116,13 @@
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Vortex-2</span>
-                            <span class="arch-compact-percent">86%</span>
+                            <span class="arch-compact-percent">90%</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 87%"></div>
+                            <div class="arch-compact-fill" style="width: 90%"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">130/150</span>
+                            <span class="arch-compact-detail">180/200</span>
                             <span class="arch-compact-remaining">20 rest.</span>
                         </div>
                     </div>
@@ -114,41 +130,41 @@
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Astra-core</span>
-                            <span class="arch-compact-percent">75%</span>
+                            <span class="arch-compact-percent">86%</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 75%"></div>
+                            <div class="arch-compact-fill" style="width: 86%"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">90/120</span>
-                            <span class="arch-compact-remaining">30 rest.</span>
+                            <span class="arch-compact-detail">160/185</span>
+                            <span class="arch-compact-remaining">25 rest.</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Astra-Mini</span>
-                            <span class="arch-compact-percent">88%</span>
+                            <span class="arch-compact-percent">97%</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 88%"></div>
+                            <div class="arch-compact-fill" style="width: 97%"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">70/80</span>
-                            <span class="arch-compact-remaining">10 rest.</span>
+                            <span class="arch-compact-detail">150/155</span>
+                            <span class="arch-compact-remaining">5 rest.</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Vortex-1</span>
-                            <span class="arch-compact-percent">81%</span>
+                            <span class="arch-compact-percent">88%</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 81%"></div>
+                            <div class="arch-compact-fill" style="width: 88%"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">65/80</span>
+                            <span class="arch-compact-detail">120/135</span>
                             <span class="arch-compact-remaining">15 rest.</span>
                         </div>
                     </div>
@@ -166,11 +182,11 @@
                             <span class="arch-compact-percent" style="color: #00B2B2;">1º</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 50%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 28%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">300/600</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">50%</span>
+                            <span class="arch-compact-detail">240/850</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">28%</span>
                         </div>
                     </div>
 
@@ -180,11 +196,11 @@
                             <span class="arch-compact-percent" style="color: #00B2B2;">2º</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 86%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 21%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">130/150</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">86%</span>
+                            <span class="arch-compact-detail">180/850</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">21%</span>
                         </div>
                     </div>
 
@@ -194,11 +210,11 @@
                             <span class="arch-compact-percent" style="color: #00B2B2;">3º</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 78%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 19%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">90/120</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">75%</span>
+                            <span class="arch-compact-detail">160/850</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">19%</span>
                         </div>
                     </div>
 
@@ -208,11 +224,11 @@
                             <span class="arch-compact-percent" style="color: #00B2B2;">4º</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 88%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 18%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">70/80</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">88%</span>
+                            <span class="arch-compact-detail">150/850</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">18%</span>
                         </div>
                     </div>
                 </div>
@@ -228,28 +244,21 @@
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Total</span>
-                            <span class="arch-compact-percent" style="color: #00B2B2;">850</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 100%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">Capacidade</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">100%</span>
+                            <span style="color: #00B2B2;">850</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Ativos</span>
-                            <span class="arch-compact-percent" style="color: #00B2B2;">677</span>
+                            <span class="arch-compact-percent" style="color: #00B2B2;">633</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 84%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 74%; background: linear-gradient(90deg, #00B2B2 0%, #006E66 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
-                            <span class="arch-compact-detail">38/45</span>
-                            <span class="arch-compact-remaining" style="color: #00B2B2;">84%</span>
+                            <span class="arch-compact-detail">633/850</span>
+                            <span class="arch-compact-remaining" style="color: #00B2B2;">74%</span>
                         </div>
                     </div>
 
@@ -259,17 +268,17 @@
                             <span class="arch-compact-percent" style="color: #64748b;">173</span>
                         </div>
                         <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 16%; background: linear-gradient(90deg, #94a3b8 0%, #64748b 100%);"></div>
+                            <div class="arch-compact-fill" style="width: 21%; background: linear-gradient(90deg, #94a3b8 0%, #64748b 100%);"></div>
                         </div>
                         <div class="arch-compact-footer">
                             <span class="arch-compact-detail">173/850</span>
-                            <span class="arch-compact-remaining" style="color: #64748b;">16%</span>
+                            <span class="arch-compact-remaining" style="color: #64748b;">21%</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Uptime</span>
+                            <span class="arch-compact-name">Uptime Mensal</span>
                             <span class="arch-compact-percent" style="color: #10B981;">96%</span>
                         </div>
                         <div class="arch-compact-bar">
@@ -335,12 +344,7 @@
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Ocupação de Componentes por Zona</h3>
-                    <select class="simple-select" id="zoneSelect" onchange="updateComponentChart()">
-                        <option value="zona1">SP-01</option>
-                        <option value="zona2">SP-02</option>
-                        <option value="zona3">MG-01</option>
-                        
-                    </select>
+               
                 </div>
                 <div class="chart-container">
                     <canvas id="componentTrendChart"></canvas>
@@ -396,7 +400,7 @@
                 datasets: [
                     {
                         label: 'WAPX',
-                        data: [100, 160, 190, 120, 125, 90, 130, 200, 220, 240, 280, 300],
+                        data: [100, 160, 190, 120, 125, 90, 80, 130, 170, 180, 223, 240],
                         borderColor: '#00B2B2',
                         backgroundColor: 'rgba(0, 178, 178, 0.1)',
                         tension: 0.4,
@@ -404,7 +408,7 @@
                     },
                     {
                         label: 'Vortex-2',
-                        data: [34, 40, 49, 69, 79, 85, 93,97 , 108, 112, 115, 120],
+                        data: [34, 40, 49, 69, 79, 85, 93,97 , 108, 112, 115, 180],
                         borderColor: '#006E66',
                         backgroundColor: 'rgba(0, 110, 102, 0.1)',
                         tension: 0.4,
@@ -412,7 +416,7 @@
                     },
                     {
                         label: 'Astra-core',
-                        data: [20, 28, 39, 42, 50, 62, 75, 72, 71, 76, 81, 90],
+                        data: [20, 28, 39, 42, 50, 62, 75, 72, 71, 76, 81, 160],
                         borderColor: 'blue',
                         backgroundColor: 'rgba(92, 104, 222, 0.1)',
                         tension: 0.4,
@@ -420,7 +424,7 @@
                     },
                     {
                         label: 'Astra-Mini',
-                        data: [20, 28, 39, 42, 50, 61, 70, 62, 75, 78, 78, 80],
+                        data: [20, 28, 39, 42, 50, 61, 70, 82, 85, 108, 138, 150],
                         borderColor: 'rgba(180, 222, 92',
                         backgroundColor: 'rgba(180, 222, 92, 0.1)',
                         tension: 0.4,

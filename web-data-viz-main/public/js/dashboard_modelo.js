@@ -443,10 +443,34 @@ function alternarAutokillProcesso(idProcesso, botaoElemento) {
 const processosModal = document.getElementById('procesosModal');
 const tabelaProcessosAtivosCorpo = document.getElementById('tabela-processos-ativos-corpo');
 const listaProcessosSimulados = [
-    { nome: "chrome.exe", cpu: 15.2, ram: 51, disco: 0.1, gpu: 8.5 },
-    { nome: "explorer.exe", cpu: 2.1, ram: 12, disco: 0.0, gpu: 1.0 },
-    { nome: "svchost.exe", cpu: 0.5, ram: 4.1, disco: 0.0, gpu: 0.0 },
+  // --- Processos do sistema ---
+  { nome: "chrome.exe", cpu: 0.6, ram: 10.0, disco: 0.1, gpu: 0.0 },
+  { nome: "python.exe", cpu: 0.3, ram: 3.2, disco: 0.1, gpu: 0.0 },
+  { nome: "systemd", cpu: 0.5, ram: 2.1, disco: 0.0, gpu: 0.0 },
+  { nome: "sshd", cpu: 0.2, ram: 1.0, disco: 0.0, gpu: 0.0 },
+  { nome: "nginx", cpu: 1.5, ram: 3.8, disco: 0.1, gpu: 0.0 },
+  { nome: "redis-server", cpu: 1.0, ram: 5.5, disco: 0.0, gpu: 0.0 },
+  { nome: "docker", cpu: 2.5, ram: 10.2, disco: 0.2, gpu: 0.0 },
+
+  // --- Processos de IA / Inferência ---
+  { nome: "model_server.py", cpu: 35.4, ram: 6200, disco: 0.5, gpu: 78.2 },
+  { nome: "tensor_runtime", cpu: 18.7, ram: 4200, disco: 0.3, gpu: 65.0 },
+  { nome: "triton_inference_server", cpu: 22.3, ram: 5100, disco: 0.4, gpu: 72.8 },
+  { nome: "cuda_driver", cpu: 3.1, ram: 1200, disco: 0.0, gpu: 5.5 },
+  { nome: "python_worker", cpu: 5.8, ram: 1500, disco: 0.2, gpu: 8.9 },
+
+  // --- Processos de suporte ---
+  { nome: "prometheus", cpu: 0.9, ram: 2.5, disco: 0.1, gpu: 0.0 },
+  { nome: "grafana-server", cpu: 1.2, ram: 3.2, disco: 0.1, gpu: 0.0 },
+  { nome: "kubelet", cpu: 0.7, ram: 1.8, disco: 0.0, gpu: 0.0 },
+  { nome: "node_exporter", cpu: 0.3, ram: 0.9, disco: 0.0, gpu: 0.0 },
+
+  // --- Processos genéricos (usuário/admin) ---
+  { nome: "bash", cpu: 0.1, ram: 0.5, disco: 0.0, gpu: 0.0 },
+  { nome: "htop", cpu: 0.4, ram: 0.8, disco: 0.0, gpu: 0.0 },
+  { nome: "nano", cpu: 0.0, ram: 0.2, disco: 0.0, gpu: 0.0 },
 ];
+
 
 function popularTabelaProcessosAtivos(listaProcessos) {
     if (!tabelaProcessosAtivosCorpo) { return; }

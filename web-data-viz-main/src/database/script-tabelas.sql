@@ -258,17 +258,18 @@ VALUES
 CREATE TABLE log_processos (
     id_log INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50), 
-    dataKill DATETIME,
+    dataKill DATETIME DEFAULT CURRENT_TIMESTAMP,
     fk_modelo INT,
     FOREIGN KEY (fk_modelo) REFERENCES modelo(id_modelo)
 );
 
 INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES 
-('Processo_A', '2025-10-31 08:30:00', 1),
-('Processo_B', '2025-10-31 09:15:00', 1),
-('Processo_C', '2025-10-31 10:00:00', 1),
-('Processo_D', '2025-10-31 10:45:00', 1),
-('Processo_E', '2025-10-31 11:30:00', 1),
-('Processo_F', '2025-10-31 12:15:00', 1),
-('Processo_G', '2025-10-31 13:00:00', 1),
-('Processo_H', '2025-10-31 13:45:00', 1);
+('python_worker',       '2025-11-02 23:12:00', 1),
+('triton_inference_server', '2025-11-02 09:15:00', 1),
+('tensor_runtime',      '2025-10-31 10:00:00', 1),
+('cuda_driver',         '2025-10-31 10:45:00', 1),
+('redis-server',        '2025-10-29 11:30:00', 1),
+('nginx',               '2025-10-27 12:15:00', 1),
+('prometheus',          '2025-10-27 13:00:00', 1),
+('grafana-server',      '2025-10-20 13:45:00', 1);
+

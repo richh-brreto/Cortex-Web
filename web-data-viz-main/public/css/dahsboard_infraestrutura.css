@@ -44,8 +44,18 @@ body {
 .header {
     border-radius: 12px;
     padding: 14px 20px;
-    box-shadow: 0 2px 8px var(--cor-sombra);
+    box-shadow: 0 2px 8px var(--cor-fundo-tela);
     flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.container-zonas{
+    display: flex;
+    flex-direction: row;
+    gap: 4%;
+    align-items: center;
 }
 
 .header h1 {

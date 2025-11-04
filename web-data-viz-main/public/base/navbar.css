@@ -200,11 +200,7 @@
             color: var(--azul);
         }
 
-        .submenu-item.ativo {
-            background: var(--azul);
-            color: var(--branco);
-        }
-
+ 
         .item-notificacao {
             width: 50px;
             height: 50px;
