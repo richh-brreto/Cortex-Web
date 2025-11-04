@@ -444,7 +444,7 @@ const processosModal = document.getElementById('procesosModal');
 const tabelaProcessosAtivosCorpo = document.getElementById('tabela-processos-ativos-corpo');
 const listaProcessosSimulados = [
   // --- Processos do sistema ---
-  { nome: "chrome.exe", cpu: 0.6, ram: 10.0, disco: 0.1, gpu: 0.0 },
+  { nome: "msedge.exe", cpu: 0.6, ram: 10.0, disco: 0.1, gpu: 0.0 },
   { nome: "python.exe", cpu: 0.3, ram: 3.2, disco: 0.1, gpu: 0.0 },
   { nome: "systemd", cpu: 0.5, ram: 2.1, disco: 0.0, gpu: 0.0 },
   { nome: "sshd", cpu: 0.2, ram: 1.0, disco: 0.0, gpu: 0.0 },
