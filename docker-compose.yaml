@@ -1,0 +1,20 @@
+services:
+  site-web: 
+    image: richbrreto/site-web:latest
+    ports: 
+      - "8080:8080"
+    networks:
+      - rede-cortex
+    depends_on:
+      - cortex-db
+
+  cortex-db:
+    image: richbrreto/cortex-db-sprint2:cortex-db
+    ports:
+      - "3306:3306"
+    networks:
+      - rede-cortex
+
+networks:
+  rede-cortex:
+    driver: bridge
