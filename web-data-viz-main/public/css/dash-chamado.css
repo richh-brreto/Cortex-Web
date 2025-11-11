@@ -51,17 +51,34 @@ body {
 
 .header-content {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 32px;
+    gap: 100px;
 }
 
+.header-titulo{
+    display: flex;
+    align-items: flex-start;
+}
 
 .header-info {
     display: flex;
+    gap: 30px;
+    white-space: nowrap;
+}
+
+.info{
+    display: flex;
+    gap: 3%;
     align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    
+}
+
+.info h4{
+    font-size:18px;
+    font-weight: 400;
+    
 }
 
 .header-info h1 {
@@ -1111,5 +1128,108 @@ body {
 }
 
 .multiselect-select-btn:hover {
+    background: var(--cor-secundaria);
+}
+
+/* MultiSelect2 */
+
+.multiselect-container2 {
+    position: relative;
+    width: 250px;
+}
+
+.multiselect-trigger2 {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--cor-secundaria-claro);
+    background: var(--cor-fundo-tela);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.multiselect-trigger2:hover {
+    border-color: var(--cor-primaria);
+}
+
+.multiselect-dropdown2 {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--cor-fundo-tela);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+}
+
+.multiselect-dropdown2.active {
+    display: block;
+}
+
+.multiselect-search2 {
+    padding: 12px;
+    border-bottom: 1px solid var(--cor-secundaria-claro);
+}
+
+.multiselect-search2 input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--cor-secundaria-claro);
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.multiselect-search2 input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+}
+
+.multiselect-options2 {
+    padding: 8px;
+}
+
+.multiselect-option2 {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.multiselect-option2:hover {
+    background: var(--cor-primaria-claro);
+}
+
+.multiselect-option2 input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.multiselect-actions2 {
+    padding: 12px;
+    border-top: 1px solid var(--cor-secundaria-claro);
+}
+
+.multiselect-select-btn2 {
+    width: 100%;
+    padding: 10px;
+    background: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.multiselect-select-btn2:hover {
     background: var(--cor-secundaria);
 }

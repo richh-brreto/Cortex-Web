@@ -230,7 +230,7 @@ const alertsChart = new Chart(alertsCtx, {
         ],
         datasets: [{
             label: 'CPU',
-            data: [80,80,80,79,79,78,75,60,64,65,64],
+            data: [8,8,8,7,7,7,7,6,6,6,6],
             borderColor: '#00B2B2',
             tension: 0.4,
             borderWidth: 2,
@@ -242,7 +242,7 @@ const alertsChart = new Chart(alertsCtx, {
         },
         {
            label: 'RAM',
-            data: [70,77,77,76,75,78,80,80,80,80,77],
+            data: [7,7,7,7,7,7,8,8,8,8,7],
             borderColor: '#9a00b2ff',
             tension: 0.4,
             borderWidth: 2,
@@ -254,7 +254,7 @@ const alertsChart = new Chart(alertsCtx, {
         },
      {
            label: 'GPU',
-            data: [20,30,34,33,32,34,35,35,31,32,36],
+            data: [2,3,3,3,3,3,3,3,3,3,3],
             borderColor: '#00b20cff',
             tension: 0.4,
             borderWidth: 2,
@@ -266,7 +266,7 @@ const alertsChart = new Chart(alertsCtx, {
         },
      {
            label: 'Disco',
-            data: [10,10,10,10,11,11,11,11,11,11,11],
+            data: [1,1,1,1,1,1,1,1,1,1,1],
             borderColor: '#b2b200ff',
             tension: 0.4,
             borderWidth: 2,
@@ -292,16 +292,7 @@ const alertsChart = new Chart(alertsCtx, {
             dropdown.classList.toggle('active');
         }
 
-        function filterOptions() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const options = document.querySelectorAll('.multiselect-option');
-            
-            options.forEach(option => {
-                const text = option.textContent.toLowerCase();
-                option.style.display = text.includes(filter) ? 'flex' : 'none';
-            });
-        }
+
 
         function updateSelection() {
             const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
@@ -314,6 +305,17 @@ const alertsChart = new Chart(alertsCtx, {
             updateLineChart();
         }
 
+        
+        function updateLineChart() {
+            const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
+            const selected = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+            
+            lineChart.data.datasets = lineChart.data.datasets.filter(dataset => 
+                selected.includes(dataset.label)
+            );
+            lineChart.update();
+        }
+
         // Fechar dropdown ao clicar fora
         document.addEventListener('click', (e) => {
             const container = document.querySelector('.multiselect-container');
@@ -323,37 +325,37 @@ const alertsChart = new Chart(alertsCtx, {
         });
 
         // OUTRO
-        function toggleMultiselect() {
-            const dropdown = document.getElementById('multiselectDropdown2');
-            dropdown.classList.toggle('active');
+        function toggleMultiselect2() {
+            const dropdown2 = document.getElementById('multiselectDropdown2');
+            dropdown2.classList.toggle('active');
         }
 
-        function filterOptions() {
-            const input = document.getElementById('searchInput2');
-            const filter = input.value.toLowerCase();
-            const options = document.querySelectorAll('.multiselect-option');
-            
-            options.forEach(option => {
-                const text = option.textContent.toLowerCase();
-                option.style.display = text.includes(filter) ? 'flex' : 'none';
-            });
+        function updateSelection2() {
+            const checkboxes2 = document.querySelectorAll('.multiselect-option2 input[type="checkbox"]');
+            const count2 = Array.from(checkboxes2).filter(cb => cb.checked).length;
+            document.getElementById('selectedCount2').textContent = `${count2} selecionada${count2 !== 1 ? 's' : ''}`;
         }
 
-        function updateSelection() {
+        function applySelection2() {
+            toggleMultiselect2();
+            updateLineChart2();
+        }
+
+        
+        function updateLineChart2() {
             const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
-            const count = Array.from(checkboxes).filter(cb => cb.checked).length;
-            document.getElementById('selectedCount2').textContent = `${count} selecionada${count !== 1 ? 's' : ''}`;
-        }
-
-        function applySelection() {
-            toggleMultiselect();
-            updateLineChart();
+            const selected = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+            
+            lineChart.data.datasets = lineChart.data.datasets.filter(dataset => 
+                selected.includes(dataset.label)
+            );
+            lineChart.update();
         }
 
         // Fechar dropdown ao clicar fora
         document.addEventListener('click', (e) => {
-            const container = document.querySelector('.multiselect-container');
-            if (!container.contains(e.target)) {
+            const container2 = document.querySelector('.multiselect-container2');
+            if (!container2.contains(e.target)) {
                 document.getElementById('multiselectDropdown2').classList.remove('active');
             }
         });
