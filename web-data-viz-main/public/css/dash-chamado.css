@@ -51,18 +51,38 @@ body {
 
 .header-content {
     display: flex;
-    gap: 100px;
+    gap: 10px;
+    flex-direction: column;
 }
 
-.header-titulo{
-    display: flex;
-    align-items: flex-start;
-}
 
 .header-info {
     display: flex;
-    gap: 30px;
+    gap: 100px;
     white-space: nowrap;
+    justify-content: flex-start;
+}
+.header-info2 {
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+}
+
+.info button {
+    padding: 8px;
+}
+
+.header-esquerda {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.header-direita {
+    display: flex;
+    
+    justify-content: flex-end;
+ 
 }
 
 .info{
