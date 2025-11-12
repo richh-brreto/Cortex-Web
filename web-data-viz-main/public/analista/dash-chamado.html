@@ -119,8 +119,9 @@
                         </div>
                         <div class="info">
                             <h3>Duração:</h3>
-                            <h4>00:04:5</h4>
+                            <h4>00:04:50</h4>
                         </div>
+
                     </div>
                 </div>
                 <div class="header-base">
@@ -128,57 +129,57 @@
                         <div class="header-esquerda">
                             <div class="info">
                                 <h3>Tipo de Alerta:</h3>
-                                <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
-                                <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
-                                    <h4>RAM</h4>
-                                </span>
-                                 <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
-                                 <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
-                                 <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
-                                 <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                 <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
-                                 <span style="background-color: #d38a8aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(186, 11, 11);">
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
                                     <h4>CPU</h4>
                                 </span>
+                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
+                        color: #1500b2;">
+                                    <h4>CPU</h4>
+                                </span>
+
                             </div>
                             <div class="info">
                                 <h3>Palavras-chaves:</h3>
-                                <span style="background-color: #8bd38aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(11, 186, 14);">
+                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
+                        color: #8d8601;">
                                     <h4>sobrecarga</h4>
                                 </span>
-                                  <span style="background-color: #8bd38aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(11, 186, 14);">
+                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
+                        color: #8d8601;">
                                     <h4>sobrecarga</h4>
                                 </span>
-                                  <span style="background-color: #8bd38aa5; border-radius: 10px; padding: 5px; 
-                        color: rgb(11, 186, 14);">
+                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
+                        color: #8d8601;">
                                     <h4>sobrecarga</h4>
                                 </span>
+
+                            </div>
+                            <div class="info">
+                                <button class="btn btn-secundario" onclick="openModal()">Ver detalhes</button>
                             </div>
                         </div>
-                        <div class="header-direita">
-                             <div class="info">
-                            <button class="btn btn-secundario">Ver detalhes</button>
-                        </div>
-                        </div>
-                       
+
                     </div>
                 </div>
 
@@ -203,21 +204,28 @@
             <div class="kpi-card">
                 <div class="kpi-header">
                     <div class="kpi-icon primary">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-alert-circle">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
                         </svg>
                     </div>
-                    <div class="kpi-title">Duração do Chamado</div>
+                    <div class="kpi-title">Processos Estranhos Detectados</div>
                 </div>
-                <div class="kpi-value primary">00:30:10</div>
+                <div class="kpi-value primary">0</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-header">
                     <div class="kpi-icon primary">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-server">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                            <line x1="6" y1="6" x2="6.01" y2="6" />
+                            <line x1="6" y1="18" x2="6.01" y2="18" />
                         </svg>
                     </div>
                     <div class="kpi-title">DOWNTIME do Servidor</div>
@@ -227,9 +235,11 @@
             <div class="kpi-card">
                 <div class="kpi-header">
                     <div class="kpi-icon primary">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevrons-down">
+                            <polyline points="7 13 12 18 17 13" />
+                            <polyline points="7 6 12 11 17 6" />
                         </svg>
                     </div>
                     <div class="kpi-title">DOWNTIME do Processo Principal</div>
@@ -246,7 +256,7 @@
             <!-- Gráfico de Recursos -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h2 class="chart-title">Capturas do Servidor pelo Tempo</h2>
+                    <h2 class="chart-title">Servidor - Componentes por Tempo</h2>
                     <div class="chart-filters">
                         <div class="multiselect-container">
                             <div class="multiselect-trigger" onclick="toggleMultiselect()">
@@ -255,10 +265,6 @@
                             </div>
                             <div class="multiselect-dropdown" id="multiselectDropdown">
                                 <div class="multiselect-options" id="optionsList">
-                                    <label class="multiselect-option">
-                                        <input type="checkbox" value="Todos" checked onchange="updateSelection()">
-                                        <span>Todos</span>
-                                    </label>
                                     <label class="multiselect-option">
                                         <input type="checkbox" value="CPU" checked onchange="updateSelection()">
                                         <span>CPU</span>
@@ -293,7 +299,7 @@
 
             <div class="chart-card">
                 <div class="chart-header">
-                    <h2 class="chart-title">Capturas do Processo Principal pelo Tempo</h2>
+                    <h2 class="chart-title">Processo do Modelo - Uso dos Componentes por Tempo</h2>
                     <div class="chart-filters">
                         <div class="multiselect-container2">
                             <div class="multiselect-trigger2" onclick="toggleMultiselect2()">
@@ -302,10 +308,6 @@
                             </div>
                             <div class="multiselect-dropdown2" id="multiselectDropdown2">
                                 <div class="multiselect-options2" id="optionsList2">
-                                    <label class="multiselect-option2">
-                                        <input type="checkbox" value="Todos" checked onchange="updateSelection2()">
-                                        <span>Todos</span>
-                                    </label>
                                     <label class="multiselect-option2">
                                         <input type="checkbox" value="CPU" checked onchange="updateSelection2()">
                                         <span>CPU</span>
@@ -344,200 +346,49 @@
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title active">Informações do Modelo</h3>
+                    <h3 class="modal-title ativo">Detalhes do Chamado</h3>
+                    <h3 class="modal-title">Informações do Modelo</h3>
+                    <h3 class="modal-title">Arquitetura</h3>
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="info-items">
-
+                            <!-- 
+                            Tecnico
+                            Relatorio
+                            Linha temporal:
+                                    inicio, fim e duração de todos os alertas 
+                                    Incluir se houve algum kill de processo
+                                    Fim do chamado
+                            Processos Estranhos
+                                    nome
+                                    data-hora kill-->
                         <div class="info-item">
-                            <span class="info-item-label">Nome:</span>
+                            <span class="info-item-label">Técnico Responsável:</span>
                             <span id="info-nome" class="info-item-value">--</span>
                         </div>
 
                         <div class="info-item">
-                            <span class="info-item-label">Cliente:</span>
+                            <span class="info-item-label">Relatório:</span>
                             <span id="info-modelo-cliente" class="info-item-value">--</span>
                         </div>
 
                         <div class="info-item">
-                            <span class="info-item-label">Zona:</span>
+                            <span class="info-item-label">Linha Temporal:</span>
                             <span id="info-modelo-zona" class="info-item-value">--</span>
                         </div>
 
                         <div class="info-item">
-                            <span class="info-item-label">Arquitetura:</span>
+                            <span class="info-item-label">Processos Estranhos Detectados:</span>
                             <span id="info-modelo-arquitetura" class="info-item-value">--</span>
                         </div>
 
-                        <div class="info-item">
-                            <span class="info-item-label">Descrição:</span>
-                            <span id="info-modelo-descricao" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">IP:</span>
-                            <span id="info-modelo-ip" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Hostname:</span>
-                            <span id="info-modelo-hostname" class="info-item-value">--</span>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal - Informações do Servidor -->
-        <div id="serverModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Informações do Servidor</h3>
-                    <button class="modal-close" onclick="closeModal('serverModal')">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="info-items">
-
-                        <div class="info-item">
-                            <span class="info-item-label">Nome Arq.:</span> <!-- Rótulo Ajustado -->
-                            <!-- ID adicionado -->
-                            <span id="modal-arq-nome" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Modelo CPU:</span>
-                            <span id="modal-arq-cpu-modelo" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Qtd. CPU:</span>
-                            <span id="modal-arq-cpu-qtd" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Qtd. RAM (GB):</span>
-                            <span id="modal-arq-ram-qtd" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Modelo GPU:</span>
-                            <span id="modal-arq-gpu-modelo" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">SO:</span>
-                            <span id="modal-arq-so" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Disco Máx. (GB):</span>
-                            <span id="modal-arq-disco-max" class="info-item-value">--</span>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="procesosModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title1">Arquitetura</h3>
-                    <button class="modal-close" onclick="closeModal('procesosModal')">&times;</button>
-                </div>
-                <div class="topo-whitelist">
-                    <input type="search" placeholder="Pesquisar..." style="margin-left: 2%;">
-                </div>
-                <div class="modal-body">
-                    <div class="info-items">
-
-                        <section class="container-tabela">
-                            <div class="envoltorio-tabela">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th style="width: 80px; text-align: right;">CPU (%)</th>
-                                            <th style="width: 100px; text-align: right;"> RAM (%)</th>
-                                            <th style="width: 80px; text-align: right;">Disco (%)</th>
-                                            <th style="width: 80px; text-align: right;">GPU (%)</th>
-                                            <th style="width: 200px;">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tabela-processos-ativos-corpo">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tabela-rodape">
-
-                            </div>
-                        </section>
-                        <!-- Parte  da criação de tabelas devem ser feitas aqui -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="blacklistModal" class="modal">
-            <!--  <div class="modal-content" id="conteudo">
-               <div class="modal-header">
-                    <h3 class="modal-title ativo">Whitelist de processos</h3>
-                    <h3 class="modal-title">Processos Mortos - log</h3>
-                    <button class="modal-close" onclick="closeModal('blacklistModal')">&times;</button>
-                </div>
-                <div class="modal-body" id="modal-body">
-                    <div class="info-items">
-                        <div class="topo-whitelist">
-                            <input type="search" class="input-pesquisa">
-                            <button class="btn btn-primario" style="padding: 1%;" onclick="telaAddWhitelist()">Adicionar</button>
-                        </div>
-                        <section class="container-tabela">
-                            <div class="envoltorio-tabela">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th style="width: 200px;">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tabela-blacklist-corpo">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="tabela-rodape">
-
-                            </div>
-                        </section>
-                       
-                    </div>
-                </div> 
-            </div>-->
-        </div>
-        <div class="fundo-dialogo" id="fundo-confirmacao">
-            <div class="modal-dialogo">
-                <!-- Header -->
-                <div
-                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-                    <h3 id="titulo-confirmacao" style="margin: 0;">Confirmação</h3>
-                    <!-- NOTA: O botão X aqui chama o 'botaoConfirmarCancelar' no JS, por isso o ID dele é esse -->
-                    <button class="modal-close" id="botao-confirmar-cancelar-x"
-                        onclick="document.getElementById('botao-confirmar-cancelar').click()"
-                        style="background:none; border:none; font-size: 1.8em; cursor:pointer; color:#aaa;">&times;</button>
-                </div>
-                <!-- Corpo -->
-                <p id="mensagem-confirmacao">Mensagem de confirmação aqui.</p>
-                <!-- Rodapé com Botões -->
-                <div class="botoes-dialogo">
-                    <button class="btn-dialogo btn-cancelar" id="botao-confirmar-cancelar">Cancelar</button>
-                    <button class="btn-dialogo btn-ok" id="botao-confirmar-ok">OK</button>
-                </div>
-            </div>
-        </div>
+ 
 
     </div>
 
