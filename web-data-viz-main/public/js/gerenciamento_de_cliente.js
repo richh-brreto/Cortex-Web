@@ -84,6 +84,21 @@ btnAdicionar.addEventListener('click', () => abrirModal('novo'));
 btnFechar.addEventListener('click', fecharModal);
 btnCancelar.addEventListener('click', fecharModal);
 
+function atualizarTotal() {
+    if (!fk_empresa) return;
+    
+    fetch(`/cliente/contarClientes/${fk_empresa}`)
+        .then(res => res.json())
+        .then(resultado => {
+            console.log("Total de clientes recebido:", resultado);
+            const total = resultado[0].total;
+            document.querySelector('.numero-total').textContent = total;
+        })
+        .catch(erro => {
+            console.error("Erro ao contar clientes:", erro);
+        });
+}
+
 window.addEventListener("load", () => {
     if (!fk_empresa) {
         console.error("ID da empresa não encontrado na sessão.");
@@ -118,7 +133,7 @@ window.addEventListener("load", () => {
                 `;
                 tabelaCorpo.appendChild(tr);
             });
-            
+            atualizarTotal();
         })
         .catch(erro => {
             console.error("Erro ao carregar Clientes:", erro);
@@ -187,6 +202,7 @@ tabelaCorpo.addEventListener('click', (e) => {
                     if (res.ok) {
                         linha.remove();
                         alert("Cliente excluído!");
+                        atualizarTotal();
                     } else {
                         alert("Erro ao excluir cliente");
                     }

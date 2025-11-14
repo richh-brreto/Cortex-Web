@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard FinOps - Visão do Provedor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+    <style>
+        :root {
+            --cor-primaria-claro: #EBF4F8;
+            --cor-secundaria-claro: #E2E8F0;
+            --cor-destaque-claro: #00B2B2;
+            --cor-destaque-medio: #006E66;
+            --cor-detalhe-quente: #B74C4C;
+            --cor-texto-escuro: #0A202D;
+            --cor-fundo-primaria: #FFFFFF;
+            --cor-fundo-tela: var(--cor-primaria-claro);
+            --cor-sombra: rgba(0, 0, 0, 0.08);
+            --cor-primaria: var(--cor-destaque-claro);
+            --cor-secundaria: var(--cor-destaque-medio);
+            --cor-perigo: var(--cor-detalhe-quente);
+            --cor-texto: var(--cor-texto-escuro);
+            --cor-texto-secondary: #64748b;
+            --font-principal: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-principal);
+            background-color: var(--cor-fundo-tela);
+            color: var(--cor-texto);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: var(--cor-fundo-primaria);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px var(--cor-sombra);
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: var(--cor-texto);
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filters label {
+            font-size: 0.9em;
+            color: var(--cor-texto-secondary);
+            margin-right: 5px;
+        }
+
+        .filters select,
+        .filters input {
+            padding: 8px 12px;
+            border: 1px solid var(--cor-secundaria-claro);
+            border-radius: 6px;
+            font-size: 0.9em;
+            background-color: var(--cor-fundo-primaria);
+            color: var(--cor-texto);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--cor-fundo-primaria);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px var(--cor-sombra);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .kpi-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--cor-texto-escuro);
+        }
+
+        .kpi-value.danger {
+            color: var(--cor-perigo);
+        }
+
+        .kpi-title {
+            font-size: 0.9em;
+            color: var(--cor-texto-secondary);
+            margin-bottom: 10px;
+        }
+
+        .kpi-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.85em;
+            color: var(--cor-texto-secondary);
+            margin-top: 10px;
+        }
+
+        .kpi-trend-icon {
+            margin-right: 5px;
+            color: var(--cor-primaria);
+            font-size: 1.2em;
+        }
+
+        .kpi-subtitle {
+            font-size: 0.8em;
+            color: var(--cor-texto-secondary);
+            margin-top: 5px;
+        }
+
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--cor-texto);
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        th {
+            background-color: var(--cor-secundaria-claro);
+            color: var(--cor-texto);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--cor-secundaria-claro);
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .tag.upgrade {
+            background-color: var(--cor-perigo);
+            color: white;
+        }
+
+        .tag.downgrade {
+            background-color: var(--cor-destaque-claro);
+            color: white;
+        }
+
+        .sparkline-container {
+            height: 50px;
+            margin-top: 10px;
+        }
+
+        .donut-container {
+            height: 120px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho e Filtros -->
+    <div class="header">
+        <h1>Dashboard FinOps - Visão do Provedor</h1>
+        <div class="filters">
+            <label>Zona:</label>
+            <select>
+                <option>Todas</option>
+                <option>SP-Sul</option>
+                <option>RJ-Norte</option>
+            </select>
+            <label>Data de Início:</label>
+            <input type="date" value="2025-01-01">
+            <label>Data Final:</label>
+            <input type="date" value="2025-11-12">
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Linha 1: KPIs Principais -->
+        <div class="kpi-grid">
+            <div class="card">
+                <div class="kpi-title">Receita Operacional</div>
+                <div class="kpi-value">R$ 150.000,00</div>
+                <div class="kpi-trend">
+                    <span class="kpi-trend-icon">↑</span>
+                    <div class="sparkline-container" id="sparkline1"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="kpi-title">Receita Ociosa (Potencial Perdido)</div>
+                <div class="kpi-value danger">R$ 18.200,00</div>
+                <div class="kpi-subtitle">Máquinas sem alugar</div>
+            </div>
+
+            <div class="card">
+                <div class="kpi-title">Ticket Médio (ARPU)</div>
+                <div class="kpi-value">R$ 850,00</div>
+                <div class="kpi-trend">
+                    <span class="kpi-trend-icon">↑</span>
+                    <div class="sparkline-container" id="sparkline2"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="kpi-title">Ocupação Financeira (RRR)</div>
+                <div class="kpi-value">75%</div>
+                <div class="donut-container" id="donutChart"></div>
+            </div>
+        </div>
+
+        <!-- Linha 2: Tendência de Receita por Arquitetura -->
+        <div class="card">
+            <div class="chart-title">Tendência de Receita por Arquitetura</div>
+            <div id="tendenciaReceita" style="height: 350px;"></div>
+        </div>
+
+        <!-- Linha 3: Dois Gráficos Lado a Lado -->
+        <div class="two-col-grid">
+            <div class="card">
+                <div class="chart-title">Previsão de Esgotamento (Regressão Linear)</div>
+                <div id="previsaoEsgotamento" style="height: 300px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="chart-title">Inventário de Arquiteturas (Uso vs. Ocioso)</div>
+                <div id="inventarioArquiteturas" style="height: 300px;"></div>
+            </div>
+        </div>
+
+        <!-- Linha 4: Tempo de Vida dos Clientes -->
+        <div class="card">
+            <div class="chart-title">Tempo de Vida dos Clientes</div>
+            <div id="timelineClientes" style="height: 400px;"></div>
+        </div>
+
+        <!-- Linha 5: Tabelas de Ação -->
+        <div class="two-col-grid">
+            <div class="card">
+                <div class="chart-title">Radar de Otimização de Clientes</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Uso Atual</th>
+                            <th>Recomendação</th>
+                            <th>Potencial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Empresa Alpha</td>
+                            <td>30%</td>
+                            <td><span class="tag upgrade">UPGRADE</span></td>
+                            <td>+R$ 2.500</td>
+                        </tr>
+                        <tr>
+                            <td>Tech Beta Corp</td>
+                            <td>95%</td>
+                            <td><span class="tag downgrade">DOWNGRADE</span></td>
+                            <td>-R$ 800</td>
+                        </tr>
+                        <tr>
+                            <td>Startup Gamma</td>
+                            <td>45%</td>
+                            <td><span class="tag upgrade">UPGRADE</span></td>
+                            <td>+R$ 1.200</td>
+                        </tr>
+                        <tr>
+                            <td>Industries Delta</td>
+                            <td>88%</td>
+                            <td><span class="tag upgrade">UPGRADE</span></td>
+                            <td>+R$ 3.100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="chart-title">Top 5 Mais Alugadas / Ociosas</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Arquitetura</th>
+                            <th>Alugadas</th>
+                            <th>Ociosas</th>
+                            <th>Receita</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GPU-A100</td>
+                            <td>48</td>
+                            <td>12</td>
+                            <td>R$ 72.000</td>
+                        </tr>
+                        <tr>
+                            <td>CPU-Basic</td> 
+                            <td>120</td>
+                            <td>30</td>
+                            <td>R$ 36.000</td>
+                        </tr>
+                        <tr>
+                            <td>GPU-T4</td>
+                            <td>65</td>
+                            <td>15</td>
+                            <td>R$ 42.000</td>
+                        </tr>
+                        <tr>
+                            <td>CPU-Premium</td>
+                            <td>35</td>
+                            <td>8</td>
+                            <td>R$ 21.000</td>
+                        </tr>
+                        <tr>
+                            <td>GPU-V100</td>
+                            <td>28</td>
+                            <td>6</td>
+                            <td>R$ 16.800</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sparkline 1 - Receita Operacional
+        var sparkline1Options = {
+            series: [{
+                data: [120000, 125000, 132000, 140000, 145000, 150000]
+            }],
+            chart: {
+                type: 'line',
+                height: 50,
+                sparkline: { enabled: true }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2
+            },
+            colors: ['#00B2B2'],
+            tooltip: {
+                enabled: false
+            }
+        };
+        var sparkline1 = new ApexCharts(document.querySelector("#sparkline1"), sparkline1Options);
+        sparkline1.render();
+
+        // Sparkline 2 - Ticket Médio
+        var sparkline2Options = {
+            series: [{
+                data: [750, 780, 800, 820, 835, 850]
+            }],
+            chart: {
+                type: 'line',
+                height: 50,
+                sparkline: { enabled: true }
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2
+            },
+            colors: ['#00B2B2'],
+            tooltip: {
+                enabled: false
+            }
+        };
+        var sparkline2 = new ApexCharts(document.querySelector("#sparkline2"), sparkline2Options);
+        sparkline2.render();
+
+        // Donut Chart - Ocupação
+        var donutOptions = {
+            series: [75],
+            chart: {
+                type: 'radialBar',
+                height: 120
+            },
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        size: '60%'
+                    },
+                    dataLabels: {
+                        show: false
+                    }
+                }
+            },
+            colors: ['#00B2B2']
+        };
+        var donutChart = new ApexCharts(document.querySelector("#donutChart"), donutOptions);
+        donutChart.render();
+
+        // Tendência de Receita por Arquitetura - Linhas Múltiplas
+        var tendenciaReceitaOptions = {
+            series: [
+                {
+                    name: 'GPU-A100',
+                    data: [58000, 62000, 65000, 68000, 70000, 72000]
+                },
+                {
+                    name: 'CPU-Basic',
+                    data: [28000, 30000, 32000, 33000, 35000, 36000]
+                },
+                {
+                    name: 'GPU-T4',
+                    data: [35000, 37000, 38000, 40000, 41000, 42000]
+                }
+            ],
+            chart: {
+                type: 'line',
+                height: 350,
+                toolbar: {
+                    show: true
+                }
+            },
+            colors: ['#00B2B2', '#006E66', '#64748b'],
+            stroke: {
+                width: 3,
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                title: {
+                    text: 'Período'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Receita (R$)'
+                },
+                labels: {
+                    formatter: function(val) {
+                        return 'R$ ' + val.toLocaleString('pt-BR');
+                    }
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return 'R$ ' + val.toLocaleString('pt-BR');
+                    }
+                }
+            }
+        };
+        var tendenciaReceita = new ApexCharts(document.querySelector("#tendenciaReceita"), tendenciaReceitaOptions);
+        tendenciaReceita.render();
+
+        // Previsão de Esgotamento
+        var previsaoOptions = {
+            series: [
+                {
+                    name: 'Uso Real',
+                    data: [30, 40, 45, 50, 58, 65, 72, 78]
+                },
+                {
+                    name: 'Previsão',
+                    data: [null, null, null, null, null, 65, 75, 85, 95]
+                },
+                {
+                    name: 'Capacidade Máxima',
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100]
+                }
+            ],
+            chart: {
+                type: 'line',
+                height: 300
+            },
+            colors: ['#006E66', '#00B2B2', '#B74C4C'],
+            stroke: {
+                width: [3, 3, 2],
+                dashArray: [0, 5, 0]
+            },
+            xaxis: {
+                categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set']
+            },
+            yaxis: {
+                title: {
+                    text: 'Uso (%)'
+                }
+            },
+            legend: {
+                position: 'top'
+            }
+        };
+        var previsaoChart = new ApexCharts(document.querySelector("#previsaoEsgotamento"), previsaoOptions);
+        previsaoChart.render();
+
+        // Inventário de Arquiteturas - Barras Empilhadas
+        var inventarioOptions = {
+            series: [
+                {
+                    name: 'Em Uso',
+                    data: [48, 120, 65]
+                },
+                {
+                    name: 'Ocioso',
+                    data: [12, 30, 15]
+                }
+            ],
+            chart: {
+                type: 'bar',
+                height: 300,
+                stacked: true
+            },
+            colors: ['#00B2B2', '#E2E8F0'],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    borderRadius: 4
+                }
+            },
+            xaxis: {
+                categories: ['GPU-A100', 'CPU-Basic', 'GPU-T4']
+            },
+            yaxis: {
+                title: {
+                    text: 'Quantidade'
+                }
+            },
+            legend: {
+                position: 'top'
+            }
+        };
+        var inventarioChart = new ApexCharts(document.querySelector("#inventarioArquiteturas"), inventarioOptions);
+        inventarioChart.render();
+
+        // Timeline de Clientes - Gantt Chart
+        var timelineOptions = {
+            series: [
+                {
+                    name: 'Cliente A',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2025-01-15').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente B',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2025-02-20').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente C',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2024-11-10').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente D',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2025-03-05').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente E',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2024-12-01').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente F',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2025-04-12').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente G',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2025-05-22').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                },
+                {
+                    name: 'Cliente H',
+                    data: [
+                        {
+                            x: 'Tempo de Vida',
+                            y: [new Date('2024-10-08').getTime(), new Date('2025-11-12').getTime()]
+                        }
+                    ]
+                }
+            ],
+            chart: {
+                type: 'rangeBar',
+                height: 400
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    barHeight: '60%',
+                    rangeBarGroupRows: false
+                }
+            },
+            colors: ['#00B2B2'],
+            xaxis: {
+                type: 'datetime',
+                labels: {
+                    datetimeFormatter: {
+                        year: 'yyyy',
+                        month: "MMM 'yy",
+                        day: 'dd MMM'
+                    }
+                }
+            },
+            yaxis: {
+                show: true
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yyyy'
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left'
+            }
+        };
+        var timelineChart = new ApexCharts(document.querySelector("#timelineClientes"), timelineOptions);
+        timelineChart.render();
+    </script>
+</body>
+</html>

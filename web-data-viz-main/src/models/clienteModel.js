@@ -52,9 +52,21 @@ function deletar(id_cliente) {
     return database.executar(instrucao);
 }
 
+function contarClientes(fk_empresa) {
+    var instrucaoSql = `
+        SELECT COUNT(*) as total 
+        FROM cliente 
+        WHERE fk_empresa = ${fk_empresa};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    contarClientes
 };

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financeira</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="../css/dashboard_financeira.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header-bar">
+            <h1>Dashboard Financeira</h1>
+            <div class="filter-group">
+                <select id="zonaSelect">
+                    <option value="todas">Todas</option>
+                    <option value="manaus">Manaus</option>
+                    <option value="bh">Belo Horizonte</option>
+                </select>
+                <input type="date" id="dataInicio" value="2025-01-01">
+                <input type="date" id="dataFinal" value="2025-11-13">
+                <button onclick="aplicarFiltros()">Filtrar</button>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="card kpi-card">
+                <div class="kpi-title">Receita Operacional (R$)</div>
+                <div class="kpi-value">100k</div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="kpi-title">Custo Operacional (R$)</div>
+                <div class="kpi-value">20k</div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="kpi-title">Lucro Bruto (R$)</div>
+                <div class="kpi-value">80k</div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="kpi-title">Ticket Médio (R$)</div>
+                <div class="kpi-value">R$ 2.000</div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="kpi-title">Margem de Lucro</div>
+                <div class="kpi-value">79%</div>
+            </div>
+
+            <div class="card kpi-card">
+                <div class="kpi-title">Ocupação do inventario</div>
+                <div class="kpi-value">90%</div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            
+            <div class="card">
+                <div class="chart-header">
+                    <h2>Tendência de Receita por Arquitetura</h2>
+                </div>
+                <div class="chart-controls" style="margin-bottom: 10px;">
+                    <select id="selectArqTendencia" multiple style="width: 100%;">
+                        <option value="0" selected>xrt-08</option>
+                        <option value="1" selected>lic3</option>
+                        <option value="2" selected>tsf-z</option>
+                        <option value="3" selected>amb-ulike2</option>
+                    </select>
+                </div>
+                <div id="chartTendencia" class="chart-container"></div>
+            </div>
+
+            <div class="stacked-charts-column">
+                <div class="card previsao-container">
+                    <div class="chart-header">
+                        <h2>Previsão de Esgotamento</h2>
+                        <div class="chart-controls">
+                            <select id="selectArqPrevisao" style="width: 100%;">
+                                <option value="0">xrt-08</option>
+                                <option value="1">lic3</option>
+                                <option value="2">tsf-z</option>
+                                <option value="3">amb-ulike2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="chartPrevisao" class="chart-container-stacked"></div>
+                </div>
+
+                <div class="card">
+                    <div class="chart-header">
+                        <h2>Inventário de Arquiteturas</h2>
+                        <div class="chart-controls">
+                            <select id="selectArqInventario" style="width: 100%;">
+                                <option value="0">xrt-08</option>
+                                <option value="1">lic3</option>
+                                <option value="2">tsf-z</option>
+                                <option value="3">amb-ulike2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="chartInventario" class="chart-container-stacked"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="header-otimizacao">
+                <h2>Radar de Otimização de Clientes</h2>
+                <input type="text" placeholder="Pesquisar por cliente">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Arquitetura Atual</th>
+                        <th>Uso Médio (24h)</th>
+                        <th>Recomendação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Empresa Alpha (ID: 102)</td>
+                        <td>GPU-A100 (xrt-08)</td>
+                        <td>94%</td>
+                        <td><span class="tag-upgrade">UPGRADE</span></td> 
+                    </tr>
+                    <tr>
+                        <td>Startup Beta (ID: 305)</td>
+                        <td>GPU-T4 (lic3)</td>
+                        <td>8%</td>
+                        <td><span class="tag-downgrade">DOWNGRADE</span></td> 
+                    </tr>
+                    <tr>
+                        <td>Tech Corp (ID: 007)</td>
+                        <td>CPU-Basic (tsf-z)</td>
+                        <td>65%</td>
+                        <td><span class="tag-ok">OK</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data Sols (ID: 221)</td>
+                        <td>GPU-A100 (xrt-08)</td>
+                        <td>91%</td>
+                        <td><span class="tag-upgrade">UPGRADE</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+    <script>
+        // Função para obter variáveis CSS (para os gráficos)
+        const getCSSVar = (varName) => getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        
+        // Cores do Tema Escuro
+        const corTextoSecundaria = getCSSVar('--cor-texto-secundaria');
+        const corTextoPrincipal = getCSSVar('--cor-texto');
+        const corBorda = getCSSVar('--cor-borda');
+
+        // Inicializar Select2
+        $(document).ready(function() {
+            $('#selectArqTendencia').select2({
+                placeholder: 'Selecione as arquiteturas',
+                allowClear: false
+            }).on('change', function() {
+                updateTendencia();
+            });
+
+            $('#selectArqPrevisao').select2({
+                placeholder: 'Selecione uma arquitetura'
+            }).on('change', function() {
+                updatePrevisao();
+            });
+
+            $('#selectArqInventario').select2({
+                placeholder: 'Selecione uma arquitetura'
+            }).on('change', function() {
+                updateInventario();
+            });
+        });
+
+        // Dados de exemplo
+        const dadosReceita = [
+            { nome: 'xrt-08', dados: [30000, 45000, 55000, 70000, 62000, 75000, 80000, 85000] },
+            { nome: 'lic3', dados: [25000, 35000, 48000, 60000, 55000, 68000, 72000, 78000] },
+            { nome: 'tsf-z', dados: [20000, 32000, 42000, 55000, 50000, 60000, 65000, 70000] }, 
+            { nome: 'amb-ulike2', dados: [15000, 28000, 38000, 50000, 45000, 55000, 58000, 63000] }
+        ];
+
+        const categoriasSemanas = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8'];
+
+        // Gráfico de Tendência de Receita
+        let chartTendencia;
+        function renderTendencia(indices) {
+            const seriesSelecionadas = indices.map(i => ({
+                name: dadosReceita[i].nome,
+                data: dadosReceita[i].dados
+            }));
+
+            const options = {
+                series: seriesSelecionadas,
+                chart: {
+                    type: 'line',
+                    height: 400, 
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                colors: [getCSSVar('--cor-primaria'), getCSSVar('--cor-secundaria'), getCSSVar('--cor-perigo'), getCSSVar('--cor-texto-secondary')],
+                stroke: {
+                    width: 3,
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    categories: categoriasSemanas,
+                    labels: {
+                        style: {
+                            colors: corTextoSecundaria,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    title: { 
+                        text: 'Receita (R$)',
+                        style: {
+                            color: corTextoSecundaria,
+                            fontSize: '12px'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            colors: corTextoSecundaria,
+                            fontSize: '12px'
+                        },
+                        formatter: function(val) {
+                            return Math.floor(val / 1000) + 'k';
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        colors: corTextoPrincipal
+                    },
+                    fontSize: '12px',
+                    markers: {
+                        width: 10,
+                        height: 10
+                    }
+                },
+                grid: {
+                    borderColor: corBorda,
+                    strokeDashArray: 3
+                },
+                tooltip: {
+                    theme: 'dark'
+                }
+            };
+
+            if (chartTendencia) {
+                chartTendencia.destroy();
+            }
+            chartTendencia = new ApexCharts(document.querySelector("#chartTendencia"), options);
+            chartTendencia.render();
+        }
+        renderTendencia([0, 1, 2, 3]);
+
+        function updateTendencia() {
+            const indices = $('#selectArqTendencia').val().map(v => parseInt(v));
+            if (indices.length > 0) {
+                renderTendencia(indices);
+            }
+        }
+
+        // Dados de Previsão por arquitetura
+        const dadosPrevisao = [
+            { demanda: [30, 45, 60, 75], previsao: [null, null, null, 75, 90, 110] },
+            { demanda: [25, 38, 52, 68], previsao: [null, null, null, 68, 82, 100] },
+            { demanda: [20, 35, 48, 62], previsao: [null, null, null, 62, 75, 95] },
+            { demanda: [15, 28, 42, 58], previsao: [null, null, null, 58, 70, 88] }
+        ];
+
+        // Gráfico de Previsão (Área)
+        let chartPrevisao;
+        function renderPrevisao(index) {
+            const options = {
+                series: [{
+                    name: 'Demanda Atual',
+                    data: dadosPrevisao[index].demanda
+                }, {
+                    name: 'Previsão',
+                    data: dadosPrevisao[index].previsao
+                }],
+                chart: {
+                    type: 'area',
+                    height: 200, 
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                colors: [getCSSVar('--cor-primaria'), getCSSVar('--cor-primaria')],
+                stroke: {
+                    width: [3, 3],
+                    curve: 'smooth',
+                    dashArray: [0, 5]
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        opacityFrom: 0.4,
+                        opacityTo: 0.1
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                xaxis: {
+                    categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    labels: {
+                        style: {
+                            colors: corTextoSecundaria,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: corTextoSecundaria,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                annotations: {
+                    yaxis: [{
+                        y: 100,
+                        borderColor: getCSSVar('--cor-perigo'),
+                        strokeDashArray: 5,
+                        label: {
+                            text: 'Capacidade Máxima',
+                            style: {
+                                color: '#fff',
+                                background: getCSSVar('--cor-perigo'),
+                                fontSize: '11px'
+                            }
+                        }
+                    }]
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        colors: corTextoPrincipal
+                    },
+                    fontSize: '12px',
+                    markers: {
+                        width: 10,
+                        height: 10
+                    }
+                },
+                grid: {
+                    borderColor: corBorda,
+                    strokeDashArray: 3
+                },
+                tooltip: {
+                    theme: 'dark'
+                }
+            };
+            
+            if (chartPrevisao) {
+                chartPrevisao.destroy();
+            }
+            chartPrevisao = new ApexCharts(document.querySelector("#chartPrevisao"), options);
+            chartPrevisao.render();
+        }
+        renderPrevisao(0);
+
+        function updatePrevisao() {
+            const index = parseInt($('#selectArqPrevisao').val());
+            renderPrevisao(index);
+        }
+
+        // Dados de Inventário por arquitetura
+        const dadosInventario = [
+            { uso: 68, parado: 32 },
+            { uso: 55, parado: 45 },
+            { uso: 72, parado: 28 },
+            { uso: 48, parado: 52 }
+        ];
+
+        // Gráfico de Inventário (Barras)
+        let chartInventario;
+        function renderInventario(index) {
+            const options = {
+                series: [{
+                    name: 'Em Uso',
+                    data: [dadosInventario[index].uso]
+                }, {
+                    name: 'Parado',
+                    data: [dadosInventario[index].parado]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 190, 
+                    stacked: true,
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                colors: [getCSSVar('--cor-primaria'), getCSSVar('--cor-borda')], 
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        barHeight: '60%',
+                        dataLabels: {
+                            position: 'center'
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return val + '%';
+                    },
+                    style: {
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        colors: [getCSSVar('--cor-texto')]
+                    }
+                },
+                xaxis: {
+                    categories: ['Status'],
+                    max: 100,
+                    labels: {
+                        style: {
+                            colors: corTextoSecundaria,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    title: { text: '' },
+                    labels: {
+                        show: false
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        colors: corTextoPrincipal
+                    },
+                    fontSize: '12px',
+                    markers: {
+                        width: 10,
+                        height: 10
+                    }
+                },
+                grid: {
+                    borderColor: corBorda,
+                    strokeDashArray: 3,
+                    xaxis: {
+                        lines: {
+                            show: true
+                        }
+                    },
+                    yaxis: {
+                        lines: {
+                            show: false
+                        }
+                    }
+                },
+                tooltip: {
+                    theme: 'dark'
+                }
+            };
+            
+            if (chartInventario) {
+                chartInventario.destroy();
+            }
+            chartInventario = new ApexCharts(document.querySelector("#chartInventario"), options);
+            chartInventario.render();
+        }
+        renderInventario(0);
+
+        function updateInventario() {
+            const index = parseInt($('#selectArqInventario').val());
+            renderInventario(index);
+        }
+
+        function aplicarFiltros() {
+            const zona = document.getElementById('zonaSelect').value;
+            const dataInicio = document.getElementById('dataInicio').value;
+            const dataFinal = document.getElementById('dataFinal').value;
+            console.log('Filtros aplicados:', { zona, dataInicio, dataFinal });
+            alert('Filtros aplicados com sucesso!');
+        }
+    </script>
+</body>
+</html>

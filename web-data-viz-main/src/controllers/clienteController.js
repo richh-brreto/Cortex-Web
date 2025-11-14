@@ -86,9 +86,29 @@ function deletar(req, res) {
         });
 }
 
+function contarClientes(req, res) {
+    var fk_empresa = req.params.fk_empresa;
+
+    if (fk_empresa == undefined) {
+        res.status(400).send("fk_empresa está undefined!");
+    } else {
+        clienteModel.contarClientes(fk_empresa)
+            .then(function (resultado) {
+                console.log("Tudo certo no controller - contagem de clientes");
+                res.status(200).json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao contar clientes: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    contarClientes
 };
