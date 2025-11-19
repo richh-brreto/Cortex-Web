@@ -126,7 +126,7 @@ body {
 /* ========== KPIs ========== */
 .kpis-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     flex-shrink: 0;
 }
@@ -383,7 +383,15 @@ body {
     flex: 1;
 }
 
+
+
 /* Informações do Modelo - Inline */
+
+.info-items {
+    display: grid;
+    gap: 12px;
+}
+
 .info-items-inline {
     display: flex;
     flex-wrap: wrap;
@@ -408,8 +416,30 @@ body {
     color: var(--cor-texto);
     font-weight: 600;
     font-size: 14px;
+
 }
 
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    background: #f9fafb;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.info-item-label {
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.info-item-value {
+    color: var(--cor-texto);
+    font-weight: 600;
+    font-size: 14px;
+}
 
 /* ========== TABELAS ========== */
 .container-tabela {

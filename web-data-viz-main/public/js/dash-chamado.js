@@ -26,6 +26,15 @@ for(let i = 0; i < abaModal.length; i++){
 })
 }
 
+const detalheModal = document.getElementById('detalhesChamado')
+const infoModelo = document.getElementById('informacoesModelo')
+const arquitetura = document.getElementById('arquitetura')
+
+
+detalheModal.addEventListener("click", function (){
+
+    
+})
 
 window.addEventListener("load", function () {
 

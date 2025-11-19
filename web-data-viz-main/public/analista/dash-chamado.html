@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Modelo H333</title>
+    <title>Dashboard Ticket CTX-001</title>
     <link rel="stylesheet" href="../css/dash-chamado.css">
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
@@ -106,7 +106,7 @@
 
                     <div class="header-info">
                         <div class="info">
-                            <h1 id="nome-modelo">Chamado 01 - Nome do Modelo</h1>
+                            <h1 id="nome-modelo">CTX-001 - Nome do Modelo</h1>
                         </div>
                         <div class="info">
                             <h3>Início:</h3>
@@ -129,51 +129,22 @@
                         <div class="header-esquerda">
                             <div class="info">
                                 <h3>Tipo de Alerta:</h3>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
+                                <span style="background-color: #b0f7f7; border-radius: 10px; padding: 5px; 
+                        color: #00B2B2;">
                                     <h4>CPU</h4>
                                 </span>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
+                                <span style="background-color: rgb(169, 252, 164); border-radius: 10px; padding: 5px; 
+                        color: #0cb200ff;">
+                                    <h4>RAM</h4>
                                 </span>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
+                                <span style="background-color: rgb(166, 170, 252); border-radius: 10px; padding: 5px; 
+                        color: #0009b2ff;">
+                                    <h4>GPU</h4>
                                 </span>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
+                                <span style="background-color: rgb(252, 252, 181); border-radius: 10px; padding: 5px; 
+                        color: #b2b200ff;">
+                                    <h4>Disco</h4>
                                 </span>
-                                 <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
-                                </span>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
-                                </span>
-                                <span style="background-color: #dad9f4; border-radius: 10px; padding: 5px; 
-                        color: #1500b2;">
-                                    <h4>CPU</h4>
-                                </span>
-
-                            </div>
-                            <div class="info">
-                                <h3>Palavras-chaves:</h3>
-                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
-                        color: #8d8601;">
-                                    <h4>sobrecarga</h4>
-                                </span>
-                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
-                        color: #8d8601;">
-                                    <h4>sobrecarga</h4>
-                                </span>
-                                <span style="background-color: #fbf6b5; border-radius: 10px; padding: 5px; 
-                        color: #8d8601;">
-                                    <h4>sobrecarga</h4>
-                                </span>
-
                             </div>
                             <div class="info">
                                 <button class="btn btn-secundario" onclick="openModal()">Ver detalhes</button>
@@ -200,21 +171,6 @@
                     <div class="kpi-title">Duração em Alerta</div>
                 </div>
                 <div class="kpi-value primary">00:10:02</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-icon primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-alert-circle">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="12" y1="8" x2="12" y2="12" />
-                            <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg>
-                    </div>
-                    <div class="kpi-title">Processos Estranhos Detectados</div>
-                </div>
-                <div class="kpi-value primary">0</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-header">
@@ -346,9 +302,9 @@
         <div id="modelModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title ativo">Detalhes do Chamado</h3>
-                    <h3 class="modal-title">Informações do Modelo</h3>
-                    <h3 class="modal-title">Arquitetura</h3>
+                    <h3 id="detalhesChamado" class="modal-title ativo">Detalhes do Chamado</h3>
+                    <h3 id="informacoesModelo" class="modal-title">Informações do Modelo</h3>
+                    <h3 id="arquitetura" class="modal-title">Arquitetura</h3>
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -365,22 +321,33 @@
                                     data-hora kill-->
                         <div class="info-item">
                             <span class="info-item-label">Técnico Responsável:</span>
-                            <span id="info-nome" class="info-item-value">--</span>
+                            <span id="info-nome" class="info-item-value">Marilia Toscano</span>
                         </div>
 
                         <div class="info-item">
                             <span class="info-item-label">Relatório:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">--</span>
+                            <span id="info-modelo-cliente" class="info-item-value">Lorem ipsum dolor sit amet 
+                                consectetur adipisicing elit. Unde quos ullam voluptatibus odit cum rem iusto 
+                                amet adipisci incidunt reiciendis minus laboriosam, doloremque esse sit ut 
+                                explicabo ea! Molestiae, voluptatem.</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-item-label">Duração de cada Alerta:</span>
+                            <span id="info-modelo-zona" class="info-item-value">CPU: 04:06</span>
+                            <span id="info-modelo-zona" class="info-item-value">RAM: 00:30</span>
+                            <span id="info-modelo-zona" class="info-item-value">GPU: 02:05</span>
+                            <span id="info-modelo-zona" class="info-item-value">Disco: 00:05</span>
                         </div>
 
                         <div class="info-item">
-                            <span class="info-item-label">Linha Temporal:</span>
-                            <span id="info-modelo-zona" class="info-item-value">--</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Processos Estranhos Detectados:</span>
-                            <span id="info-modelo-arquitetura" class="info-item-value">--</span>
+                            <span class="info-item-label">Linha do Tempo:</span>
+                            <span id="info-modelo-zona" class="info-item-value">Início CPU - 10/11/2025_11:10:30 </span>
+                            <span id="info-modelo-zona" class="info-item-value">Início RAM - 10/11/2025_11:12:20</span>
+                            <span id="info-modelo-zona" class="info-item-value">Fim RAM - 10/11/2025_11:12:50</span>
+                            <span id="info-modelo-zona" class="info-item-value">Início GPU - 10/11/2025_11:13:20</span>
+                            <span id="info-modelo-zona" class="info-item-value">Fim CPU - 10/11/2025_11:14:20</span>
+                            <span id="info-modelo-zona" class="info-item-value">Início Disco - 10/11/2025_11:14:40</span>
+                            <span id="info-modelo-zona" class="info-item-value">Fim Disco - 10/11/2025_11:15:00</span>
                         </div>
 
                     </div>
