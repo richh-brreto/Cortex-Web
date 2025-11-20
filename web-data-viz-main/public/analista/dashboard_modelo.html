@@ -110,6 +110,7 @@
                     <div class="status-indicator active"></div>
                     <span class="status-text active">ATIVO</span>
                 </div>
+                <button onclick="verProcesso()">Ver processo</button>
                 <div class="container-periodo">
                 <p>Período:</p>
                 <p>Início:</p>
@@ -517,6 +518,12 @@
 </body>
 <script>
 
+    idModelo = sessionStorage.ID_MODELO_SELECIONADO
+    
+function verProcesso(idModelo) {
+    window.location.href = "dashprocesso.html?id_modelo=" + sessionStorage.ID_MODELO_SELECIONADO;   
+
+}
 </script>
 
 </html>

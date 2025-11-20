@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Funcionário | Cortex</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard_modelo.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<style>
+    #geral {
+        /* background-color: pink; */
+        /* DEBUG */
+        width: 90%;
+        height: 95%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card-grafico {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05);
+        margin-top: 10px;
+        height: 285px;
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #grafCpu {
+        width: 100%;
+        height: 120%;
+        padding: 0;
+    }
+
+    .card-grafico h1 {
+        font-size: 22px;
+        margin-bottom: -25px;
+        color: #096666
+    }
+
+    #containerGeral {
+        width: 60%;
+        height: 95%;
+        /* background-color: brown; */
+        /* DEBUG */
+        display: flex;
+        flex-direction: column;
+    }
+
+    #graficos {
+        width: 100%;
+        height: 98%;
+        /* background-color: paleturquoise; */
+        /* DEBUG */
+        margin-top: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ============================================== */
+    /* SEU CSS ANTIGO #geral2, #kpis, .kpi SUBSTITUÍDO */
+    /* ============================================== */
+
+    #geral2 {
+        width: 40%;
+        margin-left: 10px;
+        margin-top: 0px;
+        height: 98%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #kpis {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        
+    }
+
+    .kpi {
+        background-color: white;
+        width: 100%;
+        /* Vão ter larguras iguais */
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        /* Removemos a altura fixa */
+    }
+
+    .header {
+        width: 100%;
+        height: 10%;
+    }
+
+    /* ============================================== */
+    /* CSS NOVO PARA A SIDEBAR (COLAR AQUI)           */
+    /* ============================================== */
+
+    /* Estilos para o texto dentro dos .kpi */
+    .kpi p {
+        margin: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9em;
+    }
+
+    .kpi .kpi-aumento {
+        color: #28a745;
+        /* Verde */
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .kpi .kpi-periodo {
+        font-size: 0.8em;
+        color: #6c757d;
+        /* Cinza */
+        display: block;
+        /* Joga para a linha de baixo */
+    }
+
+    /* Bloco da Tabela de Picos */
+    #tabela-picos {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .tabela-header {
+        background: #138D8D;
+        /* Tom de verde-azulado da imagem */
+        color: #fff;
+        padding: 12px 20px;
+    }
+
+    .tabela-header h3 {
+        margin: 0;
+        font-size: 1em;
+    }
+
+    #tabela-picos table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #tabela-picos th,
+    #tabela-picos td {
+        padding: 12px 20px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        /* Linha cinza entre as linhas */
+    }
+
+    #tabela-picos th {
+        font-size: 0.8em;
+        color: #6c757d;
+    }
+
+    #tabela-picos td {
+        font-size: 0.9em;
+    }
+
+    /* Bloco dos Botões de Ação */
+    #botoes-acao {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #botoes-acao .btn {
+        padding: 15px;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 30px;
+        /* Bem arredondado */
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    #botoes-acao .btn:hover {
+        opacity: 0.9;
+    }
+
+    #botoes-acao .btn-principal {
+        background: #fff;
+        border: 1px solid;
+        /* Verde-claro brilhante */
+        color: #333;
+    }
+
+    #botoes-acao .btn-secundario {
+        background: #fff;
+        border: 1px solid;
+        /* Cinza-claro */
+        color: #555;
+    }
+</style>
+
+<body>
+
+    <nav class="barra-lateral">
+
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Gerenciamento</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
+
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">
+                    <a href="https://spt ech-hydroscan.atlassian.net/jira/ser vicedesk/projects/CTX/list?jql=project %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
+                        style="text-decoration: none;color: inherit;">Jira</a>
+                </div>
+                <div class="submenu-item">
+                    <a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
+                        style="text-decoration: none;color: inherit;">Slack</a>
+                </div>
+            </div>
+        </div>
+
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+
+
+    <div id="geral">
+        <div id="containerGeral">
+
+            <div class="header">
+                <div class="header-content">
+                    <div class="header-info">
+                        <h1 id="nome-modelo">GPT-5</h1>
+                        <p>ID: <strong id="codigo-modelo">MDL-H333-2024</strong></p>
+                        <p>Cliente: <strong id="nome-cliente"> OPEN AI</strong></p>
+                        <p>Última atualização: <strong id="ultima-atualizacao">12:00</strong></p>
+                    </div>
+                    <div class="status-badge active">
+                        <div class="status-indicator active"></div>
+                        <span class="status-text active">Em execução</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="graficos">
+
+                <div class="card-grafico">
+                    <h1>Média de uso dos recursos por Mês:</h1>
+                    <canvas id="grafCpu"></canvas>
+                </div>
+
+                <div class="card-grafico">
+                    <h1>Uso de Recursos em Novembro por Período do Dia:</h1>
+                    <canvas id="grafGpu"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="geral2">
+
+            <div id="kpis">
+                <div class="kpi">
+        <p>Crescimento Médio de Uso</p>
+        <span class="kpi-aumento">+8%</span>
+        <span class="kpi-periodo">últimos (30d)</span>
+    </div>
+    <div class="kpi">
+        <p>Período Ideal p/ Manutenção</p>
+        <span class="kpi-aumento">Madrugada</span>
+        <span class="kpi-periodo">Menor Uso Geral</span>
+    </div>
+    <div class="kpi">
+        <p>Qtd. Picos Críticos</p>
+        <span class="kpi-aumento">3</span>
+        <span class="kpi-periodo">últimos (30d)</span>
+    </div>
+    <div class="kpi">
+        <p>Qtd outliers</p>
+        <span class="kpi-aumento">5</span>
+        <span class="kpi-periodo">últimos (30d)</span>
+    </div>
+            </div>
+
+            <div id="tabela-picos">
+                <header class="tabela-header">
+                    <h3>OUTLIERS DO MODELO ESSE MÊS</h3>
+                </header>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>RECURSO</th>
+                            <th>DATA</th>
+                            <th>DURAÇÃO</th>
+                            <th>AÇÃO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RAM</td>
+                            <td>20/02/2...</td>
+                            <td>04h30min</td>
+                            <td><button>VER MAIS</button></td>
+                        </tr>
+                        <tr>
+                            <td>DISCO</td>
+                            <td>20/02/2...</td>
+                            <td>5min</td>
+                        </tr>
+                        <tr>
+                            <td>CPU</td>
+                            <td>19/02/2...</td>
+                            <td>05h20min</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="botoes-acao">
+                <button class="btn btn-principal">Gerar relatório com IA</button>
+                <button class="btn btn-principal">Exportar relatório</button>
+                <button class="btn btn-secundario">Processos permitidos</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+
+
+
+<script>
+     
+    const params = new URLSearchParams(window.location.search);
+    const idModelo = params.get("idModelo");
+    const idFuncionario = sessionStorage.ID_FUNCIONARIO_LOGADO;
+
+
+async function carregarProcessos() {
+    const resposta = await fetch(`/api/processos/${idModelo}`);
+    const processos = await resposta.json();
+    console.log(processos);
+
+    // aqui você monta tabela, cards, chart.js, tudo com os dados filtrados
+}
+
+
+
+    
+function infoModeloGet(idModelo) {
+    console.log("Buscando dados completos para o modelo:", idModelo);
+    fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
+        .then(function (response) {
+            if (!response.ok) { throw new Error('Falha ao buscar dados: ' + response.status + ' ' + response.statusText); }
+            return response.json();
+        })
+        .then(function (dados) {
+            console.log("Dados brutos recebidos:", dados);
+
+
+            if (dados && dados.length > 0) {
+                const dadosBanco = dados[0];
+                
+                document.getElementById('nome-modelo').textContent = dadosBanco.nome_modelo;
+                document.getElementById('nome-cliente').textContent = dadosBanco.cliente_nome;
+                document.getElementById('codigo-modelo').textContent = dadosBanco.id_modelo;
+
+
+            } else {
+                throw new Error("Modelo não encontrado ou dados inválidos recebidos.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Erro ao buscar/processar dados da dashboard:", error);
+            mostrarAviso("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
+            limparSpansModais();
+        });
+}
+
+
+    // Seus dados originais (Uso Mensal)
+    const dadosJsonStr = `
+    [
+        {"data": "JAN", "cpu_proc": 30, "gpu_proc": 10, "ram_proc": 40},
+        {"data": "FEV", "cpu_proc": 35, "gpu_proc": 15, "ram_proc": 45},
+        {"data": "MAR", "cpu_proc": 40, "gpu_proc": 20, "ram_proc": 50},
+        {"data": "ABR", "cpu_proc": 45, "gpu_proc": 25, "ram_proc": 55},
+        {"data": "MAI", "cpu_proc": 50, "gpu_proc": 30, "ram_proc": 60},
+        {"data": "JUN", "cpu_proc": 55, "gpu_proc": 35, "ram_proc": 65},
+        {"data": "JUL", "cpu_proc": 60, "gpu_proc": 40, "ram_proc": 70},
+        {"data": "AGO", "cpu_proc": 65, "gpu_proc": 42, "ram_proc": 72},
+        {"data": "SET", "cpu_proc": 70, "gpu_proc": 45, "ram_proc": 75},
+        {"data": "OUT", "cpu_proc": 75, "gpu_proc": 48, "ram_proc": 78},
+        {"data": "NOV", "cpu_proc": 80, "gpu_proc": 50, "ram_proc": 80}
+    ]
+    `;
+
+    // Dados SIMULADOS para o uso de Novembro, separados por Período do Dia.
+    // Manhã (06h-12h), Tarde (12h-18h), Noite (18h-00h), Madrugada (00h-06h)
+    const dadosNovembroPorPeriodo = [
+        {"periodo": "Madrugada", "cpu_proc": 20, "gpu_proc": 15, "ram_proc": 30},
+        {"periodo": "Manhã", "cpu_proc": 60, "gpu_proc": 40, "ram_proc": 70},
+        {"periodo": "Tarde", "cpu_proc": 90, "gpu_proc": 60, "ram_proc": 95},
+        {"periodo": "Noite", "cpu_proc": 75, "gpu_proc": 45, "ram_proc": 85}
+    ];
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        let dados = JSON.parse(dadosJsonStr);
+
+        let rotulos = [];
+        let usoCPU = [];
+        let usoGPU = [];
+        let usoRAM = [];
+
+        // Substituição do .map() por um laço 'for' para o Gráfico Mensal
+        for (let i = 0; i < dados.length; i++) {
+            let item = dados[i];
+            rotulos.push(item.data);
+            usoCPU.push(item.cpu_proc);
+            usoGPU.push(item.gpu_proc);
+            usoRAM.push(item.ram_proc);
+        }
+
+        // ================== GRÁFICO 1 (Mensal) ==================
+        new Chart(document.getElementById("grafCpu"), {
+            type: "line",
+            data: {
+                labels: rotulos,
+                datasets: [
+                    {
+                        label: "CPU (%)",
+                        data: usoCPU,
+                        borderColor: "rgb(255, 99, 99)",
+                        backgroundColor: "rgba(255, 99, 99, 0.2)",
+                        fill: false,
+                        tension: 0.2
+                    },
+                    {
+                        label: "GPU (%)",
+                        data: usoGPU,
+                        borderColor: "rgb(80, 160, 255)",
+                        backgroundColor: "rgba(80, 160, 255, 0.2)",
+                        fill: false,
+                        tension: 0.2
+                    },
+                    {
+                        label: "RAM (%)",
+                        data: usoRAM,
+                        borderColor: "rgb(120, 200, 120)",
+                        backgroundColor: "rgba(120, 200, 120, 0.2)",
+                        fill: false,
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 100 },
+                    x: {}
+                },
+                layout: {
+                    padding: {
+                        top: 20,
+                        bottom: 10
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: false,
+                        padding: { top: 10, bottom: 20 }
+                    }
+                }
+
+            }
+        });
+
+
+        // ================== PREPARAÇÃO GRÁFICO 2 (Por Período do Dia) ==================
+        let periodosRotulos = [];
+        let usoCPU_periodo = [];
+        let usoGPU_periodo = [];
+        let usoRAM_periodo = [];
+
+        // Substituição do .map() por um laço 'forEach' para o Gráfico de Períodos
+        dadosNovembroPorPeriodo.forEach(item => {
+            periodosRotulos.push(item.periodo);
+            usoCPU_periodo.push(item.cpu_proc);
+            usoGPU_periodo.push(item.gpu_proc);
+            usoRAM_periodo.push(item.ram_proc);
+        });
+
+
+        // ================== GRÁFICO 2 (Por Período do Dia) ==================
+        new Chart(document.getElementById("grafGpu"), {
+            type: "bar",
+            data: {
+                labels: periodosRotulos, // Usando os novos rótulos de período
+                datasets: [
+                    {
+                        label: "CPU (%)",
+                        data: usoCPU_periodo,
+                        backgroundColor: "rgba(255, 99, 99, 0.7)"
+                    },
+                    {
+                        label: "GPU (%)",
+                        data: usoGPU_periodo,
+                        backgroundColor: "rgba(80, 160, 255, 0.7)"
+                    },
+                    {
+                        label: "RAM (%)",
+                        data: usoRAM_periodo,
+                        backgroundColor: "rgba(120, 200, 120, 0.7)"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }, layout: {
+                    padding: {
+                        top: 20,
+                        bottom: 10
+                    }
+                },
+                plugins: {
+                    display: false,
+                    title: {
+                        padding: { top: 10, bottom: 20 }
+                    }
+                }
+
+            }
+        });
+
+    });
+
+    window.onload = function() {
+        const idModelo = sessionStorage.ID_MODELO_SELECIONADO;
+        infoModeloGet(idModelo);
+    };
+
+
+</script>
+
+</html>
