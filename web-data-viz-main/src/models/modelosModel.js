@@ -39,11 +39,11 @@ function cadastrar(dados) {
         INSERT INTO modelo (
             nome, descricao, ip, hostname, 
             tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, 
-            fk_cliente, fk_zona_disponibilidade, fk_arquitetura 
+            fk_cliente, fk_zona_disponibilidade, fk_arquitetura,nome_processo 
         ) VALUES (
             '${dados.nome}', '${dados.descricao || ''}', '${dados.ip || ''}', '${dados.hostname || ''}', 
             ${dados.tempo_parametro_min || 'NULL'}, ${dados.limite_cpu || 'NULL'}, ${dados.limite_disco || 'NULL'}, ${dados.limite_ram || 'NULL'}, ${dados.limite_gpu || 'NULL'},
-            ${dados.fk_cliente}, ${dados.fk_zona_disponibilidade}, ${dados.fk_arquitetura}
+            ${dados.fk_cliente}, ${dados.fk_zona_disponibilidade}, ${dados.fk_arquitetura}, '${dados.nome_processo || ''}'
         );
     `;
     
@@ -67,7 +67,8 @@ function atualizar(idModelo, dados) {
             limite_gpu = ${dados.limite_gpu || 'NULL'}, 
             fk_cliente = ${dados.fk_cliente}, 
             fk_zona_disponibilidade = ${dados.fk_zona_disponibilidade}, 
-            fk_arquitetura = ${dados.fk_arquitetura}
+            fk_arquitetura = ${dados.fk_arquitetura},
+            nome_processo = '${dados.nome_processo || ''}'
         WHERE id_modelo = ${idModelo};
     `;
 
