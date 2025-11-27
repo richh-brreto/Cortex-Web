@@ -186,6 +186,7 @@ body {
     position: relative;
 }
 
+
 .filtro-coluna label {
     font-weight: 600;
     color: var(--cor-texto-escuro);
@@ -235,6 +236,7 @@ body {
 .filtro-coluna:focus-within::after {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path fill='%2300B2B2' d='M0 0l5 6 5-6z'/></svg>");
 }
+
 
 /* Botões */
 .acoes-container {
