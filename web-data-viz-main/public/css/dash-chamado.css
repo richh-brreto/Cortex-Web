@@ -51,53 +51,83 @@ body {
 
 .header-content {
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.header-topo{
+    display: flex;
     flex-direction: column;
 }
-
-
+.header-base{
+    display: flex;
+    flex-direction: column;
+}
+.header-fim{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 .header-info {
     display: flex;
-    gap: 100px;
-    white-space: nowrap;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+   
+
 }
 .header-info2 {
-       display: flex;
-    justify-content: space-between; 
-    align-items: center;             
-    white-space: nowrap;             
-    overflow: hidden;                
- 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.header-info3 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 100px;
 }
 
 
 .info button {
     padding: 8px;
 }
-
+.header-info .info {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    white-space: nowrap;
+    font-size: small;
+}
 .header-info2 .info {
     display: flex;
     align-items: center;
     gap:5px;
     white-space: nowrap;
+    font-size: small;
+}
+.header-info3 .info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    gap:5px;
+    white-space: nowrap;
+    font-size: small;
 }
 .header-esquerda {
     display: flex;
-    flex-direction: row; 
+    flex-direction: column; 
+    justify-content: flex-start;
     align-items: center;
     gap: 40px;           
     flex-shrink: 1;      
     min-width: 0;     
 }
 
-.header-direita {
-     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-shrink: 0;   
- 
-}
+
 
 .info{
     display: flex;
@@ -387,6 +417,7 @@ body {
 
 /* Informações do Modelo - Inline */
 
+
 .info-items {
     display: grid;
     gap: 12px;
@@ -399,6 +430,11 @@ body {
     padding: 16px;
     background: #f9fafb;
     border-radius: 8px;
+}
+.container-item{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
 }
 
 .info-item-inline {
