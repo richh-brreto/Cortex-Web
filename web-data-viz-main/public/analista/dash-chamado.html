@@ -113,13 +113,13 @@
                             <h3>Status da Máquina:</h3>
                             <span style="background-color: #95a9ec; border-radius: 10px; padding: 5px; 
                         color: #070707;">
-                                 <h4>Normal (ticket antigo)</h4>
+                                <h4>Normal (ticket antigo)</h4>
                             </span>
-                         <!--    <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
+                            <!--    <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
                         color: #070707;">
                                  <h4>Em Alerta (ticket mais atual)</h4>
                             </span> -->
-                          
+
                         </div>
                     </div>
                 </div>
@@ -169,20 +169,20 @@
                     <div class="header-info3">
                         <div class="info">
                             <h3>Tipo do Ticket:</h3>
-                               <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
+                            <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
                         color: #202019;">
-                                 <h4>Problema</h4>
+                                <h4>Problema</h4>
                             </span>
-                           <!--  <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
+                            <!--  <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
                         color: #464646;">
                                  <h4>Incidente</h4>
                             </span> -->
-                            
-                             </div>
-                            <div class="info">
-                                <button class="btn btn-secundario" onclick="openModal()">Ver detalhes</button>
-                            </div>
-                        
+
+                        </div>
+                        <div class="info">
+                            <button class="btn btn-secundario" onclick="openModal()">Ver detalhes</button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -339,76 +339,114 @@
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="info-items">
-                        <div class="container-item">
-                            <div class="topo">
-                                    <div class="info-item">
-                            <span class="info-item-label">Criação do Ticket:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">11/10/2004 09:34</span>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Informações Gerais</h4>
                         </div>
-                        
-                         <div class="info-item">
-                            <span class="info-item-label">Resolução do Ticket:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">11/10/2004 10:34</span>
-                        </div>
-                            </div>
-                            <div class="base">
+                        <div class="corpo">
+                            <div class="container-item-coluna">
                                 <div class="info-item">
-                            <span class="info-item-label">Duração da Resolução:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">1w 3d 4h 5m</span>
-                        </div>
+                                    <span class="info-item-label">Criação do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 09:34</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Duração da Resolução:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">1w 3d 4h 5m</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Urgência:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">Lorem.</span>
+                                </div>
                             </div>
-                        
-                        </div>
-                        <div class="container-item-coluna">
-                             <div class="info-item">
-                            <span class="info-item-label">Responsável:</span>
-                            <span id="info-nome" class="info-item-value">Marilia Toscano</span>
-                        </div>
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Resolução do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 10:34</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Responsável:</span>
+                                    <span id="info-nome" class="info-item-value">Marilia Toscano</span>
 
-                        <div class="info-item">
-                            <span class="info-item-label">Comentário ao Resolver o ticket:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Unde quos ullam voluptatibus odit cum rem iusto
-                                amet adipisci incidunt reiciendis minus laboriosam, doloremque esse sit ut
-                                explicabo ea! Molestiae, voluptatem.</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Impacto:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">Lorem dawdadwa.</span>
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                       
-                        <div class="container-item">
-                             <div class="info-item">
-                            <span class="info-item-label">Urgência:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">Lorem.</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-item-label">Impacto:</span>
-                            <span id="info-modelo-cliente" class="info-item-value">Lorem dawdadwa.</span>
-                        </div>
-                        </div>
-                       
-                        <div class="info-item">
-                            <span class="info-item-label">Duração de cada Alerta:</span>
-                            <span id="info-modelo-zona" class="info-item-value">CPU: 04:06</span>
-                            <span id="info-modelo-zona" class="info-item-value">RAM: 00:30</span>
-                            <span id="info-modelo-zona" class="info-item-value">GPU: 02:05</span>
-                            <span id="info-modelo-zona" class="info-item-value">Disco: 00:05</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-item-label">Linha do Tempo:</span>
-                            <span id="info-modelo-zona" class="info-item-value"><span style="font-size: x-large; border-radius: 10px; padding: 5px; 
-                        color: #00B2B2;">+</span>Início CPU - 10/11/2025_11:10:30 </span>
-                            <span id="info-modelo-zona" class="info-item-value">Início RAM - 10/11/2025_11:12:20</span>
-                            <span id="info-modelo-zona" class="info-item-value">Fim RAM - 10/11/2025_11:12:50</span>
-                            <span id="info-modelo-zona" class="info-item-value">Início GPU - 10/11/2025_11:13:20</span>
-                            <span id="info-modelo-zona" class="info-item-value"><span style="font-size: x-large; border-radius: 10px; padding: 5px; 
-                        color: #00B2B2;">-</span>Fim CPU - 10/11/2025_11:14:20</span>
-                            <span id="info-modelo-zona" class="info-item-value">Início Disco -
-                                10/11/2025_11:14:40</span>
-                            <span id="info-modelo-zona" class="info-item-value">Fim Disco - 10/11/2025_11:15:00</span>
-                        </div>
-
                     </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Duração de cada Alerta</h4>
+                        </div>
+                        <div class="corpo">
+                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> 04:06</span>
+                            <span class="item-alerta"><span class="item-componente ram">RAM:</span> 00:30</span>
+                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>02:05</span>
+                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span> 00:05</span>                           
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Linha do Tempo do Ticket</h4>
+                        </div>
+                        <div class="linha-do-tempo">
+                            <div class="item-linha">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                            <span>Início <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:10:30 </span>
+                            </div>
+                            <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                <span>Início  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:20</span>
+                            </div>
+                             <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                           <span>Fim  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:50</span>
+                             </div>
+                              <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                 <span>Início  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:13:20</span>
+                              </div>
+                               <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                <span>Fim  <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:14:20</span>
+                               </div>
+                                <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:14:25</span>
+                                </div>
+                                 <div class="item-linha">
+                                           <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                    <span>Início  <span class="item-componente tempo disco">Disco</span>  - 10/11/2025_11:14:40</span>
+                                 </div>
+                                  <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
+                                  </div>            
+                        </div>
+                    </div>
+
+                
                 </div>
             </div>
         </div>

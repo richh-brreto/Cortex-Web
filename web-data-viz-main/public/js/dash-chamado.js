@@ -169,7 +169,17 @@ const alertsChart = new Chart(alertsCtx, {
                 pointBackgroundColor: '#00B2B2',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                segment: {
+                 borderColor: ctx => {
+                     const p = ctx.p1.parsed.y;
+                    return p >= 8 ? 'red' : 'blue';
+                },
+                borderDash: ctx => {
+                    const p = ctx.p1.parsed.y;
+                    return p >= 50 ? [6, 6] : undefined;
+                    }
+                }
             },
             {
                 label: 'RAM',
@@ -214,15 +224,15 @@ const alertsChart = new Chart(alertsCtx, {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: true,              // ✅ ativa a legenda
-                position: 'top',            // pode ser: 'top', 'bottom', 'left', 'right'
+                display: true,            
+                position: 'top',            
                 align: 'center',
                 labels: {
-                    usePointStyle: true,    // usa o mesmo formato dos pontos do gráfico
+                    usePointStyle: true,    
                     pointStyle: 'circle',
                     boxWidth: 10,
                     padding: 20,
-                    color: '#333',          // cor do texto da legenda
+                    color: '#333',        
                     font: {
                         size: 14,
                         family: 'Arial, sans-serif'

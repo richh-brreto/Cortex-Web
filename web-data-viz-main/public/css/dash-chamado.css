@@ -416,67 +416,94 @@ body {
 
 
 /* Informações do Modelo - Inline */
-
-
-.info-items {
-    display: grid;
-    gap: 12px;
-}
-
-.info-items-inline {
+.container-modal {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 16px;
-    background: #f9fafb;
-    border-radius: 8px;
+    flex-direction: column;
+    justify-content: flex-start;
 }
-.container-item{
+
+.titulo {
+    font-size: 30px;
+    padding: 20px;
+}
+.corpo {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 10px;
     display: flex;
     flex-direction: row;
-    gap: 100px;
+    justify-content: space-between;
+    gap: 50px;
 }
 
-.info-item-inline {
+.container-item-coluna {
     display: flex;
-    gap: 8px;
-    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
-
-.info-item-inline .info-item-label {
-    color: #6b7280;
-    font-size: 14px;
-}
-
-.info-item-inline .info-item-value {
-    color: var(--cor-texto);
-    font-weight: 600;
-    font-size: 14px;
-
-}
-
 
 .info-item {
+    gap: 10px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    padding: 14px;
-    background: #f9fafb;
-    border-radius: 8px;
-    transition: background 0.2s ease;
 }
-
 .info-item-label {
-    color: #6b7280;
     font-size: 14px;
     font-weight: 500;
+    color: #494a4d;
 }
-
 .info-item-value {
-    color: var(--cor-texto);
     font-weight: 600;
-    font-size: 14px;
+    color: #000000;
 }
 
+.item-alerta{
+    font-size: large;
+}
+
+.item-componente{
+    border-radius: 10px; 
+    padding: 5px; 
+
+}
+.cpu {
+    background-color: #b0f7f7;             
+    color: #00B2B2;
+}
+.ram {
+    background-color: rgb(169, 252, 164);
+     color: #0cb200ff;
+}
+.gpu {
+    background-color: rgb(166, 170, 252); 
+                        color: #0009b2ff;
+}
+.disco {
+    background-color: rgb(252, 252, 181); 
+    color: #b2b200ff;
+}
+
+.tempo {
+    margin: 5px;
+}
+
+.linha-do-tempo{
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.item-linha {
+    display: flex;
+    gap: 10px;
+}
+                     
+                
 /* ========== TABELAS ========== */
 .container-tabela {
     margin-top: 16px;
