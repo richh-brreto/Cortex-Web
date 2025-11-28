@@ -32,23 +32,20 @@
         border-radius: 10px;
         box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05);
         margin-top: 10px;
-        height: 285px;
+        height: 325px;
         margin-left: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding: 20px;
     }
 
-    #grafCpu {
-        width: 100%;
-        height: 120%;
-        padding: 0;
-    }
+   
 
     .card-grafico h1 {
         font-size: 22px;
-        margin-bottom: -25px;
+        margin-bottom: 0px;
         color: #096666
     }
 
@@ -64,8 +61,6 @@
     #graficos {
         width: 100%;
         height: 98%;
-        /* background-color: paleturquoise; */
-        /* DEBUG */
         margin-top: 0px;
         display: flex;
         flex-direction: column;
@@ -94,7 +89,7 @@
         gap: 10px;
         align-items: center;
         justify-content: space-between;
-        
+
     }
 
     .kpi {
@@ -329,7 +324,7 @@
                 </div>
 
                 <div class="card-grafico">
-                    <h1>Uso de Recursos em Novembro por Período do Dia:</h1>
+                    <h1>Média de uso de Recursos em Novembro por Período do Dia:</h1>
                     <canvas id="grafGpu"></canvas>
                 </div>
 
@@ -341,25 +336,25 @@
 
             <div id="kpis">
                 <div class="kpi">
-        <p>Crescimento Médio de Uso</p>
-        <span class="kpi-aumento">+8%</span>
-        <span class="kpi-periodo">últimos (30d)</span>
-    </div>
-    <div class="kpi">
-        <p>Período Ideal p/ Manutenção</p>
-        <span class="kpi-aumento">Madrugada</span>
-        <span class="kpi-periodo">Menor Uso Geral</span>
-    </div>
-    <div class="kpi">
-        <p>Qtd. Picos Críticos</p>
-        <span class="kpi-aumento">3</span>
-        <span class="kpi-periodo">últimos (30d)</span>
-    </div>
-    <div class="kpi">
-        <p>Qtd outliers</p>
-        <span class="kpi-aumento">5</span>
-        <span class="kpi-periodo">últimos (30d)</span>
-    </div>
+                    <p>Crescimento Médio de Uso</p>
+                    <span class="kpi-aumento">+8%</span>
+                    <span class="kpi-periodo">últimos (30d)</span>
+                </div>
+                <div class="kpi">
+                    <p>Período Ideal p/ Manutenção</p>
+                    <span class="kpi-aumento">Madrugada</span>
+                    <span class="kpi-periodo">Menor Uso Geral</span>
+                </div>
+                <div class="kpi">
+                    <p>Qtd. Picos Críticos</p>
+                    <span class="kpi-aumento">3</span>
+                    <span class="kpi-periodo">últimos (30d)</span>
+                </div>
+                <div class="kpi">
+                    <p>Qtd outliers</p>
+                    <span class="kpi-aumento">5</span>
+                    <span class="kpi-periodo">últimos (30d)</span>
+                </div>
             </div>
 
             <div id="tabela-picos">
@@ -411,220 +406,193 @@
 
 
 <script>
-     
+
+    //EXEMPLO DE FUNÇÃO PARA BUSCAR DADOS NO S3 E RETORNAR COMO JSON
+
+    //     async function dashprocesso(pasta,idModelo) {
+    //     let dados = await JSON.parse(await (await fetch(`/s3Route/dados/${pasta}/modelo-${idModelo}-${data}.json`)).text());
+    //     console.log(dados);
+    //     return dados
+    // }
+
+    //SIM, ISSO JÁ RETORNA UM JSON PRONTO PARA USAR
+
+
     const params = new URLSearchParams(window.location.search);
-    const idModelo = params.get("idModelo");
-    const idFuncionario = sessionStorage.ID_FUNCIONARIO_LOGADO;
-
-
-async function carregarProcessos() {
-    const resposta = await fetch(`/api/processos/${idModelo}`);
-    const processos = await resposta.json();
-    console.log(processos);
-
-    // aqui você monta tabela, cards, chart.js, tudo com os dados filtrados
-}
-
-
-
+    const idModelo = sessionStorage.ID_MODELO_SELECIONADO; 
     
-function infoModeloGet(idModelo) {
-    console.log("Buscando dados completos para o modelo:", idModelo);
-    fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
-        .then(function (response) {
-            if (!response.ok) { throw new Error('Falha ao buscar dados: ' + response.status + ' ' + response.statusText); }
-            return response.json();
-        })
-        .then(function (dados) {
-            console.log("Dados brutos recebidos:", dados);
+    // Variáveis  para guardar as instâncias dos gráficos e poder atualizar depois
+    let chartLinha;
+    let chartBarra;
 
-
-            if (dados && dados.length > 0) {
-                const dadosBanco = dados[0];
-                
-                document.getElementById('nome-modelo').textContent = dadosBanco.nome_modelo;
-                document.getElementById('nome-cliente').textContent = dadosBanco.cliente_nome;
-                document.getElementById('codigo-modelo').textContent = dadosBanco.id_modelo;
-
-
-            } else {
-                throw new Error("Modelo não encontrado ou dados inválidos recebidos.");
-            }
-        })
-        .catch(function (error) {
-            console.error("Erro ao buscar/processar dados da dashboard:", error);
-            mostrarAviso("Não foi possível carregar os dados detalhados: " + error.message, "Erro de Dados");
-            limparSpansModais();
-        });
-}
-
-
-    // Seus dados originais (Uso Mensal)
-    const dadosJsonStr = `
-    [
-        {"data": "JAN", "cpu_proc": 30, "gpu_proc": 10, "ram_proc": 40},
-        {"data": "FEV", "cpu_proc": 35, "gpu_proc": 15, "ram_proc": 45},
-        {"data": "MAR", "cpu_proc": 40, "gpu_proc": 20, "ram_proc": 50},
-        {"data": "ABR", "cpu_proc": 45, "gpu_proc": 25, "ram_proc": 55},
-        {"data": "MAI", "cpu_proc": 50, "gpu_proc": 30, "ram_proc": 60},
-        {"data": "JUN", "cpu_proc": 55, "gpu_proc": 35, "ram_proc": 65},
-        {"data": "JUL", "cpu_proc": 60, "gpu_proc": 40, "ram_proc": 70},
-        {"data": "AGO", "cpu_proc": 65, "gpu_proc": 42, "ram_proc": 72},
-        {"data": "SET", "cpu_proc": 70, "gpu_proc": 45, "ram_proc": 75},
-        {"data": "OUT", "cpu_proc": 75, "gpu_proc": 48, "ram_proc": 78},
-        {"data": "NOV", "cpu_proc": 80, "gpu_proc": 50, "ram_proc": 80}
-    ]
-    `;
-
-    // Dados SIMULADOS para o uso de Novembro, separados por Período do Dia.
-    // Manhã (06h-12h), Tarde (12h-18h), Noite (18h-00h), Madrugada (00h-06h)
-    const dadosNovembroPorPeriodo = [
-        {"periodo": "Madrugada", "cpu_proc": 20, "gpu_proc": 15, "ram_proc": 30},
-        {"periodo": "Manhã", "cpu_proc": 60, "gpu_proc": 40, "ram_proc": 70},
-        {"periodo": "Tarde", "cpu_proc": 90, "gpu_proc": 60, "ram_proc": 95},
-        {"periodo": "Noite", "cpu_proc": 75, "gpu_proc": 45, "ram_proc": 85}
-    ];
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        let dados = JSON.parse(dadosJsonStr);
-
-        let rotulos = [];
-        let usoCPU = [];
-        let usoGPU = [];
-        let usoRAM = [];
-
-        // Substituição do .map() por um laço 'for' para o Gráfico Mensal
-        for (let i = 0; i < dados.length; i++) {
-            let item = dados[i];
-            rotulos.push(item.data);
-            usoCPU.push(item.cpu_proc);
-            usoGPU.push(item.gpu_proc);
-            usoRAM.push(item.ram_proc);
-        }
-
-        // ================== GRÁFICO 1 (Mensal) ==================
-        new Chart(document.getElementById("grafCpu"), {
-            type: "line",
-            data: {
-                labels: rotulos,
-                datasets: [
-                    {
-                        label: "CPU (%)",
-                        data: usoCPU,
-                        borderColor: "rgb(255, 99, 99)",
-                        backgroundColor: "rgba(255, 99, 99, 0.2)",
-                        fill: false,
-                        tension: 0.2
-                    },
-                    {
-                        label: "GPU (%)",
-                        data: usoGPU,
-                        borderColor: "rgb(80, 160, 255)",
-                        backgroundColor: "rgba(80, 160, 255, 0.2)",
-                        fill: false,
-                        tension: 0.2
-                    },
-                    {
-                        label: "RAM (%)",
-                        data: usoRAM,
-                        borderColor: "rgb(120, 200, 120)",
-                        backgroundColor: "rgba(120, 200, 120, 0.2)",
-                        fill: false,
-                        tension: 0.2
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true, max: 100 },
-                    x: {}
-                },
-                layout: {
-                    padding: {
-                        top: 20,
-                        bottom: 10
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: false,
-                        padding: { top: 10, bottom: 20 }
-                    }
-                }
-
-            }
-        });
-
-
-        // ================== PREPARAÇÃO GRÁFICO 2 (Por Período do Dia) ==================
-        let periodosRotulos = [];
-        let usoCPU_periodo = [];
-        let usoGPU_periodo = [];
-        let usoRAM_periodo = [];
-
-        // Substituição do .map() por um laço 'forEach' para o Gráfico de Períodos
-        dadosNovembroPorPeriodo.forEach(item => {
-            periodosRotulos.push(item.periodo);
-            usoCPU_periodo.push(item.cpu_proc);
-            usoGPU_periodo.push(item.gpu_proc);
-            usoRAM_periodo.push(item.ram_proc);
-        });
-
-
-        // ================== GRÁFICO 2 (Por Período do Dia) ==================
-        new Chart(document.getElementById("grafGpu"), {
-            type: "bar",
-            data: {
-                labels: periodosRotulos, // Usando os novos rótulos de período
-                datasets: [
-                    {
-                        label: "CPU (%)",
-                        data: usoCPU_periodo,
-                        backgroundColor: "rgba(255, 99, 99, 0.7)"
-                    },
-                    {
-                        label: "GPU (%)",
-                        data: usoGPU_periodo,
-                        backgroundColor: "rgba(80, 160, 255, 0.7)"
-                    },
-                    {
-                        label: "RAM (%)",
-                        data: usoRAM_periodo,
-                        backgroundColor: "rgba(120, 200, 120, 0.7)"
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: { beginAtZero: true, max: 100 }
-                }, layout: {
-                    padding: {
-                        top: 20,
-                        bottom: 10
-                    }
-                },
-                plugins: {
-                    display: false,
-                    title: {
-                        padding: { top: 10, bottom: 20 }
-                    }
-                }
-
-            }
-        });
-
-    });
-
-    window.onload = function() {
-        const idModelo = sessionStorage.ID_MODELO_SELECIONADO;
+    window.onload = function () {
         infoModeloGet(idModelo);
+        buscarDadosEAtualizarGraficos();
     };
 
+    async function buscarDadosEAtualizarGraficos() {
+        var dataAtual = new Date();
+        var anoAtual = dataAtual.getFullYear();
+        var mesAtual = dataAtual.getMonth() + 1; // getMonth retorna 0-11 por isso preciso  fzr +1
 
+        // vetor p grafico 1
+        var listaMeses = [];
+        var listaCpu = [];
+        var listaRam = [];
+        var listaGpu = [];
+
+        // Variável para guardar os dados do último mês válido para o Gráfico 2
+        var jsonUltimoMes = null;
+
+        // for p pegar os 3 meses
+       
+        for (var i = 2; i >= 0; i--) {
+            
+            var mesBusca = mesAtual - i;
+            var anoBusca = anoAtual;
+
+            // Lógica simples para virada de ano (ex: Janeiro - 1 = Dezembro do ano passado)
+            if (mesBusca <= 0) {
+                mesBusca = 12 + mesBusca; // Se for 0 vira 12, se for -1 vira 11
+                anoBusca = anoAtual - 1;
+            }
+
+            
+            var mesString = "" + mesBusca; // Converte para texto
+            if (mesBusca < 10) {
+                mesString = "0" + mesBusca;
+            }
+
+            //caminho do arquivo
+            var caminho = `/s3Route/dados/processos/modelo-${idModelo}-${anoBusca}-${mesString}.json`;
+
+            try {
+                var resposta = await fetch(caminho);
+                
+                if (resposta.ok) {
+                    var dados = await resposta.json();
+                    
+                    // Adiciona nas listas
+                    listaMeses.push(mesString + "/" + anoBusca);
+                    listaCpu.push(dados.mediaCpu);
+                    
+                    // Multiplicamos por 100 pq no JSON vem 0.12 (12%)
+                    listaRam.push(dados.mediaRam * 100); 
+                    listaGpu.push(dados.mediaGpu);
+
+                    // Guarda esse JSON como o mais recente encontrado
+                    jsonUltimoMes = dados;
+
+                } else {
+                    // Se não achar o arquivo, coloca 0 para o gráfico não quebrar
+                    console.log("Arquivo não encontrado: " + caminho);
+                    listaMeses.push(mesString + "/" + anoBusca);
+                    listaCpu.push(0);
+                    listaRam.push(0);
+                    listaGpu.push(0);
+                }
+
+            } catch (erro) {
+                console.error("Erro na requisição: ", erro);
+            }
+        }
+
+       
+        plotarGraficoLinha(listaMeses, listaCpu, listaRam, listaGpu);
+
+        if (jsonUltimoMes != null) {
+            plotarGraficoBarra(jsonUltimoMes.mediasPeriodo);
+        }
+    }
+
+    function plotarGraficoLinha(labels, cpu, ram, gpu) {
+        var ctx = document.getElementById("grafCpu").getContext("2d");
+        
+        
+        if (chartLinha) chartLinha.destroy();
+
+        chartLinha = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "CPU (%)",
+                        data: cpu,
+                        borderColor: "rgb(255, 99, 99)",
+                        backgroundColor: "rgba(255, 99, 99, 0.2)",
+                        tension: 0.2
+                    },
+                    {
+                        label: "GPU (%)",
+                        data: gpu,
+                        borderColor: "rgb(80, 160, 255)",
+                        backgroundColor: "rgba(80, 160, 255, 0.2)",
+                        tension: 0.2
+                    },
+                    {
+                        label: "RAM (%)",
+                        data: ram,
+                        borderColor: "rgb(120, 200, 120)",
+                        backgroundColor: "rgba(120, 200, 120, 0.2)",
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+    }
+
+    function plotarGraficoBarra(periodos) {
+        var ctx = document.getElementById("grafGpu").getContext("2d");
+
+        
+
+        // Extraindo os dados  do objeto
+        var manha = periodos.MANHA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+        var tarde = periodos.TARDE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+        var noite = periodos.NOITE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+        var madrugada = periodos.MADRUGADA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+
+        // Montando arrays na ordem correta
+        var dadosCpu = [manha.mediaCpu, tarde.mediaCpu, noite.mediaCpu, madrugada.mediaCpu];
+        var dadosGpu = [manha.mediaGpu, tarde.mediaGpu, noite.mediaGpu, madrugada.mediaGpu];
+        // Convertendo RAM para porcentagem
+        var dadosRam = [manha.mediaRam * 100, tarde.mediaRam * 100, noite.mediaRam * 100, madrugada.mediaRam * 100];
+
+        chartBarra = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Manhã", "Tarde", "Noite", "Madrugada"],
+                datasets: [
+                    { label: "CPU (%)", data: dadosCpu, backgroundColor: "rgba(255, 99, 99, 0.7)" },
+                    { label: "GPU (%)", data: dadosGpu, backgroundColor: "rgba(80, 160, 255, 0.7)" },
+                    { label: "RAM (%)", data: dadosRam, backgroundColor: "rgba(120, 200, 120, 0.7)" }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true, max: 100 } }
+            }
+        });
+    }
+
+    function infoModeloGet(idModelo) {
+        
+        fetch(`/info-modelo/info-modelo-rota/${idModelo}`)
+            .then(function (response) { return response.json(); })
+            .then(function (dados) {
+                if (dados && dados.length > 0) {
+                    document.getElementById('nome-modelo').textContent = dados[0].nome_modelo;
+                    document.getElementById('nome-cliente').textContent = dados[0].cliente_nome;
+                    document.getElementById('codigo-modelo').textContent = dados[0].id_modelo;
+                }
+            })
+            .catch(function (error) { console.error("Erro header:", error); });
+    }
 </script>
 
 </html>
