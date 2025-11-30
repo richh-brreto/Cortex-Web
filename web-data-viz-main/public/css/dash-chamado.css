@@ -440,6 +440,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-width: 50%;
 }
 
 .info-item {
@@ -456,6 +457,8 @@ body {
 .info-item-value {
     font-weight: 600;
     color: #000000;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .item-alerta{
