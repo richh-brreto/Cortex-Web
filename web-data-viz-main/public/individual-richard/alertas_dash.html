@@ -12,7 +12,7 @@
     <script defer src="./alertas_dash.js"></script>
 </head>
 
-<body onload="carregarDashboard(), atualizarKPIs(kpis)">
+<body>
     <nav class="barra-lateral">
 
         <a class="item-logo">
@@ -114,14 +114,14 @@
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Ontem</span>
-                            <span style="color: red;">XXX</span>
+                            <span id="kpi-total-ontem" style="color: red;">XXX</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
                             <span class="arch-compact-name">Ainda ativos:</span>
-                            <span style="color: red;">XXX</span>
+                            <span id="kpi-total-ativos" style="color: red;">XXX</span>
                         </div>
                     </div>
                 </div>
@@ -131,31 +131,10 @@
                 <div class="kpi-header">
                     <div class="kpi-title">Tickets com Categorias Múltiplas (Jira)</div>
                 </div>
-                <div class="arch-compact-grid">
+                <div id="kpi-modelos-24h" class="arch-compact-grid">
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Modelo-XXX</span>
-                            <span class="arch-compact-percent" style="color: red;">XXX</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Modelo-XXX</span>
-                            <span class="arch-compact-percent" style="color: red;">XXX</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Modelo-XXX</span>
-                            <span class="arch-compact-percent" style="color: red;">XXX</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Modelo-XXX</span>
+                            <span class="arch-compact-name" id="kpi-categorias-multiplas">Modelo-XXX</span>
                             <span class="arch-compact-percent" style="color: red;">XXX</span>
                         </div>
                     </div>

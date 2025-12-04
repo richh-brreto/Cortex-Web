@@ -29,7 +29,7 @@ async function fetchJSON(url) {
 
 // BREAKDOWN — JIRA
 async function carregarBreakdownJira() {
-    const data = await fetchJSON('/mural/alertas/breakdown');
+    const data = await fetchJSON('/api/alertas/breakdown');
     if (!data) return;
 
     Object.entries(data).forEach(([modelo, recursos]) => {
@@ -48,7 +48,7 @@ async function carregarBreakdownJira() {
 
 // BREAKDOWN — SLACK
 async function carregarBreakdownSlack() {
-    const data = await fetchJSON('/mural/alertas/slack');
+    const data = await fetchJSON('/api/alertas/slack');
     if (!data) return;
 
     Object.entries(data).forEach(([modelo, recursos]) => {
@@ -206,7 +206,7 @@ window.onload = async () => {
 
     async function carregarDashboard() {
         try {
-            const resp = await fetch("http://localhost:3000/alertas");
+            const resp = await fetch("http://localhost:3333/alertas");
             const data = await resp.json();
 
             atualizarKPIs(data.kpis);
