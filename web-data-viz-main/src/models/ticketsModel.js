@@ -5,7 +5,7 @@ const axios = require("axios");
 
 //const JIRA_BASE_URL = "https://cortexsptech.atlassian.net";
 //const JIRA_EMAIL = "cortexsptech@gmail.com";
-//const JIRA_API_TOKEN = "ATATT3xFfGF0vOHes5IZj9R9JnawOSozsREKQ0pNBPBJ8CNXDHnRZ_UzsaDE3_pj03MoLKhY26F1yubafFVeFvfPxwIPQDbd3X9CfBeczvStj4u3LU-sQqyyvr6rDk1uPPl3BY4c4x_SGyrizdJEGbkV5SfIS-lcEc2nLTsDqAyHplWHbu1OigA=3693000B"; 
+
 //const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
 var database = require("../database/config");
 
