@@ -12,7 +12,7 @@
     <script defer src="./alertas_dash.js"></script>
 </head>
 
-<body>
+<body onload="carregarDashboard(), atualizarKPIs(kpis)">
     <nav class="barra-lateral">
 
         <a class="item-logo">
@@ -107,7 +107,7 @@
         <div class="kpis-grid">
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Total de Chamados do Sistema</div>
+                    <div class="kpi-title">Total de Tickets do Sistema (Slack)</div>
                 </div>
 
                 <div class="arch-compact-grid">
@@ -129,7 +129,7 @@
 
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Chamados com Alertas Múltiplos</div>
+                    <div class="kpi-title">Tickets com Categorias Múltiplas (Jira)</div>
                 </div>
                 <div class="arch-compact-grid">
                     <div class="arch-compact-item">
@@ -164,33 +164,33 @@
 
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Total de Chamados por Zona</div>
+                    <div class="kpi-title">Modelos que mais geraram Alertas (24h)</div>
                 </div>
                 <div class="arch-compact-grid">
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Zona - XXX</span>
+                            <span class="arch-compact-name">Modelo - XXX</span>
                             <span class="arch-compact-percent" style="color: red;">XXX</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Zona - XXX</span>
+                            <span class="arch-compact-name">Modelo - XXX</span>
                             <span class="arch-compact-percent" style="color: red;">XXX</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Zona - XXX</span>
+                            <span class="arch-compact-name">Modelo - XXX</span>
                             <span class="arch-compact-percent" style="color: red;">XXX</span>
                         </div>
                     </div>
 
                     <div class="arch-compact-item">
                         <div class="arch-compact-header">
-                            <span class="arch-compact-name">Zona - XXX</span>
+                            <span class="arch-compact-name">Modelo - XXX</span>
                             <span class="arch-compact-item" style="color: red;">xxx</span>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                     <h3 class="chart-title">Alertas por Tipo</h3>
                     <div class="single-select-container">
                         <label for="selectBarModel">Modelo:</label>
-                        <select id="selectBarModel"></select>
+                        <select id="selectBarModel" class="selectBarModel"></select>
                     </div>
                 </div>
                 <div class="chart-container">

@@ -1,145 +1,236 @@
-// single-select (filtro)
-// helpers (faz um filtro simples normalizando a string)
+//  helpers para padronizar
 function normKey(s) {
     return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
-// Example breakdown data per model (replace with real data from Slack/Jira)
-const alertBreakdown = {
-    [normKey('WAPX')]: { CPU: 40, RAM: 80, Disco: 60, GPU: 60 },
-    [normKey('Vortex-2')]: { CPU: 20, RAM: 50, Disco: 40, GPU: 70 },
-    [normKey('Astra-core')]: { CPU: 10, RAM: 30, Disco: 50, GPU: 70 },
-    [normKey('Astra-Mini')]: { CPU: 15, RAM: 25, Disco: 40, GPU: 70 },
-    [normKey('Vortex-1')]: { CPU: 25, RAM: 20, Disco: 30, GPU: 10 }
-};
-
+let alertBreakdown = {};
+let barChart = null;
 let lineChart = null;
 let originalLineDatasets = null;
-let barChart = null;
 
-// popula os selects com os datasets q tão disponíveis
-function populateModelSelects(labels) {
-    const selectBar = document.getElementById('selectBarModel');
-    const selectLine = document.getElementById('selectLineModel');
-    if (!selectBar || !selectLine) return;
+//  -- kpis -- 
+const kpiTotalOntem = document.querySelector("#kpi-total-ontem");
+const kpiTotalAtivos = document.querySelector("#kpi-total-ativos");
+const kpiCategoriasMultiplas = document.querySelector("#kpi-categorias-multiplas");
+const kpiModelos24hContainer = document.querySelector("#kpi-modelos-24h");
 
-    // limpa o q ja estiver
-    selectBar.innerHTML = '';
-    selectLine.innerHTML = '';
+//  -- requisições API -- 
 
-    labels.forEach((label, i) => {
-        const opt1 = document.createElement('option');
-        opt1.value = label;
-        opt1.text = label;
-        selectBar.appendChild(opt1);
+async function fetchJSON(url) {
+    try {
+        const r = await fetch(url);
+        if (!r.ok) return null;
+        return await r.json();
+    } catch (err) {
+        console.error("Erro ao buscar " + url, err);
+        return null;
+    }
+}
 
-        const opt2 = document.createElement('option');
-        opt2.value = label;
-        opt2.text = label;
-        selectLine.appendChild(opt2);
+// BREAKDOWN — JIRA
+async function carregarBreakdownJira() {
+    const data = await fetchJSON('/mural/alertas/breakdown');
+    if (!data) return;
+
+    Object.entries(data).forEach(([modelo, recursos]) => {
+        const mk = normKey(modelo);
+        alertBreakdown[mk] = {
+            CPU: recursos.CPU || 0,
+            RAM: recursos.RAM || 0,
+            Disco: recursos.Disco || 0,
+            GPU: recursos.GPU || 0
+        };
     });
 
-    // defaults
-    if (selectBar.options.length) selectBar.selectedIndex = 0;
-    if (selectLine.options.length) selectLine.selectedIndex = 0;
-
-    // coloca listeners
-    selectBar.addEventListener('change', () => updateBarChart());
-    selectLine.addEventListener('change', () => updateLineChart());
+    console.log("Breakdown Jira carregado:", alertBreakdown);
+    if (barChart) updateBarChart();
 }
 
-function updateLineChart() {
-    if (!lineChart || !originalLineDatasets) return;
-    const selectLine = document.getElementById('selectLineModel');
-    const selected = selectLine ? normKey(selectLine.value) : null;
+// BREAKDOWN — SLACK
+async function carregarBreakdownSlack() {
+    const data = await fetchJSON('/mural/alertas/slack');
+    if (!data) return;
 
-    if (!selected) {
-        lineChart.data.datasets = JSON.parse(JSON.stringify(originalLineDatasets));
-    } else {
-        const found = originalLineDatasets.find(ds => normKey(ds.label) === selected);
-        if (found) {
-            // só usa o que for encontrado
-            lineChart.data.datasets = [JSON.parse(JSON.stringify(found))];
-        } else {
-            // pega tudo de volta
-            lineChart.data.datasets = JSON.parse(JSON.stringify(originalLineDatasets));
+    Object.entries(data).forEach(([modelo, recursos]) => {
+        const mk = normKey(modelo);
+
+        if (!alertBreakdown[mk]) {
+            alertBreakdown[mk] = { CPU: 0, RAM: 0, Disco: 0, GPU: 0 };
         }
-    }
-    lineChart.update();
+
+        alertBreakdown[mk].CPU += recursos.CPU || 0;
+        alertBreakdown[mk].RAM += recursos.RAM || 0;
+        alertBreakdown[mk].Disco += recursos.Disco || 0;
+        alertBreakdown[mk].GPU += recursos.GPU || 0;
+    });
+
+    console.log("Breakdown Slack agregado:", alertBreakdown);
+
+    populateModelSelects(Object.keys(alertBreakdown));
+    updateBarChart();
 }
 
+// kpis do slack
+async function carregarKPIsSlack() {
+    const kpis = await fetchJSON('/mural/alertas/slack/kpis');
+    if (!kpis) return;
+
+    kpiTotalOntem.textContent = kpis.total_ontem ?? "0";
+    kpiTotalAtivos.textContent = kpis.ativos ?? "0";
+}
+
+// kpis do jira
+async function carregarKPIsJira() {
+    const kpis = await fetchJSON('/mural/alertas/jira/kpis');
+    if (!kpis) return;
+
+    // categorias múltiplas
+    kpiCategoriasMultiplas.textContent = kpis.categorias_multiplas ?? "0";
+
+    // modelos 24h
+    if (kpis.modelos_24h) {
+        kpiModelos24hContainer.innerHTML = "";
+        Object.entries(kpis.modelos_24h).forEach(([modelo, total]) => {
+            const div = document.createElement("div");
+            div.className = "arch-compact-item";
+            div.innerHTML = `
+                <div class="arch-compact-header">
+                    <span class="arch-compact-name">${modelo}</span>
+                    <span style="color:red">${total}</span>
+                </div>
+            `;
+            kpiModelos24hContainer.appendChild(div);
+        });
+    }
+}
+
+// gráfico de linha
+async function carregarLineChartAPI() {
+    const data = await fetchJSON('/mural/alertas/jira/timeline');
+    if (!data) return;
+
+    const months = data.meses;
+    const datasets = data.modelos.map(modeloData => ({
+        label: modeloData.nome,
+        data: modeloData.valores,
+        borderColor: modeloData.cor || '#0099ff',
+        backgroundColor: 'rgba(0,0,0,0.05)',
+        fill: true,
+        tension: 0.4
+    }));
+
+    const ctx = document.getElementById("lineChart").getContext("2d");
+    lineChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels: months, datasets: datasets },
+        options: { responsive: true }
+    });
+
+    originalLineDatasets = JSON.parse(JSON.stringify(datasets));
+    populateModelSelects(datasets.map(d => d.label));
+}
+
+// info pros selects (filtros)
+function populateModelSelects(labels) {
+    const barSel = document.getElementById('selectBarModel');
+    const lineSel = document.getElementById('selectLineModel');
+
+    if (!barSel || !lineSel) return;
+
+    barSel.innerHTML = '';
+    lineSel.innerHTML = '';
+
+    labels.forEach(lbl => {
+        const o1 = document.createElement("option");
+        o1.value = lbl;
+        o1.text = lbl;
+        barSel.appendChild(o1);
+
+        const o2 = document.createElement("option");
+        o2.value = lbl;
+        o2.text = lbl;
+        lineSel.appendChild(o2);
+    });
+
+    barSel.onchange = updateBarChart;
+    lineSel.onchange = updateLineChart;
+}
+
+// atualizar gráfico de barras
 function updateBarChart() {
     if (!barChart) return;
-    const selectBar = document.getElementById('selectBarModel');
-    const selected = selectBar ? normKey(selectBar.value) : null;
+
+    const select = document.getElementById("selectBarModel");
+    const mk = normKey(select.value);
 
     const labels = ['CPU', 'RAM', 'Disco', 'GPU'];
-    const data = [];
+    const selected = alertBreakdown[mk] || { CPU: 0, RAM: 0, Disco: 0, GPU: 0 };
+    const data = [selected.CPU, selected.RAM, selected.Disco, selected.GPU];
 
-    if (selected && alertBreakdown[selected]) {
-        const br = alertBreakdown[selected];
-        data.push(br.CPU || 0, br.RAM || 0, br.Disco || 0, br.GPU || 0);
-    } else {
-        // fallback: zeros
-        data.push(0, 0, 0, 0);
-    }
-
-    barChart.data.labels = labels;
-    if (!barChart.data.datasets || !barChart.data.datasets.length) {
-        barChart.data.datasets = [{ label: 'Número de Alertas', data: data, backgroundColor: ['rgba(255,99,132,0.7)', 'rgba(54,162,235,0.7)', 'rgba(75,192,192,0.7)', 'rgba(153,102,255,0.7)'], borderColor: ['rgba(255,99,132,1)', 'rgba(54,162,235,1)', 'rgba(75,192,192,1)', 'rgba(153,102,255,1)'], borderWidth: 1 }];
-    } else {
-        barChart.data.datasets[0].data = data;
-    }
+    barChart.data.datasets[0].data = data;
     barChart.update();
 }
 
-window.addEventListener('load', () => {
-    // inicializa os gráficos qnd estiver disponível
-    if (typeof Chart === 'undefined') return;
 
-    // gráfico de linha
-    const lineCanvas = document.getElementById('lineChart');
-    if (lineCanvas) {
-        const ctx = lineCanvas.getContext('2d');
-        lineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'],
-                datasets: [
-                    { label: 'WAPX', data: [100, 160, 190, 120, 125, 90, 80, 130, 170, 180, 223, 240], borderColor: '#00B2B2', backgroundColor: 'rgba(0,178,178,0.1)', tension: 0.4, fill: true },
-                    { label: 'Vortex-2', data: [34, 40, 49, 69, 79, 85, 93, 97, 108, 112, 115, 180], borderColor: '#006E66', backgroundColor: 'rgba(0,110,102,0.1)', tension: 0.4, fill: true },
-                    { label: 'Astra-core', data: [20, 28, 39, 42, 50, 62, 75, 72, 71, 76, 81, 160], borderColor: 'blue', backgroundColor: 'rgba(92,104,222,0.1)', tension: 0.4, fill: true },
-                    { label: 'Astra-Mini', data: [20, 28, 39, 42, 50, 61, 70, 82, 85, 108, 138, 150], borderColor: 'rgba(180,222,92,1)', backgroundColor: 'rgba(180,222,92,0.1)', tension: 0.4, fill: true },
-                    { label: 'Vortex-1', data: [20, 28, 39, 42, 51, 62, 55, 60, 60, 62, 60, 65], borderColor: '#F59E0B', backgroundColor: 'rgba(245,158,11,0.1)', tension: 0.4, fill: true }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: { legend: { position: 'bottom' } },
-                scales: { y: { beginAtZero: true, title: { display: true, text: 'Quantidade' } }, x: { title: { display: true, text: 'Mês' } } }
-            }
-        });
+// atualização do gráfico de linhas
+function updateLineChart() {
+    if (!lineChart || !originalLineDatasets) return;
 
-        originalLineDatasets = JSON.parse(JSON.stringify(lineChart.data.datasets));
+    const selected = document.getElementById("selectLineModel").value;
+    const mk = normKey(selected);
+
+    const found = originalLineDatasets.find(ds => normKey(ds.label) === mk);
+
+    lineChart.data.datasets = found ? [found] : originalLineDatasets;
+    lineChart.update();
+}
+
+// inicializar os gráficos
+window.onload = async () => {
+
+    // inicializa gráfico de barra vazio
+    const barCtx = document.getElementById("barChart").getContext("2d");
+    barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['CPU', 'RAM', 'Disco', 'GPU'],
+            datasets: [{
+                label: "Número de Alertas",
+                data: [0, 0, 0, 0],
+                backgroundColor: ['rgba(255,99,132,0.6)', 'rgba(54,162,235,0.6)', 'rgba(75,192,192,0.6)', 'rgba(153,102,255,0.6)'],
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    async function carregarDashboard() {
+        try {
+            const resp = await fetch("http://localhost:3000/alertas");
+            const data = await resp.json();
+
+            atualizarKPIs(data.kpis);
+            gerarGraficoModelos(data.grafico.modelos);
+            gerarGraficoCategorias(data.grafico.categorias);
+
+        } catch (e) {
+            console.error("Erro ao carregar dashboard:", e);
+        }
     }
 
-    // gráfico de barra
-    const barCanvas = document.getElementById('barChart');
-    if (barCanvas) {
-        const ctx = barCanvas.getContext('2d');
-        barChart = new Chart(ctx, {
-            type: 'bar',
-            data: { labels: ['CPU', 'RAM', 'Disco', 'GPU'], datasets: [{ label: 'Número de Alertas', data: [0, 0, 0, 0], backgroundColor: ['rgba(255,99,132,0.7)', 'rgba(54,162,235,0.7)', 'rgba(75,192,192,0.7)', 'rgba(153,102,255,0.7)'], borderColor: ['rgba(255,99,132,1)', 'rgba(54,162,235,1)', 'rgba(75,192,192,1)', 'rgba(153,102,255,1)'], borderWidth: 1 }] },
-            options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true } } }
-        });
+    function atualizarKPIs(kpis) {
+        document.getElementById("kpi-total-alertas").innerText = kpis.totalAlertas;
+        document.getElementById("kpi-modelo-afetado").innerText = kpis.modeloMaisAfetado || "-";
+        document.getElementById("kpi-categoria-recorrente").innerText = kpis.categoriaMaisRecorrente || "-";
     }
 
-    // Populate selects from originalLineDatasets labels (if available) or fallback list
-    const labels = originalLineDatasets ? originalLineDatasets.map(d => d.label) : ['WAPX', 'Vortex-2', 'Astra-core', 'Astra-Mini', 'Vortex-1'];
-    populateModelSelects(labels);
+    // carrega tudo
+    await carregarBreakdownJira();
+    await carregarBreakdownSlack();
+    await carregarKPIsSlack();
+    await carregarKPIsJira();
+    await carregarLineChartAPI();
 
-    // renderiza inicialmente pelos defaults
-    updateLineChart();
     updateBarChart();
-});
+    updateLineChart();
+};
