@@ -1,32 +1,30 @@
-// src/models/jiraModel.js
+
 
 const axios = require("axios");
 
-// TODO: Substitua estas variáveis pelos seus dados reais
+
 //const JIRA_BASE_URL = "https://cortexsptech.atlassian.net";
 //const JIRA_EMAIL = "cortexsptech@gmail.com";
 //const JIRA_API_TOKEN = "ATATT3xFfGF0vOHes5IZj9R9JnawOSozsREKQ0pNBPBJ8CNXDHnRZ_UzsaDE3_pj03MoLKhY26F1yubafFVeFvfPxwIPQDbd3X9CfBeczvStj4u3LU-sQqyyvr6rDk1uPPl3BY4c4x_SGyrizdJEGbkV5SfIS-lcEc2nLTsDqAyHplWHbu1OigA=3693000B"; 
 //const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
+var database = require("../database/config");
 
-/**
- * Função para buscar TODOS os tickets abertos do projeto CTX.
- * @returns {Promise<Array<Object>>} Uma promessa que resolve para todos os tickets.
- */
-async function buscarTodosTickets() {
+
+async function buscarTicketsHistorico() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-    // JQL: Puxa todas as issues do projeto "CTX" com status "Aberto"
-    const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
+    const jql = 'project = "CTX" ORDER BY created DESC';
     
     const body = {
         jql,
         fields: [
-            "summary",
             "customfield_10060", // maquina
             "labels",
             "assignee",
             "status",
-            "customfield_10093"
+            "created",
+            "customfield_10093", // identificador
+            "customfield_10059"  // problema ou incidente
         ],
     };
 
@@ -43,7 +41,6 @@ async function buscarTodosTickets() {
             }
         );
 
-        // Retorna diretamente os campos (fields) de todas as issues
         return response.data.issues.map(issue =>({fields : issue.fields, 
             key: issue.key})) || [];
 
@@ -53,6 +50,24 @@ async function buscarTodosTickets() {
     }
 }
 
+function bancoInfos(idmodelo) {
+    console.log(`Model: Listando modelos para a empresa: ${idmodelo}. ACESSEI O MODELO MODEL`);
+
+    var instrucaoSql = `
+        SELECT 
+            m.nome, m.hostname 
+        FROM 
+            modelo m 
+        WHERE 
+            m.id_modelo = ${idmodelo};
+
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql); 
+}
+
 module.exports = {
-    buscarTodosTickets,
+    buscarTicketsHistorico,
+    bancoInfos
 };

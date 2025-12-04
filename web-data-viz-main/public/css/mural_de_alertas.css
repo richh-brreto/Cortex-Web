@@ -155,12 +155,12 @@ body {
     margin-top: 5px;
     background: #ffffff;
     border-radius: 16px;
-    padding: 24px;
+    padding: 10px;
     border-left: 4px solid;
     transition: all 0.3s ease;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 100%;
+    height: 40%;
     display: flex;
     flex-direction: column;
 }
@@ -176,12 +176,10 @@ body {
 }
 
 .card.alert-2 {
-    border-left-color: #f97316;
+    border-left-color: #6196ff;
 }
 
-.card.alert-3 {
-    border-left-color: #eab308;
-}
+
 
 .card-header {
     display: flex;
@@ -208,14 +206,10 @@ body {
 }
 
 .card.alert-2 .card-label {
-    background: #ffedd5;
-    color: #9a3412;
+    background: #d2dff8;
+    color: #1f4aa0;
 }
 
-.card.alert-3 .card-label {
-    background: #fef3c7;
-    color: #92400e;
-}
 
 .card-indicator {
     width: 8px;
@@ -228,17 +222,15 @@ body {
 }
 
 .card.alert-2 .card-indicator {
-    background: #f97316;
+    background: #6196ff;
 }
 
-.card.alert-3 .card-indicator {
-    background: #eab308;
-}
 
-.card-date {
-    font-size: 13px;
-    color: #94a3b8;
-    font-weight: 500;
+.card-status {
+    background-color: #F2F2F2; 
+    border-radius: 10px; 
+    padding: 5px;                    
+    color: #232426;
 }
 
 .card-title {
@@ -249,23 +241,42 @@ body {
     line-height: 1.3;
 }
 
-.card-description {
-    font-size: 14px;
-    color: #64748b;
+.card-infos {
+    display: flex;
+    flex-direction: row;
+    gap: 110px;
+}
+
+.card-labels {
+    font-size: 20px;
+        color: #363636;
     line-height: 1.6;
 }
 
-.card-botao{
+.card-responsalvel {
+    font-size: 20px;
+    color: #363636;
+    line-height: 1.6;
+}
+
+.botoes-card-mural{
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 3%;
+
 }
 
 .botao{
-    color: white;
-    background-color: #1a202c;
+    color: rgb(0, 0, 0);
+    font-size: medium;
+    background-color: #b2b7bd;
     width: 300px;
     height: 30px;
     gap: 5px;
     border-radius: 5px;
+    cursor: pointer;
+    border-style: none;
 }
 
 .botao:hover{

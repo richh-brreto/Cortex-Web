@@ -102,39 +102,39 @@
         <!-- Header - Identificação do Modelo -->
         <div class="header">
             <div class="header-content">
-                <div class="header-topo">
-
+                <div class="header-topo" id="header-topo">
+<!-- 
                     <div class="header-info">
                         <div class="info">
                             <h1 id="nome-modelo">CTX-001 - Nome do Modelo</h1>
                         </div>
 
-                        <div class="info">
+                        <div class="info" id="statusMaquina">
                             <h3>Status da Máquina:</h3>
                             <span style="background-color: #95a9ec; border-radius: 10px; padding: 5px; 
                         color: #070707;">
                                 <h4>Normal (ticket antigo)</h4>
                             </span>
-                            <!--    <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
+                               <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
                         color: #070707;">
                                  <h4>Em Alerta (ticket mais atual)</h4>
-                            </span> -->
+                            </span> 
 
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="header-base">
-                    <div class="header-info2">
+                <div class="header-base" id="header-base">
+                    <!-- <div class="header-info2">
                         <div class="info">
                             <h3>Status do Ticket:</h3>
                             <span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
                         color: #292A2E;">
                                 <h4>Concluido/Fechado</h4>
                             </span>
-                            <!--  <span style="background-color: #6BA5F2; border-radius: 10px; padding: 5px; 
+                             <span style="background-color: #6BA5F2; border-radius: 10px; padding: 5px; 
                         color: #332C34;"><h4>Em andamento</h4></span>
                             <span style="background-color: #F2F2F2; border-radius: 10px; padding: 5px; 
-                        color: #232426;"><h4>Aberto</h4></span> -->
+                        color: #232426;"><h4>Aberto</h4></span>
                         </div>
 
 
@@ -160,27 +160,27 @@
 
 
 
-                    </div>
+                    </div> -->
 
 
 
                 </div>
                 <div class="header-fim">
                     <div class="header-info3">
-                        <div class="info">
-                            <h3>Tipo do Ticket:</h3>
+                        <div class="info" id="tipo-ticket">
+                          <!--   <h3>Tipo do Ticket:</h3>
                             <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
                         color: #202019;">
                                 <h4>Problema</h4>
                             </span>
-                            <!--  <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
+                             <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
                         color: #464646;">
                                  <h4>Incidente</h4>
                             </span> -->
 
                         </div>
                         <div class="info">
-                            <button class="btn btn-secundario" onclick="openModal()">Ver detalhes</button>
+                            <button class="btn btn-secundario" id="modal-um" onclick="openModal()">Ver detalhes</button>
                         </div>
 
                     </div>
@@ -339,7 +339,7 @@
                     <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
                 </div>
                 <div class="modal-body" id="modal-body">
-                    <div class="container-modal">
+<!--                     <div class="container-modal">
                         <div class="titulo">
                             <h4>Informações Gerais</h4>
                         </div>
@@ -444,7 +444,7 @@
                                     <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
                                   </div>            
                         </div>
-                    </div>
+                    </div> -->
 
                 
                 </div>

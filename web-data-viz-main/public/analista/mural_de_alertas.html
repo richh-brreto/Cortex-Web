@@ -2,108 +2,98 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/mural_de_alertas.css">
-<script src="../js/navbar.js"></script>
-<link rel="stylesheet" href="../base/navbar.css">
-<title>Mural de Avisos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/mural_de_alertas.css">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <title>Mural de Avisos</title>
 </head>
 
 <body>
 
-<nav class="barra-lateral">
+    <nav class="barra-lateral">
 
-<a class="item-logo">
-<img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-<span class="texto-logo">Cortex</span>
-</a>
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
 
-<a class="item-navegacao" href="dahsboard_infraestrutura.html">
-<img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-<span class="texto" id="texto-dash">Infraestrutura</span>
-</a>
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+        </a>
 
-<div class="divisor"></div>
+        <div class="divisor"></div>
 
-<h3 class="subTitulo">Gerenciamento</h3>
+        <h3 class="subTitulo">Gerenciamento</h3>
 
-<a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-<img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-<span class="texto">Funcionários</span>
-</a>
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
 
-<a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-<img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-<span class="texto">Arquitetura</span>
-</a>
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
 
-<a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-<img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-<span class="texto">Clientes</span>
-</a>
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
 
-<a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-<img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-<span class="texto">Modelos</span>
-</a>
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
 
-<a class="item-navegacao" href="zona-analista.html">
-<img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-<span class="texto">Zonas</span>
-</a>
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
 
-<div class="divisor"></div>
+        <div class="divisor"></div>
 
-<a class="item-notificacao" href="mural_de_alertas.html">
-<img src="../assets/icon/alerta.png" id="sino" alt="">
-<span class="texto-notificacao" id="notificacoes">Alertas</span>
-</a>
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
 
-<!-- ITEM COM SUBMENU -->
-<div class="item-com-submenu">
-<a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-<img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-<span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-</span>
-</a>
-<div class="submenu">
-<div class="submenu-item ativo">Jira</div>
-<div class="submenu-item">Slack</div>
-</div>
-</div>
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Jira</div>
+                <div class="submenu-item">Slack</div>
+            </div>
+        </div>
 
-<a class="item-usuario" href="perfil-analista.html">
-<img src="" alt="Foto de perfil" class="avatar-usuario">
-<span class="texto-usuario"></span>
-</a>
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
 
-<div class="divisor"></div>
+        <div class="divisor"></div>
 
-<a class="item-notificacao" onclick="logout()">
-<img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-<span class="texto-notificacao" id="sair">Sair</span>
-</a>
-</nav>
-<script src="../js/logout.js"></script>
-<script src="../js/avatar-apply.js"></script>
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
 
-<div class="container">
-<div class="header">
-<h1>Mural de Alertas</h1>
-<div class="filters">
-<div class="date-filter">
-<label>Início:</label>
-<input type="date" value="2024-10-01">
-</div>
-<div class="date-filter">
-<label>Final:</label>
-<input type="date" value="2024-10-27">
-</div>
-</div>
-</div>
+    <div class="container">
+        <div class="header">
+            <h1>Mural de Alertas</h1>
+        </div>
 
-<!--
+        <!--
 <div class="tabs">
 <div class="tab active">
 Todos
@@ -124,101 +114,151 @@ Alerta 3
 </div>
 Tabs -->
 
-<!-- Cards Grid -->
-<div class="cards-grid">
-</div>
-</div>
+        <!-- Cards Grid -->
+        <div class="cards-grid">
+            <p id="status-message"></p>
+           
+        </div>
+    </div>
 <script>
-var tabs = document.querySelectorAll('.tab');
-var cards = document.querySelectorAll('.card');
+        // Funções de utilidade para processar dados do Jira
 
-function atualizarBadges() {
-var totalGeral = cards.length;
-var totalAlert1 = 0;
-var totalAlert2 = 0;
-var totalAlert3 = 0;
 
-for (var i = 0; i < cards.length; i++) {
-if (cards[i].classList.contains('alert-1')) {
-totalAlert1++;
-}
-if (cards[i].classList.contains('alert-2')) {
-totalAlert2++;
-}
-if (cards[i].classList.contains('alert-3')) {
-totalAlert3++;
-}
-}
 
-/*
-tabs[0].querySelector('.tab-badge').textContent = totalGeral;
-tabs[1].querySelector('.tab-badge').textContent = totalAlert1;
-tabs[2].querySelector('.tab-badge').textContent = totalAlert2;
-tabs[3].querySelector('.tab-badge').textContent = totalAlert3;
-*/
-}
+// Adicione esta função ANTES da sua função carregarMural()
+function mapCustomFieldToAlertClass(customFieldValue) {
+    if (!customFieldValue) {
+        return ''; // Não aplica classe se o campo for nulo/indefinido
+    }
+    
+    // Converte para minúsculas e remove espaços para comparação segura
+    const value = customFieldValue.toLowerCase().trim();
 
-function filtrarCards(filtro) {
-for (var i = 0; i < cards.length; i++) {
-if (filtro === 'todos') {
-cards[i].style.display = 'block';
-} else if (cards[i].classList.contains(filtro)) {
-cards[i].style.display = 'block';
-} else {
-cards[i].style.display = 'none';
-}
-}
-}
-
-for (var i = 0; i < tabs.length; i++) {
-tabs[i].onclick = function () {
-for (var j = 0; j < tabs.length; j++) {
-tabs[j].classList.remove('active');
-}
-
-this.classList.add('active');
-
-var texto = this.textContent;
-if (texto.indexOf('Todos') !== -1) {
-filtrarCards('todos');
-} else if (texto.indexOf('Alerta 1') !== -1) {
-filtrarCards('alert-1');
-} else if (texto.indexOf('Alerta 2') !== -1) {
-filtrarCards('alert-2');
-} else if (texto.indexOf('Alerta 3') !== -1) {
-filtrarCards('alert-3');
-}
-};
-}
-
-async function html() {
-try {
-var data = JSON.parse(sessionStorage.getItem("dados"))
-console.log(data,409)
-let tickets = await (await fetch("/mural/"+data.EMPRESA_USUARIO)).json()
-console.log(tickets)
-for(let ticket of tickets){
-console.log(ticket)
-document.querySelector("body > div > div.cards-grid").innerHTML += `
-<div class="card alert-1">
-<div class="card-header">
-<div class="card-label">
-<span class="card-indicator"></span>
-Atenção
-</div>
-<div class="card-date">${ticket.created}</div>
-</div>
-<h3 class="card-title">${ticket.summary.split("máquina")[1]}</h3>
-<p class="card-description">${ticket.summary}</p>
-</div>
-`
-}
-} catch (e) {}
+    if (value.includes("em alerta")) {
+        // Para "Em alerta (ticket mais atual)"
+        return 'alert-1'; 
+    } else if (value.includes("normal")) {
+        // Para "Normal (ticket antigo)"
+        return 'alert-2'; 
+    } else {
+        return ''; // Classe padrão (sem cor especial)
+    }
 
 }
-html()
-atualizarBadges();
-</script>
+    
+
+        
+        // Função principal para buscar e renderizar os tickets
+        async function carregarMural() {
+            const cardsGrid = document.querySelector(".cards-grid");
+            const statusMessage = document.getElementById("status-message");
+
+            // Rota para buscar todos os tickets (sem filtro)
+            const apiUrl = "/mural/todos"; 
+
+            try {
+                statusMessage.textContent = "Buscando tickets abertos no Jira...";
+                
+                const response = await fetch(apiUrl);
+
+                if (response.status === 204) {
+                    cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
+                    return;
+                }
+                
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+
+                const tickets = await response.json();
+                
+                // Limpa o grid antes de renderizar
+                cardsGrid.innerHTML = ''; 
+
+              
+            
+
+            // 3. RESPONSÁVEL (ASSIGNEE)
+            // O campo é 'assignee' (corrigido no Model). Verifica se existe e pega o displayName.
+         
+            
+            // 4. LABELS (opcional: para usar no card-date, se não quiser a data de criação)
+           var labels 
+    
+                for (const ticket of tickets) {
+
+                    const campo = ticket.fields
+                 const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
+                       const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
+
+                       const alertClass = mapCustomFieldToAlertClass(maquinaNome);
+                
+                    var labels = "";
+                    for(let i =0; i<campo.labels.length; i++){
+                        labels += campo.labels[i] + "   ";
+                    }
+
+                    const identificador = campo.customfield_10093.split(";")
+                    const idModelo = identificador[0]
+                    const idZona = identificador[1]
+                    const idEmpresa = identificador[2]
+                    console.log(labels)
+                    cardsGrid.innerHTML += `
+                        <div class="card ${alertClass}">
+                            <div class="card-header">
+
+                                       <div class="card-label">
+                                    
+                                    <span class="card-indicator"></span>
+                                    ${maquinaNome}
+                                </div>
+                                <div class="card-status">Status: ${campo.status.name}</div>
+                                 <div class="card-ctx">Id Jira: ${ticket.key}</div>
+
+                            </div>
+                            <h3 class="card-title">${campo.summary}</h3>
+                            <div class="card-infos">
+                               <p class="card-responsalvel">Responsável:  <span style="font-weight: 600;">${responsavelNome}</span></p>
+                            <p class="card-labels">Tipos de Alertas: <span style="font-weight: 600;">${labels}</span> </p>
+                                </div>
+
+                            <div class="botoes-card-mural">
+                                <button class="botao" onclick="irParaDashboardTicket(${idModelo}, '${ticket.key}')">Dashboard do Ticket</button>
+                                <button class="botao" onclick="irParaJira('${ticket.key}')">Ir para o jira</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+           
+                
+                // Remove a mensagem de status se os cards foram carregados
+                if(cardsGrid.children.length === 0) {
+                     cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
+                }
+
+            } catch (erro) {
+                console.error("Erro na requisição ou processamento dos dados:", erro);
+                cardsGrid.innerHTML = `<p style="color: red;">Falha ao carregar o mural. Verifique sua conexão e o console para detalhes.</p>`;
+            }
+        }
+
+        // Inicia o carregamento dos dados quando a página é carregada
+        document.addEventListener('DOMContentLoaded', carregarMural);
+
+
+        function irParaJira(key){
+            var link =  `https://cortexsptech.atlassian.net/browse/${key}` 
+            window.open(link, '_blank')
+        }
+
+        function irParaDashboardTicket(modelo,key){
+            sessionStorage.setItem('ID_MODELO_SELECIONADO', modelo);
+            sessionStorage.setItem('KEY_JIRA_SLECIONADO', key);
+            window.location.href = 'dash-chamado.html'
+        }
+    </script>
 </body>
+
 
 </html>

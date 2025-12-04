@@ -99,7 +99,7 @@
                 <h1>Histórico de Tickets</h1>
             <div class="total">
                 <span class="label-total">Total:</span>
-                <span class="numero-total"></span>
+                <span class="numero-total" id="total_ticket"></span>
             </div>
         </div>
 
@@ -201,8 +201,9 @@
                                 <th id="3"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Status</th>
                                 <th id="4"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Componentes</th>
                                 <th id="5">Tipo</th>
-                                <th id="6"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Responsável</th>
-                                <th id="7">Ações</th>
+                                <th id="6">Máquina</th>
+                                <th id="7"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Responsável</th>
+                                <th id="8">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="tabela-funcionarios-corpo">
@@ -283,16 +284,9 @@
         </div>
     </div>
 </body>
-<script src="../js/gerenciamento_de_funcionario.js"></script>
 </html>
 <script>
-    (function(){
-        const fotoEl = document.getElementById('foto');
-        const nomeEl = document.getElementById('nome');
-        const userAvatar = sJSON.parse(sessionStorage.getItem("dados")).USER_AVATAR || (sessionStorage.FOTO ? `/assets/imgs/${sessionStorage.FOTO}` : '/assets/icon/sem-foto.png');
-        if (fotoEl) fotoEl.src = userAvatar;
-        if (nomeEl) nomeEl.innerText = sJSON.parse(sessionStorage.getItem("dados")).NOME_USUARIO || '';
-    })();
+
     
 
 </script>

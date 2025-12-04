@@ -1,222 +1,215 @@
 
 const modelModal = document.getElementById('modelModal');
 const abaModal = document.getElementsByClassName('modal-title')
-
-
-
-function openModal() {
-    if (modelModal) {
-        modelModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-}
-function closeModal() {
-    if (modelModal) modelModal.style.display = 'none';
-}
-
-
-for (let i = 0; i < abaModal.length; i++) {
-    abaModal[i].addEventListener("click", function () {
-
-        for (let j = 0; j < abaModal.length; j++) {
-            abaModal[j].classList.remove("ativo")
-        }
-        this.classList.add("ativo")
-
-    })
-}
-
 const detalheModal = document.getElementById('detalhesChamado')
 const infoModelo = document.getElementById('informacoesModelo')
 const arquitetura = document.getElementById('arquitetura')
 const modalBody = document.getElementById('modal-body')
+const um = document.getElementById('modal-um')
 
-        /* 
-        Nome
-        Modelo da Cpu
-        Quantidade de Cpu
-        Quantidade de Ram
-        Modelo da Gpu
-        Sistema Operacional
-        Máximo de disco
+function mapCustomFieldToAlertClass(customFieldValue) {
+    if (!customFieldValue) {
+        return ''; // Não aplica classe se o campo for nulo/indefinido
+    }
 
- */
-arquitetura.addEventListener('click', function () {
-     modalBody.innerHTML = `
-         <div class="container-modal">
-                        <div class="titulo">
-                            <h4>  Atual</h4>
-                        </div>
-                        <div class="corpo">
-                            <div class="container-item-coluna">
-                                <div class="info-item">
-                                    <span class="info-item-label">Nome:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">114</span>
-                                </div>
-                                       <div class="info-item">
-                                    <span class="info-item-label">Modelo da Cpu:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">I9</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Modelo da Gpu:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">GTX3090</span>
-                                </div>
-                            </div>
-                            <div class="container-item-coluna">
-                        
-                                     <div class="info-item">
-                                    <span class="info-item-label">Sistema Operacional:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">Ububtu</span>
-                                </div>
-                                                                       <div class="info-item">
-                                    <span class="info-item-label">Quantidade de Cpu:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">4</span>
-                                </div>
-                          <div class="info-item">
-                                    <span class="info-item-label">Quantidade de Ram:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">64GB</span>
-                                </div>
+    // Converte para minúsculas e remove espaços para comparação segura
+    const value = customFieldValue.toLowerCase().trim();
 
-                                                          <div class="info-item">
-                                    <span class="info-item-label">Máximo de Armazenamento:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">7 T</span>
-                                </div>
+    if (value.includes("em alerta")) {
+        // Para "Em alerta (ticket mais atual)"
+        return 'alert-1';
+    } else if (value.includes("normal")) {
+        // Para "Normal (ticket antigo)"
+        return 'alert-2';
+    } else {
+        return ''; // Classe padrão (sem cor especial)
+    }
 
+}
 
-                            </div>
-                        </div>
-                    </div>
-                          
-        `
-})
+function pegarDataResolucao(changelog){
+    for(let i = 0; i < changelog.histories.length; i++){
+        var daVez = changelog.histories[i]
+        if(daVez.items[0].toString == "Done"){
 
-/* 
+            
+            return daVez.created
+        }
+    }
+}
+function calcularDuracaoResolucao(dataResolucao, created){
+    var fim = Date.parse(dataResolucao)
+    var inicio = Date.parse(created)
 
-
-    Id do Modelo
-    Nome do Modelo
-    Processo Principal
-    Descrição
+    var mili = fim - inicio
     
-    LIMITES
-    Parametro de Tempo
-    Parametro CPU
-    Parametro RAM
-    Parametro Disco
-    Parametro GPU
-    
+    return (mili / (1000 * 60 * 60)).toFixed(1)
+}
 
-    SERVIDOR
-    Quantidade de Disco
-    Ip
-    Hostname
-    Nome Zona Disponibilidade
- */
+async function carregarMural() {
+
+    const apiUrl = `/tickets/jira/${sessionStorage.getItem("KEY_JIRA_SLECIONADO")}`;
 
 
+    try {
 
-infoModelo.addEventListener("click", function () {
-    modalBody.innerHTML = `
-         <div class="container-modal">
-                        <div class="titulo">
-                            <h4> Sobre o Modelo</h4>
+
+        const response = await fetch(apiUrl);
+
+        if (response.status === 204) {
+
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+
+        const tickets = await response.json();
+        const campo = tickets[0].fields
+        const changelog = tickets[0].changelog
+        console.log(changelog)
+        fetch(`/tickets/banco/${sessionStorage.getItem("ID_MODELO_SELECIONADO")}`)
+            .then(res => res.json())
+            .then(modelo => {
+                const m = modelo[0]
+                const titulo = document.getElementById("header-topo")
+                const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
+
+                if (maquinaNome == "Normal (ticket antigo)") {
+                    var maquinaSpan = ` <span style="background-color: #95a9ec; border-radius: 10px; padding: 5px; 
+                        color: #070707;">
+                                <h4>Normal (ticket antigo)</h4>
+                            </span>`
+                } else {
+                    var maquinaSpan = `     <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
+                        color: #070707;">
+                                 <h4>Em Alerta (ticket mais atual)</h4>
+                            </span> `
+                }
+
+                titulo.innerHTML = `
+            
+                    <div class="header-info">
+                        <div class="info">
+                            <h1 id="nome-modelo">${sessionStorage.getItem("KEY_JIRA_SLECIONADO")} - ${m.nomeModelo}</h1>
                         </div>
-                        <div class="corpo">
-                            <div class="container-item-coluna">
-                                <div class="info-item">
-                                    <span class="info-item-label">Id do Modelo:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">114</span>
-                                </div>
-                                       <div class="info-item">
-                                    <span class="info-item-label">Nome do Modelo:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">Iasmin V2</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Processo Principal:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">iaassmin.exe</span>
-                                </div>
-                            </div>
-                            <div class="container-item-coluna">
-                        
 
-                                     <div class="info-item">
-                                    <span class="info-item-label">Descrição:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">Lorem dawdasssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssdwa.</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-modal">
-                        <div class="titulo">
-                            <h4>Sobre o Servidor</h4>
-                        </div>
-                        <div class="corpo">
-                            <div class="container-item-coluna">
-                                <div class="info-item">
-                                    <span class="info-item-label">Ip:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">112.344.54.986</span>
-                                </div>
-                                    <div class="info-item">
-                                    <span class="info-item-label">Hostname:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">LoremIpsulom.</span>
-                                </div>
-                            </div>
-                            <div class="container-item-coluna">
-                                <div class="info-item">
-                                    <span class="info-item-label">Zona de Disponibilidade:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">SP-02</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Quantidade de Disco:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">5 T</span>
-                                </div>
-
-                            </div>
+                        <div class="info" id="statusMaquina">
+                            <h3>Status da Máquina:</h3>
+                                ${maquinaSpan}
                         </div>
                     </div>
-                    <div class="container-modal">
-                        <div class="titulo">
-                            <h4>Limites de Alertas Críticos</h4>
-                        </div>
-                        <div class="corpo">
-                            <div class="container-item-coluna">
-                                <div class="info-item">
-                                    <span class="info-item-label">Tempo:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">5 minutos</span>
-                                </div>
-                                    <div class="info-item">
-                                    <span class="info-item-label">Cpu:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">80%</span>
-                                </div>
-                                      <div class="info-item">
-                                    <span class="info-item-label">Ram:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">80%</span>
-                                </div>
-                            </div>
-                            <div class="container-item-coluna">
-                                 <div class="info-item">
-                                    <span class="info-inv"></span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Gpu:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value"> 80%</span>
-                                </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Disco:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">80%</span>
-                                </div>
+            `
 
-                            </div>
+                const titulo2 = document.getElementById("header-base")
+
+                if (campo.status.name == "Aberto") {
+                    var status = `         <span style="background-color: #F2F2F2; border-radius: 10px; padding: 5px; 
+                        color: #232426;"><h4>Aberto</h4></span>
                         </div>
-                    </div>
+`
+
+                    var dataResolucao = "---"
+                    var duracaoResolucao = "---"
+                } else if (campo.status.name == "Em andamento") {
+                    var status = `  <span style="background-color: #6BA5F2; border-radius: 10px; padding: 5px; 
+                        color: #332C34;"><h4>Em andamento</h4></span>`
+                } else if (campo.status.name == "Fechado") {
+                    var status = `<span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
+                        color: #292A2E;">
+                                <h4>Fechado</h4>
+                            </span>`
+
+                    var dataResolucao = pegarDataResolucao(changelog)
+                     
+                    var duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+                } else {
+                    var status = `<span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
+                        color: #292A2E;">
+                                <h4>Concluído</h4>
+                            </span>`
+                    var dataResolucao = pegarDataResolucao(changelog)
+                    var duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+                }
+
+                var labels = "";
+                for (let i = 0; i < campo.labels.length; i++) {
+                    if (campo.labels[i] == "cpu") {
+                        labels += `<span style="background-color: #b0f7f7; border-radius: 10px; padding: 5px; 
+                        color: #00B2B2;">
+                                <h4>CPU</h4>
+                            </span>`
+                    }
+                    if (campo.labels[i] == "ram") {
+                        labels += `                            <span style="background-color: rgb(169, 252, 164); border-radius: 10px; padding: 5px; 
+                        color: #0cb200ff;">
+                                <h4>RAM</h4>
+                            </span>`
+                    }
+                    if (campo.labels[i] == "gpu") {
+                        labels += `
+                             <span style="background-color: rgb(166, 170, 252); border-radius: 10px; padding: 5px; 
+                        color: #0009b2ff;">
+                                <h4>GPU</h4>
+                            </span>
+                    `
+
+                    }
+                    if (campo.labels[i] == "disco") {
+                        labels += `
+                                                <span style="background-color: rgb(252, 252, 181); border-radius: 10px; padding: 5px; 
+                        color: #b2b200ff;">
+                                <h4>Disco</h4>
+                            </span>
+                    `
+                    }
+                }
 
                 
-        `
-})
+                var criacaoSplit01 = campo.created.split(".")
+                var criacaoSplit02 = criacaoSplit01[0].split("T")
+                var createdFormatado = criacaoSplit02[0] + "  " + criacaoSplit02[1]
+                 const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
 
-detalheModal.addEventListener("click", function () {
-    modalBody.innerHTML = `
+                titulo2.innerHTML = `
+            <div class="header-info2">
+                        <div class="info">
+                            <h3>Status do Ticket:</h3>
+                            ${status}
+                        <div class="info">
+                            <h3>Alertas do Ticket:</h3>
+                            ${labels}
+                        </div>
+
+                    </div>
+            `
+
+                const tipo = document.getElementById("tipo-ticket")
+
+                if (campo.customfield_10059 == "Problema") {
+                    var tipoEstilo = `   <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
+                        color: #202019;">
+                                <h4>Problema</h4>
+                            </span>`
+                } else {
+                    var tipoEstilo = `  <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
+                        color: #464646;">
+                                 <h4>Incidente</h4>
+                            </span>`
+                }
+
+                tipo.innerHTML = `
+                  <h3>Tipo do Ticket:</h3>
+                    ${tipoEstilo}   
+                           
+            `
+
+            var resoluc01 = dataResolucao.split(".")
+                    var resoluc02 = resoluc01[0].split("T")
+            var resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
+
+            modalBody.innerHTML = `
          <div class="container-modal">
                         <div class="titulo">
                             <h4>Informações Gerais</h4>
@@ -225,30 +218,30 @@ detalheModal.addEventListener("click", function () {
                             <div class="container-item-coluna">
                                 <div class="info-item">
                                     <span class="info-item-label">Criação do Ticket:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 09:34</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${createdFormatado}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Duração da Resolução:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">1w 3d 4h 5m</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao} </span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Urgência:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">Lorem.</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.priority.name}</span>
                                 </div>
                             </div>
                             <div class="container-item-coluna">
                                 <div class="info-item">
                                     <span class="info-item-label">Resolução do Ticket:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 10:34</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${resolucFormatada}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Responsável:</span>
-                                    <span id="info-nome" class="info-item-value">Marilia Toscano</span>
+                                    <span id="info-nome" class="info-item-value">${responsavelNome}</span>
 
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Impacto:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">Lorem dawdadwa.</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.customfield_10004.value}</span>
                                 </div>
                             </div>
                         </div>
@@ -327,7 +320,320 @@ detalheModal.addEventListener("click", function () {
                 
     `
 
-})
+        arquitetura.addEventListener('click', function () {
+                    modalBody.innerHTML = `
+         <div class="container-modal">
+                        <div class="titulo">
+                            <h4>  Atual</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Nome:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.arquitetura}</span>
+                                </div>
+                                       <div class="info-item">
+                                    <span class="info-item-label">Modelo da Cpu:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.modelo_cpu}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Modelo da Gpu:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.modelo_gpu}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Sistema Operacional:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.so}</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                        
+                                     
+                                                                       <div class="info-item">
+                                    <span class="info-item-label">Quantidade de Cpu:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.qtd_cpu}</span>
+                                </div>
+                          <div class="info-item">
+                                    <span class="info-item-label">Quantidade de Ram:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.qtd_ram}GB</span>
+                                </div>
+
+                                                          <div class="info-item">
+                                    <span class="info-item-label">Máximo de Armazenamento:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.maxDisco}GB</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                          
+        `
+                })
+
+
+
+                infoModelo.addEventListener("click", function () {
+                    modalBody.innerHTML = `
+         <div class="container-modal">
+                        <div class="titulo">
+                            <h4> Sobre o Modelo</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Id do Modelo:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.idModelo}</span>
+                                </div>
+                                       <div class="info-item">
+                                    <span class="info-item-label">Nome do Modelo:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.nomeModelo}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Processo Principal:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.nome_processo}</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                        
+
+                                     <div class="info-item">
+                                    <span class="info-item-label">Descrição:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.descricao}</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Sobre o Servidor</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Ip:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.ip}</span>
+                                </div>
+                                    <div class="info-item">
+                                    <span class="info-item-label">Hostname:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.hostname}</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Zona de Disponibilidade:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.zona}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Quantidade de Disco:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.maxDisco}GB</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Limites de Alertas Críticos</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Tempo:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.tempo} minutos</span>
+                                </div>
+                                    <div class="info-item">
+                                    <span class="info-item-label">Cpu:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.limCpu}%</span>
+                                </div>
+                                      <div class="info-item">
+                                    <span class="info-item-label">Ram:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.limRam}%</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                                 <div class="info-item">
+                                    <span class="info-inv"></span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Gpu:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.limGpu}%</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Disco:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${m.limDisco}%</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                
+        `
+                })
+
+                detalheModal.addEventListener("click", function () {
+                    modalBody.innerHTML = `
+         <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Informações Gerais</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Criação do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${createdFormatado}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Duração da Resolução:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Urgência:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.priority.name}</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Resolução do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${resolucFormatada}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Responsável:</span>
+                                    <span id="info-nome" class="info-item-value">${responsavelNome}</span>
+
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Impacto:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.customfield_10004.value}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Duração de cada Alerta</h4>
+                        </div>
+                        <div class="corpo">
+                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> 04:06</span>
+                            <span class="item-alerta"><span class="item-componente ram">RAM:</span> 00:30</span>
+                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>02:05</span>
+                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span> 00:05</span>                           
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Linha do Tempo do Ticket</h4>
+                        </div>
+                        <div class="linha-do-tempo">
+                            <div class="item-linha">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                            <span>Início <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:10:30 </span>
+                            </div>
+                            <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                <span>Início  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:20</span>
+                            </div>
+                             <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                           <span>Fim  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:50</span>
+                             </div>
+                              <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                 <span>Início  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:13:20</span>
+                              </div>
+                               <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                <span>Fim  <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:14:20</span>
+                               </div>
+                                <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:14:25</span>
+                                </div>
+                                 <div class="item-linha">
+                                           <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                    <span>Início  <span class="item-componente tempo disco">Disco</span>  - 10/11/2025_11:14:40</span>
+                                 </div>
+                                  <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
+                                  </div>            
+                        </div>
+                    </div>
+
+                
+    `
+
+
+                })
+
+
+
+
+            })
+            .catch(erro => {
+                console.error("Erro ao carregar funcionários:", erro);
+                alert("Erro ao carregar funcionários");
+            });
+
+
+
+
+
+    } catch (erro) {
+        console.error("Erro na requisição ou processamento dos dados:", erro);
+
+    }
+}
+// Inicia o carregamento dos dados quando a página é carregada
+document.addEventListener('DOMContentLoaded', carregarMural);
+
+function openModal() {
+    if (modelModal) {
+        modelModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    
+}
+function closeModal() {
+    if (modelModal) modelModal.style.display = 'none';
+}
+
+
+for (let i = 0; i < abaModal.length; i++) {
+    abaModal[i].addEventListener("click", function () {
+
+        for (let j = 0; j < abaModal.length; j++) {
+            abaModal[j].classList.remove("ativo")
+        }
+        this.classList.add("ativo")
+
+    })
+}
+
+
+
 
 window.addEventListener("load", function () {
 
