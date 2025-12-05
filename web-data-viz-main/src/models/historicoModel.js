@@ -3,10 +3,10 @@
 const axios = require("axios");
 
 
-//const JIRA_BASE_URL = "https://cortexsptech.atlassian.net";
-//const JIRA_EMAIL = "cortexsptech@gmail.com";
-
-//const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
+const JIRA_BASE_URL="https://cortexsptech.atlassian.net";
+const JIRA_EMAIL="cortexsptech@gmail.com";
+const JIRA_API_TOKEN="ATATT3xFfGF0ed2_1_3-kTBPO5vHSW_KC-Zdb1O0r1Ft3hoLQvTcZWdmhQEho3_liRdu0kao0kPs1Z5YtxwyeXMMeb1vdt0L44i-8E7uLm0DjwmYFnmRuxf32W53sFcLA23aXP0UKwuaYrwMliHv8402BLs2ZoIYTculT1fnmP_xZ0vw4h-PRJY=921F878C"
+const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
 var database = require("../database/config");
 
 
@@ -40,7 +40,6 @@ async function buscarTicketsHistorico() {
                 },
             }
         );
-
         return response.data.issues.map(issue =>({fields : issue.fields, 
             key: issue.key})) || [];
 

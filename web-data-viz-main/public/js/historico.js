@@ -165,3 +165,5 @@ async function carregarMural() {
         sessionStorage.setItem('KEY_JIRA_SLECIONADO', key);
         window.location.href = 'dash-chamado.html'
     }
+
+

@@ -7,6 +7,14 @@ const arquitetura = document.getElementById('arquitetura')
 const modalBody = document.getElementById('modal-body')
 const um = document.getElementById('modal-um')
 
+async function dadosDash(idModelo,idZona,idEmpresa,idJira) {
+        let dados = await JSON.parse(await (await fetch(`/s3Ticket/dadosDash/marilia/${idModelo}-${idZona}-${idEmpresa}-${idJira}.json`)).text());
+        console.log(dados);
+         return dados
+    }
+
+
+
 function mapCustomFieldToAlertClass(customFieldValue) {
     if (!customFieldValue) {
         return ''; // Não aplica classe se o campo for nulo/indefinido
@@ -36,6 +44,7 @@ function pegarDataResolucao(changelog){
             return daVez.created
         }
     }
+
 }
 function calcularDuracaoResolucao(dataResolucao, created){
     var fim = Date.parse(dataResolucao)
@@ -67,6 +76,16 @@ async function carregarMural() {
 
         const tickets = await response.json();
         const campo = tickets[0].fields
+        const identificador = campo.customfield_10093.split(";")
+        const idModelo = identificador[0]
+        const idZona = identificador[1]
+        const idEmpresa = identificador[2]
+        
+        const dados = await dadosDash(idModelo,idZona, idEmpresa,sessionStorage.getItem("KEY_JIRA_SLECIONADO"))
+
+
+        graficos(dados)
+
         const changelog = tickets[0].changelog
         console.log(changelog)
         fetch(`/tickets/banco/${sessionStorage.getItem("ID_MODELO_SELECIONADO")}`)
@@ -121,16 +140,16 @@ async function carregarMural() {
                                 <h4>Fechado</h4>
                             </span>`
 
-                    var dataResolucao = pegarDataResolucao(changelog)
+                     dataResolucao = pegarDataResolucao(changelog)
                      
-                    var duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+                     duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
                 } else {
                     var status = `<span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
                         color: #292A2E;">
                                 <h4>Concluído</h4>
                             </span>`
-                    var dataResolucao = pegarDataResolucao(changelog)
-                    var duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+                     dataResolucao = pegarDataResolucao(changelog)
+                     duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
                 }
 
                 var labels = "";
@@ -204,12 +223,59 @@ async function carregarMural() {
                     ${tipoEstilo}   
                            
             `
-
-            var resoluc01 = dataResolucao.split(".")
+            var resolucFormatada = "---"
+            if(dataResolucao.includes("T")){
+                var resoluc01 = dataResolucao.split(".")
                     var resoluc02 = resoluc01[0].split("T")
-            var resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
+            resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
+            }
 
-            modalBody.innerHTML = `
+                            var linha = ""
+       
+                for(let i = 0; i < dados.linha_do_tempo.length; i++){
+                    var daVez2 = dados.linha_do_tempo[i]
+                    if(daVez2.includes("Início") == true){
+                        linha += `<div class="item-linha"> <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                <span>Início `
+
+                    }else if(daVez2.includes("Fim")) {
+                        linha += `<div class="item-linha"><svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                           <span>Fim  `
+                    }
+                    var timestampDaVez = daVez2.trim().split("-")
+                    if(daVez2.includes("CPU")){
+                        linha += `<span class="item-componente tempo cpu">CPU</span>  - ${timestampDaVez[1]}</span></div>`
+
+                    }
+
+                    if(daVez2.includes("RAM")){
+                        linha += `<span class="item-componente tempo ram">RAM</span>  - ${timestampDaVez[1]}</span></div>`
+
+                    }
+                      if(daVez2.includes("Disco")){
+                        linha += `<span class="item-componente tempo disco">Disco</span>  - ${timestampDaVez[1]}</span></div>`
+
+                    }
+                      if(daVez2.includes("GPU")){
+                        linha += `<span class="item-componente tempo gpu">GPU</span>  - ${timestampDaVez[1]}</span></div>`
+
+                    }
+                    if(daVez2.includes("Processo")){
+                        linha += `Downtime Processo  - ${timestampDaVez[1]}</span></div>`
+                    }
+                    if(daVez2.includes("Servidor")){
+                        linha += `Downtime Servidor  - ${timestampDaVez[1]}</span></div>`
+                    }
+                }
+
+
+            
+ modalBody.innerHTML = `
          <div class="container-modal">
                         <div class="titulo">
                             <h4>Informações Gerais</h4>
@@ -222,7 +288,7 @@ async function carregarMural() {
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Duração da Resolução:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao} </span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Urgência:</span>
@@ -251,10 +317,10 @@ async function carregarMural() {
                             <h4>Duração de cada Alerta</h4>
                         </div>
                         <div class="corpo">
-                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> 04:06</span>
-                            <span class="item-alerta"><span class="item-componente ram">RAM:</span> 00:30</span>
-                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>02:05</span>
-                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span> 00:05</span>                           
+                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> ${dados.duracao_cpu}</span>
+                            <span class="item-alerta"><span class="item-componente ram">RAM:</span>${dados.duracao_ram}</span>
+                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>${dados.duracao_gpu}</span>
+                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span>${dados.duracao_disco}</span>                           
                         </div>
                     </div>
                     <div class="container-modal">
@@ -262,58 +328,10 @@ async function carregarMural() {
                             <h4>Linha do Tempo do Ticket</h4>
                         </div>
                         <div class="linha-do-tempo">
-                            <div class="item-linha">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                            <span>Início <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:10:30 </span>
-                            </div>
-                            <div class="item-linha">
-                                       <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                <span>Início  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:20</span>
-                            </div>
-                             <div class="item-linha">
-                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                           <span>Fim  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:50</span>
-                             </div>
-                              <div class="item-linha">
-                                       <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                 <span>Início  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:13:20</span>
-                              </div>
-                               <div class="item-linha">
-                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                <span>Fim  <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:14:20</span>
-                               </div>
-                                <div class="item-linha">
-                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                    <span>Fim  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:14:25</span>
-                                </div>
-                                 <div class="item-linha">
-                                           <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                    <span>Início  <span class="item-componente tempo disco">Disco</span>  - 10/11/2025_11:14:40</span>
-                                 </div>
-                                  <div class="item-linha">
-                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                    <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
-                                  </div>            
+                           
+                            ${linha}
+                           
+                                
                         </div>
                     </div>
 
@@ -472,6 +490,9 @@ async function carregarMural() {
         `
                 })
 
+                
+
+
                 detalheModal.addEventListener("click", function () {
                     modalBody.innerHTML = `
          <div class="container-modal">
@@ -515,10 +536,10 @@ async function carregarMural() {
                             <h4>Duração de cada Alerta</h4>
                         </div>
                         <div class="corpo">
-                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> 04:06</span>
-                            <span class="item-alerta"><span class="item-componente ram">RAM:</span> 00:30</span>
-                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>02:05</span>
-                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span> 00:05</span>                           
+                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> ${dados.duracao_cpu}</span>
+                            <span class="item-alerta"><span class="item-componente ram">RAM:</span>${dados.duracao_ram}</span>
+                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>${dados.duracao_gpu}</span>
+                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span>${dados.duracao_disco}</span>                           
                         </div>
                     </div>
                     <div class="container-modal">
@@ -526,58 +547,10 @@ async function carregarMural() {
                             <h4>Linha do Tempo do Ticket</h4>
                         </div>
                         <div class="linha-do-tempo">
-                            <div class="item-linha">
-                                <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                            <span>Início <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:10:30 </span>
-                            </div>
-                            <div class="item-linha">
-                                       <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                <span>Início  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:20</span>
-                            </div>
-                             <div class="item-linha">
-                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                           <span>Fim  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:50</span>
-                             </div>
-                              <div class="item-linha">
-                                       <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                 <span>Início  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:13:20</span>
-                              </div>
-                               <div class="item-linha">
-                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                <span>Fim  <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:14:20</span>
-                               </div>
-                                <div class="item-linha">
-                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                    <span>Fim  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:14:25</span>
-                                </div>
-                                 <div class="item-linha">
-                                           <svg xmlns="http://www.w3.org/2000/svg" 
-                                height="24px" viewBox="0 -960 960 960" width="24px" 
-                                fill="rgb(23, 255, 6)">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
-                                    <span>Início  <span class="item-componente tempo disco">Disco</span>  - 10/11/2025_11:14:40</span>
-                                 </div>
-                                  <div class="item-linha">
-                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
-                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
-                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
-                                    <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
-                                  </div>            
+                           
+                            ${linha}
+                           
+                                
                         </div>
                     </div>
 
@@ -645,17 +618,37 @@ window.addEventListener("load", function () {
 // GRAFICOS DE LINHA SERVIDOR
 const alertsCtx2 = document.getElementById('alertsChart2').getContext('2d');
 
-const alertsChart2 = new Chart(alertsCtx2, {
+
+// GRAFICO LINHA PROCESSO
+const alertsCtx = document.getElementById('alertsChart').getContext('2d');
+
+const downtimeProcesso = document.getElementById('downtimeProcesso')
+const downtimeServer = document.getElementById('downtimeServer')
+const duracao = document.getElementById('duracao')
+
+let dadosGlobal = null
+let graficoAlertsCtx2 = null
+let graficoAlertsCtx = null
+function graficos(dados){
+    dadosGlobal = dados
+    duracao.innerHTML = `
+        ${dados.duracao_alerta}
+    ` 
+
+    downtimeProcesso.innerHTML = `${dados.downtime_processo}`
+    downtimeServer.innerHTML = `${dados.downtime_servidor}`
+
+    console.log(dados.timestamp)
+    graficoAlertsCtx2 = new Chart(alertsCtx2, {
     type: 'line',
     data: {
-        labels: [
-            '11:20:30', '11:21:30', '11:22:30', '11:23:30', '11:24:30',
-            '11:25:30', '11:26:30', '11:27:30', '11:28:30', '11:29:30', '11:30:30'
-        ],
+        labels: 
+            dados.timestamp
+        ,
         datasets: [
             {
                 label: 'CPU',
-                data: [80, 80, 80, 79, 79, 78, 75, 60, 64, 65, 64],
+                data: dados.cpu,
                 borderColor: '#00B2B2',
                 tension: 0.4,
                 borderWidth: 2,
@@ -667,7 +660,7 @@ const alertsChart2 = new Chart(alertsCtx2, {
             },
             {
                 label: 'RAM',
-                data: [70, 77, 77, 76, 75, 78, 80, 80, 80, 80, 77],
+                data:dados.ram,
                 borderColor: '#0cb200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -679,7 +672,7 @@ const alertsChart2 = new Chart(alertsCtx2, {
             },
             {
                 label: 'GPU',
-                data: [20, 30, 34, 33, 32, 34, 35, 35, 31, 32, 36],
+                data: dados.gpu,
                 borderColor: '#0009b2ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -691,7 +684,7 @@ const alertsChart2 = new Chart(alertsCtx2, {
             },
             {
                 label: 'Disco',
-                data: [10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11],
+                data: dados.disco,
                 borderColor: '#b2b200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -745,22 +738,16 @@ const alertsChart2 = new Chart(alertsCtx2, {
     }
 
 });
-
-// GRAFICO LINHA PROCESSO
-const alertsCtx = document.getElementById('alertsChart').getContext('2d');
-
-
-const alertsChart = new Chart(alertsCtx, {
+    graficoAlertsCtx = new Chart(alertsCtx, {
     type: 'line',
     data: {
-        labels: [
-            '11:20:30', '11:21:30', '11:22:30', '11:23:30', '11:24:30',
-            '11:25:30', '11:26:30', '11:27:30', '11:28:30', '11:29:30', '11:30:30'
-        ],
+        labels: 
+           dados.timestamp
+        ,
         datasets: [
             {
                 label: 'CPU',
-                data: [8, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6],
+                data: dados.cpuProc,
                 borderColor: '#00B2B2',
                 tension: 0.4,
                 borderWidth: 2,
@@ -772,7 +759,7 @@ const alertsChart = new Chart(alertsCtx, {
                 segment: {
                     borderColor: ctx => {
                         const p = ctx.p1.parsed.y;
-                        return p >= 8 ? 'red' : 'blue';
+                        return p >= 8 ? 'red' : '00B2B2';
                     },
                     borderDash: ctx => {
                         const p = ctx.p1.parsed.y;
@@ -782,7 +769,7 @@ const alertsChart = new Chart(alertsCtx, {
             },
             {
                 label: 'RAM',
-                data: [7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 7],
+                data: dados.ramProc,
                 borderColor: '#0cb200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -794,24 +781,12 @@ const alertsChart = new Chart(alertsCtx, {
             },
             {
                 label: 'GPU',
-                data: [2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                data: dados.gpuProc,
                 borderColor: '#0009b2ff',
                 tension: 0.4,
                 borderWidth: 2,
                 pointRadius: 4,
                 pointBackgroundColor: '#0009b2ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6
-            },
-            {
-                label: 'Disco',
-                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-                borderColor: '#b2b200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#b2a300ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6
@@ -864,6 +839,9 @@ const alertsChart = new Chart(alertsCtx, {
         }
     }
 });
+}
+
+
 
 // MULTISELECT
 
@@ -903,7 +881,7 @@ function updateLineChart() {
         if (count[i].value == "CPU") {
             newDatasets.push({
                 label: 'CPU',
-                data: [80, 80, 80, 79, 79, 78, 75, 60, 64, 65, 64],
+                data: dadosGlobal.cpu,
                 borderColor: '#00B2B2',
                 tension: 0.4,
                 borderWidth: 2,
@@ -917,7 +895,7 @@ function updateLineChart() {
         if (count[i].value == "RAM") {
             newDatasets.push({
                 label: 'RAM',
-                data: [70, 77, 77, 76, 75, 78, 80, 80, 80, 80, 77],
+                data: dadosGlobal.ram,
                 borderColor: '#0cb200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -931,7 +909,7 @@ function updateLineChart() {
         if (count[i].value == "GPU") {
             newDatasets.push({
                 label: 'GPU',
-                data: [20, 30, 34, 33, 32, 34, 35, 35, 31, 32, 36],
+                data: dadosGlobal.gpu,
                 borderColor: '#0009b2ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -945,7 +923,7 @@ function updateLineChart() {
         if (count[i].value == "Disco") {
             newDatasets.push({
                 label: 'Disco',
-                data: [10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11],
+                data: dadosGlobal.disco,
                 borderColor: '#b2b200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -960,8 +938,8 @@ function updateLineChart() {
 
     }
 
-    alertsChart2.data.datasets = newDatasets;
-    alertsChart2.update();
+    graficoAlertsCtx2.data.datasets = newDatasets;
+    graficoAlertsCtx2.update();
 }
 
 // Fechar dropdown ao clicar fora
@@ -1006,7 +984,7 @@ function updateLineChart2() {
         if (count2[i].value == "CPU") {
             newDatasets.push({
                 label: 'CPU',
-                data: [8, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6],
+                data: dadosGlobal.cpuProc,
                 borderColor: '#00B2B2',
                 tension: 0.4,
                 borderWidth: 2,
@@ -1020,7 +998,7 @@ function updateLineChart2() {
         if (count2[i].value == "RAM") {
             newDatasets.push({
                 label: 'RAM',
-                data: [7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 7],
+                data: dadosGlobal.ramProc,
                 borderColor: '#0cb200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -1034,7 +1012,7 @@ function updateLineChart2() {
         if (count2[i].value == "GPU") {
             newDatasets.push({
                 label: 'GPU',
-                data: [2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+                data: dadosGlobal.gpuProc,
                 borderColor: '#0009b2ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -1048,7 +1026,7 @@ function updateLineChart2() {
         if (count2[i].value == "Disco") {
             newDatasets.push({
                 label: 'Disco',
-                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                data: dadosGlobal.discoProc,
                 borderColor: '#b2b200ff',
                 tension: 0.4,
                 borderWidth: 2,
@@ -1062,8 +1040,8 @@ function updateLineChart2() {
 
 
     }
-    alertsChart.data.datasets = newDatasets;
-    alertsChart.update();
+    graficoAlertsCtx.data.datasets = newDatasets;
+    graficoAlertsCtx.update();
 }
 
 // Fechar dropdown ao clicar fora

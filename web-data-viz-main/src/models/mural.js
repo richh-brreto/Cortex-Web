@@ -1,21 +1,15 @@
-// src/models/jiraModel.js
+
 
 const axios = require("axios");
+const JIRA_BASE_URL="https://cortexsptech.atlassian.net";
+const JIRA_EMAIL="cortexsptech@gmail.com";
+const JIRA_API_TOKEN="ATATT3xFfGF0ed2_1_3-kTBPO5vHSW_KC-Zdb1O0r1Ft3hoLQvTcZWdmhQEho3_liRdu0kao0kPs1Z5YtxwyeXMMeb1vdt0L44i-8E7uLm0DjwmYFnmRuxf32W53sFcLA23aXP0UKwuaYrwMliHv8402BLs2ZoIYTculT1fnmP_xZ0vw4h-PRJY=921F878C"
 
-// TODO: Substitua estas variáveis pelos seus dados reais
-//const JIRA_BASE_URL = "https://cortexsptech.atlassian.net";
-//const JIRA_EMAIL = "cortexsptech@gmail.com";
-
-//const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
-
-/**
- * Função para buscar TODOS os tickets abertos do projeto CTX.
- * @returns {Promise<Array<Object>>} Uma promessa que resolve para todos os tickets.
- */
+const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
 async function buscarTodosTickets() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-    // JQL: Puxa todas as issues do projeto "CTX" com status "Aberto"
+
     const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
     
     const body = {
@@ -43,7 +37,7 @@ async function buscarTodosTickets() {
             }
         );
 
-        // Retorna diretamente os campos (fields) de todas as issues
+   
         return response.data.issues.map(issue =>({fields : issue.fields, 
             key: issue.key})) || [];
 
