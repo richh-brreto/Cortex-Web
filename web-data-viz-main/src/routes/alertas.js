@@ -6,20 +6,20 @@ const alertasController = require("../controllers/alertasController.js");
 
 require("dotenv").config();
 
-router.get("/breakdown", (req, res) => {
-  alertasController.obterBreakdownAlertas(req, res);
+router.get("/jira/:key", (req, res) => {
+    alertasController.dadosJira(req, res);
 });
 
 router.get("/slack", (req, res) => {
-  alertasController.obterBreakdownSlack(req, res);
+    alertasController.dadosSlack(req, res);
 });
 
-router.get("/overview", (req, res) => {
-  alertasController.overview(req, res);
-});
+router.get("/categorias", alertasController.alertasPorCategoria);
 
-router.get("/", (req, res) => {
-  alertasController.overview(req, res);
+router.get("/intervalos", alertasController.alertasPorIntervalo);
+
+router.get("/banco/:IdModelo", (req, res) => {
+    alertasController.buscarModelos(req, res);
 });
 
 module.exports = router;
