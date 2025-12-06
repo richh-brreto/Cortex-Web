@@ -145,6 +145,7 @@ create table if not exists modelo (
     limite_gpu decimal(5,2),
     fk_cliente int not null,
     nome_processo varchar(55),
+    data_cadastro DATETIME NOT NULL DEFAULT current_timestamp,
     fk_zona_disponibilidade int,
     fk_arquitetura int,
         foreign key (fk_cliente) references cliente(id_cliente)
