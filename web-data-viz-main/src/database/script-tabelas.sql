@@ -154,20 +154,18 @@ create table if not exists modelo (
         ON DELETE SET NULL
 );
 
-INSERT INTO modelo (
-    nome, qtd_disco,descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade,fk_arquitetura
-)
-VALUES 
--- Modelos para Matrix TI (Cliente 1)
-('Modelo Previsor V1', 500, 'Modelo para previsão de demanda', '10.102.136.40', 'DESKTOP-N2E1DHL', 15, 85.50, 70.00, 65.00, 10.00, 1, 1, 1),
-('Modelo Carga Horária', 250, 'Distribuição de carga ao longo do dia', '192.168.0.11', 'carga-sp02', 10, 80.00, 65.00, 60.00, 8.00, 1, 2, 1),
-
--- Modelos para CloudCorp (Cliente 2)
-('Modelo Balanceador', 300, 'Balanceamento de cargas entre servidores', '192.168.1.10', 'balanceador-sp01', 12, 78.00, 66.00, 67.00, 9.00, 2, 1, 2),
-('Modelo Cache', 200, 'Gerenciamento de cache de aplicações', '192.168.1.11', 'cache-sp02', 8, 60.00, 50.00, 55.00, 5.00, 2, 2, 2),
-('Modelo Firewall', 400, 'Monitoramento de pacotes suspeitos', '192.168.1.12', 'firewall-mg01', 10, 70.00, 58.00, 60.00, 6.00, 2, 3, 2);
-
-
+INSERT INTO modelo (nome, qtd_disco, descricao, ip, hostname, tempo_parametro_min, limite_cpu, limite_disco, 
+limite_ram, limite_gpu, fk_cliente, fk_zona_disponibilidade, fk_arquitetura) VALUES
+('NovaQuest',500, 'Modelo de análise preditiva de alto desempenho.', '192.168.1.10', 'Desktop-RichardBarreto', 5, 85.50, 75.00, 90.00, 50.00, 1, 1, 1),
+('GenAi',200, 'Modelo generativo de inteligência artificial para conteúdo.', '192.168.1.11', 'DESKTOP-N2E1DHL', 10, 95.00, 80.00, 95.00, 99.99, 1, 2, 2),
+('AlphaStream',100, 'Processamento de dados em tempo real.', '10.0.0.5',  'as-staging-03', 2, 70.00, 60.00, 80.00, 0.00,  1, 1, 1),
+( 'DataVault-R5',1024, 'Modelo de armazenamento seguro de longo prazo.',  '10.0.0.6',  'dv-backup-04', 60,   50.00,  95.00, 40.00, 0.00, 1, 2, 1),
+( 'FusionEngine', 300, 'Motor de integração e fusão de dados.',  '192.168.2.20',  'fe-test-05', 15,  88.00, 70.00,  85.00, 10.00, 1,  1, 2),
+('QuantumLeap',  400, 'Modelo experimental de otimização complexa.', '192.168.2.21',  'ql-exp-06',  3, 99.00, 50.00,  99.00,  80.50,  1, 1, 2),
+('SentinelGuard', 50,  'Sistema de monitoramento e segurança de rede.', '172.16.0.1',  'sg-sec-07', 1, 65.00, 40.00, 75.00, 0.00, 1, 2, 1),
+('EchoProcessor',750, 'Processamento distribuído de grandes volumes de logs.', '172.16.0.2', 'ep-log-08', 20, 78.50, 85.00, 70.00, 0.00, 1, 1, 3),
+('AetherLink', 150, 'Modelo de comunicação e conectividade em nuvem.', '192.168.3.30', 'cloud-09', 7, 82.00, 65.00, 88.00, 30.00, 1, 2, 1),
+('DeepMind-X',600, 'Modelo avançado de aprendizado de máquina.', '192.168.3.31', 'dmx-ml-10', 8, 92.50, 72.00, 93.00, 90.00, 1, 1, 2);
 
 CREATE TABLE acesso_zona (
     fk_usuario INT,
@@ -273,3 +271,4 @@ INSERT INTO log_processos (nome, dataKill, fk_modelo) VALUES
 ('prometheus',          '2025-10-27 13:00:00', 1),
 ('grafana-server',      '2025-10-20 13:45:00', 1);
 
+select * from modelo;

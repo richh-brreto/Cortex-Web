@@ -1,169 +1,392 @@
-const API_BASE = "/alertas"; // rotas do backend
+const API_BASE = "/api/alertas"; // rotas do backend
 
-// select de modelo
-const modeloSelect = document.getElementById("selectModelo");
+// select de modelo (aceita ambos IDs possíveis no HTML)
+const modeloSelect = document.getElementById("selectModelo") || document.getElementById("selectModeloIntervalos");
 
 // KPIs
 const kpiTotal = document.getElementById("kpi_total");
-const kpiHoje = document.getElementById("kpi_hoje");
+const kpi_24h = document.getElementById("kpi_24h");
 const kpiSemana = document.getElementById("kpi_semana");
+const kpiMultiplas = document.getElementById("kpi_multiplas");
+
+// contadores de alerta
+let cpu = 0;
+let ram = 0;
+let disco = 0;
+let gpu = 0;
 
 // gráficos
 let graficoCategorias = null;
 let graficoIntervalos = null;
 
+// cache para armazenar mensagens Slack por modelo (evita múltiplas chamadas)
+const slackCache = {};
+
 // fetchs
 async function fetchAlertasSlack(modelo) {
+    if (!modelo) return [];
+    // retorna do cache se já disponível
+    if (slackCache.hasOwnProperty(modelo)) {
+        return slackCache[modelo];
+    }
+
     const resp = await fetch(`${API_BASE}/slack/${modelo}`);
     if (!resp.ok) return [];
-    return await resp.json();
+    try {
+        const data = await resp.json();
+        // armazena no cache (mesmo se vazio)
+        slackCache[modelo] = data || [];
+        console.log('data:', data);
+        console.log('cache', slackCache);
+        return slackCache[modelo];
+    } catch (err) {
+        console.warn('Erro ao parsear resposta Slack para', modelo, err);
+        slackCache[modelo] = [];
+        return [];
+    }
 }
 
-async function fetchAlertasJira(modelo) {
-    const resp = await fetch(`${API_BASE}/jira/${modelo}`);
-    if (!resp.ok) return [];
-    return await resp.json();
+function calcularPredicoesTotal(totalAtual) {
+    return {
+        dia: Math.round(totalAtual * 1.07),
+        semana: Math.round(totalAtual * 1.49)
+    };
 }
 
-// processar dados das kpis
-function calcularKPIs(alertas) {
-    const agora = new Date();
-    const hoje = agora.toISOString().slice(0, 10);
+function atualizarKpiPredicoesTotal(totalAtual) {
+    const { dia, semana } = calcularPredicoesTotal(totalAtual);
+    document.getElementById("kpi_total").textContent = totalAtual;
 
-    let total = alertas.length;
-    let hojeCount = 0;
-    let semanaCount = 0;
+    // previsões
+    document.getElementById("kpi_pred_dia").textContent =
+        `Se nada for resolvido: ~${dia} (+7% em 24h)`;
 
-    const semanaPassada = new Date();
-    semanaPassada.setDate(semanaPassada.getDate() - 7);
+    document.getElementById("kpi_pred_semana").textContent =
+        `Projeção em 7 dias: ~${semana} (+49% na semana)`;
+}
 
-    alertas.forEach(a => {
-        const t = new Date(a.data || a.ts * 1000);
 
-        if (t.toISOString().slice(0, 10) === hoje) hojeCount++;
-        if (t >= semanaPassada) semanaCount++;
+function extrairModelo(text) {
+    const modelo = text.match(/Modelo:\s*([^\n]+)/i);
+    return modelo ? modelo[1].trim() : null;
+}
+
+function extrairSeveridade(text) {
+    const match = text.match(/Tipo:\s*(CRÍTICO!?|ATENÇÃO!?)/i);
+    return match ? match[1].replace("!", "").toUpperCase() : null;
+}
+
+function extrairData(text) {
+    const match = text.match(/Data:\s*([0-9\-_:]+)/i);
+    if (!match) return null;
+
+    const raw = match[1].replace("_", " ").replace(/-/g, ":");
+    // 2025-12-06_13-30-59 → "2025:12:06 13:30:59"
+    const cleaned = raw.replace(/^(\d+):(\d+):(\d+)/, "$1-$2-$3");
+    return new Date(cleaned);
+}
+
+function extrairAlertas(text) {
+    const severidade = extrairSeveridade(text);
+    const modelo = extrairModelo(text);
+
+    const tipos = ["CPU", "RAM", "DISCO", "GPU"];
+    const alertas = [];
+
+    tipos.forEach(tipo => {
+        const regex = new RegExp(`${tipo}:\\s*([0-9]+)%`, "i");
+        const match = text.match(regex);
+
+        if (match) {
+            alertas.push({
+                severidade,
+                modelo,
+                tipo
+            });
+        }
     });
 
-    return { total, hojeCount, semanaCount };
+    return alertas;
 }
 
-function atualizarKPIs(kpis) {
-    kpiTotal.textContent = kpis.total;
-    kpiHoje.textContent = kpis.hojeCount;
-    kpiSemana.textContent = kpis.semanaCount;
+function contarTotalAlertas(alertasSlack) {
+    let total = 0;
+
+    alertasSlack.forEach(msg => {
+        const alertas = extrairAlertas(msg.text);
+        total += alertas.length;
+    });
+
+    return total;
 }
 
-// detectar categorias no texto
-function detectarCategoria(msg) {
-    msg = msg.toLowerCase();
-    if (msg.includes("cpu")) return "CPU";
-    if (msg.includes("ram") || msg.includes("memória")) return "RAM";
-    if (msg.includes("gpu")) return "GPU";
-    if (msg.includes("disco") || msg.includes("storage")) return "DISCO";
-    return "Outros";
+function contarSeveridade(alertasSlack) {
+    let criticos = 0;
+    let atencao = 0;
+
+    alertasSlack.forEach(msg => {
+        const alertas = extrairAlertas(msg.text);
+
+        alertas.forEach(a => {
+            if (a.severidade === "CRÍTICO") criticos++;
+            if (a.severidade === "ATENÇÃO") atencao++;
+        });
+    });
+
+    return { criticos, atencao };
 }
 
-// agrupar por intervalos de 1h, 6h, 24h
-function agruparPorIntervalo(alertas) {
-    const agora = Date.now();
-
-    const intervalos = {
-        "Última hora": 0,
-        "Últimas 6h": 0,
-        "Últimas 24h": 0
+function contarCategoriasPorSeveridade(alertasSlack) {
+    const counts = {
+        CPU: { CRÍTICO: 0, ATENÇÃO: 0 },
+        RAM: { CRÍTICO: 0, ATENÇÃO: 0 },
+        DISCO: { CRÍTICO: 0, ATENÇÃO: 0 },
+        GPU: { CRÍTICO: 0, ATENÇÃO: 0 }
     };
 
-    alertas.forEach(a => {
-        const t = new Date(a.data || a.ts * 1000).getTime();
+    alertasSlack.forEach(msg => {
+        const alertas = extrairAlertas(msg.text);
 
-        const diff = (agora - t) / (1000 * 60 * 60); // horas
+        alertas.forEach(a => {
+            if (!counts[a.tipo]) return;
 
-        if (diff <= 1) intervalos["Última hora"]++;
-        if (diff <= 6) intervalos["Últimas 6h"]++;
-        if (diff <= 24) intervalos["Últimas 24h"]++;
+            if (a.severidade === "CRÍTICO") counts[a.tipo].CRÍTICO++;
+            if (a.severidade === "ATENÇÃO") counts[a.tipo].ATENÇÃO++;
+        });
     });
+
+    return counts;
+}
+
+function extrairCategoriasDaMensagem(text) {
+    const alertas = extrairAlertas(text);
+
+    const counts = { CPU: 0, RAM: 0, DISCO: 0, GPU: 0 };
+
+    alertas.forEach(a => {
+        if (counts[a.tipo] !== undefined) {
+            counts[a.tipo]++;
+        }
+    });
+
+    return counts;
+}
+
+// ===== gráfico de intervalos de 2h nas últimas 24h ======
+function gerarIntervalos24h() {
+    const agora = new Date();
+    const intervalos = [];
+
+    for (let i = 24; i > 0; i -= 2) {
+        const inicio = new Date(agora.getTime() - (i * 60 * 60 * 1000));
+        const fim = new Date(inicio.getTime() + (2 * 60 * 60 * 1000));
+
+        intervalos.push({
+            label: `${inicio.getHours()}h - ${fim.getHours()}h`,
+            inicio,
+            fim,
+            count: 0
+        });
+    }
 
     return intervalos;
 }
 
-// gráfico de barras (categorias)
+// ===== KPI de modelos com mais alertas em 24h ======
 
-function montarGraficoCategorias(alertas) {
-    const categoriasCount = {};
+function contarModelos24h(alertasSlack) {
+    const agora = new Date();
+    const limite = new Date(agora.getTime() - 24 * 60 * 60 * 1000);
 
-    alertas.forEach(a => {
-        const categoria = detectarCategoria(a.text || JSON.stringify(a));
-        categoriasCount[categoria] = (categoriasCount[categoria] || 0) + 1;
+    const counts = {};
+
+    alertasSlack.forEach(msg => {
+        const data = extrairData(msg.text);
+        const modelo = extrairModelo(msg.text);
+        if (!data || !modelo) return;
+
+        if (data >= limite) {
+            counts[modelo] = (counts[modelo] || 0) + 1;
+        }
     });
 
-    const labels = Object.keys(categoriasCount);
-    const values = labels.map(l => categoriasCount[l]);
+    return counts;
+}
+
+function atualizarKpiModelos24h(counts) {
+    kpi_24h.innerHTML = "";
+
+    const entries = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+
+    if (entries.length === 0) {
+        kpi_24h.textContent = "Nenhum alerta nas últimas 24h";
+        return;
+    }
+
+    entries.forEach(([modelo, qtd]) => {
+        const div = document.createElement("div");
+        div.textContent = `${modelo}: ${qtd}`;
+        kpi_24h.appendChild(div);
+    });
+}
+
+// ====== buscar modelos para o usuário logado ======
+
+async function fetchModelosParaUsuario() {
+    try {
+        const dados = JSON.parse(sessionStorage.getItem("dados") || '{}');
+        const fk_usuario = dados.ID_USUARIO;
+        const fk_empresa = dados.EMPRESA_USUARIO;
+        if (!fk_usuario || !fk_empresa) {
+            console.warn('ID do usuário ou empresa não encontrado em sessionStorage');
+            return;
+        }
+
+        const resp = await fetch(`${API_BASE}/modelos/${fk_usuario}/${fk_empresa}`);
+        if (!resp.ok) return;
+        const modelos = await resp.json();
+
+        if (!modeloSelect) {
+            console.warn('select de modelo não encontrado no DOM (id: selectModelo / selectModeloIntervalos)');
+            return modelos;
+        }
+
+        modeloSelect.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Selecione um modelo';
+        modeloSelect.appendChild(placeholder);
+
+        modelos.forEach(m => {
+            const opt = document.createElement('option');
+            const nome = m.nome || m.hostname;
+            opt.value = nome;
+            opt.textContent = nome;
+            modeloSelect.appendChild(opt);
+        });
+
+        if (modelos.length > 0) {
+            modeloSelect.value = modelos[0].nome || modelos[0].hostname;
+            atualizarDashboard();
+        }
+        return modelos;
+    } catch (err) {
+        console.error('Erro ao carregar modelos:', err);
+    }
+}
+
+// ====== gráfico de barras (categorias) ========
+function montarGraficoCategorias(alertasSlack) {
+    const counts = contarCategoriasPorSeveridade(alertasSlack);
+
+    const labels = ["CPU", "RAM", "DISCO", "GPU"];
+
+    const criticos = labels.map(l => counts[l].CRÍTICO);
+    const atencao = labels.map(l => counts[l].ATENÇÃO);
 
     if (graficoCategorias) graficoCategorias.destroy();
 
-    const ctx = document.getElementById("graficoCategorias");
-    graficoCategorias = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels,
-            datasets: [{
-                label: "Quantidade de alertas",
-                data: values
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
+    graficoCategorias = new Chart(
+        document.getElementById("graficoCategorias"),
+        {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: "Críticos",
+                        data: criticos,
+                        backgroundColor: "#B74C4C"
+                    },
+                    {
+                        label: "Atenção",
+                        data: atencao,
+                        backgroundColor: "#fcd856ff"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                }
             }
         }
-    });
+    );
 }
 
 
-// gráfico de linhas (intervalos)
-
+// ====== gráfico de linhas (intervalos) ========
 function montarGraficoIntervalos(alertas) {
-    const intervalos = agruparPorIntervalo(alertas);
+    const intervalos = gerarIntervalos24h();
+
+    alertas.forEach(a => {
+        const data = extrairData(a.text);
+        if (!data) return;
+
+        intervalos.forEach(i => {
+            if (data >= i.inicio && data <= i.fim) {
+                i.count++;
+            }
+        });
+    });
 
     if (graficoIntervalos) graficoIntervalos.destroy();
 
-    const ctx = document.getElementById("graficoIntervalos");
-    graficoIntervalos = new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: Object.keys(intervalos),
-            datasets: [{
-                label: "Alertas por intervalo",
-                data: Object.values(intervalos),
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true
+    graficoIntervalos = new Chart(
+        document.getElementById("graficoIntervalos"),
+        {
+            type: "line",
+            data: {
+                labels: intervalos.map(i => i.label),
+                datasets: [{
+                    label: "Alertas (24h)",
+                    data: intervalos.map(i => i.count),
+                    tension: 0.3,
+                    backgroundColor: '#B74C4C',
+                    borderColor: '#B74C4C',
+                    borderWidth: 2
+                }]
+            }
         }
-    });
+    );
 }
 
-// atualizar dashboard completo
+
+// ====== atualizar dashboard completo =======
 
 async function atualizarDashboard() {
-    const modelo = modeloSelect.value;
+    const modelo = modeloSelect?.value;
+    if (!modelo) {
+        atualizarKPIs({ total: 0 });
+        if (graficoCategorias) graficoCategorias.destroy();
+        if (graficoIntervalos) graficoIntervalos.destroy();
+        return;
+    }
 
-    const slack = await fetchAlertasSlack(modelo);
-    const jira = await fetchAlertasJira(modelo);
+    const slack = slackCache[modelo] !== undefined ? slackCache[modelo] : await fetchAlertasSlack(modelo);
+    const alertas = [...(slack || [])];
 
-    const alertas = [...slack, ...jira];
-
-    // KPIs
-    const kpis = calcularKPIs(alertas);
-    atualizarKPIs(kpis);
-
-    // Gráficos
+    // gráficos
     montarGraficoCategorias(alertas);
     montarGraficoIntervalos(alertas);
+
+    // KPIs
+    const total = contarTotalAlertas(alertas);
+    atualizarKpiPredicoesTotal(total);
+
+    const counts24h = contarModelos24h(alertas);
+    atualizarKpiModelos24h(counts24h);
 }
 
+if (modeloSelect) {
+    modeloSelect.addEventListener("change", atualizarDashboard);
+} else {
+    console.warn('modeloSelect ausente — evento de change não será ligado');
+}
+window.onload = async function () {
+    await fetchModelosParaUsuario();
 
-modeloSelect.addEventListener("change", atualizarDashboard);
-window.onload = atualizarDashboard;
+};

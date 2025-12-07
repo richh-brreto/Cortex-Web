@@ -90,6 +90,13 @@
                     <p class="header-info">Total de Alertas no Sistema:</p>
                     <p id="kpi_total">--</p>
                 </div>
+                <div class="single-select-container">
+                    <label for="selectLineModel">Modelo:</label>
+                    <select id="selectModelo">
+                        <option value="">-- selecione --</option>
+                        <option value="modeloA">Modelo A</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -99,33 +106,28 @@
             <!-- Slack KPIs -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Total de Tickets do Sistema (Slack)</div>
+                    <div class="kpi-title">Total de Alertas do Sistema</div>
                 </div>
 
-                <div class="arch-compact-grid">
-                    <div class="arch-compact-item">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Ontem:</span>
-                            <span id="kpiTotalOntem" style="color:red;">--</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Ainda Ativos:</span>
-                            <span id="kpiAtivosSlack" style="color:red;">--</span>
-                        </div>
-                    </div>
+                <div class="arch-compact-item">
+                    <span class="arch-compact-name">Predição 24h:</span>
+                    <span id="kpi_pred_dia" style="color:#B74C4C;">--</span>
                 </div>
+
+                <div class="arch-compact-item">
+                    <span class="arch-compact-name">Predição 7 dias:</span>
+                    <span id="kpi_pred_semana" style="color:#B74C4C;">--</span>
+                </div>
+
             </div>
 
             <!-- Jira KPIs -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Tickets com Categorias Múltiplas (Jira)</div>
+                    <div class="kpi-title">Alertas com Categorias Múltiplas</div>
                 </div>
 
-                <div id="kpiCategoriasMultiplas">--</div>
+                <div id="kpi_multiplas">--</div>
             </div>
 
             <!-- Modelos em 24h -->
@@ -134,9 +136,7 @@
                     <div class="kpi-title">Modelos que mais geraram Alertas (24h)</div>
                 </div>
 
-                <div class="arch-compact-grid" id="kpi_hoje">
-                    <!-- Preenchido via JS -->
-                </div>
+                <div class="arch-compact-grid" id="kpi_24h">--</div>
             </div>
         </div>
 
@@ -147,10 +147,6 @@
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Alertas por Tipo</h3>
-                    <div class="single-select-container">
-                        <label for="selectBarModel">Modelo:</label>
-                        <select id="selectModelo"></select>
-                    </div>
                 </div>
                 <div class="chart-container">
                     <canvas id="graficoCategorias"></canvas>
@@ -161,10 +157,6 @@
             <div class="chart-card">
                 <div class="chart-header">
                     <h3 class="chart-title">Intervalo de Tickets e Alertas</h3>
-                    <div class="single-select-container">
-                        <label for="selectLineModel">Modelo:</label>
-                        <select id="selectModelo"></select>
-                    </div>
                 </div>
                 <div class="chart-container">
                     <canvas id="graficoIntervalos"></canvas>
@@ -174,4 +166,5 @@
         </div>
     </div>
 </body>
+
 </html>
