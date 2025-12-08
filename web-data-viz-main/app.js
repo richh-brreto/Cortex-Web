@@ -25,6 +25,7 @@ var funcionarioRouter = require("./src/routes/funcionario");
 var zonaRouter = require("./src/routes/zona");
 var arquiteturaRouter = require("./src/routes/arquiteturas");
 var muralRoute = require("./src/routes/mural");
+var alertasRoute = require("./src/routes/alertas");
 const s3Router = require('./src/routes/s3Route');
 
 app.use(express.json());
@@ -46,6 +47,8 @@ app.use("/funcionario", funcionarioRouter);
 app.use("/zona", zonaRouter);
 app.use("/arquiteturas", arquiteturaRouter);
 app.use("/mural",muralRoute)
+app.use("/api/alertas", alertasRoute);
+
 app.listen(PORTA_APP, function () {
     console.log(`
     ##   ##  ######   #####           ####      ##    ######    ##            ##  ##    ####    ######  
