@@ -14,6 +14,16 @@
     <script defer src="./alertas_dash.js"></script>
 </head>
 
+<!-- Modal de Indicativos -->
+<div id="modalIndicativos" class="modal-indicativos">
+    <div class="modal-content">
+        <span class="close-btn" onclick="fecharIndicativos()">×</span>
+        <h2>Indicativo de Alertas</h2>
+        <p><strong>• Acima de 15 alertas:</strong> Verifique o funcionamento do modelo, possível downtime iminente</p>
+        <p><strong>• Acima de 20 alertas:</strong> Sistema em risco, verifique a causa dos alertas imediatamente.</p>
+    </div>
+</div>
+
 <body>
     <nav class="barra-lateral">
         <a class="item-logo">
@@ -68,7 +78,7 @@
 
         <a class="item-usuario">
             <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-            <span class="texto-usuario">José</span>
+            <span class="texto-usuario">Fernanda</span>
         </a>
 
         <div class="divisor"></div>
@@ -87,9 +97,10 @@
             <div class="header-content">
                 <div class="header-info">
                     <h1 class="header-title">Dashboard de Alertas</h1>
-                    <p class="header-info">Total de Alertas no Sistema:</p>
-                    <p id="kpi_total">--</p>
+                    <p class="header-info">Total de Alertas Atual no Sistema:</p>
+                    <p id="kpi_total" style="color:#006E66" >--</p>
                 </div>
+                <button id="buttonIndicativos" class="indicativo-btn" onclick="abrirIndicativos()">Indicativos</button>
                 <div class="single-select-container">
                     <label for="selectModelo">Modelo:</label>
                     <select class="selectModelo" id="selectModelo">
@@ -104,39 +115,46 @@
         <div class="kpis-grid">
 
             <!-- Slack KPIs -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Total de Alertas do Sistema</div>
-                </div>
+            <div class="kpi-card predicao-card">
+                <div class="predicao-wrapper">
 
-                <div class="arch-compact-item">
-                    <span class="arch-compact-name">Predição 24h:</span>
-                    <span id="kpi_pred_dia" style="color:#B74C4C;">--</span>
-                </div>
+                    <div class="pred-title">Predição de Continuidade de Alertas</div>
 
-                <div class="arch-compact-item">
-                    <span class="arch-compact-name">Predição 7 dias:</span>
-                    <span id="kpi_pred_semana" style="color:#B74C4C;">--</span>
-                </div>
+                    <div class="predicao-grid">
 
+                        <div class="pred-col">
+                            <div class="pred-label">Previsão 24h</div>
+                            <div class="pred-value" id="kpi_pred_dia">--</div>
+                        </div>
+
+                        <div class="pred-col">
+                            <div class="pred-label">Previsão 7 dias</div>
+                            <div class="pred-value" id="kpi_pred_semana">--</div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
+
 
             <!-- Proporção de alertas críticos -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Proporção de Alertas críticos em 24h</div>
+                    <div class="kpi-title">Proporção de Alertas em 24h</div>
                 </div>
 
                 <span id="kpi_proporcao_criticos">--%</span>
+                <span id="kpi_proporcao_atencao">--%</span>
             </div>
 
             <!-- Modelos em 24h -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Modelos que mais geraram Alertas (24h)</div>
+                    <div class="kpi-title">Intervalos com mais Alertas</div>
                 </div>
 
-                <div class="arch-compact-grid" id="kpi_24h">--</div>
+                <div class="arch-compact-item" id="kpi_intervalos">--</div>
             </div>
         </div>
 
