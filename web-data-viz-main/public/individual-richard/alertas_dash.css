@@ -31,7 +31,7 @@ body {
     height: 100vh;
     padding: 16px;
     width: calc(100% - 70px);
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     transition: margin-left 0.3s ease, width 0.3s ease;
     display: flex;
@@ -106,9 +106,9 @@ body {
 .kpi-card {
     background: var(--cor-fundo-tela);
     border-radius: 12px;
-    padding: 16px;
+    padding: 13px;
     box-shadow: 0 2px 8px var(--cor-sombra);
-    min-height: 120px;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,18 +128,25 @@ body {
     color: var(--cor-texto-secondary);
     font-weight: 700;
     line-height: 1.2;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 #kpi_proporcao_criticos {
-    font-size: 33px;
+    font-size: 30px;
     color: var(--cor-detalhe-quente);
     font-weight: 500;
     line-height: 1.2;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 4px;
+    margin-top: 15px;
+}
+
+#kpi_proporcao_atencao {
+    font-size: 30px;
+    color: #fcd856ff;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    margin-top: 13px;
 }
 
 .arch-compact-grid {
@@ -155,6 +162,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    font-weight: 600;
+    font-size: 17px;
 }
 
 .arch-compact-header {
@@ -164,9 +173,17 @@ body {
 }
 
 .arch-compact-name {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 600;
     color: #0A202D;
+    justify-content: center;
+    align-items: center;
+}
+
+.arch-compact-label {
+    font-size: px;
+    font-weight: 600;
+    margin-top: 12px;
 }
 
 /* sem uso */
@@ -243,8 +260,8 @@ body {
 .chart-title {
     margin: 0;
     color: var(--cor-texto);
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
 }
 
 /* single-select customizado */

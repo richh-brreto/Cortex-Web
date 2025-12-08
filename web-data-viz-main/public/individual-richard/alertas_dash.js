@@ -5,7 +5,7 @@ const modeloSelect = document.getElementById("selectModelo")
 
 // KPIs
 const kpiTotal = document.getElementById("kpi_total");
-const kpi_24h = document.getElementById("kpi_24h");
+const kpi_intervalos = document.getElementById("kpi_intervalos");
 const kpiSemana = document.getElementById("kpi_semana");
 const kpiMultiplas = document.getElementById("kpi_multiplas");
 
@@ -61,10 +61,10 @@ function atualizarKpiPredicoesTotal(totalAtual) {
 
     // previsões
     document.getElementById("kpi_pred_dia").textContent =
-        `Se nada for resolvido: ~${dia} (+7% em 24h)`;
+        `Se nada for resolvido: aproximadamente ${dia} alertas \n (+7% alertas em 24h)`;
 
     document.getElementById("kpi_pred_semana").textContent =
-        `Projeção em 7 dias: ~${semana} (+49% na semana)`;
+        `Projeção em 7 dias: aproximadamente ${semana} alertas \n (+49% alertas na semana)`;
 }
 
 
@@ -218,29 +218,52 @@ function contarModelos24h(alertasSlack) {
     return counts;
 }
 
+// ====== kpi de intervalos com mais alertas =======
 
-function atualizarKpiModelos24h(counts) {
-    kpi_24h.innerHTML = "";
+function calcularAlertasPorIntervalo(alertasSlack) {
+    const intervalos = gerarIntervalos24h();
 
-    const entries = Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
+    alertasSlack.forEach(msg => {
+        const data = extrairDataSlackTS(msg.ts);
+        if (!data) return;
+
+        intervalos.forEach(i => {
+            if (data >= i.inicio && data <= i.fim) {
+                i.count++;
+            }
+        });
+    });
+
+    return intervalos;
+}
+
+function atualizarKpiIntervalos(intervalos) {
+    const kpi = document.getElementById("kpi_intervalos");
+    if (!kpi) return;
+
+    kpi.innerHTML = "";
+
+    const top = intervalos
+        .sort((a, b) => b.count - a.count)
         .slice(0, 3);
 
-    if (entries.length === 0) {
-        kpi_24h.textContent = "Nenhum alerta nas últimas 24h";
+    if (top.length === 0) {
+        kpi.textContent = "Nenhum alerta nas últimas 24h";
         return;
     }
 
-    entries.forEach(([modelo, qtd]) => {
+    top.forEach(i => {
         const div = document.createElement("div");
-        div.textContent = `${modelo}: ${qtd}`;
-        kpi_24h.appendChild(div);
+        div.className = "arch-compact-label";
+        div.textContent = `${i.label}: ${i.count} alertas`;
+        kpi.appendChild(div);
     });
 }
 
+
 // ====== kpi de proporção crítica =======
 
-function calcularProporcaoCritica(alertasSlack) {
+function calcularProporcaoCriticos(alertasSlack) {
     const total = contarTotalAlertas(alertasSlack);
     if (total === 0) return 0;
 
@@ -248,9 +271,20 @@ function calcularProporcaoCritica(alertasSlack) {
     return ((criticos / total) * 100).toFixed(2); // duas casas decimais
 }
 
-function atualizarKpiProporcaoCriticos(alertasSlack) {
-    const proporcao = calcularProporcaoCritica(alertasSlack);
-    document.getElementById("kpi_proporcao_criticos").textContent = proporcao + "%";
+function calcularProporcaoAtencao(alertasSlack) {
+    const total = contarTotalAlertas(alertasSlack);
+    if (total === 0) return 0;
+
+    const { atencao } = contarSeveridade(alertasSlack);
+    return ((atencao / total) * 100).toFixed(2); // duas casas decimais
+}
+
+function atualizarKpiProporcao(alertasSlack) {
+    const proporcaoCritica = calcularProporcaoCriticos(alertasSlack);
+    document.getElementById("kpi_proporcao_criticos").textContent = proporcaoCritica + "% de alertas críticos";
+
+    const proporcaoAtencao = calcularProporcaoAtencao(alertasSlack);
+    document.getElementById("kpi_proporcao_atencao").textContent = proporcaoAtencao + "% de alertas de atenção";
 }
 
 
@@ -381,9 +415,9 @@ function montarGraficoIntervalos(alertas) {
                 datasets: [{
                     label: "Alertas (24h)",
                     data: intervalos.map(i => i.count),
-                    tension: 0.3,
-                    backgroundColor: '#B74C4C',
-                    borderColor: '#B74C4C',
+                    tension: 0.2,
+                    backgroundColor: '#00B2B2',
+                    borderColor: '#00B2B2',
                     borderWidth: 2
                 }]
             }
@@ -411,11 +445,14 @@ async function atualizarDashboard() {
 
     const total = contarTotalAlertas(alertas);
     atualizarKpiPredicoesTotal(total);
-    atualizarKpiProporcaoCriticos(alertas);
+    atualizarKpiProporcao(alertas);
 
     // alertas de todos os modelos
-    const counts24h = contarModelos24h(window._alertasTodosModelos);
-    atualizarKpiModelos24h(counts24h);
+    // const counts24h = contarModelos24h(window._alertasTodosModelos);
+    // atualizarKpiModelos24h(counts24h);
+
+    const intervalos = calcularAlertasPorIntervalo(alertas);
+    atualizarKpiIntervalos(intervalos);
 }
 
 

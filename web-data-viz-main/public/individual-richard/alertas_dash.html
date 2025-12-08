@@ -87,7 +87,7 @@
             <div class="header-content">
                 <div class="header-info">
                     <h1 class="header-title">Dashboard de Alertas</h1>
-                    <p class="header-info">Total de Alertas no Sistema:</p>
+                    <p class="header-info">Total de Alertas Atual no Sistema:</p>
                     <p id="kpi_total">--</p>
                 </div>
                 <div class="single-select-container">
@@ -106,17 +106,17 @@
             <!-- Slack KPIs -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Total de Alertas do Sistema</div>
+                    <div class="kpi-title">Predição de Continuidade de Alertas</div>
                 </div>
 
                 <div class="arch-compact-item">
                     <span class="arch-compact-name">Predição 24h:</span>
-                    <span id="kpi_pred_dia" style="color:#B74C4C;">--</span>
+                    <span id="kpi_pred_dia" style="color:#0A202D;">--</span>
                 </div>
 
                 <div class="arch-compact-item">
                     <span class="arch-compact-name">Predição 7 dias:</span>
-                    <span id="kpi_pred_semana" style="color:#B74C4C;">--</span>
+                    <span id="kpi_pred_semana" style="color: #0A202D;">--</span>
                 </div>
 
             </div>
@@ -124,19 +124,20 @@
             <!-- Proporção de alertas críticos -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Proporção de Alertas críticos em 24h</div>
+                    <div class="kpi-title">Proporção de Alertas em 24h</div>
                 </div>
 
                 <span id="kpi_proporcao_criticos">--%</span>
+                <span id="kpi_proporcao_atencao">--%</span>
             </div>
 
             <!-- Modelos em 24h -->
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Modelos que mais geraram Alertas (24h)</div>
+                    <div class="kpi-title">Intervalos com mais Alertas</div>
                 </div>
 
-                <div class="arch-compact-grid" id="kpi_24h">--</div>
+                <div class="arch-compact-item" id="kpi_intervalos">--</div>
             </div>
         </div>
 
