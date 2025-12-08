@@ -4,7 +4,7 @@ const path = require('path');
 
 const s3Controller = require('../controllers/s3');
 
-router.get('/dados/:pasta/:arquivo', (req, res) => {
+router.get('/dados/:arquivo', (req, res) => {
   s3Controller.lerArquivo(req, res);
 });
 
