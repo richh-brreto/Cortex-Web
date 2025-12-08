@@ -65,9 +65,10 @@
         padding: 0;
     }
 
-    /* ============================================== */
-    /* SEU CSS ANTIGO #geral2, #kpis, .kpi SUBSTITUÍDO */
-    /* ============================================== */
+    #crescimento {
+        height: 100%;
+        padding: 10px;
+    }
 
     #geral2 {
         width: 40%;
@@ -83,11 +84,9 @@
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        flex-direction: row;
         gap: 10px;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-between;
-
     }
 
     .kpi {
@@ -132,7 +131,7 @@
         font-size: 0.8em;
         color: #6c757d;
         /* Cinza */
-        display: block;
+
         /* Joga para a linha de baixo */
     }
 
@@ -219,26 +218,29 @@
 
 
     #botoes-acao .btn-principal {
-        border: 2px solid var(--cor-primaria);
-        border-radius: 12px;
-        padding: 20px;
+        border-radius: 6px;
+        padding: 10px;
         display: flex;
-        gap: 12px;
+        gap: 2px;
         cursor: pointer;
         display: flex;
         flex-direction: row;
-        font-size: 16px;
-
+        font-size: 14px;
+        margin-top: 2px;
+        background: #0e6b6bbd;
+        color: white;
+        height: 43px;
 
     }
 
     .btn-principal {
-        color: #138D8D;
+        color: white;
         background: linear-gradient(135deg, white 0%, #f9fafb 100%);
         align-items: center;
         width: 300px;
         transition: ease-in-out 0.3s;
         justify-content: center;
+        height: auto;
     }
 
     .btn-principal:hover {
@@ -266,10 +268,9 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 70%;
         padding: 10px;
-        transform: scaleY(0.9);
-        margin-top: -25px;
+        transform: scaleY(0.95);
+        margin-top: -15px;
     }
 
     /* Fundo escuro atrás do modal */
@@ -348,6 +349,22 @@
         margin-top: 20px;
     }
 
+    .btn-modal {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        background: #0e6b6b;
+        color: white;
+        transition: ease-in-out 0.3s;
+    }
+
+    .btn-modal:hover {
+        background: #138D8D;
+        transform: scale(1.05);
+    }
+
     /* Spinner de Carregamento (Rodinha) */
     .spinner-ia {
         border: 8px solid #f3f3f3;
@@ -361,8 +378,9 @@
     }
 
     #area-titulo-impresso {
-    display: none;
-}
+        display: none;
+    }
+
     @keyframes girar {
         0% {
             transform: rotate(0deg);
@@ -374,118 +392,172 @@
     }
 
     .btn-detalhes {
-    background-color: #138D8D;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: -22px;
-    transform: scale(0.8);
-        
-}
-.btn-detalhes:hover {
-    background-color: #0e6b6b;
-}
+        background-color: #138D8D;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: -10px;
+        transform: scale(0.75);
 
-#baixarCsv{
-    background-color: #138D8D;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    transform: scale(0.8);
-}
-
-#baixarCsv:hover {
-    background-color: #0e6b6b;
-}
-
-#relatorio-ia-impresso {
-    display: none;
-}
-
-
-@media print {
-
-    #area-titulo-impresso {
-        display: block !important;
-        text-align: center;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #138D8D;
-    }
-    /* Esconde o que não é relatório */
-    .barra-lateral, #botoes-acao, .btn-detalhes, #btn-2, .modal-fundo {
-        display: none !important;
     }
 
-    /* Ajusta a largura para o papel */
-    body, #geral, #containerGeral, #geral2 {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background-color: white !important;
-        height: auto !important;
-        display: block !important; /* Remove flexbox para ficar um embaixo do outro se precisar */
+    .btn-detalhes:hover {
+        background-color: #0e6b6b;
     }
 
-    body {
-        padding: 20px 40px !important; /* Adiciona margem branca ao redor da folha */
+    #baixarCsv {
+        background-color: #138D8D;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 15px;
+        transform: scale(0.8);
     }
 
-    /* Melhora a visualização dos cards */
-   .card-grafico, #containerOutlier {
-        box-shadow: none !important;
-        border: 1px solid #ddd !important;
-        page-break-inside: avoid;
-        
-        /* ADICIONE ISSO PARA O GRÁFICO CABER MELHOR NA FOLHA: */
-        max-height: 350px !important; 
-        margin-bottom: 20px !important;
-        display: block !important;
+    #baixarCsv:hover {
+        background-color: #0e6b6b;
     }
-    
-    /* Adiciona uma assinatura no rodapé */
-    body::after {
-        content: "Relatório gerado automaticamente pelo sistema Cortex.";
-        display: block;
-        text-align: center;
-        font-size: 12px;
-        color: #666;
-        margin-top: 50px;
+
+    #relatorio-ia-impresso {
+        display: none;
     }
+
+
+    @media print {
+
+        #area-titulo-impresso {
+            display: block !important;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #138D8D;
+        }
+
+        /* Esconde o que não é relatório */
+        .barra-lateral,
+        #botoes-acao,
+        .btn-detalhes,
+        #btn-2,
+        .modal-fundo {
+            display: none !important;
+        }
+
+        /* Ajusta a largura para o papel */
+        body,
+        #geral,
+        #containerGeral,
+        #geral2 {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: white !important;
+            height: auto !important;
+            display: block !important;
+            /* Remove flexbox para ficar um embaixo do outro se precisar */
+        }
+
+        body {
+            padding: 20px 40px !important;
+            /* Adiciona margem branca ao redor da folha */
+        }
+
+        /* Melhora a visualização dos cards */
+        .card-grafico,
+        #containerOutlier {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            page-break-inside: avoid;
+
+           
+            max-height: 450px !important;
+            max-height: none !important;
+            margin-bottom: 20px !important;
+            display: block !important;
+        }
+
+        body::after {
+            content: "Relatório gerado automaticamente pelo sistema Cortex.";
+            display: block;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 50px;
+        }
+
         #relatorio-ia-impresso {
-        display: block !important;
-        margin-top: 20px;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #f9f9f9 !important;
-        page-break-inside: avoid; /* Tenta não quebrar o texto no meio */
+            display: block !important;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9 !important;
+            page-break-inside: avoid;
+        }
+
+        #relatorio-ia-impresso h2 {
+            color: #138D8D;
+            font-size: 16px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        #conteudo-ia-impresso {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            text-align: justify;
+        }
     }
 
-    #relatorio-ia-impresso h2 {
-        color: #138D8D;
-        font-size: 16px;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-
-    #conteudo-ia-impresso {
-        font-size: 12px;
-        color: #333;
-        line-height: 1.5;
-        white-space: pre-wrap; /* Mantém os parágrafos que a IA gerar */
-        text-align: justify;
-    }
+    .btn-modal-primario, .btn-modal-secundario {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
 }
-    
 
+
+.btn-modal-primario {
+    background-color: #138D8D; 
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(19, 141, 141, 0.2);
+}
+
+.btn-modal-primario:hover {
+    background-color: #0e6b6b; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 12px rgba(19, 141, 141, 0.3);
+}
+
+.btn-modal-primario:active {
+    transform: translateY(0); 
+}
+
+.btn-modal-secundario {
+    background-color: transparent;
+    color: #666;
+    border: 2px solid #e0e0e0;
+}
+
+.btn-modal-secundario:hover {
+    background-color: #f8f9fa;
+    border-color: #b0b0b0;
+    color: #333;
+}
 </style>
 
 <body>
@@ -570,9 +642,9 @@
         </a>
     </nav>
 
-  
-        
-       
+
+
+
     <script src="../js/logout.js"></script>
 
 
@@ -585,7 +657,9 @@
                         <h1 id="nome-modelo">GPT-5</h1>
                         <p>ID: <strong id="codigo-modelo">MDL-H333-2024</strong></p>
                         <p>Cliente: <strong id="nome-cliente"> OPEN AI</strong></p>
-                        <p>Última atualização: <strong id="ultima-atualizacao">12:00</strong></p>
+                        <p>Última atualização: <strong id="ultima-atualizacao"></strong></p>
+
+
                     </div>
                     <div class="status-badge active">
                         <div class="status-indicator active"></div>
@@ -593,30 +667,30 @@
                     </div>
                 </div>
             </div>
-             <div id="area-titulo-impresso">
-            <h1>Relatório Executivo - Cortex</h1>
-            <p>Análise de Performance e Infraestrutura</p>
-            <p>Gerado em: <span id="data-impressao"></span></p>
-        </div>
-            
+            <div id="area-titulo-impresso">
+                <h1>Relatório Executivo - Cortex</h1>
+                <p>Análise de Performance e Infraestrutura</p>
+                <p>Gerado em: <span id="data-impressao"></span></p>
+            </div>
+
             <div id="graficos">
-                
+
                 <div class="card-grafico">
-                    <h1>Média de uso dos recursos por Mês:</h1>
+                    <h1>Média de uso de recursos nos últimos 6 meses</h1>
                     <canvas id="grafCpu"></canvas>
                 </div>
 
                 <div class="card-grafico">
-                    <h1>Média de uso de Recursos em Novembro por Período do Dia:</h1>
+                    <h1>Média de uso de recursos em <span id="spanmesAtual"></span> por período do dia:</h1>
                     <canvas id="grafGpu"></canvas>
                 </div>
-                 <div id="relatorio-ia-impresso" class="secao-impressao">
-                <h2> Análise Inteligente (IA)</h2>
-                <p id="conteudo-ia-impresso">
-                    Nenhuma análise foi gerada antes da exportação deste relatório.
-                </p>
-            </div>
-                
+                <div id="relatorio-ia-impresso" class="secao-impressao">
+                    <h2> Análise Inteligente (IA)</h2>
+                    <p id="conteudo-ia-impresso">
+                        Nenhuma análise foi gerada antes da exportação deste relatório.
+                    </p>
+                </div>
+
 
             </div>
 
@@ -625,26 +699,26 @@
         <div id="geral2">
 
             <div id="kpis">
-                <div class="kpi">
-                    <p>Crescimento Mensal</p>
+                <div id="crescimento" class="kpi">
+                    <p>Variação de Consumo</p>
 
                     <div id="kpi-crescimento"
-                        style="display: flex; flex-direction: column; gap: 8px; margin-top: 15px;">
+                        style="display: flex;  flex-direction: column; gap: 8px; margin-top: 5px;">
                         <span style="font-size: 0.9em; color: #888;">Calculando...</span>
                     </div>
+                    <span class="kpi-periodo" style="margin-top: 0px;">Mês Atual vs Mês Anterior</span>
 
-                    <span class="kpi-periodo" style="margin-top: 10px;">Mês Anterior vs Atual</span>
                 </div>
                 <div class="kpi">
                     <div class="card-info">
-                        <h3>Análise de Períodos</h3>
+                        <h3>Perfil de Carga Diária em <span id="spanmesAtual2"></span></h3>
                         <div class="periodo-item"
-                            style="border-bottom: 1px dashed #eee; padding-bottom: 10px; margin-bottom: 10px;">
-                            <span style="color: #555; font-size: 0.9em;">Maior Utilização:</span>
+                            style="border-bottom: 1px dashed #eee; padding-bottom: 0px; margin-bottom: 0px; margin-top: 20PX;">
+                            <span style="color: #555; font-size: 1.2em;">Maior Utilização:</span>
                             <div
                                 style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
                                 <span style="font-size: 1.2em;"></span>
-                                <strong id="kpi-periodo-maior" style="color: #dc3545; font-size: 1.1em;">--</strong>
+                                <strong id="kpi-periodo-maior" style="color: #0e6b6b; font-size: 1.1em;">--</strong>
                             </div>
                         </div>
 
@@ -653,7 +727,7 @@
                             <div
                                 style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
                                 <span style="font-size: 1.2em;"></span>
-                                <strong id="kpi-periodo-menor" style="color: #28a745; font-size: 1.1em;">--</strong>
+                                <strong id="kpi-periodo-menor" style="color: #2C3E50; font-size: 1.1em;">--</strong>
                             </div>
                         </div>
                     </div>
@@ -666,19 +740,16 @@
                 <div style="display: flex; gap: 20px; width: 100%; font-family: 'Segoe UI', sans-serif;">
 
                     <div
-                        style="flex: 1; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #28a745; position: relative; height: 100px; border-right: 0px solid transparent;">
+                        style="flex: 1; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #0e6b6b; position: relative; height: 100px; border-right: 0px solid transparent;">
                         <div
                             style="color: #6c757d; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fa fa-bell"></i> Total de Alertas
+                            <i class="fa fa-bell"></i> Volumetria de incidentes
                         </div>
 
                         <div style="margin-top: 5px; display: flex; align-items: baseline;">
                             <span id="kpiTotalAtual" style="font-size: 30px; font-weight: 800; color: #333;">0</span>
 
-                            <span id="kpiTendencia"
-                                style="margin-left: 15px; padding: 4px 10px; border-radius: 20px; background: #e6f9e6; color: #28a745; font-size: 12px; font-weight: bold; margin-top: -20px;">
-                                <span style="font-size: 10px;">●</span> Estável
-                            </span>
+
                         </div>
                         <div style="font-size: 12px; color: #aaa; margin-top: 5px;">No mês atual</div>
                     </div>
@@ -687,28 +758,28 @@
                         style="flex: 1; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                         <div
                             style="color: #6c757d; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                            <i class="fa fa-chart-pie"></i> Composição
+                            <i class="fa fa-chart-pie"></i>Incidentes por Componente
                         </div>
 
                         <div
                             style="display: flex; justify-content: space-between; gap: 10px; height: 20px; margin-top: -20px;">
 
                             <div
-                                style="flex: 1; background: #fff5f5; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
-                                <div style="font-size: 11px; font-weight: bold; color: #ff6363;">CPU</div>
-                                <div id="kpiCpuAtual" style="font-size: 18px; font-weight: bold; color: #333;">0</div>
+                                style="flex: 1; background: #2C3E50; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                                <div style="font-size: 11px; font-weight: bold; color: #fff;">CPU</div>
+                                <div id="kpiCpuAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
 
                             <div
-                                style="flex: 1; background: #f0f7ff; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
-                                <div style="font-size: 11px; font-weight: bold; color: #50a0ff;">GPU</div>
-                                <div id="kpiGpuAtual" style="font-size: 18px; font-weight: bold; color: #333;">0</div>
+                                style="flex: 1; background: #138D8D; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                                <div style="font-size: 11px; font-weight: bold; color: #fff;">GPU</div>
+                                <div id="kpiGpuAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
 
                             <div
-                                style="flex: 1; background: #f0fff4; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
-                                <div style="font-size: 11px; font-weight: bold; color: #78c878;">RAM</div>
-                                <div id="kpiRamAtual" style="font-size: 18px; font-weight: bold; color: #333;">0</div>
+                                style="flex: 1; background: #120a8f; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                                <div style="font-size: 11px; font-weight: bold; color: #fff;">RAM</div>
+                                <div id="kpiRamAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
 
                         </div>
@@ -724,13 +795,14 @@
             <div id="botoes-acao">
                 <div id="btn-2">
                     <button onclick="abrirModalIA()" class="btn btn-principal">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px"
-                            fill="#00B2B2">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="29px" viewBox="0 -960 960 960" width="34px"
+                            fill="#FFF">
                             <path
                                 d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 34.5T840-360h-80v120q0 33-23.5 56.5T680-160h-80v80h-80v-160h160v-200h108l-38-155q-23-91-98-148t-172-57q-116 0-198 81t-82 197q0 60 24.5 114t69.5 96l26 24v208h-80Zm254-360Zm-14 120q17 0 28.5-11.5T520-360q0-17-11.5-28.5T480-400q-17 0-28.5 11.5T440-360q0 17 11.5 28.5T480-320Zm-30-128h61q0-25 6.5-40.5T544-526q18-20 35-40.5t17-53.5q0-42-32.5-71T483-720q-40 0-72.5 23T365-637l55 23q7-22 24.5-35.5T483-663q22 0 36.5 12t14.5 31q0 21-12.5 37.5T492-549q-20 21-31 42t-11 59Z" />
                         </svg>Gerar relatório com IA</button>
-                    <button onclick="imprimirRelatorio()" class="btn btn-principal"><svg xmlns="http://www.w3.org/2000/svg" height="30px"
-                            viewBox="0 -960 960 960" width="34px" fill="#00B2B2">
+                    <button onclick="imprimirRelatorio()" class="btn btn-principal"><svg
+                            xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="29px"
+                            fill="#FFF">
                             <path
                                 d="m648-140 112-112v92h40v-160H640v40h92L620-168l28 28Zm-448 20q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z" />
                         </svg>Exportar relatório </button>
@@ -755,8 +827,8 @@
                     placeholder="Ex: Foque nos picos de memória RAM da madrugada..."></textarea>
 
                 <div class="modal-botoes">
-                    <button class="btn btn-secundario" onclick="fecharModalIA()">Cancelar</button>
-                    <button class="btn btn-principal" onclick="chamarBackendIA()"> Gerar Relatório</button>
+                    <button class="btn-modal" onclick="fecharModalIA()">Cancelar</button>
+                    <button class="btn-modal" onclick="chamarBackendIA()"> Gerar Relatório</button>
                 </div>
             </div>
 
@@ -772,8 +844,13 @@
                     readonly>Aqui aparecerá o texto vindo do backend...</textarea>
 
                 <div class="modal-botoes">
-                    <button class="btn btn-secundario" onclick="resetarModal()">Gerar Novo</button>
-                    <button class="btn btn-principal" onclick="copiarRelatorio()">Copiar Texto</button>
+                    <button class="btn-modal-secundario" onclick="resetarModal()">
+                        <i class="fa fa-refresh"></i> Gerar Novo
+                    </button>
+
+                    <button class="btn-modal-primario" onclick="copiarRelatorio()">
+                        <i class="fa fa-copy"></i> Copiar Texto
+                    </button>
                 </div>
             </div>
 
@@ -781,29 +858,30 @@
     </div>
 
     <div id="modalDetalhes" class="modal-fundo">
-    <div class="modal-conteudo" style="width: 70%;"> <span class="fechar-modal" onclick="fecharModalDetalhes()">&times;</span>
-        
-        <h2>Detalhamento de Registros Críticos</h2>
-        <p>Abaixo estão listados os registros críticos identificados no mês atual.</p>
-        
-        <div id="tabela-container" style="max-height: 400px; overflow-y: auto; margin-top: 20px;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
-                <thead>
-                    <tr style="background-color: #138D8D; color: white; text-align: left;">
-                        <th style="padding: 10px;">Recurso</th>
-                        <th style="padding: 10px;">Início</th>
-                        <th style="padding: 10px;">Fim</th>
-                        <th style="padding: 10px;">Duração</th>
-                    </tr>
-                </thead>
-                <tbody id="corpo-tabela-picos">
+        <div class="modal-conteudo" style="width: 70%;"> <span class="fechar-modal"
+                onclick="fecharModalDetalhes()">&times;</span>
+
+            <h2>Detalhamento de Registros Acima dos Parâmetros</h2>
+            <p>Abaixo estão listados os registros acima dos parâmetros identificados no mês atual.</p>
+
+            <div id="tabela-container" style="max-height: 400px; overflow-y: auto; margin-top: 20px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                    <thead>
+                        <tr style="background-color: #138D8D; color: white; text-align: left;">
+                            <th style="padding: 10px;">Recurso</th>
+                            <th style="padding: 10px;">Início</th>
+                            <th style="padding: 10px;">Fim</th>
+                            <th style="padding: 10px;">Duração</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela-picos">
                     </tbody>
-            </table>
+                </table>
+            </div>
+            <button id="baixarCsv" onclick="baixarCSVSimples()">Baixar CSV</button>
         </div>
-        <button id="baixarCsv" onclick="baixarCSVSimples()">Baixar CSV</button>
+
     </div>
-    
-</div>
 
 </body>
 
@@ -831,6 +909,11 @@
     let chartBarra;
     let jsonUltimoMesGlobal = null; // Variável global para guardar os dados
 
+    // variaveis globais
+    var chartLinhas;
+    var charBarras;
+    var contextoGeralIA = {};
+
     window.onload = function () {
         infoModeloGet(idModelo);
         buscarDadosEAtualizarGraficos();
@@ -857,7 +940,7 @@
 
         // for p pegar os 3 meses
 
-        for (var i = 2; i >= 0; i--) {
+        for (var i = 5; i >= 0; i--) {
 
             var mesBusca = mesAtual - i;
             var anoBusca = anoAtual;
@@ -914,7 +997,7 @@
 
                     // Loop para contar quantos problemas de cada tipo existiram no mês
                     for (var k = 0; k < dados.picos.length; k++) {
-                        var tipo = dados.picos[k].recurso.toUpperCase(); // Garante maiúsculo (CPU, GPU...)
+                        var tipo = dados.picos[k].recurso.toUpperCase();
 
                         if (tipo === 'CPU') {
                             contCpu++;
@@ -926,7 +1009,7 @@
                     }
                 }
 
-                // 3. Joga a contagem final deste mês nos vetores que vão para o gráfico
+                //  Joga a contagem final deste mês nos vetores que vão para o gráfico
                 dadosCriticosCPU.push(contCpu);
                 dadosCriticosRAM.push(contRam);
                 dadosCriticosGPU.push(contGpu);
@@ -936,6 +1019,17 @@
             }
 
         }
+
+        var dataPrev = new Date();
+        dataPrev.setMonth(dataPrev.getMonth() + 1); // add 1 mês
+        var mesPrev = dataPrev.getMonth() + 1;
+        var anoPrev = dataPrev.getFullYear();
+        var nomeMesPrev = (mesPrev < 10 ? "0" + mesPrev : mesPrev) + "/" + anoPrev;
+
+        listaMeses.push(nomeMesPrev);
+        listaCpu.push(preverProximoValor(listaCpu));
+        listaRam.push(preverProximoValor(listaRam));
+        listaGpu.push(preverProximoValor(listaGpu));
 
         contextoGeralIA = {
             historicoMeses: listaMeses,
@@ -952,16 +1046,34 @@
             plotarGraficoBarra(jsonUltimoMes.mediasPeriodo);
         }
 
+        console.log(dadosCriticosCPU,dadosCriticosGPU,dadosCriticosRAM);
+
         atualizarKpiPeriodos(jsonUltimoMes.mediasPeriodo);
         atualizarKpiComposicao(jsonUltimoMes);
-        criarGraficoBarrasCriticos(dadosCriticosCPU, dadosCriticosGPU, dadosCriticosRAM);
+        criarGraficoBarrasCriticos(
+    dadosCriticosCPU.slice(-3), 
+    dadosCriticosGPU.slice(-3), 
+    dadosCriticosRAM.slice(-3)
+);
+        document.getElementById("spanmesAtual").innerText = getUltimosTresMeses().slice(-1)[0];
+        document.getElementById("spanmesAtual2").innerText = getUltimosTresMeses().slice(-1)[0];
     }
+
+    
+    
 
     function plotarGraficoLinha(labels, cpu, ram, gpu) {
         var ctx = document.getElementById("grafCpu").getContext("2d");
 
-
         if (chartLinha) chartLinha.destroy();
+
+        // Estilo da linha pontilhada para a previsão 
+        // aq tive q usar IA para mudar estilo da linha pontilhada
+
+        //resumo: Se estiver desenhando a linha do index 6,deixe pontilhada.
+        const estiloSegmentoPrevisao = {
+            borderDash: ctx => ctx.p1DataIndex === 6 ? [5, 5] : undefined,
+        };
 
         chartLinha = new Chart(ctx, {
             type: "line",
@@ -971,33 +1083,84 @@
                     {
                         label: "CPU (%)",
                         data: cpu,
-                        borderColor: "rgb(255, 99, 99)",
-                        backgroundColor: "rgba(255, 99, 99, 0.2)",
-                        tension: 0.2
+                        borderColor: "#2C3E50",
+                        backgroundColor: "rgba(44, 62, 80, 0.1)",
+
+                        fill: false,
+                        tension: 0.3,
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        segment: estiloSegmentoPrevisao
                     },
                     {
                         label: "GPU (%)",
                         data: gpu,
-                        borderColor: "rgb(80, 160, 255)",
-                        backgroundColor: "rgba(80, 160, 255, 0.2)",
-                        tension: 0.2
+                        borderColor: "#138D8D",
+                        backgroundColor: "rgba(19, 141, 141, 0.1)",
+
+                        fill: false,
+                        tension: 0.3,
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        segment: estiloSegmentoPrevisao
                     },
                     {
                         label: "RAM (%)",
                         data: ram,
-                        borderColor: "rgb(120, 200, 120)",
-                        backgroundColor: "rgba(120, 200, 120, 0.2)",
-                        tension: 0.2
+                        borderColor: "#120a8f",
+                        backgroundColor: "rgba(127, 140, 141, 0.1)",
+
+                        fill: false,
+                        tension: 0.3,
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
+                        segment: estiloSegmentoPrevisao
                     }
                 ]
             },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true, max: 100 } }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 105,
+                        grid: {
+                            color: "rgba(0,0,0,0.05)" // Grade suave
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false // Limpo
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+
+                            boxWidth: 26,
+                            color: "#555" // Texto da legenda cinza escuro
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)', // Tooltip branca moderna
+                        titleColor: '#333',
+                        bodyColor: '#333',
+                        borderColor: '#ddd',
+                        borderWidth: 1
+                    }
+                }
             }
         });
     }
 
+
+    // jsonUltimoMes.mediasPeriodo é o objeto que tem os dados do grafico de barra 
     function plotarGraficoBarra(periodos) {
         var ctx = document.getElementById("grafGpu").getContext("2d");
 
@@ -1012,7 +1175,6 @@
         // Montando arrays na ordem correta
         var dadosCpu = [manha.mediaCpu, tarde.mediaCpu, noite.mediaCpu, madrugada.mediaCpu];
         var dadosGpu = [manha.mediaGpu, tarde.mediaGpu, noite.mediaGpu, madrugada.mediaGpu];
-        // Convertendo RAM para porcentagem
         var dadosRam = [manha.mediaRam, tarde.mediaRam, noite.mediaRam, madrugada.mediaRam];
 
         chartBarra = new Chart(ctx, {
@@ -1020,9 +1182,9 @@
             data: {
                 labels: ["Manhã", "Tarde", "Noite", "Madrugada"],
                 datasets: [
-                    { label: "CPU (%)", data: dadosCpu, backgroundColor: "rgba(255, 99, 99, 0.7)" },
-                    { label: "GPU (%)", data: dadosGpu, backgroundColor: "rgba(80, 160, 255, 0.7)" },
-                    { label: "RAM (%)", data: dadosRam, backgroundColor: "rgba(120, 200, 120, 0.7)" }
+                    { label: "CPU (%)", data: dadosCpu, backgroundColor: "#2C3E50" },
+                    { label: "GPU (%)", data: dadosGpu, backgroundColor: "#138D8D" },
+                    { label: "RAM (%)", data: dadosRam, backgroundColor: "#120a8f" }
                 ]
             },
             options: {
@@ -1038,9 +1200,10 @@
             .then(function (response) { return response.json(); })
             .then(function (dados) {
                 if (dados && dados.length > 0) {
-                    document.getElementById('nome-modelo').textContent = dados[0].nome_modelo;
                     document.getElementById('nome-cliente').textContent = dados[0].cliente_nome;
                     document.getElementById('codigo-modelo').textContent = dados[0].id_modelo;
+                    document.getElementById('nome-modelo').textContent = dados[0].nome_processo;
+                    document.getElementById('ultima-atualizacao').textContent = '\u00A0' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR');
                 }
             })
             .catch(function (error) { console.error("Erro header:", error); });
@@ -1081,24 +1244,23 @@
                 labels: ultimosMeses, // Eixo X: Os meses
                 datasets: [
                     {
-                        label: "CPU - Críticos", // Nome da legenda
+                        label: "CPU", // Nome da legenda
                         data: dadosCriticosCPU,  // Array com 3 valores
-                        backgroundColor: "rgba(255, 99, 99, 0.6)", // Vermelho
-                        borderColor: "rgba(255, 99, 99, 1)",
+                        backgroundColor: "#2C3E50",
                         borderWidth: 1
                     },
                     {
-                        label: "GPU - Críticos",
+                        label: "GPU",
                         data: dadosCriticosGPU, // Array com 3 valores
-                        backgroundColor: "rgba(80, 160, 255, 0.6)", // Azul
-                        borderColor: "rgba(80, 160, 255, 1)",
+                        backgroundColor: "#138D8D", // Azul
+                        borderColor: "#138D8D",
                         borderWidth: 1
                     },
                     {
-                        label: "RAM - Críticos",
+                        label: "RAM",
                         data: dadosCriticosRAM, // Array com 3 valores
-                        backgroundColor: "rgba(120, 200, 120, 0.6)", // Verde
-                        borderColor: "rgba(120, 200, 120, 1)",
+                        backgroundColor: "#120a8f",
+                        borderColor: "#120a8f",
                         borderWidth: 1
                     }
                 ]
@@ -1108,7 +1270,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Registros Críticos por Componente (Últimos 3 Meses)'
+                        text: 'Registros acima dos parâmetros do servidor por Componente (Últimos 3 Meses)'
                     },
                     legend: {
                         position: 'top', // Legenda em cima
@@ -1135,11 +1297,11 @@
         var chaves = ["MANHA", "TARDE", "NOITE", "MADRUGADA"];
         var nomesBonitos = ["Manhã", "Tarde", "Noite", "Madrugada"];
 
-        // Variáveis para o MENOR (Começa com valor gigante pra qualquer coisa ser menor)
+        // começo c/ um nmr alto só pra garantir q qualquer coisa seja menor
         var menorSoma = 999999.0;
         var nomeMenor = "Indefinido";
 
-        // Variáveis para o MAIOR (Começa com 0 pra qualquer coisa ser maior)
+        // mesma coisa que o outro de cima, só q invertido
         var maiorSoma = -1.0;
         var nomeMaior = "Indefinido";
 
@@ -1147,16 +1309,15 @@
             var chaveAtual = chaves[i];
 
             var dados = periodos[chaveAtual];
-            // Proteção contra undefined
+            //se for undefined zera
             if (!dados) {
                 dados = { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
             }
 
-            // Soma total (Lembre-se: se sua RAM vem 0.12, multiplique por 100 aqui. Se vem 12, tire o *100)
-            // Vou assumir que já vem certo (12, 50, etc) como conversamos antes
+            // aq criei uma lógica de pontos totais somando os 3 recursos onde quem tiver mais ponto é o maior uso e vice versa
             var somaTotal = dados.mediaCpu + dados.mediaGpu + dados.mediaRam;
 
-            // Ignora períodos zerados/sem dados para não falsear o "Menor Uso"
+            // Ignora períodos zerados/sem dados se não implica no menor uso
             if (somaTotal > 0) {
 
                 // Lógica do MENOR
@@ -1177,12 +1338,8 @@
         document.getElementById("kpi-periodo-menor").innerText = nomeMenor; // Ex: Madrugada
         document.getElementById("kpi-periodo-maior").innerText = nomeMaior; // Ex: Tarde
     }
-    // --- INTELIGÊNCIA ARTIFICIAL (CÓDIGO CORRIGIDO) ---
 
-    // Variáveis Globais para os gráficos e contexto da IA
-    var chartLinhas;
-    var charBarras;
-    var contextoGeralIA = {};
+
 
     function abrirModalIA() {
         document.getElementById("modalIA").style.display = "flex";
@@ -1211,19 +1368,19 @@
         const inputUsuario = document.getElementById('prompt-usuario');
         const outputRelatorio = document.getElementById('texto-relatorio');
 
-        // 1. Define a pergunta (Se vazio, manda o padrão)
+        // Se vazio, mandar essa pergunta padrão
         let perguntaFinal = inputUsuario.value;
         if (perguntaFinal.trim() === "") {
             perguntaFinal = "Faça uma análise de tendência e capacity planning baseada no histórico.";
         }
 
-        // 2. Muda para tela de carregamento
+        //tela de carregamento
         document.getElementById("tela-inicial-ia").style.display = "none";
         document.getElementById("tela-carregando-ia").style.display = "block";
         outputRelatorio.value = '';
 
         try {
-            // 3. Faz a requisição para o Back-End
+            //  Chama a rota do backend
             const response = await fetch('/perguntar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1233,13 +1390,13 @@
                 })
             });
 
-            const data = await response.json();
+            const data = await response.json(); // espera o JSON da resposta da IA vir antes de definir a variavel
 
-            // 4. Mostra o resultado
+            //  Mostra o resultado
             document.getElementById("tela-carregando-ia").style.display = "none";
             document.getElementById("tela-resultado-ia").style.display = "block";
 
-            // 5. Escreve o texto
+            // Escreve o texto
             const textoFinal = data.resultado || 'Nenhuma resposta recebida.';
             typeWriter(outputRelatorio, textoFinal);
 
@@ -1250,12 +1407,16 @@
         }
     }
 
-    // ÚNICA FUNÇÃO TYPEWRITER (USANDO .VALUE PARA TEXTAREA)
-    function typeWriter(element, text, i = 0) {
-        if (i < text.length) {
-            element.value += text.charAt(i);
-            element.scrollTop = element.scrollHeight;
-            setTimeout(() => typeWriter(element, text, i + 1), 25);
+
+
+    // aq usei uma função recursiva para ir escrevendo letra por letra (aquilo q a célia ensinou pessoal)    
+    //  no final chamei essa função novamente e acrescentei 1 no índice, até chegar no tamanho do texto
+
+    function typeWriter(elemento, texto, i = 0) {
+        if (i < texto.length) {
+            elemento.value += texto.charAt(i);
+            elemento.scrollTop = elemento.scrollHeight;
+            setTimeout(() => typeWriter(elemento, texto, i + 1), 25);
         }
     }
 
@@ -1266,60 +1427,71 @@
         alert("Texto copiado!");
     }
 
-
     function atualizarKpiCrescimento(listaCpu, listaRam, listaGpu) {
 
-        // 0 = Mês Retrasado
-        // 1 = Mês Anterior (Base para comparação)
-        // 2 = Mês Atual (Valor novo)
-
-        // Funçãozinha interna para calcular e montar o HTML de cada linha
         function montarLinha(nome, lista) {
-            var atual = lista[2] || 0;    // Valor do mês atual
-            var anterior = lista[1] || 0; // Valor do mês passado
+
+            var indiceAtual = lista.length - 2;
+            var indiceAnterior = lista.length - 3;
+
+            if (indiceAtual < 0) indiceAtual = 0;
+            if (indiceAnterior < 0) indiceAnterior = 0;
+
+            var atual = lista[indiceAtual] || 0;
+            var anterior = lista[indiceAnterior] || 0;
 
             var variacao = 0;
-            var cor = "gray";
+            var cor = "#6c757d";
             var sinal = "";
 
-            // Regra de 3 simples para achar a porcentagem
             if (anterior > 0) {
                 variacao = ((atual - anterior) / anterior) * 100;
             } else if (atual > 0) {
-
                 variacao = 100;
             }
 
-            // Definição de Cores
             if (variacao > 0) {
-                cor = "#dc3545"; // Vermelho
+                cor = "#977373";
                 sinal = "+";
             } else if (variacao < 0) {
-                cor = "#28a745"; // Verde
-                // O número já vem negativo, não precisa sinal
+                cor = "#28a745";
             }
 
-            // Retorna o HTML dessa linha
+
             return `
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 2px;">
-                <span style="font-weight: bold; font-size: 0.9em; color: #555;">${nome}</span>
-                <span style="font-weight: bold; font-size: 1em; color: ${cor};">
+        <div style="
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #eee; 
+            padding: 5px 0; /* Padding reduzido para economizar altura */
+        ">
+            <div style="font-weight: 700; font-size: 1em; color: #555;">
+                ${nome}
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                
+                <span style="font-size: 1.1em; font-weight: 800; color: #333; line-height: 1.1;">
+                    ${atual.toFixed(1)}%
+                </span>
+
+                <span style="font-size: 0.75em; font-weight: 600; color: ${cor};">
                     ${sinal}${variacao.toFixed(1)}%
                 </span>
             </div>
+
+        </div>
         `;
         }
 
-        // Monta o HTML final juntando as 3 partes
         var htmlFinal = "";
         htmlFinal += montarLinha("CPU", listaCpu);
         htmlFinal += montarLinha("RAM", listaRam);
         htmlFinal += montarLinha("GPU", listaGpu);
 
-        // Joga na tela
         document.getElementById("kpi-crescimento").innerHTML = htmlFinal;
     }
-
     function atualizarKpiComposicao(dadosMes) {
         var qtdCpu = 0;
         var qtdGpu = 0;
@@ -1348,31 +1520,30 @@
 
 
     function formatarData(dataString) {
-    const data = new Date(dataString);
-    return data.toLocaleString('pt-BR'); // Formata para dia/mês/ano hora:min
-}
+        const data = new Date(dataString);
+        return data.toLocaleString('pt-BR'); // Formata para dia/mês/ano hora:min
+    }
 
-function abrirModalDetalhes() {
-    const modal = document.getElementById("modalDetalhes");
-    const tbody = document.getElementById("corpo-tabela-picos");
-    
-    // Limpa a tabela antes de preencher
-    tbody.innerHTML = "";
+    function abrirModalDetalhes() {
+        const modal = document.getElementById("modalDetalhes");
+        const tbody = document.getElementById("corpo-tabela-picos");
 
-    // Verifica se temos dados
-    if (jsonUltimoMesGlobal && jsonUltimoMesGlobal.picos && jsonUltimoMesGlobal.picos.length > 0) {
-        
-        // Percorre os picos e cria as linhas
-        for (let i = 0; i < jsonUltimoMesGlobal.picos.length; i++) {
-            let pico = jsonUltimoMesGlobal.picos[i];
-            
-            // Define corzinha baseada no recurso (Opcional, mas fica bonito)
-            let corBadge = "#555";
-            if(pico.recurso === 'CPU') corBadge = "#dc3545"; // Vermelho
-            if(pico.recurso === 'GPU') corBadge = "#007bff"; // Azul
-            if(pico.recurso === 'RAM') corBadge = "#28a745"; // Verde
+        tbody.innerHTML = "";
 
-            let linha = `
+        // verifica se existe picos
+        if (jsonUltimoMesGlobal && jsonUltimoMesGlobal.picos && jsonUltimoMesGlobal.picos.length > 0) {
+
+
+            for (let i = 0; i < jsonUltimoMesGlobal.picos.length; i++) {
+                let pico = jsonUltimoMesGlobal.picos[i];
+
+                // Cor  baseado no recurso
+                let corBadge = "#555";
+                if (pico.recurso === 'CPU') corBadge = "#2C3E50";
+                if (pico.recurso === 'GPU') corBadge = "#138D8D";
+                if (pico.recurso === 'RAM') corBadge = "#120a8f";
+
+                let linha = `
                 <tr style="border-bottom: 1px solid #ddd;">
                     <td style="padding: 10px;">
                         <span style="background-color: ${corBadge}; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8em;">
@@ -1384,67 +1555,98 @@ function abrirModalDetalhes() {
                     <td style="padding: 10px;">${pico.duracaoMinutos} min</td>
                 </tr>
             `;
-            tbody.innerHTML += linha;
+                tbody.innerHTML += linha;
+            }
+        } else {
+            tbody.innerHTML = "<tr><td colspan='4' style='padding:10px; text-align:center;'>Nenhum registro crítico encontrado neste mês.</td></tr>";
         }
-    } else {
-        tbody.innerHTML = "<tr><td colspan='4' style='padding:10px; text-align:center;'>Nenhum registro crítico encontrado neste mês.</td></tr>";
+
+        modal.style.display = "flex";
     }
 
-    modal.style.display = "flex";
-}
+    function fecharModalDetalhes() {
+        document.getElementById("modalDetalhes").style.display = "none";
+    }
 
-function fecharModalDetalhes() {
-    document.getElementById("modalDetalhes").style.display = "none";
-}
+    // Fechar se clicar fora
+    window.onclick = function (event) {
+        let modal1 = document.getElementById("modalIA");
+        let modal2 = document.getElementById("modalDetalhes");
+        if (event.target == modal1) modal1.style.display = "none";
+        if (event.target == modal2) modal2.style.display = "none";
+    }
 
-// Fechar se clicar fora
-window.onclick = function(event) {
-    let modal1 = document.getElementById("modalIA");
-    let modal2 = document.getElementById("modalDetalhes");
-    if (event.target == modal1) modal1.style.display = "none";
-    if (event.target == modal2) modal2.style.display = "none";
-}
+    // Baixar CSV  dos picos
 
-function baixarCSVSimples() {
-    //  Cabeçalho
-    var csv = "Recurso;Inicio;Fim;Duracao\n";
+    function baixarCSVSimples() {
 
-    // Verifica se existe o JSON
-    if (jsonUltimoMesGlobal && jsonUltimoMesGlobal.picos) {
-        
+        var csv = "Recurso;Inicio;Fim;Duracao\n";
 
-        for (var i = 0; i < jsonUltimoMesGlobal.picos.length; i++) {
-            var item = jsonUltimoMesGlobal.picos[i];
-            
-            // Adiciona a linha na string gigante
-            csv += `${item.recurso};${item.inicio};${item.fim};${item.duracaoMinutos}\n`;
+        // Verifica se existe o JSON
+        if (jsonUltimoMesGlobal && jsonUltimoMesGlobal.picos) {
+
+
+            for (var i = 0; i < jsonUltimoMesGlobal.picos.length; i++) {
+                var item = jsonUltimoMesGlobal.picos[i];
+
+                // Adiciona a linha na string 
+                csv += `${item.recurso};${item.inicio};${item.fim};${item.duracaoMinutos}\n`;
+            }
         }
+
+        var link = document.createElement('a');
+        link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent("\uFEFF" + csv); // essa parte do \uFEFF é p evitar problema de acentuação 
+        link.download = "relatorio_picos.csv";
+        link.click();
     }
 
-    //  Download forçado
-    var link = document.createElement('a');
-    link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent("\uFEFF" + csv);
-    link.download = "relatorio_picos.csv";
-    link.click();
-}
 
-function imprimirRelatorio() {
-   
-    document.getElementById('data-impressao').innerText = new Date().toLocaleDateString('pt-BR');
+    // referencia: https://www.youtube.com/watch?v=4xypj4K6wm0
 
-    //texto do modal
-    var textoIA = document.getElementById('texto-relatorio').value;
-    
-    //  texto padrão 
-    var textoPadrao = "Aqui aparecerá o texto vindo do backend...";
+    function imprimirRelatorio() {
 
-    if (textoIA === textoPadrao || textoIA.trim() === "") {
-        document.getElementById('conteudo-ia-impresso').innerText = "Nenhuma análise de IA foi gerada antes da exportação deste relatório.";
-    } else {
-        document.getElementById('conteudo-ia-impresso').innerText = textoIA;
+        document.getElementById('data-impressao').innerText = new Date().toLocaleDateString('pt-BR');
+
+        //texto do modal
+        var textoIA = document.getElementById('texto-relatorio').value;
+
+        //  texto padrão 
+        var textoPadrao = "Aqui aparecerá o texto vindo do backend...";
+
+        if (textoIA === textoPadrao || textoIA.trim() === "") {
+            document.getElementById('conteudo-ia-impresso').innerText = "Nenhuma análise de IA foi gerada antes da exportação deste relatório.";
+        } else {
+            document.getElementById('conteudo-ia-impresso').innerText = textoIA;
+        }
+        window.print();
     }
-    window.print();
-}
+
+    // Aqui só crio uma função única q quando chamada em um array (Historico preve o prox valor com regressão linear)
+    function preverProximoValor(historico) {
+
+        if (historico.length < 2) return historico[historico.length - 1] || 0;
+
+        let n = historico.length;
+        let somaX = 0, somaY = 0, somaXY = 0, somaXX = 0;
+
+        for (let i = 0; i < n; i++) {
+            let x = i;              // Tempo
+            let y = historico[i];   // Valor 
+            somaX += x;
+            somaY += y;
+            somaXY += (x * y);
+            somaXX += (x * x);
+        }
+
+        let inclinacao = (n * somaXY - somaX * somaY) / (n * somaXX - somaX * somaX);
+        let intercepto = (somaY - inclinacao * somaX) / n;
+
+        // Prevê o valor para o próximo mês 
+        let previsao = (inclinacao * n) + intercepto;
+
+        // para garantir que fique entre 0 e 100
+        return Math.max(0, Math.min(100, previsao));
+    }
 </script>
 
 </html>

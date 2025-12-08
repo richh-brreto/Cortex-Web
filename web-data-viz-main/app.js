@@ -73,24 +73,13 @@ app.listen(PORTA_APP, function () {
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });
-
-app.post("/perguntar", async (req, res) => {
-    const { pergunta, dados } = req.body;
-
+ 
+app.post("/perguntar", async function (req, res) {
     try {
-        const resultado = await gerarRespostaIA(pergunta, dados);
-        res.json({ resultado: resultado });
-    } catch (error) {
-        console.error("Erro ao gerar resposta da IA:", error);
-        res.status(500).json({ erro: "Erro ao processar a solicitação." });
-    }
-});
-// --- FUNÇÃO DA IA ---
-async function gerarRespostaIA(pergunta, dadosContexto) {
-    try {
-        const dadosTexto = JSON.stringify(dadosContexto);
+        const { pergunta, dados } = req.body;
+        const dadosTexto = JSON.stringify(dados);
 
-     const prompt = `
+        const prompt = `
         Você é um Especialista em Capacity Planning do sistema Cortex.
         
         DADOS HISTÓRICOS (Últimos 3 meses e detalhes atuais):
@@ -115,18 +104,17 @@ async function gerarRespostaIA(pergunta, dadosContexto) {
         `;
 
         // Configura o modelo
-       const model = chatIA.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = chatIA.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-        
+
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 
         console.log("Resposta IA:", text);
-        return text;
-
+        res.json({ resultado: text });
     } catch (error) {
         console.error("Erro no Gemini:", error);
-        throw error;
+        res.status(500).json({ erro: "Erro ao processar a solicitação." });
     }
-}
+});
