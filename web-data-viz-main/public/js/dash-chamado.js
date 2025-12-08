@@ -726,7 +726,7 @@ function graficos(dados){
                  segment: { 
                     borderColor: ctx => {
                         const index = ctx.p1DataIndex
-                        console.log(index)
+                        
                         if(dadosGlobal.discoBoolean[index]){
                             return 'red'
                         }else{
