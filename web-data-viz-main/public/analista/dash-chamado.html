@@ -100,8 +100,8 @@
     <div class="dashboard">
         <!-- Header - Identificação do Modelo -->
         <div class="header">
-            <div class="header-content">
-                <div class="header-topo" id="header-topo">
+            <div class="header-content" id="header-content">
+              
 <!-- 
                     <div class="header-info">
                         <div class="info">
@@ -121,8 +121,8 @@
 
                         </div>
                     </div> -->
-                </div>
-                <div class="header-base" id="header-base">
+                
+
                     <!-- <div class="header-info2">
                         <div class="info">
                             <h3>Status do Ticket:</h3>
@@ -163,27 +163,13 @@
 
 
 
-                </div>
-                <div class="header-fim">
-                    <div class="header-info3">
-                        <div class="info" id="tipo-ticket">
-                          <!--   <h3>Tipo do Ticket:</h3>
-                            <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
-                        color: #202019;">
-                                <h4>Problema</h4>
-                            </span>
-                             <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
-                        color: #464646;">
-                                 <h4>Incidente</h4>
-                            </span> -->
 
-                        </div>
                         <div class="info">
                             <button class="btn btn-secundario" id="modal-um" onclick="openModal()">Ver detalhes</button>
                         </div>
 
-                    </div>
-                </div>
+                    
+                
 
             </div>
         </div>
@@ -198,7 +184,7 @@
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                     </div>
-                    <div class="kpi-title">Duração em Alerta</div>
+                    <div class="kpi-title">Duração <b style="font-weight: 800;">em Alerta</b> </div>
                 </div>
                 <div class="kpi-value primary" id="duracao">00:10:02</div>
             </div>
@@ -214,7 +200,7 @@
                             <line x1="6" y1="18" x2="6.01" y2="18" />
                         </svg>
                     </div>
-                    <div class="kpi-title">DOWNTIME do Servidor</div>
+                    <div class="kpi-title">DOWNTIME do <b style="font-weight: 800;">Servidor</b></div>
                 </div>
                 <div class="kpi-value primary" id="downtimeServer">---</div>
             </div>
@@ -228,7 +214,7 @@
                             <polyline points="7 6 12 11 17 6" />
                         </svg>
                     </div>
-                    <div class="kpi-title">DOWNTIME do Processo Principal</div>
+                    <div class="kpi-title">DOWNTIME do <b style="font-weight: 800;">Processo da Ia</b> </div>
                 </div>
                 <div class="kpi-value primary" id="downtimeProcesso">00:02:05</div>
             </div>
@@ -242,7 +228,7 @@
             <!-- Gráfico de Recursos -->
             <div class="chart-card">
                 <div class="chart-header">
-                    <h2 class="chart-title">Servidor - Componentes por Tempo</h2>
+                    <h2 class="chart-title"> <span style="font-size: 20px; font-weight: 600;">Servidor</span> - Porcentagem de uso dos Recursos por Tempo </h2>
                     <div class="chart-filters">
                         <div class="multiselect-container">
                             <div class="multiselect-trigger" onclick="toggleMultiselect()">
@@ -279,13 +265,14 @@
                 </div>
                 <div class="chart-container">
                     <canvas id="alertsChart2"></canvas>
+                   
                 </div>
             </div>
 
 
             <div class="chart-card">
                 <div class="chart-header">
-                    <h2 class="chart-title">Processo do Modelo - Uso dos Componentes por Tempo</h2>
+                    <h2 class="chart-title"><span style="font-size: 20px; font-weight: 600;">Processo da Ia</span>  - Porcentagem de Uso dos Recursos por Tempo</h2>
                     <div class="chart-filters">
                         <div class="multiselect-container2">
                             <div class="multiselect-trigger2" onclick="toggleMultiselect2()">
@@ -301,10 +288,6 @@
                                     <label class="multiselect-option2">
                                         <input type="checkbox" value="RAM" checked onchange="updateSelection2()">
                                         <span>RAM</span>
-                                    </label>
-                                    <label class="multiselect-option2">
-                                        <input type="checkbox" value="Disco" checked onchange="updateSelection2()">
-                                        <span>Disco</span>
                                     </label>
                                     <label class="multiselect-option2">
                                         <input type="checkbox" value="GPU" checked onchange="updateSelection2()">

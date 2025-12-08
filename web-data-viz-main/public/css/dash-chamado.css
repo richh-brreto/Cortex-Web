@@ -52,6 +52,7 @@ body {
 .header-content {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     gap: 100px;
 }
 
@@ -73,6 +74,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    flex-wrap: nowrap;
     gap: 10px;
    
 
@@ -136,7 +138,7 @@ body {
     justify-content: center;
     flex-direction: row;
     flex-wrap: nowrap;
-    
+    white-space: nowrap;
 }
 
 .info h4{
@@ -471,19 +473,19 @@ body {
 
 }
 .cpu {
-    background-color: #b0f7f7;             
-    color: #00B2B2;
+    background-color: #D1D9E0;             
+    color: #2C3E50;
 }
 .ram {
-    background-color: rgb(169, 252, 164);
-     color: #0cb200ff;
+    background-color:#C6C4F0;
+     color: #120A8F;
 }
 .gpu {
-    background-color: rgb(166, 170, 252); 
-                        color: #0009b2ff;
+    background-color: #C7ECEC; 
+                        color: #138D8D;
 }
 .disco {
-    background-color: rgb(252, 252, 181); 
+    background-color: #F0EAC4; 
     color: #b2b200ff;
 }
 

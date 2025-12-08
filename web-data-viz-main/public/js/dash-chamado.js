@@ -7,11 +7,11 @@ const arquitetura = document.getElementById('arquitetura')
 const modalBody = document.getElementById('modal-body')
 const um = document.getElementById('modal-um')
 
-async function dadosDash(idModelo,idZona,idEmpresa,idJira) {
-        let dados = await JSON.parse(await (await fetch(`/s3Ticket/dadosDash/marilia/${idModelo}-${idZona}-${idEmpresa}-${idJira}.json`)).text());
-        console.log(dados);
-         return dados
-    }
+async function dadosDash(idModelo, idZona, idEmpresa, idJira) {
+    let dados = await JSON.parse(await (await fetch(`/s3Ticket/dadosDash/marilia/${idModelo}-${idZona}-${idEmpresa}-${idJira}.json`)).text());
+    console.log(dados);
+    return dados
+}
 
 
 
@@ -35,23 +35,23 @@ function mapCustomFieldToAlertClass(customFieldValue) {
 
 }
 
-function pegarDataResolucao(changelog){
-    for(let i = 0; i < changelog.histories.length; i++){
+function pegarDataResolucao(changelog) {
+    for (let i = 0; i < changelog.histories.length; i++) {
         var daVez = changelog.histories[i]
-        if(daVez.items[0].toString == "Done"){
+        if (daVez.items[0].toString == "Done") {
 
-            
+
             return daVez.created
         }
     }
 
 }
-function calcularDuracaoResolucao(dataResolucao, created){
+function calcularDuracaoResolucao(dataResolucao, created) {
     var fim = Date.parse(dataResolucao)
     var inicio = Date.parse(created)
 
     var mili = fim - inicio
-    
+
     return (mili / (1000 * 60 * 60)).toFixed(1)
 }
 
@@ -80,8 +80,8 @@ async function carregarMural() {
         const idModelo = identificador[0]
         const idZona = identificador[1]
         const idEmpresa = identificador[2]
-        
-        const dados = await dadosDash(idModelo,idZona, idEmpresa,sessionStorage.getItem("KEY_JIRA_SLECIONADO"))
+
+        const dados = await dadosDash(idModelo, idZona, idEmpresa, sessionStorage.getItem("KEY_JIRA_SLECIONADO"))
 
 
         graficos(dados)
@@ -92,192 +92,159 @@ async function carregarMural() {
             .then(res => res.json())
             .then(modelo => {
                 const m = modelo[0]
-                const titulo = document.getElementById("header-topo")
+                const titulo = document.getElementById("header-content")
                 const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
 
                 if (maquinaNome == "Normal (ticket antigo)") {
-                    var maquinaSpan = ` <span style="background-color: #95a9ec; border-radius: 10px; padding: 5px; 
-                        color: #070707;">
-                                <h4>Normal (ticket antigo)</h4>
+                    var maquinaSpan = ` <span style="background-color: #D1E9FF; border-radius: 10px; padding: 5px; 
+                        color: #004488;font-weight: 800;">
+                                Normal
                             </span>`
                 } else {
-                    var maquinaSpan = `     <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
-                        color: #070707;">
-                                 <h4>Em Alerta (ticket mais atual)</h4>
+                    var maquinaSpan = `     <span style="background-color: #fb8498ff; border-radius: 10px; padding: 5px; 
+                        color: #880000;font-weight: 800;">
+                                 Em Alerta
                             </span> `
                 }
 
-                titulo.innerHTML = `
-            
-                    <div class="header-info">
-                        <div class="info">
-                            <h1 id="nome-modelo">${sessionStorage.getItem("KEY_JIRA_SLECIONADO")} - ${m.nomeModelo}</h1>
-                        </div>
 
-                        <div class="info" id="statusMaquina">
-                            <h3>Status da Máquina:</h3>
-                                ${maquinaSpan}
-                        </div>
-                    </div>
-            `
 
-                const titulo2 = document.getElementById("header-base")
-
+                var dataResolucao = "---"
+                var duracaoResolucao = "---"
                 if (campo.status.name == "Aberto") {
-                    var status = `         <span style="background-color: #F2F2F2; border-radius: 10px; padding: 5px; 
-                        color: #232426;"><h4>Aberto</h4></span>
-                        </div>
-`
 
-                    var dataResolucao = "---"
-                    var duracaoResolucao = "---"
+
+                    dataResolucao = "---"
+                    duracaoResolucao = "---"
                 } else if (campo.status.name == "Em andamento") {
-                    var status = `  <span style="background-color: #6BA5F2; border-radius: 10px; padding: 5px; 
-                        color: #332C34;"><h4>Em andamento</h4></span>`
+                    dataResolucao = "---"
+                    duracaoResolucao = "---"
                 } else if (campo.status.name == "Fechado") {
-                    var status = `<span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
-                        color: #292A2E;">
-                                <h4>Fechado</h4>
-                            </span>`
 
-                     dataResolucao = pegarDataResolucao(changelog)
-                     
-                     duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+
+                    dataResolucao = pegarDataResolucao(changelog)
+
+                    duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
                 } else {
-                    var status = `<span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
-                        color: #292A2E;">
-                                <h4>Concluído</h4>
-                            </span>`
-                     dataResolucao = pegarDataResolucao(changelog)
-                     duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
+
+                    dataResolucao = pegarDataResolucao(changelog)
+                    duracaoResolucao = calcularDuracaoResolucao(dataResolucao, campo.created)
                 }
 
                 var labels = "";
                 for (let i = 0; i < campo.labels.length; i++) {
                     if (campo.labels[i] == "cpu") {
-                        labels += `<span style="background-color: #b0f7f7; border-radius: 10px; padding: 5px; 
-                        color: #00B2B2;">
-                                <h4>CPU</h4>
+                        labels += `<span style="background-color: #D1D9E0; border-radius: 10px; padding: 5px; 
+                        color: #2C3E50;font-weight: 800;">
+                                CPU
                             </span>`
                     }
                     if (campo.labels[i] == "ram") {
-                        labels += `                            <span style="background-color: rgb(169, 252, 164); border-radius: 10px; padding: 5px; 
-                        color: #0cb200ff;">
-                                <h4>RAM</h4>
+                        labels += `                            <span style="background-color: #C6C4F0; border-radius: 10px; padding: 5px; 
+                        color: #120A8F;font-weight: 800;">
+                                RAM
                             </span>`
                     }
                     if (campo.labels[i] == "gpu") {
                         labels += `
-                             <span style="background-color: rgb(166, 170, 252); border-radius: 10px; padding: 5px; 
-                        color: #0009b2ff;">
-                                <h4>GPU</h4>
+                             <span style="background-color: #C7ECEC; border-radius: 10px; padding: 5px; 
+                        color: #138D8D;font-weight: 800;">
+                                GPU
                             </span>
                     `
 
                     }
                     if (campo.labels[i] == "disco") {
                         labels += `
-                                                <span style="background-color: rgb(252, 252, 181); border-radius: 10px; padding: 5px; 
-                        color: #b2b200ff;">
-                                <h4>Disco</h4>
+                                                <span style="background-color: #F0EAC4; border-radius: 10px; padding: 5px; 
+                        color: #b2a300ff;font-weight: 800;">
+                                Disco
                             </span>
                     `
                     }
                 }
 
-                
+
                 var criacaoSplit01 = campo.created.split(".")
                 var criacaoSplit02 = criacaoSplit01[0].split("T")
                 var createdFormatado = criacaoSplit02[0] + "  " + criacaoSplit02[1]
-                 const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
-                 const Impacto = campo.customfield_10004 ? campo.customfield_10004.value : '---';
+                const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
+                const Impacto = campo.customfield_10004 ? campo.customfield_10004.value : '---';
 
-                titulo2.innerHTML = `
-            <div class="header-info2">
-                        <div class="info">
-                            <h3>Status do Ticket:</h3>
-                            ${status}
+                titulo.innerHTML = `
+                           <div class="info">
+                            <h1 id="nome-modelo">${sessionStorage.getItem("KEY_JIRA_SLECIONADO")} - ${m.nomeModelo}</h1>
+                        </div>
+                        <div class="info" id="statusMaquina">
+                            <h3>Estado da Máquina na Última Atualização do Ticket:</h3>
+                                ${maquinaSpan}
+                        </div>
                         <div class="info">
                             <h3>Alertas do Ticket:</h3>
                             ${labels}
                         </div>
+                          
+                            <div class="info">
+                            <button class="btn btn-secundario" id="modal-um" onclick="openModal()">Ver detalhes</button>
+                        </div>
 
-                    </div>
+                    
             `
 
-                const tipo = document.getElementById("tipo-ticket")
-
-                if (campo.customfield_10059 == "Problema") {
-                    var tipoEstilo = `   <span style="background-color: #eaecab; border-radius: 10px; padding: 5px; 
-                        color: #202019;">
-                                <h4>Problema</h4>
-                            </span>`
-                } else {
-                    var tipoEstilo = `  <span style="background-color: #d9e1fc; border-radius: 10px; padding: 5px; 
-                        color: #464646;">
-                                 <h4>Incidente</h4>
-                            </span>`
+                var resolucFormatada = "---"
+                if (dataResolucao != null && dataResolucao.includes("T")) {
+                    var resoluc01 = dataResolucao.split(".")
+                    var resoluc02 = resoluc01[0].split("T")
+                    resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
                 }
 
-                tipo.innerHTML = `
-                  <h3>Tipo do Ticket:</h3>
-                    ${tipoEstilo}   
-                           
-            `
-            var resolucFormatada = "---"
-            if(dataResolucao != null && dataResolucao.includes("T")){
-                var resoluc01 = dataResolucao.split(".")
-                    var resoluc02 = resoluc01[0].split("T")
-            resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
-            }
+                var linha = ""
 
-                            var linha = ""
-       
-                for(let i = 0; i < dados.linha_do_tempo.length; i++){
+                for (let i = 0; i < dados.linha_do_tempo.length; i++) {
                     var daVez2 = dados.linha_do_tempo[i]
-                    if(daVez2.includes("Início") == true){
+                    if (daVez2.includes("Início") == true) {
                         linha += `<div class="item-linha"> <svg xmlns="http://www.w3.org/2000/svg" 
                                 height="24px" viewBox="0 -960 960 960" width="24px" 
                                 fill="rgb(23, 255, 6)">
                                 <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
                                 <span>Início `
 
-                    }else if(daVez2.includes("Fim")) {
+                    } else if (daVez2.includes("Fim")) {
                         linha += `<div class="item-linha"><svg xmlns="http://www.w3.org/2000/svg" height="24px" 
                            viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
                            <span>Fim  `
                     }
                     var timestampDaVez = daVez2.trim().split("T")
-                    
-                    if(daVez2.includes("CPU")){
+
+                    if (daVez2.includes("CPU")) {
                         linha += `<span class="item-componente tempo cpu">CPU</span>  - ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
 
-                    if(daVez2.includes("RAM")){
+                    if (daVez2.includes("RAM")) {
                         linha += `<span class="item-componente tempo ram">RAM</span>  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
-                      if(daVez2.includes("Disco")){
+                    if (daVez2.includes("Disco")) {
                         linha += `<span class="item-componente tempo disco">Disco</span>  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
-                      if(daVez2.includes("GPU")){
+                    if (daVez2.includes("GPU")) {
                         linha += `<span class="item-componente tempo gpu">GPU</span>  - ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
-                    if(daVez2.includes("Processo")){
-                        linha += `Downtime Processo  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
+                    if (daVez2.includes("Processo")) {
+                        linha += `Downtime  Processo  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
                     }
-                    if(daVez2.includes("Servidor")){
+                    if (daVez2.includes("Servidor")) {
                         linha += `Downtime Servidor  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
                     }
                 }
 
 
-            
- modalBody.innerHTML = `
+
+                modalBody.innerHTML = `
          <div class="container-modal">
                         <div class="titulo">
                             <h4>Informações Gerais</h4>
@@ -288,18 +255,19 @@ async function carregarMural() {
                                     <span class="info-item-label">Criação do Ticket:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${createdFormatado}</span>
                                 </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Duração da Resolução:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao}</span>
+                                 <div class="info-item">
+                                    <span class="info-item-label">Andamento do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.status.name}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Urgência:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${campo.priority.name}</span>
                                 </div>
+                                 
                             </div>
                             <div class="container-item-coluna">
                                 <div class="info-item">
-                                    <span class="info-item-label">Resolução do Ticket:</span>
+                                    <span class="info-item-label">Data da Resolução do Ticket:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${resolucFormatada}</span>
                                 </div>
                                 <div class="info-item">
@@ -340,7 +308,7 @@ async function carregarMural() {
                 
     `
 
-        arquitetura.addEventListener('click', function () {
+                arquitetura.addEventListener('click', function () {
                     modalBody.innerHTML = `
          <div class="container-modal">
                   
@@ -490,7 +458,7 @@ async function carregarMural() {
         `
                 })
 
-                
+
 
 
                 detalheModal.addEventListener("click", function () {
@@ -505,18 +473,19 @@ async function carregarMural() {
                                     <span class="info-item-label">Criação do Ticket:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${createdFormatado}</span>
                                 </div>
-                                <div class="info-item">
-                                    <span class="info-item-label">Duração da Resolução:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">${duracaoResolucao}</span>
+                               <div class="info-item">
+                                    <span class="info-item-label">Andamento do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${campo.status.name}</span>
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Urgência:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${campo.priority.name}</span>
                                 </div>
+                                 
                             </div>
                             <div class="container-item-coluna">
                                 <div class="info-item">
-                                    <span class="info-item-label">Resolução do Ticket:</span>
+                                    <span class="info-item-label">Data da Resolução do Ticket:</span>
                                     <span id="info-modelo-cliente" class="info-item-value">${resolucFormatada}</span>
                                 </div>
                                 <div class="info-item">
@@ -587,7 +556,7 @@ function openModal() {
         document.body.style.overflow = 'hidden';
     }
 
-    
+
 }
 function closeModal() {
     if (modelModal) modelModal.style.display = 'none';
@@ -629,248 +598,278 @@ const duracao = document.getElementById('duracao')
 let dadosGlobal = null
 let graficoAlertsCtx2 = null
 let graficoAlertsCtx = null
-function graficos(dados){
+function graficos(dados) {
     dadosGlobal = dados
     duracao.innerHTML = `
         ${dados.duracao_alerta}
-    ` 
+    `
 
     downtimeProcesso.innerHTML = `${dados.downtime_processo}`
     downtimeServer.innerHTML = `${dados.downtime_servidor}`
 
     console.log(dados.timestamp)
     graficoAlertsCtx2 = new Chart(alertsCtx2, {
-    type: 'line',
-    data: {
-        labels: 
-            dados.timestamp
-        ,
-        datasets: [
-            {
-                label: 'CPU',
-                data: dados.cpu,
-                borderColor: '#00B2B2',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#00B2B2',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-            segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.cpuBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#00B2B2'
+        type: 'line',
+        data: {
+            labels:
+                dados.timestamp
+            ,
+            datasets: [
+                {
+                    label: 'CPU',
+                    data: dados.cpu,
+                    borderColor: '#2C3E50',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#2C3E50',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6,
+                    segment: {
+                        borderColor: ctx => {
+                            const index = ctx.p1DataIndex
+                            console.log(index)
+                            if (dadosGlobal.cpuBoolean[index]) {
+                                return 'red'
+                            } else {
+                                return '#2C3E50'
+                            }
                         }
-                    }}
-            },
-            {
-                label: 'RAM',
-                data:dados.ram,
-                borderColor: '#0cb200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0cb200ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                 segment: { 
-                   borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.ramBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#0cb200ff'
+                    }
+                },
+                {
+                    label: 'RAM',
+                    data: dados.ram,
+                    borderColor: '#120a8f',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#120a8f',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6,
+                    segment: {
+                        borderColor: ctx => {
+                            const index = ctx.p1DataIndex
+                            console.log(index)
+                            if (dadosGlobal.ramBoolean[index]) {
+                                return 'red'
+                            } else {
+                                return '#120a8f'
+                            }
                         }
-                    }}
-            },
-            {
-                label: 'GPU',
-                data: dados.gpu,
-                borderColor: '#0009b2ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0009b2ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-       segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.gpuBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#0009b2ff'
+                    }
+                },
+                {
+                    label: 'GPU',
+                    data: dados.gpu,
+                    borderColor: '#138D8D',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#138D8D',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6,
+                    segment: {
+                        borderColor: ctx => {
+                            const index = ctx.p1DataIndex
+                            console.log(index)
+                            if (dadosGlobal.gpuBoolean[index]) {
+                                return 'red'
+                            } else {
+                                return '#138D8D'
+                            }
                         }
-                    }}
-            },
-            {
-                label: 'Disco',
-                data: dados.disco,
-                borderColor: '#b2b200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#b2a300ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                 segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1DataIndex
+                    }
+                },
+                {
+                    label: 'Disco',
+                    data: dados.disco,
+                    borderColor: '#b2b200ff',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#b2a300ff',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6,
+                    segment: {
+                        borderColor: ctx => {
+                            const index = ctx.p1DataIndex
+
+                            if (dadosGlobal.discoBoolean[index]) {
+                                return 'red'
+                            } else {
+                                return '#b2a300ff'
+                            }
+                        }
+                    }
+
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    boxWidth: 10,
+                    padding: 20,
+                    color: '#333',
+                    font: {
+                        size: 14,
+                        family: 'Arial, sans-serif'
+                    },
+                   
+                    generateLabels: function(chart) {
                         
-                        if(dadosGlobal.discoBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#b2a300ff'
-                        }
-                    }}
-                
-            },
-        ],
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                    boxWidth: 10,
-                    padding: 20,
-                    color: '#333',
-                    font: {
-                        size: 14,
-                        family: 'Arial, sans-serif'
+                        const originalLabels = chart.data.datasets.map((dataset, i) => ({
+                            text: dataset.label,
+                            fillStyle: dataset.pointBackgroundColor || dataset.borderColor,
+                            strokeStyle: dataset.borderColor,
+                            lineWidth: 2,
+                            hidden: !chart.isDatasetVisible(i),
+                            datasetIndex: i,
+                        }));
+                        
+                        
+                        const customAlertLabel = {
+                            text: 'Recurso Em Alerta', 
+                            fillStyle: 'red',                  
+                            strokeStyle: 'red',                
+                            lineWidth: 2,
+                            pointStyle: chart.options.plugins.legend.labels.pointStyle, 
+                            datasetIndex: null, 
+                            hidden: false
+                        };
+
+                        
+                        originalLabels.push(customAlertLabel);
+
+                        return originalLabels;
                     }
                 }
             },
-            tooltip: {
-                enabled: true,
-                mode: 'nearest',
-                intersect: false,
-                backgroundColor: '#fff',
-                titleColor: '#333',
-                bodyColor: '#000',
-                borderColor: '#ccc',
-                borderWidth: 1
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: { stepSize: 5 }
+                tooltip: {
+                    enabled: true,
+                    mode: 'nearest',
+                    intersect: false,
+                    backgroundColor: '#fff',
+                    titleColor: '#333',
+                    bodyColor: '#000',
+                    borderColor: '#ccc',
+                    borderWidth: 1
+                }
             },
-            x: {
-                grid: { display: false }
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 20 }
+                },
+                x: {
+                    grid: { display: false }
+                }
             }
         }
-    }
 
-});
+    });
     graficoAlertsCtx = new Chart(alertsCtx, {
-    type: 'line',
-    data: {
-        labels: 
-           dados.timestamp
-        ,
-        datasets: [
-            {
-                label: 'CPU',
-                data: dados.cpuProc,
-                borderColor: '#00B2B2',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#00B2B2',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6
+        type: 'line',
+        data: {
+            labels:
+                dados.timestamp
+            ,
+            datasets: [
+                {
+                    label: 'CPU',
+                    data: dados.cpuProc,
+                    borderColor: '#2C3E50',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#2C3E50',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6
 
-            },
-            {
-                label: 'RAM',
-                data: dados.ramProc,
-                borderColor: '#0cb200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0cb200ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6
-            },
-            {
-                label: 'GPU',
-                data: dados.gpuProc,
-                borderColor: '#0009b2ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0009b2ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6
-            },
-        ],
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-                align: 'center',
-                labels: {
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                    boxWidth: 10,
-                    padding: 20,
-                    color: '#333',
-                    font: {
-                        size: 14,
-                        family: 'Arial, sans-serif'
-                    }
-                }
-            },
-            tooltip: {
-                enabled: true,
-                backgroundColor: '#fff',
-                titleColor: '#333',
-                bodyColor: '#000',
-                borderColor: '#ccc',
-                borderWidth: 1,
-                mode: 'nearest',
-                intersect: false
-            }
+                },
+                {
+                    label: 'RAM',
+                    data: dados.ramProc,
+                    borderColor: '#120a8f',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#120a8f',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6
+                },
+                {
+                    label: 'GPU',
+                    data: dados.gpuProc,
+                    borderColor: '#138D8D',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 7,
+                    pointBackgroundColor: '#138D8D',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6
+                },
+            ],
         },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    stepSize: 5
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        boxWidth: 10,
+                        padding: 20,
+                        color: '#333',
+                        font: {
+                            size: 14,
+                            family: 'Arial, sans-serif'
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: '#fff',
+                    titleColor: '#333',
+                    bodyColor: '#000',
+                    borderColor: '#ccc',
+                    borderWidth: 1,
+                    mode: 'nearest',
+                    intersect: false
                 }
             },
-            x: {
-                grid: {
-                    display: false
+         
+                scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 20 }
+                },
+                x: {
+                    grid: { display: false }
                 }
-            }
+            
+            },
         }
-    }
-});
+    });
 }
 
 
@@ -906,114 +905,109 @@ function applySelection() {
 
 
 function updateLineChart() {
+
     const checkboxes = document.querySelectorAll('.multiselect-option input[type="checkbox"]');
-    const count = Array.from(checkboxes).filter(cb => cb.checked)
-    var newDatasets = []
+    const count = Array.from(checkboxes).filter(cb => cb.checked);
+    var newDatasets = [];
+ 
+
     for (let i = 0; i < count.length; i++) {
-        if (count[i].value == "CPU") {
-            newDatasets.push({
-                label: 'CPU',
-                data: dadosGlobal.cpu,
-                borderColor: '#00B2B2',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#00B2B2',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
+        let currentData = null;
+        let datasetConfig = null;
+        const value = count[i].value;
+
+        if (value === "CPU") {
+            currentData = dadosGlobal.cpu;
+            datasetConfig = {
+                label: 'CPU', 
+                data: currentData, 
+                borderColor: '#2C3E50', 
+                tension: 0.4, 
+                borderWidth: 2, 
+                pointRadius: 7, 
+                pointBackgroundColor: '#2C3E50', 
+                pointBorderColor: '#fff', 
+                pointBorderWidth: 2, 
                 pointHoverRadius: 6,
-                       segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.cpuBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#00B2B2'
-                        }
-                    }}
-            });
-        }
-        if (count[i].value == "RAM") {
-            newDatasets.push({
-                label: 'RAM',
-                data: dadosGlobal.ram,
-                borderColor: '#0cb200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0cb200ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                       segment: { 
-                      borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.ramBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#0cb200ff'
-                        }
-                    }}
-            });
-        }
-        if (count[i].value == "GPU") {
-            newDatasets.push({
+                segment: { 
+                    borderColor: ctx =>
+                         dadosGlobal.cpuBoolean[ctx.p1DataIndex] ? 'red' : '#2C3E50' 
+                }
+            };
+        } else if (value === "RAM") {
+            currentData = dadosGlobal.ram;
+            datasetConfig = {
+                label: 'RAM', 
+                data: currentData, 
+                borderColor: '#120a8f',
+                 tension: 0.4, 
+                 borderWidth: 2, 
+                 pointRadius: 7, 
+                 pointBackgroundColor: '#120a8f', 
+                 pointBorderColor: '#fff',
+                  pointBorderWidth: 2, 
+                  pointHoverRadius: 6,
+                segment: { 
+                    borderColor: ctx => 
+                        dadosGlobal.ramBoolean[ctx.p1DataIndex] ? 'red' : '#120a8f' 
+                }
+            };
+        } else if (value === "GPU") {
+            currentData = dadosGlobal.gpu;
+            datasetConfig = {
                 label: 'GPU',
-                data: dadosGlobal.gpu,
-                borderColor: '#0009b2ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0009b2ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                       segment: { 
-                     borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.gpuBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#0009b2ff'
-                        }
-                    }}
-            });
-        }
-        if (count[i].value == "Disco") {
-            newDatasets.push({
-                label: 'Disco',
-                data: dadosGlobal.disco,
-                borderColor: '#b2b200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#b2a300ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                       segment: { 
-                         borderColor: ctx => {
-                        const index = ctx.p1DataIndex
-                        console.log(index)
-                        if(dadosGlobal.discoBoolean[index]){
-                            return 'red'
-                        }else{
-                            return '#b2a300ff'
-                        }
-                    }}
-            });
+                 data: currentData,
+                  borderColor: '#138D8D',
+                   tension: 0.4,
+                    borderWidth: 2,
+                     pointRadius: 7,
+                      pointBackgroundColor: '#138D8D',
+                       pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                         pointHoverRadius: 6,
+                segment: { 
+                    borderColor: ctx => 
+                        dadosGlobal.gpuBoolean[ctx.p1DataIndex] ? 'red' : '#138D8D'
+                 }
+            };
+        } else if (value === "Disco") {
+            currentData = dadosGlobal.disco;
+            datasetConfig = {
+                label: 'Disco', 
+                data: currentData, 
+                borderColor: '#b2b200ff', 
+                tension: 0.4, 
+                borderWidth: 2, 
+                pointRadius: 7, 
+                pointBackgroundColor: '#b2a300ff', 
+                pointBorderColor: '#fff', pointBorderWidth: 2, pointHoverRadius: 6,
+                segment: { 
+                    borderColor: ctx => 
+                        dadosGlobal.discoBoolean[ctx.p1DataIndex] ? 'red' : '#b2a300ff' 
+                }
+            };
         }
 
-
+        
+        if (datasetConfig) {
+            newDatasets.push(datasetConfig);
+        }
     }
 
-    graficoAlertsCtx2.data.datasets = newDatasets;
-    graficoAlertsCtx2.update();
-}
 
+    if (count.length == 4) {
+        graficoAlertsCtx2.options.scales.y.ticks.stepSize = 20;
+    } else {
+        graficoAlertsCtx2.options.scales.y.ticks.stepSize = 1;
+    }
+
+
+    graficoAlertsCtx2.options.scales.y.beginAtZero = false;
+
+
+    graficoAlertsCtx2.data.datasets = newDatasets;
+    graficoAlertsCtx2.update('none');
+}
 // Fechar dropdown ao clicar fora
 document.addEventListener('click', (e) => {
     const container = document.querySelector('.multiselect-container');
@@ -1053,67 +1047,77 @@ function updateLineChart2() {
     const count2 = Array.from(checkboxes2).filter(cb => cb.checked)
     var newDatasets = []
     for (let i = 0; i < count2.length; i++) {
-        if (count2[i].value == "CPU") {
-            newDatasets.push({
+         let currentData = null;
+        let datasetConfig = null;
+     
+    
+     
+
+        if (count2[i].value === "CPU") {
+            currentData = dadosGlobal.cpuProc;
+            datasetConfig = {
                 label: 'CPU',
-                data: dadosGlobal.cpuProc,
-                borderColor: '#00B2B2',
+                data: currentData,
+                borderColor: '#2C3E50',
                 tension: 0.4,
                 borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#00B2B2',
+                pointRadius: 7,
+                pointBackgroundColor: '#2C3E50',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6
-            });
-        }
-        if (count2[i].value == "RAM") {
-            newDatasets.push({
+            };
+        }else if (count2[i].value === "RAM") {
+            currentData = dadosGlobal.ramProc;
+            datasetConfig ={
                 label: 'RAM',
-                data: dadosGlobal.ramProc,
-                borderColor: '#0cb200ff',
+                data: currentData,
+                borderColor: '#120a8f',
                 tension: 0.4,
                 borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0cb200ff',
+                pointRadius: 7,
+                pointBackgroundColor: '#120a8f',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6
-            });
-        }
-        if (count2[i].value == "GPU") {
-            newDatasets.push({
+            };
+        }else
+        if (count2[i].value === "GPU") {
+             currentData = dadosGlobal.gpuProc;
+            datasetConfig= {
                 label: 'GPU',
-                data: dadosGlobal.gpuProc,
-                borderColor: '#0009b2ff',
+                data: currentData,
+                borderColor: '#138D8D',
                 tension: 0.4,
                 borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#0009b2ff',
+                pointRadius: 7,
+                pointBackgroundColor: '#138D8D',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 pointHoverRadius: 6
-            });
+            };
         }
-        if (count2[i].value == "Disco") {
-            newDatasets.push({
-                label: 'Disco',
-                data: dadosGlobal.discoProc,
-                borderColor: '#b2b200ff',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-                pointBackgroundColor: '#b2a300ff',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointHoverRadius: 6
-            });
-        }
+        
 
 
+      if (datasetConfig) {
+            newDatasets.push(datasetConfig);
+        }
     }
+
+
+    if (count2.length == 3) {
+        graficoAlertsCtx.options.scales.y.ticks.stepSize = 20;
+    } else {
+        graficoAlertsCtx.options.scales.y.ticks.stepSize = 1;
+    }
+
+
+    graficoAlertsCtx.options.scales.y.beginAtZero = false;
+
+
     graficoAlertsCtx.data.datasets = newDatasets;
-    graficoAlertsCtx.update();
+    graficoAlertsCtx.update('none');
 }
 
 // Fechar dropdown ao clicar fora
