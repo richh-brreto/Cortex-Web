@@ -2,6 +2,7 @@ const API_BASE = "/api/alertas"; // rotas do backend
 
 // select de modelo 
 const modeloSelect = document.getElementById("selectModelo")
+const buttonIndicativos = document.getElementById("buttonIndicativos");
 
 // KPIs
 const kpiTotal = document.getElementById("kpi_total");
@@ -58,13 +59,18 @@ function calcularPredicoesTotal(totalAtual) {
 function atualizarKpiPredicoesTotal(totalAtual) {
     const { dia, semana } = calcularPredicoesTotal(totalAtual);
     document.getElementById("kpi_total").textContent = totalAtual;
+    if(totalAtual >= 15 && totalAtual < 20){
+        kpiTotal.style.color = "#d3b341ff";
+    } else if (totalAtual >= 20){
+        kpiTotal.style.color = "#B74C4C";
+    }
 
     // previsões
     document.getElementById("kpi_pred_dia").textContent =
-        `Se nada for resolvido: aproximadamente ${dia} alertas \n (+7% alertas em 24h)`;
+        `Sem resolução: próximo de ${dia} alertas (+7% alertas em 24h)`;
 
     document.getElementById("kpi_pred_semana").textContent =
-        `Projeção em 7 dias: aproximadamente ${semana} alertas \n (+49% alertas na semana)`;
+        `Projeção em 7 dias: próximo de ${semana} alertas \n (+49% alertas na semana)`;
 }
 
 
@@ -447,10 +453,6 @@ async function atualizarDashboard() {
     atualizarKpiPredicoesTotal(total);
     atualizarKpiProporcao(alertas);
 
-    // alertas de todos os modelos
-    // const counts24h = contarModelos24h(window._alertasTodosModelos);
-    // atualizarKpiModelos24h(counts24h);
-
     const intervalos = calcularAlertasPorIntervalo(alertas);
     atualizarKpiIntervalos(intervalos);
 }
@@ -470,3 +472,20 @@ window.onload = async function () {
 
     atualizarDashboard();
 };
+
+// funções do modal de indicativos
+function abrirIndicativos() {
+    document.getElementById("modalIndicativos").style.display = "flex";
+}
+
+function fecharIndicativos() {
+    document.getElementById("modalIndicativos").style.display = "none";
+}
+
+// fechar ao clicar fora
+window.addEventListener("click", (e) => {
+    const modal = document.getElementById("modalIndicativos");
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+});

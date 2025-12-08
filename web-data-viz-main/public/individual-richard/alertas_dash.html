@@ -14,6 +14,16 @@
     <script defer src="./alertas_dash.js"></script>
 </head>
 
+<!-- Modal de Indicativos -->
+<div id="modalIndicativos" class="modal-indicativos">
+    <div class="modal-content">
+        <span class="close-btn" onclick="fecharIndicativos()">×</span>
+        <h2>Indicativo de Alertas</h2>
+        <p><strong>• Acima de 15 alertas:</strong> Verifique o funcionamento do modelo, possível downtime iminente</p>
+        <p><strong>• Acima de 20 alertas:</strong> Sistema em risco, verifique a causa dos alertas imediatamente.</p>
+    </div>
+</div>
+
 <body>
     <nav class="barra-lateral">
         <a class="item-logo">
@@ -68,7 +78,7 @@
 
         <a class="item-usuario">
             <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-            <span class="texto-usuario">José</span>
+            <span class="texto-usuario">Fernanda</span>
         </a>
 
         <div class="divisor"></div>
@@ -88,8 +98,9 @@
                 <div class="header-info">
                     <h1 class="header-title">Dashboard de Alertas</h1>
                     <p class="header-info">Total de Alertas Atual no Sistema:</p>
-                    <p id="kpi_total">--</p>
+                    <p id="kpi_total" style="color:#006E66" >--</p>
                 </div>
+                <button id="buttonIndicativos" class="indicativo-btn" onclick="abrirIndicativos()">Indicativos</button>
                 <div class="single-select-container">
                     <label for="selectModelo">Modelo:</label>
                     <select class="selectModelo" id="selectModelo">
@@ -104,22 +115,28 @@
         <div class="kpis-grid">
 
             <!-- Slack KPIs -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Predição de Continuidade de Alertas</div>
-                </div>
+            <div class="kpi-card predicao-card">
+                <div class="predicao-wrapper">
 
-                <div class="arch-compact-item">
-                    <span class="arch-compact-name">Predição 24h:</span>
-                    <span id="kpi_pred_dia" style="color:#0A202D;">--</span>
-                </div>
+                    <div class="pred-title">Predição de Continuidade de Alertas</div>
 
-                <div class="arch-compact-item">
-                    <span class="arch-compact-name">Predição 7 dias:</span>
-                    <span id="kpi_pred_semana" style="color: #0A202D;">--</span>
-                </div>
+                    <div class="predicao-grid">
 
+                        <div class="pred-col">
+                            <div class="pred-label">Previsão 24h</div>
+                            <div class="pred-value" id="kpi_pred_dia">--</div>
+                        </div>
+
+                        <div class="pred-col">
+                            <div class="pred-label">Previsão 7 dias</div>
+                            <div class="pred-value" id="kpi_pred_semana">--</div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
+
 
             <!-- Proporção de alertas críticos -->
             <div class="kpi-card">
