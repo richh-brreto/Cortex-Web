@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Alertas</title>
+
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="./alertas_dash.css">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script defer src="./alertas_dash.js"></script>
+</head>
+
+<body>
+    <nav class="barra-lateral">
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/graficos.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Zona de disponibilidade</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/alerta.png" id="alerta" alt="">
+            <span class="texto">Alertas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/icons8-curso-atribuir-80.png" id="atribuicao" alt="">
+            <span class="texto">Atribuições</span>
+        </a>
+
+        <a class="item-navegacao">
+            <img src="../assets/icon/gestor-de-projeto.png" id="gerenciamento" alt="">
+            <span class="texto">Gerenciamento Funcionario</span>
+        </a>
+
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/modelo.png" id="modelo" alt="">
+                <span class="texto">
+                    Modelos
+                    <span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">Opção 1</div>
+                <div class="submenu-item">Opção 2</div>
+                <div class="submenu-item">Opção 3</div>
+            </div>
+        </div>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="../assets/icon/sino.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Notificações</span>
+        </a>
+
+        <a class="item-usuario">
+            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
+            <span class="texto-usuario">José</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+
+    <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
+
+    <div class="dashboard">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-info">
+                    <h1 class="header-title">Dashboard de Alertas</h1>
+                    <p class="header-info">Total de Alertas no Sistema:</p>
+                    <p id="kpi_total">--</p>
+                </div>
+                <div class="single-select-container">
+                    <label for="selectModelo">Modelo:</label>
+                    <select class="selectModelo" id="selectModelo">
+                        <option value="">Selecione um Modelo</option>
+                        <option value="modeloA">Modelo A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis-grid">
+
+            <!-- Slack KPIs -->
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-title">Total de Alertas do Sistema</div>
+                </div>
+
+                <div class="arch-compact-item">
+                    <span class="arch-compact-name">Predição 24h:</span>
+                    <span id="kpi_pred_dia" style="color:#B74C4C;">--</span>
+                </div>
+
+                <div class="arch-compact-item">
+                    <span class="arch-compact-name">Predição 7 dias:</span>
+                    <span id="kpi_pred_semana" style="color:#B74C4C;">--</span>
+                </div>
+
+            </div>
+
+            <!-- Proporção de alertas críticos -->
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-title">Proporção de Alertas críticos em 24h</div>
+                </div>
+
+                <span id="kpi_proporcao_criticos">--%</span>
+            </div>
+
+            <!-- Modelos em 24h -->
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-title">Modelos que mais geraram Alertas (24h)</div>
+                </div>
+
+                <div class="arch-compact-grid" id="kpi_24h">--</div>
+            </div>
+        </div>
+
+        <!-- GRÁFICOS -->
+        <div class="charts-grid">
+
+            <!-- Gráfico de Categorias -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Alertas por Severidade e Categoria</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="graficoCategorias"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico Intervalos -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">Intervalo de Alertas</h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="graficoIntervalos"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

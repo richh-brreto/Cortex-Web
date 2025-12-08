@@ -191,7 +191,12 @@
                         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                             <div class="campo-form">
                                 <label for="nome-modelo">Nome:</label>
-                                <input type="text" id="nome-modelo" placeholder="Nome do processo do seu modelo" required>
+                                <input type="text" id="nome-modelo" placeholder="Nome do seu servidor" required>
+                            </div>
+
+                         <div class="campo-form">
+                                <label for="tempo-modelo">Nome do processo da IA:</label>
+                                <input type="text" id="nome-processo" placeholder="EX: iasmin.exe">
                             </div>
                             <div class="campo-form">
                                 <label for="descricao-modelo">Descrição:</label>
@@ -236,6 +241,7 @@
                                 <label for="tempo-modelo">Intervalo (Minutos):</label>
                                 <input type="number" id="tempo-modelo" placeholder="Ex: 5 a 60 min">
                             </div>
+                           
                             <div class="campo-form">
                                 <label for="limite-cpu-modelo">Limite CPU (%):</label>
                                 <input type="number" step="0.1" id="limite-cpu-modelo" placeholder="Ex: 80.0">
@@ -300,6 +306,7 @@
         const limiteRamInput = document.getElementById('limite-ram-modelo');
         const limiteGpuInput = document.getElementById('limite-gpu-modelo');
         const arquiteturaInput = document.getElementById('arquitetura-modelo');
+        const nomeProcessoInput = document.getElementById('nome-processo')
 
 
         const tabelaCorpo = document.getElementById('tabela-modelos-corpo');
@@ -498,6 +505,7 @@
                         tr.setAttribute("data-fk_cliente", m.fk_cliente);
                         tr.setAttribute("data-fk_zona", m.fk_zona_disponibilidade);
                         tr.setAttribute("data-fk_arquitetura", m.fk_arquitetura);
+                        tr.setAttribute("data-nome-processo",m.nome_processo)
 
                         tr.innerHTML = `
                         <td>${m.id_modelo}</td>
@@ -621,6 +629,7 @@
                 limiteGpuInput.value = linha.getAttribute("data-limite-gpu");
                 clienteInput.value = linha.getAttribute("data-fk_cliente");
                 zonaInput.value = linha.getAttribute("data-fk_zona");
+                nomeProcessoInput.value = linha.getAttribute("data-nome-processo")
                 if (arquiteturaInput) arquiteturaInput.value = linha.getAttribute("data-fk_arquitetura");
 
 
@@ -669,7 +678,8 @@
                 fk_cliente: clienteInput.value,
                 fk_zona_disponibilidade: zonaInput.value,
                 fk_arquitetura: arquiteturaInput ? arquiteturaInput.value : null,
-                fk_empresa: fk_empresa
+                fk_empresa: fk_empresa,
+                nome_processo: nomeProcessoInput.value
 
             };
 
