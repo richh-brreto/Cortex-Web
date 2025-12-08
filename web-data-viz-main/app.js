@@ -25,10 +25,13 @@ var funcionarioRouter = require("./src/routes/funcionario");
 var zonaRouter = require("./src/routes/zona");
 var arquiteturaRouter = require("./src/routes/arquiteturas");
 var muralRoute = require("./src/routes/mural");
+const s3Router = require('./src/routes/s3Route');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use('/s3Route', s3Router);
 app.use("/empresaDados", empresaDadosRouter);
 app.use("/modelos", modelosRouter);
 app.use("/admin", adminRouter);
