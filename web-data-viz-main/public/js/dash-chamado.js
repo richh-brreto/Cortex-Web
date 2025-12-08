@@ -659,9 +659,13 @@ function graficos(dados){
                 pointHoverRadius: 6,
             segment: { 
                     borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dados.cpuBoolean[index];
-                        return isAlert ? '#00B2B2' : 'red';
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.cpuBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#00B2B2'
+                        }
                     }}
             },
             {
@@ -676,10 +680,14 @@ function graficos(dados){
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
                  segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dados.ramBoolean[index];
-                        return isAlert ? 'red' : '#0cb200ff' ;
+                   borderColor: ctx => {
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.ramBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#0cb200ff'
+                        }
                     }}
             },
             {
@@ -695,9 +703,13 @@ function graficos(dados){
                 pointHoverRadius: 6,
        segment: { 
                     borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dados.gpuBoolean[index];
-                        return isAlert ? 'red' : '#0009b2ff';
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.gpuBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#0009b2ff'
+                        }
                     }}
             },
             {
@@ -713,9 +725,13 @@ function graficos(dados){
                 pointHoverRadius: 6,
                  segment: { 
                     borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dados.discoBoolean[index];
-                        return isAlert ? 'red' : '#b2a300ff' ;
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.discoBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#b2a300ff'
+                        }
                     }}
                 
             },
@@ -908,9 +924,13 @@ function updateLineChart() {
                 pointHoverRadius: 6,
                        segment: { 
                     borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dadosGlobal.cpuBoolean[index];
-                        return isAlert ? 'red' : '#00B2B2';
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.cpuBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#00B2B2'
+                        }
                     }}
             });
         }
@@ -927,10 +947,14 @@ function updateLineChart() {
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
                        segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dadosGlobal.ramBoolean[index];
-                        return isAlert ? 'red' : '#0cb200ff';
+                      borderColor: ctx => {
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.ramBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#0cb200ff'
+                        }
                     }}
             });
         }
@@ -947,10 +971,14 @@ function updateLineChart() {
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
                        segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dadosGlobal.gpuBoolean[index];
-                        return isAlert ? 'red' : '#0009b2ff' ;
+                     borderColor: ctx => {
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.gpuBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#0009b2ff'
+                        }
                     }}
             });
         }
@@ -967,10 +995,14 @@ function updateLineChart() {
                 pointBorderWidth: 2,
                 pointHoverRadius: 6,
                        segment: { 
-                    borderColor: ctx => {
-                        const index = ctx.p1.dataIndex; 
-                        const isAlert = dadosGlobal.discoBoolean[index];
-                        return isAlert ? 'red' : '#b2a300ff' ;
+                         borderColor: ctx => {
+                        const index = ctx.p1DataIndex
+                        console.log(index)
+                        if(dadosGlobal.discoBoolean[index]){
+                            return 'red'
+                        }else{
+                            return '#b2a300ff'
+                        }
                     }}
             });
         }
