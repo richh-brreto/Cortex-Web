@@ -80,6 +80,7 @@ body {
     font-size: 16px;
     display: flex;
     align-items: center;
+    font-weight: 500;
 }
 
 .header-info p::before {
@@ -110,7 +111,9 @@ body {
     min-height: 120px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
+
 
 .kpi-header {
     display: flex;
@@ -121,13 +124,22 @@ body {
 }
 
 .kpi-title {
-    font-size: 11px;
+    font-size: 16px;
     color: var(--cor-texto-secondary);
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-left: 11vh;
+}
+
+#kpi_proporcao_criticos {
+    font-size: 33px;
+    color: var(--cor-detalhe-quente);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
 }
 
 .arch-compact-grid {
@@ -136,6 +148,7 @@ body {
     gap: 12px;
     margin-top: 8px;
     flex: 1;
+    font-weight: 500;
 }
 
 .arch-compact-item {
@@ -220,6 +233,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    justify-content: center;
     margin-bottom: 16px;
     flex-wrap: wrap;
     gap: 10px;
@@ -239,7 +253,7 @@ body {
     width: 250px;
 }
 
-.selectLineModel {
+.selectModelo {
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
@@ -248,16 +262,6 @@ body {
     gap: 8px;
 }
 
-.selectBarModel {
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 13px;
-    align-items: center;
-    gap: 8px;
-}
-
-.selectLineModel:hover,
-.selectBarModel:hover {
+.selectModelo:hover {
     background: var(--cor-primaria-claro);
 }
