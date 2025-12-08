@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/dahsboard_infraestrutura.css">
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="../base/navbar.css">
-    <title>Infraestrutura</title>
+    <title>Dashboard Infraestrutura</title>
 </head>
 
 <body onload="carregarTudo()">
@@ -95,14 +95,27 @@
 
     <div class="dashboard">
         <div class="header">
-            <h1>Infraestrutura</h1>
+            <h1>Dashboard Infraestrutura</h1>
             <div class="container-zonas">
-                <p>Zona:</p>
-                <select class="simple-select" id="zoneSelect" onchange="carregarTop4(() => carregarGraficoMensal());atualizarKPIMedia();
-            atualizarKPIMediana();
-            atualizarKPIOutlier(); atualizarGraficoa()">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 12px;">
+                    <p style="font-size: 18px;">Zona:</p>
+                    <select class="simple-select" id="zoneSelect" onchange="carregarTop4(() => carregarGraficoMensal());atualizarKPIMedia();
+                    atualizarKPIMediana();
+                    atualizarKPIOutlier(); atualizarGraficoa()">
                     <option value="todas">Todas</option>
-                </select>
+                    </select>
+                </div>
+                <div class="selects" style="display: flex; gap: 12px; justify-content: center; align-items: center;">
+                        <p style="font-size: 18px;">Componentes:</p>
+                        <div class="component-select">
+                            <select id="component-select" class="simple-select" onchange="atualizarKPIMedia(); atualizarKPIMediana(); atualizarKPIOutlier(); atualizarGraficoa()">
+                                <option value="cpu">CPU</option>
+                                <option value="ram">RAM</option>
+                                <option value="disco">Disco</option>
+                                <option value="gpu">GPU</option>
+                            </select>
+                        </div>
+                    </div>
             </div>
 
         </div>
@@ -118,7 +131,7 @@
 
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Média da Eficiência por Arquitetura</div>
+                    <div class="kpi-title kpi-title-comp">Média da Ineficiência por Arquitetura</div>
                 </div>
 
                 <div class="arch-compact-grid">
@@ -178,7 +191,7 @@
 
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Mediana da Eficiência por Arquitetura</div>
+                    <div class="kpi-title kpi-title-comp">Mediana da Ineficiência por Arquitetura</div>
                 </div>
 
                 <div class="arch-compact-grid">
@@ -238,7 +251,7 @@
 
             <div class="kpi-card">
                 <div class="kpi-header">
-                    <div class="kpi-title">Outliers por Arquitetura</div>
+                    <div class="kpi-title kpi-title-comp">Outliers por Arquitetura</div>
                 </div>
 
                 <div class="arch-compact-grid">
@@ -300,7 +313,7 @@
         <div class="charts-grid">
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Utilização de Arquiteturas nos últimos 12 meses</h3>
+                    <h3 class="chart-title">Utilização de arquiteturas nos últimos 12 meses</h3>
                     <div class="multiselect-container">
                         <div class="multiselect-trigger" onclick="toggleMultiselect()">
                             <span id="selectedCount">3 selecionadas</span>
@@ -325,18 +338,7 @@
 
             <div class="chart-card">
                 <div class="chart-header">
-                    <h3 class="chart-title">Ocupação de Componentes por Zona</h3>
-                    <div class="selects" style="display: flex; gap: 12px;">
-                        <div class="component-select">
-                            <select id="component-select" class="simple-select" onchange="atualizarKPIMedia(); atualizarKPIMediana(); atualizarKPIOutlier(); atualizarGraficoa()">
-                                <option value="cpu">CPU</option>
-                                <option value="ram">RAM</option>
-                                <option value="disco">Disco</option>
-                                <option value="gpu">GPU</option>
-                            </select>
-                        </div>
-                    </div>
-                    
+                    <h3 class="chart-title chart-title-comp">Métricas de uso de componente</h3>
                 </div>
                 <div class="chart-container">
                     <canvas id="componentTrendChart"></canvas>
@@ -782,6 +784,7 @@
 
 
 
+        
 
 
 
@@ -1430,6 +1433,49 @@ function atualizarGraficoa() {
         }
     }
 }
+
+// Aguarda o DOM carregar completamente
+document.addEventListener('DOMContentLoaded', function() {
+  // Seleciona o select e todas as divs com classes kpi-title e chart-title-comp
+  const selectElement = document.getElementById('component-select'); // Substitua pelo ID real
+  const titulos = document.querySelectorAll('.kpi-title-comp, .chart-title-comp'); // Seleciona ambas as classes
+  
+  // Verifica se o select existe
+  if (!selectElement) {
+    console.error('Erro: Elemento com ID "meuSelect" não encontrado.');
+    return;
+  }
+  
+  // Array para armazenar o texto base de cada div
+  const textosBase = [];
+  
+  // Armazena o texto base de cada div no carregamento
+  titulos.forEach(titulo => {
+    textosBase.push(titulo.textContent.trim()); // Salva o texto original
+  });
+  
+  // Função para atualizar todos os títulos
+  function atualizarTitulos() {
+    const valorSelecionado = selectElement.value.toUpperCase(); // Pega o valor do select
+    
+    // Itera sobre cada div e seu texto base correspondente
+    titulos.forEach((titulo, index) => {
+      const textoBase = textosBase[index]; // Pega o texto base salvo
+      // Usa innerHTML para adicionar HTML com cor apenas no valor selecionado
+      titulo.innerHTML = textoBase + " <span style='color: #00B2B2;'>" + valorSelecionado + "</span>";
+    });
+  }
+  
+  // Adiciona um event listener para quando o select muda
+  selectElement.addEventListener('change', atualizarTitulos);
+  
+  // Chama a função uma vez no carregamento da página para o valor inicial
+  atualizarTitulos();
+});
+
+
+
+
 
         //     let lineChart = null;
         //     let componentChartInstance = null;
