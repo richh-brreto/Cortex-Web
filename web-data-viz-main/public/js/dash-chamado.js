@@ -190,6 +190,7 @@ async function carregarMural() {
                 var criacaoSplit02 = criacaoSplit01[0].split("T")
                 var createdFormatado = criacaoSplit02[0] + "  " + criacaoSplit02[1]
                  const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
+                 const Impacto = campo.customfield_10004 ? campo.customfield_10004.value : '---';
 
                 titulo2.innerHTML = `
             <div class="header-info2">
@@ -224,7 +225,7 @@ async function carregarMural() {
                            
             `
             var resolucFormatada = "---"
-            if(dataResolucao.includes("T")){
+            if(dataResolucao != null && dataResolucao.includes("T")){
                 var resoluc01 = dataResolucao.split(".")
                     var resoluc02 = resoluc01[0].split("T")
             resolucFormatada = resoluc02[0] + "  " + resoluc02[1]
@@ -247,29 +248,30 @@ async function carregarMural() {
                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
                            <span>Fim  `
                     }
-                    var timestampDaVez = daVez2.trim().split("-")
+                    var timestampDaVez = daVez2.trim().split("T")
+                    
                     if(daVez2.includes("CPU")){
-                        linha += `<span class="item-componente tempo cpu">CPU</span>  - ${timestampDaVez[1]}</span></div>`
+                        linha += `<span class="item-componente tempo cpu">CPU</span>  - ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
 
                     if(daVez2.includes("RAM")){
-                        linha += `<span class="item-componente tempo ram">RAM</span>  - ${timestampDaVez[1]}</span></div>`
+                        linha += `<span class="item-componente tempo ram">RAM</span>  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
                       if(daVez2.includes("Disco")){
-                        linha += `<span class="item-componente tempo disco">Disco</span>  - ${timestampDaVez[1]}</span></div>`
+                        linha += `<span class="item-componente tempo disco">Disco</span>  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
                       if(daVez2.includes("GPU")){
-                        linha += `<span class="item-componente tempo gpu">GPU</span>  - ${timestampDaVez[1]}</span></div>`
+                        linha += `<span class="item-componente tempo gpu">GPU</span>  - ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
 
                     }
                     if(daVez2.includes("Processo")){
-                        linha += `Downtime Processo  - ${timestampDaVez[1]}</span></div>`
+                        linha += `Downtime Processo  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
                     }
                     if(daVez2.includes("Servidor")){
-                        linha += `Downtime Servidor  - ${timestampDaVez[1]}</span></div>`
+                        linha += `Downtime Servidor  -  ${timestampDaVez[0]}  ${timestampDaVez[1]}</span></div>`
                     }
                 }
 
@@ -307,7 +309,7 @@ async function carregarMural() {
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Impacto:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">${campo.customfield_10004.value}</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${Impacto}</span>
                                 </div>
                             </div>
                         </div>
@@ -341,9 +343,7 @@ async function carregarMural() {
         arquitetura.addEventListener('click', function () {
                     modalBody.innerHTML = `
          <div class="container-modal">
-                        <div class="titulo">
-                            <h4>  Atual</h4>
-                        </div>
+                  
                         <div class="corpo">
                             <div class="container-item-coluna">
                                 <div class="info-item">
@@ -526,7 +526,7 @@ async function carregarMural() {
                                 </div>
                                 <div class="info-item">
                                     <span class="info-item-label">Impacto:</span>
-                                    <span id="info-modelo-cliente" class="info-item-value">${campo.customfield_10004.value}</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">${Impacto}</span>
                                 </div>
                             </div>
                         </div>
@@ -656,7 +656,13 @@ function graficos(dados){
                 pointBackgroundColor: '#00B2B2',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+            segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dados.cpuBoolean[index];
+                        return isAlert ? '#00B2B2' : 'red';
+                    }}
             },
             {
                 label: 'RAM',
@@ -668,7 +674,13 @@ function graficos(dados){
                 pointBackgroundColor: '#0cb200ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                 segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dados.ramBoolean[index];
+                        return isAlert ? 'red' : '#0cb200ff' ;
+                    }}
             },
             {
                 label: 'GPU',
@@ -680,7 +692,13 @@ function graficos(dados){
                 pointBackgroundColor: '#0009b2ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+       segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dados.gpuBoolean[index];
+                        return isAlert ? 'red' : '#0009b2ff';
+                    }}
             },
             {
                 label: 'Disco',
@@ -692,7 +710,14 @@ function graficos(dados){
                 pointBackgroundColor: '#b2a300ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                 segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dados.discoBoolean[index];
+                        return isAlert ? 'red' : '#b2a300ff' ;
+                    }}
+                
             },
         ],
     },
@@ -755,17 +780,8 @@ function graficos(dados){
                 pointBackgroundColor: '#00B2B2',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6,
-                segment: {
-                    borderColor: ctx => {
-                        const p = ctx.p1.parsed.y;
-                        return p >= 8 ? 'red' : '00B2B2';
-                    },
-                    borderDash: ctx => {
-                        const p = ctx.p1.parsed.y;
-                        return p >= 50 ? [6, 6] : undefined;
-                    }
-                }
+                pointHoverRadius: 6
+
             },
             {
                 label: 'RAM',
@@ -889,7 +905,13 @@ function updateLineChart() {
                 pointBackgroundColor: '#00B2B2',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                       segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dadosGlobal.cpuBoolean[index];
+                        return isAlert ? 'red' : '#00B2B2';
+                    }}
             });
         }
         if (count[i].value == "RAM") {
@@ -903,7 +925,13 @@ function updateLineChart() {
                 pointBackgroundColor: '#0cb200ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                       segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dadosGlobal.ramBoolean[index];
+                        return isAlert ? 'red' : '#0cb200ff';
+                    }}
             });
         }
         if (count[i].value == "GPU") {
@@ -917,7 +945,13 @@ function updateLineChart() {
                 pointBackgroundColor: '#0009b2ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                       segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dadosGlobal.gpuBoolean[index];
+                        return isAlert ? 'red' : '#0009b2ff' ;
+                    }}
             });
         }
         if (count[i].value == "Disco") {
@@ -931,7 +965,13 @@ function updateLineChart() {
                 pointBackgroundColor: '#b2a300ff',
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
-                pointHoverRadius: 6
+                pointHoverRadius: 6,
+                       segment: { 
+                    borderColor: ctx => {
+                        const index = ctx.p1.dataIndex; 
+                        const isAlert = dadosGlobal.discoBoolean[index];
+                        return isAlert ? 'red' : '#b2a300ff' ;
+                    }}
             });
         }
 
