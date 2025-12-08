@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Cortex</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="../js/navbar.js"></script>
+    <script src="../js/historico.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link rel="stylesheet" href="../css/historico.css">
+</head>
+<body>
+
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Gerenciamento</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
+            </div>
+        </div>
+
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
+
+    <main class="conteudo-principal">
+        <div class="container-funcionarios">
+            <div class="header-funcionarios">
+                <h1>Histórico de Tickets</h1>
+            <div class="total">
+                <span class="label-total">Total:</span>
+                <span class="numero-total" id="total_ticket"></span>
+            </div>
+        </div>
+
+            <div class="barra-acoes2">
+                <div class="area-pesquisa-filtro">
+                    <div class="pesquisa-cortex">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="pesquisar-input" placeholder="Pesquisar funcionário...">
+                    </div>
+                    <div class="filtro-coluna">
+                        <label for="filtro-select">Pesquisar por:</label>
+                        <select id="filtro-select">
+                            <option value="todos" selected>Todos os campos</option>
+                            <option value="id">ID Jira</option>
+                            <option value="nome">Modelo</option>
+                            <option value="email">Hostname</option>
+                            <option value="cargo">Data de Criação</option>
+                            <option value="responsavel">Responsável</option>
+                        </select>
+                  
+                        
+                    </div>
+                    
+                </div>
+
+                <div class="container-filtros">
+                    <label >Filtros:</label>
+                    <div class="filtros">
+                        
+                        <select id="filtro-select">
+                            <option value="todos" selected>Tipo</option>
+                            <option value="incidente">Incidente</option>
+                            <option value="problema">Problema</option>
+                        </select>
+                  
+                        
+                    </div>
+
+                    
+                         <div class="filtros">
+                        
+                        <select id="filtro-select">
+                            <option value="todos" selected>Status</option>
+                            <option value="aberto">Em Aberto</option>
+                            <option value="progresso">Em progresso</option>
+                            <option value="resolvido">Resolvido</option>
+                        </select>
+                  
+                        
+                    </div>
+                    <div class="filtros">
+                        
+                       
+                            <div class="multiselect-trigger" onclick="toggleMultiselect()">
+                                <span id="selectedCount">Componentes</span>
+                              
+                            </div>
+                            <div class="multiselect-dropdown" id="multiselectDropdown">
+                                <div class="multiselect-options" id="optionsList">
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="CPU" checked onchange="updateSelection()">
+                                        <span>CPU</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="RAM" checked onchange="updateSelection()">
+                                        <span>RAM</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="Disco" checked onchange="updateSelection()">
+                                        <span>Disco</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="GPU" checked onchange="updateSelection()">
+                                        <span>GPU</span>
+                                    </label>
+
+                                </div>
+                                <div class="multiselect-actions">
+                                    <button class="multiselect-select-btn" onclick="applySelection()">Aplicar</button>
+                                </div>
+                            </div>
+                      
+                        
+                    </div>
+                </div>
+                    
+                
+            </div>
+
+            <section class="container-tabela">
+                <div class="envoltorio-tabela">
+                    <table>
+                        <thead id="header">
+                            <tr>
+                                <th id="0"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">ID Ticket</th>
+                                 <th id="0"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Data Criação</th>
+                                <th id="1"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Modelo</th>
+                                <th id="2">Hostname</th>
+                                <th id="3"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Status</th>
+                                <th id="4"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Componentes</th>
+                                <th id="5">Tipo</th>
+                                <th id="6">Máquina</th>
+                                <th id="7"  style="cursor: pointer;"><img src="../assets/icon/ordenacao.png" style="width: 1rem;">Responsável</th>
+                                <th id="8">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-funcionarios-corpo">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tabela-rodape">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    
+    <div id="sobreposicao-formulario" class="sobreposicao-formulario">
+        <div class="painel-formulario">
+            <div class="cabecalho-formulario">
+                <h2 id="modal-title">Adicionar Funcionário</h2>
+                <button class="btn-fechar" id="btn-fechar-modal">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="corpo-formulario">
+                <form id="form-funcionario">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="campo-form">
+                            <label for="nome-funcionario">Nome Completo</label>
+                            <input type="text" id="nome-funcionario" placeholder="Digite o nome completo..." required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="email-funcionario">E-mail</label>
+                            <input type="email" id="email-funcionario" placeholder="exemplo@cortex.com" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="senha-funcionario">Senha</label>
+                            <input type="text" id="senha-funcionario" placeholder="Digite a senha..." required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="cargo-funcionario">Cargo</label>
+                            <select id="cargo-funcionario" required>
+                                <option value="">Selecione...</option>
+                                <option value="Tecnico">Técnico</option>
+                                <option value="TecnicoSupervisor">Técnico Supervisor</option>
+                                <option value="Analista">Analista</option>
+
+                            </select>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="telefone-funcionario">Telefone</label>
+                            <input type="tel" id="telefone-funcionario" placeholder="(00) 00000-0000" required>
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="foto-funcionario">Foto</label>
+                            <input type="file" id="foto-funcionario" accept="image/*">
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="status-funcionario">Status</label>
+                            <select id="status-funcionario" required>
+                                <option value="ativo" selected>Ativo</option>
+                                <option value="inativo">Inativo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="rodape-formulario">
+                <button type="button" class="btn btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button id="btn-salvar" type="submit" form="form-funcionario" class="btn btn-primario">Salvar Funcionário</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    
+
+</script>

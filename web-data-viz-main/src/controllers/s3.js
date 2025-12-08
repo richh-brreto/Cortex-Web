@@ -9,11 +9,19 @@ const s3 = new AWS.S3({
 
 async function lerArquivo(req, res) {
   try {
+<<<<<<< HEAD
     console.log(12)
     const fileKey = req.params.pasta
       ? `${req.params.pasta}/${req.params.arquivo}`
       : `${req.params.arquivo}`;
 
+=======
+    const fileKey = req.params.pasta + "/" +  req.params.arquivo;
+    
+
+    console.log(process.env,fileKey);
+    
+>>>>>>> 8bc9f836c8317b1cb785a63138f2addcbf91f631
     const params = {
       Bucket: "cortex-client-bill",
       Key: fileKey,

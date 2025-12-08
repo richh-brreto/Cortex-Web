@@ -14,12 +14,17 @@
     "axios": "^1.13.1",
     "bootstrap": "^5.3.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "express": "^4.17.1",
     "multer": "^2.0.2",
     "mysql2": "^3.9.4",
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
+<<<<<<< HEAD
     "@google/generative-ai": "^0.21.0"
+=======
+"@google/generative-ai": "^0.21.0"
+
+>>>>>>> 8bc9f836c8317b1cb785a63138f2addcbf91f631
   }
 }

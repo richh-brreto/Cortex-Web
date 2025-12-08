@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortex | Dashboard Analítico</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/dashboard_performance.css">
+</head>
+<body>
+    
+    <nav class="barra-lateral"">
+
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Gerenciamento</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
+            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
+            <span class="texto">Clientes</span>
+        </a>
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Alertas</span>
+        </a>
+
+
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo">
+                    <a href="https://spt ech-hydroscan.atlassian.net/jira/ser vicedesk/projects/CTX/list?jql=project %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
+                        style="text-decoration: none;color: inherit;">Jira</a>
+                </div>
+                <div class="submenu-item">
+                    <a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
+                        style="text-decoration: none;color: inherit;">Slack</a>
+                </div>
+            </div>
+        </div>
+
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+
+    <div class="dashboard-wrapper">
+        <div class="main-header">
+            <div class="dash-title">
+                <span id="dashName">Dashboard - Performance de Tickets (Últimos 7 dias)</span>
+            </div>
+
+            <div class="controls">
+                <!-- Zonas serão preenchidas via JS -->
+                <select class="zone-select" id="zoneSelect">
+                    <option value="all">Todas as Zonas</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="card">
+                <div class="card-header">
+                    <span>Tempo Médio de Resolução de Recursos (MTTR) (Últimos 7 dias)</span>
+                </div>
+
+                <div class="items-grid-mttr">
+                    <div class="mttr-item mttr-slow">
+                        <span class="mttr-info">GPU</span>
+                        <span class="mttr-value">--</span>
+                    </div>
+
+                    <div class="mttr-item mttr-avg">
+                        <span class="mttr-info">CPU</span>
+                        <span class="mttr-value">--</span>
+                    </div>
+
+                    <div class="mttr-item mttr-fast">
+                        <span class="mttr-info">RAM</span>
+                        <span class="mttr-value">--</span>
+                    </div>
+
+                    <div class="mttr-item mttr-fast">
+                        <span class="mttr-info">Disco</span>
+                        <span class="mttr-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Matriz de Status dos Tickets (Últimos 7 dias)</span>
+                </div>
+
+                <table class="status-table">
+                    <thead>
+                        <tr>
+                            <th>Recurso</th>
+                            <th>Total</th>
+                            <th style="color: var(--kpi-red)">Abertos</th>
+                            <th style="color: var(--kpi-yellow)">Andam.</th>
+                            <th style="color: var(--kpi-green)">Resolv.</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>GPU</td>
+                            <td>0</td>
+                            <td class="col-aberto">0</td>
+                            <td class="col-andamento">0</td>
+                            <td class="col-resolvido">0</td>
+                        </tr>
+
+                        <tr>
+                            <td>CPU</td>
+                            <td>0</td>
+                            <td class="col-aberto">0</td>
+                            <td class="col-andamento">0</td>
+                            <td class="col-resolvido">0</td>
+                        </tr>
+
+                        <tr>
+                            <td>RAM</td>
+                            <td>0</td>
+                            <td class="col-aberto">0</td>
+                            <td class="col-andamento">0</td>
+                            <td class="col-resolvido">0</td>
+                        </tr>
+
+                        <tr>
+                            <td>Disco</td>
+                            <td>0</td>
+                            <td class="col-aberto">0</td>
+                            <td class="col-andamento">0</td>
+                            <td class="col-resolvido">0</td>
+                        </tr>
+
+                        <tr>
+                            <td>TOTAL</td>
+                            <td>0</td>
+                            <td class="col-aberto">0</td>
+                            <td class="col-andamento">0</td>
+                            <td class="col-resolvido">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Problemas Identificados</span>
+                </div>
+
+                <div class="problem-list">
+                    <div class="problem-row">
+                        <span class="prob-label"><div class="prob-indicator"></div> GPU</span>
+                        <span class="prob-value">0</span>
+                    </div>
+
+                    <div class="problem-row">
+                        <span class="prob-label"><div class="prob-indicator"></div> CPU</span>
+                        <span class="prob-value">0</span>
+                    </div>
+
+                    <div class="problem-row">
+                        <span class="prob-label"><div class="prob-indicator"></div> RAM</span>
+                        <span class="prob-value">0</span>
+                    </div>
+
+                    <div class="problem-row">
+                        <span class="prob-label"><div class="prob-indicator"></div> Disco</span>
+                        <span class="prob-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="card">
+                <div class="card-header">
+                    <span>MTTR Geral + Predição (Últimos 7 dias)</span>
+                    <div class="chart-legend">
+                        <div class="legend-item"><div class="dot" style="background-color: var(--color-real)"></div> Real</div>
+                        <div class="legend-item"><div class="dot" style="background-color: var(--color-problema)"></div> Predição</div>
+                    </div>
+                </div>
+
+                <div id="mttrChart" style="min-height: 250px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span>Tickets por Recurso (Últimos 7 dias)</span>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 5px;">
+                            <label for="componentSelect" style="font-size: 0.9rem;">Componente:</label>
+                            <select id="componentSelect" onchange="filterResourceChart(this.value)" style="padding: 5px 10px; border-radius: 4px; border: 1px solid var(--border-color);">
+                                <option value="all">Todos</option>
+                                <option value="GPU">GPU</option>
+                                <option value="CPU">CPU</option>
+                                <option value="RAM">RAM</option>
+                                <option value="Disco">Disco</option>
+                            </select>
+                        </div>
+                        <div class="toggle-container">
+                            <button id="btn-inc" class="toggle-btn active" onclick="updateResourceChart('incidentes')">Incidentes</button>
+                            <button id="btn-prob" class="toggle-btn" onclick="updateResourceChart('problemas')">Problemas</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-legend" style="margin-bottom: 10px; padding-left: 10px;">
+                    <div class="legend-item"><div id="leg-gpu" class="dot" style="background-color: #00B2B2"></div> GPU</div>
+                    <div class="legend-item"><div id="leg-cpu" class="dot" style="background-color: #006E66"></div> CPU</div>
+                    <div class="legend-item"><div id="leg-ram" class="dot" style="background-color: #B74C4C"></div> RAM</div>
+                    <div class="legend-item"><div id="leg-disco" class="dot" style="background-color: #D97706"></div> Disco</div>
+                </div>
+
+                <div id="resourceChart" style="min-height: 350px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/dashboard_performance.js"></script>
+</body>
+</html>

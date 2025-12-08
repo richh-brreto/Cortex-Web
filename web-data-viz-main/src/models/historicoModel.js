@@ -1,26 +1,31 @@
 
 
 const axios = require("axios");
+
 const JIRA_BASE_URL="https://cortexsptech.atlassian.net";
 const JIRA_EMAIL="cortexsptech@gmail.com";
 const JIRA_API_TOKEN="ATATT3xFfGF0UdJuzw13k39QLIoC2z0bObFzP5UUdZJ5thGII_xnewusoZK8Y9QKEEKc7n2UWbPKfWKgivJ324MKFaozkphGxjpiIexViv1NxVuHKtgFEP_LImLO0Lg0HQwd0NXHD4fIRTq17dC2NkbAiTite30W19yC_qOBG2XuopeRqQYfouo=80646DED"
 
 const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
-async function buscarTodosTickets() {
+
+var database = require("../database/config");
+
+
+async function buscarTicketsHistorico() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-
-    const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
+    const jql = 'project = "CTX" ORDER BY created DESC';
     
     const body = {
         jql,
         fields: [
-            "summary",
             "customfield_10060", // maquina
             "labels",
             "assignee",
             "status",
-            "customfield_10093"
+            "created",
+            "customfield_10093", // identificador
+            "customfield_10059"  // problema ou incidente
         ],
     };
 
@@ -36,8 +41,6 @@ async function buscarTodosTickets() {
                 },
             }
         );
-
-   
         return response.data.issues.map(issue =>({fields : issue.fields, 
             key: issue.key})) || [];
 
@@ -47,6 +50,24 @@ async function buscarTodosTickets() {
     }
 }
 
+function bancoInfos(idmodelo) {
+    console.log(`Model: Listando modelos para a empresa: ${idmodelo}. ACESSEI O MODELO MODEL`);
+
+    var instrucaoSql = `
+        SELECT 
+            m.nome, m.hostname 
+        FROM 
+            modelo m 
+        WHERE 
+            m.id_modelo = ${idmodelo};
+
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql); 
+}
+
 module.exports = {
-    buscarTodosTickets,
+    buscarTicketsHistorico,
+    bancoInfos
 };
