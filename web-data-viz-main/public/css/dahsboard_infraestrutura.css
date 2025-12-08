@@ -68,7 +68,7 @@ body {
 /* KPIs */
 .kpis-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     flex-shrink: 0;
 }
@@ -121,7 +121,7 @@ body {
 }
 
 .arch-compact-name {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     color: #0A202D;
 }
@@ -154,12 +154,12 @@ body {
 }
 
 .arch-compact-detail {
-    font-size: 11px;
+    font-size: 14px;
     color: #64748b;
 }
 
 .arch-compact-remaining {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     color: #B74C4C;
 }
