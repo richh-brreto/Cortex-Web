@@ -2,13 +2,12 @@ const alertasModel = require("../models/alertasModel");
 
 async function dadosSlack(req, res) {
   try {
-    var key = req.params.key
-    const mensagens = await alertasModel.dadosSlack(key);
+    const modelo = req.params.modelo;
+    const mensagens = await alertasModel.dadosSlack(modelo);
     if (!mensagens) {
       return res.status(200).json([]);
     }
     console.log(`Total de mensagens encontradas: ${mensagens.length} (Controller)`);
-    console.log(mensagens);
     return res.status(200).json(mensagens);
   } catch (erro) {
     console.error(`Erro ao listar alertas: ${erro.message} (Controller)`);

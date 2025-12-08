@@ -6,7 +6,7 @@ const alertasController = require("../controllers/alertasController.js");
 
 require("dotenv").config();
 
-router.get("/slack/:key", (req, res) => {
+router.get("/slack/:modelo", (req, res) => {
     alertasController.dadosSlack(req, res);
 });
 

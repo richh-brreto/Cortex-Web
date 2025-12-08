@@ -1,7 +1,7 @@
 const API_BASE = "/api/alertas"; // rotas do backend
 
-// select de modelo (aceita ambos IDs possíveis no HTML)
-const modeloSelect = document.getElementById("selectModelo") || document.getElementById("selectModeloIntervalos");
+// select de modelo 
+const modeloSelect = document.getElementById("selectModelo")
 
 // KPIs
 const kpiTotal = document.getElementById("kpi_total");
@@ -19,32 +19,34 @@ let gpu = 0;
 let graficoCategorias = null;
 let graficoIntervalos = null;
 
-// cache para armazenar mensagens Slack por modelo (evita múltiplas chamadas)
-const slackCache = {};
 
 // fetchs
 async function fetchAlertasSlack(modelo) {
     if (!modelo) return [];
-    // retorna do cache se já disponível
-    if (slackCache.hasOwnProperty(modelo)) {
-        return slackCache[modelo];
-    }
 
-    const resp = await fetch(`${API_BASE}/slack/${modelo}`);
-    if (!resp.ok) return [];
     try {
-        const data = await resp.json();
-        // armazena no cache (mesmo se vazio)
-        slackCache[modelo] = data || [];
-        console.log('data:', data);
-        console.log('cache', slackCache);
-        return slackCache[modelo];
+        const resp = await fetch(`${API_BASE}/slack/${modelo}`, {
+            method: "GET",
+            headers: {
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache"
+            }
+        });
+
+        if (!resp.ok) {
+            console.warn("Erro ao buscar alertas Slack:", resp.status);
+            return [];
+        }
+
+        return await resp.json();
+
     } catch (err) {
-        console.warn('Erro ao parsear resposta Slack para', modelo, err);
-        slackCache[modelo] = [];
+        console.error("Erro no fetch Slack:", err);
         return [];
     }
 }
+
+
 
 function calcularPredicoesTotal(totalAtual) {
     return {
@@ -68,6 +70,9 @@ function atualizarKpiPredicoesTotal(totalAtual) {
 
 function extrairModelo(text) {
     const modelo = text.match(/Modelo:\s*([^\n]+)/i);
+
+    console.log(modelo ? modelo[1].trim() : null);
+
     return modelo ? modelo[1].trim() : null;
 }
 
@@ -76,15 +81,14 @@ function extrairSeveridade(text) {
     return match ? match[1].replace("!", "").toUpperCase() : null;
 }
 
-function extrairData(text) {
-    const match = text.match(/Data:\s*([0-9\-_:]+)/i);
-    if (!match) return null;
+function extrairDataSlackTS(ts) {
+    if (!ts) return null;
 
-    const raw = match[1].replace("_", " ").replace(/-/g, ":");
-    // 2025-12-06_13-30-59 → "2025:12:06 13:30:59"
-    const cleaned = raw.replace(/^(\d+):(\d+):(\d+)/, "$1-$2-$3");
-    return new Date(cleaned);
+    // ts vem como string "1234567890.12345"
+    const seconds = parseFloat(ts);
+    return new Date(seconds * 1000);
 }
+
 
 function extrairAlertas(text) {
     const severidade = extrairSeveridade(text);
@@ -201,8 +205,9 @@ function contarModelos24h(alertasSlack) {
     const counts = {};
 
     alertasSlack.forEach(msg => {
-        const data = extrairData(msg.text);
+        const data = extrairDataSlackTS(msg.ts);
         const modelo = extrairModelo(msg.text);
+
         if (!data || !modelo) return;
 
         if (data >= limite) {
@@ -212,6 +217,7 @@ function contarModelos24h(alertasSlack) {
 
     return counts;
 }
+
 
 function atualizarKpiModelos24h(counts) {
     kpi_24h.innerHTML = "";
@@ -231,6 +237,22 @@ function atualizarKpiModelos24h(counts) {
         kpi_24h.appendChild(div);
     });
 }
+
+// ====== kpi de proporção crítica =======
+
+function calcularProporcaoCritica(alertasSlack) {
+    const total = contarTotalAlertas(alertasSlack);
+    if (total === 0) return 0;
+
+    const { criticos } = contarSeveridade(alertasSlack);
+    return ((criticos / total) * 100).toFixed(2); // duas casas decimais
+}
+
+function atualizarKpiProporcaoCriticos(alertasSlack) {
+    const proporcao = calcularProporcaoCritica(alertasSlack);
+    document.getElementById("kpi_proporcao_criticos").textContent = proporcao + "%";
+}
+
 
 // ====== buscar modelos para o usuário logado ======
 
@@ -261,14 +283,14 @@ async function fetchModelosParaUsuario() {
 
         modelos.forEach(m => {
             const opt = document.createElement('option');
-            const nome = m.nome || m.hostname;
+            const nome = m.nome
             opt.value = nome;
             opt.textContent = nome;
             modeloSelect.appendChild(opt);
         });
 
         if (modelos.length > 0) {
-            modeloSelect.value = modelos[0].nome || modelos[0].hostname;
+            modeloSelect.value = modelos[0].nome
             atualizarDashboard();
         }
         return modelos;
@@ -276,6 +298,21 @@ async function fetchModelosParaUsuario() {
         console.error('Erro ao carregar modelos:', err);
     }
 }
+
+// ====== buscar alertas de todos os modelos ======
+
+async function fetchAlertasTodosModelos(listaModelos) {
+    let todas = [];
+
+    for (const m of listaModelos) {
+        const nome = m.nome;
+        const alertas = await fetchAlertasSlack(nome);
+        todas = [...todas, ...alertas];
+    }
+
+    return todas;
+}
+
 
 // ====== gráfico de barras (categorias) ========
 function montarGraficoCategorias(alertasSlack) {
@@ -323,7 +360,7 @@ function montarGraficoIntervalos(alertas) {
     const intervalos = gerarIntervalos24h();
 
     alertas.forEach(a => {
-        const data = extrairData(a.text);
+        const data = extrairDataSlackTS(a.ts);
         if (!data) return;
 
         intervalos.forEach(i => {
@@ -359,34 +396,40 @@ function montarGraficoIntervalos(alertas) {
 
 async function atualizarDashboard() {
     const modelo = modeloSelect?.value;
+
     if (!modelo) {
-        atualizarKPIs({ total: 0 });
         if (graficoCategorias) graficoCategorias.destroy();
         if (graficoIntervalos) graficoIntervalos.destroy();
         return;
     }
 
-    const slack = slackCache[modelo] !== undefined ? slackCache[modelo] : await fetchAlertasSlack(modelo);
-    const alertas = [...(slack || [])];
+    // alertas do modelo selecionado
+    const alertas = await fetchAlertasSlack(modelo);
 
-    // gráficos
     montarGraficoCategorias(alertas);
     montarGraficoIntervalos(alertas);
 
-    // KPIs
     const total = contarTotalAlertas(alertas);
     atualizarKpiPredicoesTotal(total);
+    atualizarKpiProporcaoCriticos(alertas);
 
-    const counts24h = contarModelos24h(alertas);
+    // alertas de todos os modelos
+    const counts24h = contarModelos24h(window._alertasTodosModelos);
     atualizarKpiModelos24h(counts24h);
 }
+
 
 if (modeloSelect) {
     modeloSelect.addEventListener("change", atualizarDashboard);
 } else {
     console.warn('modeloSelect ausente — evento de change não será ligado');
 }
-window.onload = async function () {
-    await fetchModelosParaUsuario();
 
+window.onload = async function () {
+    const modelos = await fetchModelosParaUsuario();
+    window._todosOsModelos = modelos; // armazenar globalmente
+
+    window._alertasTodosModelos = await fetchAlertasTodosModelos(modelos);
+
+    atualizarDashboard();
 };
