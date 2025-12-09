@@ -43,10 +43,12 @@ body {
 /* Header */
 .header {
     border-radius: 12px;
-    padding: 14px 20px;
+    padding: 18px 20px;
     box-shadow: 0 2px 8px var(--cor-fundo-tela);
     flex-shrink: 0;
     display: flex;
+    width: 100%;
+    justify-content: space-between;
     flex-direction: row;
     gap: 5%;
 }
@@ -61,14 +63,14 @@ body {
 .header h1 {
     margin: 0;
     color: var(--cor-texto);
-    font-size: 26px;
+    font-size: 38px;
     font-weight: 700;
 }
 
 /* KPIs */
 .kpis-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     flex-shrink: 0;
 }
@@ -78,7 +80,7 @@ body {
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 2px 8px var(--cor-sombra);
-    min-height: 200px;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
 }
@@ -92,7 +94,7 @@ body {
 }
 
 .kpi-title {
-    font-size: 11px;
+    font-size: 15px;
     color: var(--cor-texto-secondary);
     font-weight: 600;
     line-height: 1.2;
@@ -121,20 +123,20 @@ body {
 }
 
 .arch-compact-name {
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
     color: #0A202D;
 }
 
 .arch-compact-percent {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     color: #B74C4C;
 }
 
 .arch-compact-bar {
     width: 100%;
-    height: 6px;
+    height: 12px;
     background: #E2E8F0;
     border-radius: 3px;
     overflow: hidden;
@@ -154,12 +156,12 @@ body {
 }
 
 .arch-compact-detail {
-    font-size: 11px;
+    font-size: 16px;
     color: #64748b;
 }
 
 .arch-compact-remaining {
-    font-size: 11px;
+    font-size: 16px;
     font-weight: 600;
     color: #B74C4C;
 }
@@ -170,7 +172,7 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     flex: 1;
-    min-height: 400px;
+    max-height: 550px;
     max-width: 100%;
 }
 
@@ -197,7 +199,7 @@ body {
 .chart-title {
     margin: 0;
     color: var(--cor-texto);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
 }
 
