@@ -1,14 +1,14 @@
 
 
 const axios = require("axios");
-const url = process.env.JIRA_BASE_URL
+const url = process.env.JIRA_BASE_URL || process.env.JIRA_URL
 const email = process.env.JIRA_EMAIL
 const token = process.env.JIRA_API_TOKEN
 const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${email}:${token}`).toString("base64")}`;
 async function buscarTodosTickets() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-    console.log(url)
+    console.log(url, email, token);
     const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
     
     const body = {

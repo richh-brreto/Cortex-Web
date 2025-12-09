@@ -1,9 +1,10 @@
-export async function iaMichel(req, res) {
-    try {
-        const { pergunta, dados } = req.body;
-        const dadosTexto = JSON.stringify(dados);
+export async function iaMichel(req, res, chatIA) {
+  try {
+    console.log("Recebido pedido IA:", req.body);
+    const { pergunta, dados } = req.body;
+    const dadosTexto = JSON.stringify(dados);
 
-        const prompt = `
+    const prompt = `
         Você é um Especialista em Capacity Planning do sistema Cortex.
         
         DADOS HISTÓRICOS (Últimos 3 meses e detalhes atuais):
@@ -27,18 +28,17 @@ export async function iaMichel(req, res) {
            - Seja direto, profissional e use no máximo 1 parágrafo.
         `;
 
-        // Configura o modelo
-        const model = chatIA.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // Configura o modelo
+    const model = chatIA.getGenerativeModel({ model: "gemini-2.5-flash" });
 
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-
-        console.log("Resposta IA:", text);
-        res.json({ resultado: text });
-    } catch (error) {
-        console.error("Erro no Gemini:", error);
-        res.status(500).json({ erro: "Erro ao processar a solicitação." });
-    }
+    console.log("Resposta IA:", text);
+    res.json({ resultado: text });
+  } catch (error) {
+    console.error("Erro no Gemini:", error);
+    res.status(500).json({ erro: "Erro ao processar a solicitação." });
+  }
 }

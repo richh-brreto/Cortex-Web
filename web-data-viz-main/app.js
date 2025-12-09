@@ -1,6 +1,6 @@
-var ambiente_processo = 'producao';
+var ambiente_processo = "producao";
 
-var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
+var caminho_env = ambiente_processo === "producao" ? ".env" : ".env.dev";
 
 require("dotenv").config({ path: caminho_env });
 
@@ -10,60 +10,59 @@ var path = require("path");
 var PORTA_APP = process.env.APP_PORT || 8080;
 var HOST_APP = process.env.APP_HOST;
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const chatIA = new GoogleGenerativeAI(process.env.CHAVE_BOBIA);
+const chatIA = new GoogleGenerativeAI(process.env.CHAVE_BOBIA || process.env.GEMINI_API_KEY);
 
 var app = express();
 
-
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuario");
-var infoModeloRouter = require("./src/routes/info-modelo")
+var infoModeloRouter = require("./src/routes/info-modelo");
 var empresaDadosRouter = require("./src/routes/empresaDados");
 var modelosRouter = require("./src/routes/modelos");
 var adminRouter = require("./src/routes/admin");
 var dashTecnicoRouter = require("./src/routes/dashTecnico");
-var clienteRouter = require("./src/routes/info-cliente")
+var clienteRouter = require("./src/routes/info-cliente");
 var clienteRouter = require("./src/routes/cliente");
 var funcionarioRouter = require("./src/routes/funcionario");
 var zonaRouter = require("./src/routes/zona");
 var arquiteturaRouter = require("./src/routes/arquiteturas");
 var muralRoute = require("./src/routes/mural");
-var dashInfraestruturaRoute = require("./src/routes/dashInfraestrutura")
+var dashInfraestruturaRoute = require("./src/routes/dashInfraestrutura");
 var ticketsRoute = require("./src/routes/tickets");
-var s3TicketRoute = require("./src/routes/s3Ticket")
+var s3TicketRoute = require("./src/routes/s3Ticket");
 var alertasRoute = require("./src/routes/alertas");
-const s3Router = require('./src/routes/s3Route');
-const {  iaMichel } = require("./src/controllers/ia");
-
+const s3Router = require("./src/routes/s3Route");
+const { iaMichel } = require("./src/controllers/ia");
 
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-
-app.use('/s3Route', s3Router);
+app.use("/s3Route", s3Router);
 app.use("/empresaDados", empresaDadosRouter);
 app.use("/modelos", modelosRouter);
 app.use("/admin", adminRouter);
 app.use("/dashTecnico", dashTecnicoRouter);
 app.use("/", indexRouter);
 app.use("/usuario", usuarioRouter);
-app.use("/info-modelo", infoModeloRouter)
-app.use("/info-cliente", clienteRouter)
+app.use("/info-modelo", infoModeloRouter);
+app.use("/info-cliente", clienteRouter);
 app.use("/cliente", clienteRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/zona", zonaRouter);
 app.use("/arquiteturas", arquiteturaRouter);
-app.use("/mural",muralRoute)
-app.use("/dashinfra", dashInfraestruturaRoute)
-app.use("/tickets",ticketsRoute)
-app.use("/s3Ticket", s3TicketRoute)
+app.use("/mural", muralRoute);
+app.use("/dashinfra", dashInfraestruturaRoute);
+app.use("/tickets", ticketsRoute);
+app.use("/s3Ticket", s3TicketRoute);
 app.use("/api/alertas", alertasRoute);
-app.post("/perguntar", iaMichel);
+app.post("/perguntar", async function (req, res) {
+  iaMichel(req, res, chatIA);
+});
 
 app.listen(PORTA_APP, function () {
-    console.log(`
+  console.log(`
     ##   ##  ######   #####           ####      ##    ######    ##            ##  ##    ####    ######  
     ##   ##  ##       ##  ##          ## ##    ####      ##    ####            ##  ##     ##         ##  
     ##   ##  ##       ##  ##          ##  ##  ##  ##     ##   ##  ##            ##  ##     ##        ##   
@@ -78,4 +77,3 @@ app.listen(PORTA_APP, function () {
     \tSe .:producao:. você está se conectando ao banco remoto. \n\n
     \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
 });
- 

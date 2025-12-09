@@ -3,7 +3,7 @@
 const axios = require("axios");
 
 var database = require("../database/config");
-const url = process.env.JIRA_BASE_URL
+const url = process.env.JIRA_BASE_URL|| process.env.JIRA_URL
 const email = process.env.JIRA_EMAIL
 const token = process.env.JIRA_API_TOKEN
 const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${email}:${token}`).toString("base64")}`;
