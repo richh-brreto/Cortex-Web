@@ -1,211 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | Alertas</title>
 
     <script src="../js/navbar.js"></script>
-    <link rel="stylesheet" href="../base/navbar.css">
-    <link rel="stylesheet" href="./alertas_dash.css">
+    <link rel="stylesheet" href="../base/navbar.css" />
+    <link rel="stylesheet" href="./alertas_dash.css" />
 
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
+    ></script>
     <script defer src="./alertas_dash.js"></script>
-</head>
+  </head>
 
-<!-- Modal de Indicativos -->
-<div id="modalIndicativos" class="modal-indicativos">
+  <!-- Modal de Indicativos -->
+  <div id="modalIndicativos" class="modal-indicativos">
     <div class="modal-content">
-        <span class="close-btn" onclick="fecharIndicativos()">×</span>
-        <h2>Indicativo de Alertas</h2>
-        <p><strong>• Acima de 15 alertas:</strong> Verifique o funcionamento do modelo, possível downtime iminente</p>
-        <p><strong>• Acima de 20 alertas:</strong> Sistema em risco, verifique a causa dos alertas imediatamente.</p>
+      <span class="close-btn" onclick="fecharIndicativos()">×</span>
+      <h2>Indicativo de Alertas</h2>
+      <p>
+        <strong>• Acima de 15 alertas:</strong> Verifique o funcionamento do
+        modelo, possível downtime iminente
+      </p>
+      <p>
+        <strong>• Acima de 20 alertas:</strong> Sistema em risco, verifique a
+        causa dos alertas imediatamente.
+      </p>
     </div>
-</div>
+  </div>
 
-<body>
+  <body>
     <nav class="barra-lateral">
-        <a class="item-logo">
-            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-            <span class="texto-logo">Cortex</span>
-        </a>
+      <a class="item-logo">
+        <img
+          src="../assets/icon/menu-aberto.png"
+          alt="Logo Cortex"
+          class="logotipo"
+        />
+        <span class="texto-logo">Cortex</span>
+      </a>
 
-        <a class="item-navegacao" href="../analista/dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-    </a>
-        <a class="item-navegacao" href="../individual-richard/alertas_dash.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Alertas</span>
-    </a>
+      <a class="item-navegacao" href="../bill/index.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Geral</span>
+      </a>
+      <a
+        class="item-navegacao"
+        href="../analista/Gerenciamento_modelos-analista.html"
+      >
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Gerenciamento de modelos</span>
+      </a>
+      <a
+        class="item-navegacao"
+        href="../analista/dahsboard_infraestrutura.html"
+      >
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Infraestrutura</span>
+      </a>
+      <a class="item-navegacao" href="../analista/mural_de_alertas.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Mural de alertas</span>
+      </a>
+      <a class="item-navegacao" href="alertas_dash.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Alertas</span>
+      </a>
+      <a class="item-navegacao" href="../analista/dashboard_perfirmance.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Performance</span>
+      </a>
 
-        <div class="divisor"></div>
+      <div class="divisor"></div>
 
-        <h3 class="subTitulo">Gerenciamento</h3>
+      <h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="../analista/gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="../analista/gerenciamento_de_funcionario-analista.html"
+      >
+        <img
+          src="../assets/icon/carteira-de-identidade.png"
+          id="atribuicao"
+          alt=""
+        />
+        <span class="texto">Funcionários</span>
+      </a>
 
-        <a class="item-navegacao" href="../analista/gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="../analista/gerenciamento_de_arquitetura-analista.html"
+      >
+        <img src="../assets/icon/modelo.png" id="gerenciamento" alt="" />
+        <span class="texto">Arquitetura</span>
+      </a>
+      <a class="item-navegacao" href="../analista/zona-analista.html">
+        <img src="../assets/icon/pin.png" id="gerenciamento" alt="" />
+        <span class="texto">Zonas</span>
+      </a>
 
+      <div class="divisor"></div>
 
-        <a class="item-navegacao" href="../analista/Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+      <a class="item-notificacao" href="../analista/mural_de_alertas.html">
+        <img src="../assets/icon/alerta.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+      </a>
+      <a class="item-notificacao" href="../analista/historico-tickets.html">
+        <img src="../assets/icon/69926.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes"
+          >Histórcio Tickets</span
+        >
+      </a>
 
-        <a class="item-navegacao" href="../analista/zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+      <a class="item-usuario" href="../analista/perfil-analista.html">
+        <img src="" alt="Foto de perfil" class="avatar-usuario" />
+        <span class="texto-usuario"></span>
+      </a>
 
-        <div class="divisor"></div>
+      <div class="divisor"></div>
 
-        <a class="item-notificacao" href="../analista/mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
-        </a>
-          <a class="item-notificacao" href="../analista/historico-tickets.html">
-            <img src="../assets/icon/69926.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Histórico Tickets</span>
-        </a>
-
-        <!-- ITEM COM SUBMENU -->
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/modelo.png" id="modelo" alt="">
-                <span class="texto">
-                    Modelos
-                    <span class="seta-expansao">▼</span>
-                </span>
-            </a>
-            <div class="submenu">
-                <div class="submenu-item ativo">Opção 1</div>
-                <div class="submenu-item">Opção 2</div>
-                <div class="submenu-item">Opção 3</div>
-            </div>
-        </div>
-
-        <div class="divisor"></div>
-
-        <a class="item-notificacao">
-            <img src="../assets/icon/sino.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Notificações</span>
-        </a>
-
-        <a class="item-usuario">
-            <img src="../assets/icon/teste-perfil.webp" alt="Avatar José" class="avatar-usuario">
-            <span class="texto-usuario">Fernanda</span>
-        </a>
-
-        <div class="divisor"></div>
-
-        <a class="item-notificacao">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
+      <a class="item-notificacao" onclick="logout()">
+        <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="" />
+        <span class="texto-notificacao" id="sair">Sair</span>
+      </a>
     </nav>
 
     <script src="../js/logout.js"></script>
     <script src="../js/avatar-apply.js"></script>
 
     <div class="dashboard">
-        <div class="header">
-            <div class="header-content">
-                <div class="header-info">
-                    <h1 class="header-title">Dashboard de Alertas</h1>
-                    <p class="header-info">Total de Alertas Atual no Sistema:</p>
-                    <p id="kpi_total" style="color:#006E66" >--</p>
-                </div>
-                <button id="buttonIndicativos" class="indicativo-btn" onclick="abrirIndicativos()">Indicativos</button>
-                <div class="single-select-container">
-                    <label for="selectModelo">Modelo:</label>
-                    <select class="selectModelo" id="selectModelo">
-                        <option value="">Selecione um Modelo</option>
-                        <option value="modeloA">Modelo A</option>
-                    </select>
-                </div>
+      <div class="header">
+        <div class="header-content">
+          <div class="header-info">
+            <h1 class="header-title">Dashboard de Alertas</h1>
+            <p class="header-info">Total de Alertas Atual no Sistema:</p>
+            <p id="kpi_total" style="color: #006e66">--</p>
+          </div>
+          <button
+            id="buttonIndicativos"
+            class="indicativo-btn"
+            onclick="abrirIndicativos()"
+          >
+            Indicativos
+          </button>
+          <div class="single-select-container">
+            <label for="selectModelo">Modelo:</label>
+            <select class="selectModelo" id="selectModelo">
+              <option value="">Selecione um Modelo</option>
+              <option value="modeloA">Modelo A</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpis-grid">
+        <!-- Slack KPIs -->
+        <div class="kpi-card predicao-card">
+          <div class="predicao-wrapper">
+            <div class="pred-title">Predição de Continuidade de Alertas</div>
+
+            <div class="predicao-grid">
+              <div class="pred-col">
+                <div class="pred-label">Previsão 24h</div>
+                <div class="pred-value" id="kpi_pred_dia">--</div>
+              </div>
+
+              <div class="pred-col">
+                <div class="pred-label">Previsão 7 dias</div>
+                <div class="pred-value" id="kpi_pred_semana">--</div>
+              </div>
             </div>
+          </div>
         </div>
 
-        <!-- KPIs -->
-        <div class="kpis-grid">
+        <!-- Proporção de alertas críticos -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Proporção de Alertas em 24h</div>
+          </div>
 
-            <!-- Slack KPIs -->
-            <div class="kpi-card predicao-card">
-                <div class="predicao-wrapper">
-
-                    <div class="pred-title">Predição de Continuidade de Alertas</div>
-
-                    <div class="predicao-grid">
-
-                        <div class="pred-col">
-                            <div class="pred-label">Previsão 24h</div>
-                            <div class="pred-value" id="kpi_pred_dia">--</div>
-                        </div>
-
-                        <div class="pred-col">
-                            <div class="pred-label">Previsão 7 dias</div>
-                            <div class="pred-value" id="kpi_pred_semana">--</div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-
-            <!-- Proporção de alertas críticos -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Proporção de Alertas em 24h</div>
-                </div>
-
-                <span id="kpi_proporcao_criticos">--%</span>
-                <span id="kpi_proporcao_atencao">--%</span>
-            </div>
-
-            <!-- Modelos em 24h -->
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Intervalos com mais Alertas</div>
-                </div>
-
-                <div class="arch-compact-item" id="kpi_intervalos">--</div>
-            </div>
+          <span id="kpi_proporcao_criticos">--%</span>
+          <span id="kpi_proporcao_atencao">--%</span>
         </div>
 
-        <!-- GRÁFICOS -->
-        <div class="charts-grid">
+        <!-- Modelos em 24h -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Intervalos com mais Alertas</div>
+          </div>
 
-            <!-- Gráfico de Categorias -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Alertas por Severidade e Categoria</h3>
-                </div>
-                <div class="chart-container">
-                    <canvas id="graficoCategorias"></canvas>
-                </div>
-            </div>
-
-            <!-- Gráfico Intervalos -->
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Intervalo de Alertas</h3>
-                </div>
-                <div class="chart-container">
-                    <canvas id="graficoIntervalos"></canvas>
-                </div>
-            </div>
-
+          <div class="arch-compact-item" id="kpi_intervalos">--</div>
         </div>
+      </div>
+
+      <!-- GRÁFICOS -->
+      <div class="charts-grid">
+        <!-- Gráfico de Categorias -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">Alertas por Severidade e Categoria</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="graficoCategorias"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráfico Intervalos -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">Intervalo de Alertas</h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="graficoIntervalos"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
