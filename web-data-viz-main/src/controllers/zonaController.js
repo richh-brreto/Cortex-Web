@@ -447,6 +447,24 @@ function contarZonas(req, res) {
     }
 }
 
+function contarTecnicosPorZona(req, res) {
+    var fk_empresa = req.params.fkEmpresa;
+
+    if (!fk_empresa) {
+        return res.status(400).json({ erro: "ID da empresa não fornecido" });
+    }
+
+    zonaModel.contarTecnicosPorZona(fk_empresa)
+        .then(resultado => {
+            console.log("Técnicos por zona:", resultado);
+            res.status(200).json(resultado);
+        })
+        .catch(erro => {
+            console.error("Erro ao contar técnicos por zona:", erro);
+            res.status(500).json({ erro: erro.sqlMessage || "Erro ao contar técnicos por zona" });
+        });
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -464,5 +482,6 @@ module.exports = {
     desvincularArquitetura,
     desvincularModelo,
     desvincularFuncionario,
-    contarZonas
+    contarZonas,
+    contarTecnicosPorZona
 };

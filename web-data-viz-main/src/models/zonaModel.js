@@ -299,6 +299,37 @@ function contarZonas(fk_empresa) {
     return database.executar(instrucao);
 }
 
+function contarTecnicosPorZona(fk_empresa) {
+    var instrucao = `
+        SELECT 
+            z.id_zona,
+            z.nome AS nome_zona,
+            COUNT(DISTINCT u.id) AS qtd_tecnicos
+        FROM 
+            zonadisponibilidade z
+        LEFT JOIN 
+            acesso_zona az 
+            ON z.id_zona = az.fk_zona
+        LEFT JOIN
+            usuario u
+            ON u.id = az.fk_usuario
+        LEFT JOIN
+            cargo c
+            ON c.id = u.fk_cargo
+        WHERE
+            z.fk_empresa = ${fk_empresa}
+            AND u.ativo = 1
+            AND c.id IN (2, 3)  -- 2 = Técnico Supervisor, 3 = Técnico
+        GROUP BY 
+            z.id_zona, z.nome
+        ORDER BY 
+            z.id_zona;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     cadastrar,
     listar,
@@ -316,5 +347,6 @@ module.exports = {
     desvincularArquitetura,
     desvincularModelo,
     desvincularFuncionario,
-    contarZonas  // ADICIONE AQUI
+    contarZonas,
+    contarTecnicosPorZona
 };

@@ -607,7 +607,6 @@ const MOCK_TICKETS = [
 ];
 
 
-
 // ======================= CORES & VAR GLOBAIS =======================
 const COR_INCIDENTE = '#00B2B2';
 const COR_PROBLEMA = '#D97706';
@@ -621,53 +620,82 @@ let chartResource = null;
 let dadosTickets = [];
 let zonaSelecionada = 'all';
 
+// ======================= SLA & TÉCNICOS =======================
+// SLA de MTTR geral (em horas) – ajuste conforme política da empresa
+const SLA_MTTR_HORAS = 4;
+
+// será preenchido pelo back
+let TECNICOS_POR_ZONA = {};
 
 // ======================= PARSE DE DATA DO JIRA =======================
-// Converte "2025-12-06T18:36:09.791-0300" pra Date válido no JS
 function parseJiraDate(str) {
     if (!str) return null;
-    // só coloca o ":" no fuso horário (-0300 -> -03:00)
     return new Date(str.replace(/([+-]\d{2})(\d{2})$/, '$1:$2'));
 }
 
-// estados que contam como "em andamento" e "resolvido"
 const ESTADOS_ANDAMENTO = ['Em andamento', 'In Progress'];
 const ESTADOS_RESOLVIDOS = ['Done', 'Closed', 'Concluído', 'Resolvido'];
 
 
 // ======================= CARREGAR JSON DO S3 =======================
-// IMPORTANTE: não mexer muito aqui (é o que fala com o backend)
 async function dashprocesso() {
+  try {
+    // chama o backend, que por sua vez lê do S3
+    const resp = await fetch('/s3Route-andre/dados/tickets.json');
+    const txt  = await resp.text();
+
+    console.log('Resposta de /s3Route-andre/dados/tickets.json:', resp.status, txt);
+
+    if (!resp.ok) {
+      throw new Error('HTTP ' + resp.status + ' - ' + txt);
+    }
+
+    const dados = JSON.parse(txt);
+    return dados;
+  } catch (err) {
+    console.error('Erro ao buscar/parsear tickets.json, usando MOCK_TICKETS:', err);
+    // fallback pros mocks
+    return MOCK_TICKETS;
+  }
+}
+
+
+
+// ======================= CARREGA TÉCNICOS POR ZONA =======================
+async function carregarTecnicosPorZona() {
     try {
-        const resp = await fetch('/s3Route-andre/dados/tickets.json');
-        const txt  = await resp.text();
+        // em vez de pegar da sessionStorage:
+        const fkEmpresa = 1; // <<< COLOCA O ID CERTO DA EMPRESA AQUI
 
-        console.log('Resposta de /s3Route-andre/dados/tickets.json:', resp.status, txt);
-
+        const resp = await fetch(`/zona/tecnicos/${fkEmpresa}`);
         if (!resp.ok) {
-            throw new Error('HTTP ' + resp.status + ' - ' + txt);
+            console.error('Erro ao buscar técnicos por zona:', resp.status);
+            TECNICOS_POR_ZONA = {};
+            return;
         }
 
-        const dados = JSON.parse(txt);
-        return dados;
-    } catch (err) {
-        console.error('Erro ao buscar/parsear tickets.json, usando MOCK_TICKETS:', err);
-        // se der ruim no S3, cai pros mocks
-        return MOCK_TICKETS;
+        const dados = await resp.json();
+
+        TECNICOS_POR_ZONA = {};
+        dados.forEach(z => {
+            TECNICOS_POR_ZONA[z.nome_zona] = z.qtd_tecnicos;
+        });
+
+        console.log('TECNICOS_POR_ZONA carregado:', TECNICOS_POR_ZONA);
+    } catch (erro) {
+        console.error('Falha ao carregar técnicos por zona:', erro);
+        TECNICOS_POR_ZONA = {};
     }
 }
 
 
 // ======================= INICIALIZA DASHBOARD =======================
-// junta tickets reais + mocks e configura os listeners
 async function inicializarDashboard() {
     try {
+        // 1) carrega tickets (S3 ou mock)
         const dadosReais = await dashprocesso();
-
-        // junta o que veio do backend com os mocks
         const todos = [...dadosReais, ...MOCK_TICKETS];
 
-        // tira duplicado usando a chave do ticket
         const vistos = new Set();
         dadosTickets = todos.filter(t => {
             if (!t || !t.chave) return false;
@@ -678,6 +706,10 @@ async function inicializarDashboard() {
 
         console.log('Total de tickets (reais + mock, sem duplicar):', dadosTickets.length);
 
+        // 2) carrega quantidade de técnicos por zona do banco
+        await carregarTecnicosPorZona(); // <<< IMPORTANTE
+
+        // 3) resto da inicialização
         popularSelectZonas(dadosTickets);
         zonaSelecionada = 'all';
         atualizarTituloDashboard();
@@ -714,7 +746,6 @@ function mapearStatus(status) {
     return statusMap[status] || 'aberto';
 }
 
-// descobre quais recursos (GPU/CPU/RAM/Disco) o ticket mexe, baseado nas labels
 function extrairRecursos(labels) {
     const recursos = [];
     const norm = (v) => (v || '').toLowerCase();
@@ -744,7 +775,6 @@ function filtrarPorZona(tickets, zona) {
 
 
 // ======================= MTTR (cálculo) =======================
-// aqui eu pego só o tempo de "Em andamento" -> "Done/Closed/etc"
 function obterPeriodoAndamentoParaResolvido(ticket) {
     const historico = Array.isArray(ticket.historico_status)
         ? ticket.historico_status.slice()
@@ -752,14 +782,12 @@ function obterPeriodoAndamentoParaResolvido(ticket) {
 
     if (historico.length === 0) return null;
 
-    // ordena o histórico pela data
     historico.sort((a, b) => {
         const da = parseJiraDate(a.data);
         const db = parseJiraDate(b.data);
         return da - db;
     });
 
-    // procura primeiro momento que entrou em andamento
     for (let i = 0; i < historico.length; i++) {
         const h = historico[i];
         if (!ESTADOS_ANDAMENTO.includes(h.para)) continue;
@@ -769,7 +797,6 @@ function obterPeriodoAndamentoParaResolvido(ticket) {
 
         let fim = null;
 
-        // procura o próximo status resolvido
         for (let j = i + 1; j < historico.length; j++) {
             const h2 = historico[j];
             if (ESTADOS_RESOLVIDOS.includes(h2.para)) {
@@ -778,7 +805,6 @@ function obterPeriodoAndamentoParaResolvido(ticket) {
             }
         }
 
-        // se não achou no histórico, tenta pegar a data de resolução
         if (!fim && ticket.datas && ticket.datas.resolucao) {
             const possivelFim = parseJiraDate(ticket.datas.resolucao);
             if (possivelFim && possivelFim > inicio) {
@@ -796,7 +822,7 @@ function obterPeriodoAndamentoParaResolvido(ticket) {
     return null;
 }
 
-// calcula MTTR médio por recurso (GPU/CPU/RAM/Disco)
+// MTTR por recurso
 function calcularMTTR(tickets) {
     const mttrPorRecurso = {
         'GPU':  { total: 0, count: 0 },
@@ -827,7 +853,35 @@ function calcularMTTR(tickets) {
     return resultado;
 }
 
-// formata número de horas em "1h 20m" ou "53m"
+// MTTR geral (média dos recursos com valor > 0)
+function calcularMTTRGeralHoras(tickets) {
+    const mttrPorRecurso = calcularMTTR(tickets);
+    const valores = Object.values(mttrPorRecurso).filter(v => v > 0);
+    if (!valores.length) return 0;
+    return valores.reduce((a, b) => a + b, 0) / valores.length;
+}
+
+// % SLA da equipe
+function calcularSLADaEquipe(tickets, slaHoras) {
+    let totalConsiderados = 0;
+    let dentroSla = 0;
+
+    tickets.forEach(ticket => {
+        const duracaoHoras = obterPeriodoAndamentoParaResolvido(ticket);
+        if (duracaoHoras === null) return;
+
+        totalConsiderados++;
+        if (duracaoHoras <= slaHoras) dentroSla++;
+    });
+
+    const pctDentro = totalConsiderados > 0
+        ? (dentroSla / totalConsiderados) * 100
+        : 0;
+
+    return { pctDentro, totalConsiderados };
+}
+
+// formata "Xh Ym"
 function formatarTempo(horas) {
     if (!horas || horas <= 0) return '--';
     const totalMin = Math.round(horas * 60);
@@ -839,10 +893,16 @@ function formatarTempo(horas) {
     return `${h}h ${m}m`;
 }
 
-// joga o MTTR nos cards de GPU/CPU/RAM/Disco
+// MTTR cards (GPU/CPU/RAM/Disco)
+// fator de alerta: quando o MTTR passar de 80% da SLA, já fica laranja
+const FATOR_ALERTA_SLA = 0.8;
+
+// MTTR cards (GPU/CPU/RAM/Disco) com cores baseadas na SLA
 function atualizarMTTRCards(mttr) {
     const recursos   = ['GPU', 'CPU', 'RAM', 'Disco'];
     const elementos  = document.querySelectorAll('.mttr-item');
+
+    const limiteLaranja = SLA_MTTR_HORAS * FATOR_ALERTA_SLA;
 
     recursos.forEach((recurso, index) => {
         if (!elementos[index]) return;
@@ -852,21 +912,37 @@ function atualizarMTTRCards(mttr) {
         const valorHoras = mttr[recurso] || 0;
         valorElement.textContent = formatarTempo(valorHoras);
 
+        // limpa classes anteriores
         elementos[index].classList.remove('mttr-slow', 'mttr-avg', 'mttr-fast');
-        if (valorHoras > 8)      elementos[index].classList.add('mttr-slow');
-        else if (valorHoras > 3) elementos[index].classList.add('mttr-avg');
-        else                     elementos[index].classList.add('mttr-fast');
+
+        // aplica cor baseada na SLA
+        if (valorHoras === 0) {
+            // sem dados => mantem sem classe, ou você pode escolher uma padrão
+            return;
+        }
+
+        if (valorHoras > SLA_MTTR_HORAS) {
+            // passou da SLA -> vermelho
+            elementos[index].classList.add('mttr-slow');
+        } else if (valorHoras >= limiteLaranja) {
+            // se aproximando da SLA -> laranja
+            elementos[index].classList.add('mttr-avg');
+        } else {
+            // bem dentro da SLA -> verde (cor atual)
+            elementos[index].classList.add('mttr-fast');
+        }
     });
 }
 
 
-// ======================= MATRIZ DE STATUS (só incidentes) =======================
+
+// ======================= MATRIZ DE STATUS (Incidentes) =======================
 function calcularMatrizStatus(tickets) {
     const matriz = {
-        'GPU':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0, predicao: 0 },
-        'CPU':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0, predicao: 0 },
-        'RAM':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0, predicao: 0 },
-        'Disco':{ total: 0, abertos: 0, andamento: 0, resolvidos: 0, predicao: 0 }
+        'GPU':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0 },
+        'CPU':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0 },
+        'RAM':  { total: 0, abertos: 0, andamento: 0, resolvidos: 0 },
+        'Disco':{ total: 0, abertos: 0, andamento: 0, resolvidos: 0 }
     };
 
     tickets.forEach(ticket => {
@@ -880,15 +956,10 @@ function calcularMatrizStatus(tickets) {
             if (!linha) return;
 
             linha.total++;
-            if (status === 'aberto')      linha.abertos++;
+            if (status === 'aberto')        linha.abertos++;
             else if (status === 'andamento') linha.andamento++;
             else if (status === 'resolvido') linha.resolvidos++;
         });
-    });
-
-    // predicao = só um chute bobo (10% do que foi resolvido)
-    Object.keys(matriz).forEach(recurso => {
-        matriz[recurso].predicao = Math.round(matriz[recurso].resolvidos * 0.1);
     });
 
     return matriz;
@@ -935,40 +1006,59 @@ function atualizarTabelaStatus(matriz) {
 }
 
 
-// ======================= PROBLEMAS IDENTIFICADOS (só Problema) =======================
-function contarProblemas(tickets) {
-    const problemas = { 'GPU': 0, 'CPU': 0, 'RAM': 0, 'Disco': 0 };
+// ======================= PERFORMANCE DA EQUIPE =======================
+function obterQtdTecnicos(zona) {
+    // se por algum motivo não carregou nada, evita erro
+    if (!TECNICOS_POR_ZONA || Object.keys(TECNICOS_POR_ZONA).length === 0) {
+        return 0;
+    }
 
-    tickets.forEach(ticket => {
-        if (ticket.tipo === 'Problema') {
-            const recursos = extrairRecursos(ticket.labels || []);
-            recursos.forEach(recurso => {
-                if (problemas[recurso] !== undefined) {
-                    problemas[recurso]++;
-                }
-            });
-        }
-    });
+    if (zona === 'all') {
+        // soma os técnicos de todas as zonas
+        return Object.values(TECNICOS_POR_ZONA).reduce((acc, v) => acc + (v || 0), 0);
+    }
 
-    return problemas;
+    // zona específica (SP-01, SP-02, MG-01, ...)
+    return TECNICOS_POR_ZONA[zona] || 0;
 }
 
-function atualizarListaProblemas(problemas) {
-    const problemRows = document.querySelectorAll('.problem-row');
-    const recursos = ['GPU', 'CPU', 'RAM', 'Disco'];
+function atualizarKpiEquipe(zonaAtual, ticketsZona) {
+    const elQtdTecnicos = document.getElementById('teamAnalystsValue');
+    const elMttr         = document.getElementById('teamMttrValue');
+    const elBadge        = document.getElementById('teamMttrBadge');
+    const elPctSla       = document.getElementById('teamSlaPct');
 
-    recursos.forEach((recurso, idx) => {
-        const row = problemRows[idx];
-        if (!row) return;
-        const valEl = row.querySelector('.prob-value');
-        if (!valEl) return;
-        valEl.textContent = problemas[recurso] || 0;
-    });
+    if (!elQtdTecnicos || !elMttr || !elBadge || !elPctSla) return;
+
+    const numTecnicos    = obterQtdTecnicos(zonaAtual);
+    const mttrEquipe     = calcularMTTRGeralHoras(ticketsZona);
+    const { pctDentro }  = calcularSLADaEquipe(ticketsZona, SLA_MTTR_HORAS);
+
+    elQtdTecnicos.textContent = numTecnicos;
+
+    elMttr.textContent = mttrEquipe > 0
+        ? formatarTempo(mttrEquipe)
+        : '--';
+
+    elBadge.classList.remove('sla-ok', 'sla-bad', 'sla-pending');
+    if (mttrEquipe === 0) {
+        elBadge.textContent = '--';
+        elBadge.classList.add('sla-pending');
+    } else if (mttrEquipe <= SLA_MTTR_HORAS) {
+        elBadge.textContent = 'Dentro da SLA';
+        elBadge.classList.add('sla-ok');
+    } else {
+        elBadge.textContent = 'Fora da SLA';
+        elBadge.classList.add('sla-bad');
+    }
+
+    elPctSla.textContent = pctDentro > 0
+        ? `${pctDentro.toFixed(1)}%`
+        : '--';
 }
 
 
-// ======================= MTTR POR DIA (pra usar no gráfico) =======================
-// aqui eu calculo o MTTR médio de cada dia dos últimos 7 dias
+// ======================= MTTR POR DIA (gráfico) =======================
 function calcularDadosMTTRPorDia(tickets) {
     const hoje = new Date();
     const valores = [];
@@ -1005,17 +1095,12 @@ function calcularDadosMTTRPorDia(tickets) {
 
 
 // ======================= GRÁFICO MTTR GERAL + PREDIÇÃO =======================
-// aqui é o gráfico de área com REAL (verde) e PREDIÇÃO (linha laranja)
 function atualizarGraficoMTTR(tickets) {
     const dados = calcularDadosMTTRPorDia(tickets);
 
-    // MTTR real por dia (em horas)
     const mttrDiario = (dados.valores || []).map(v => Number((v || 0).toFixed(2)));
-    const categoriasHistoricas = dados.categorias || []; // 7 dias
+    const categoriasHistoricas = dados.categorias || [];
 
-    // ----------------------------
-    // CRIA 2 DIAS FUTUROS NO EIXO X
-    // ----------------------------
     const hoje = new Date();
     const categoriasFuturas = [];
 
@@ -1028,25 +1113,21 @@ function atualizarGraficoMTTR(tickets) {
         categoriasFuturas.push(label);
     }
 
-    const categorias = [...categoriasHistoricas, ...categoriasFuturas]; // 7 + 2 = 9
+    const categorias = [...categoriasHistoricas, ...categoriasFuturas];
 
-    // REAL: só nos 7 dias históricos
     const dadosReais = [...mttrDiario, null, null];
 
-    // ----------------------------
-    // REGRESSÃO LINEAR (usa só o passado)
-    // ----------------------------
     const indicesValidos = [];
     const valoresValidos = [];
 
     mttrDiario.forEach((val, idx) => {
         if (val > 0) {
-            indicesValidos.push(idx);   // 0..6
-            valoresValidos.push(val);   // horas
+            indicesValidos.push(idx);
+            valoresValidos.push(val);
         }
     });
 
-    const totalPontos = categorias.length; // 9
+    const totalPontos = categorias.length;
     const dadosPredicao = new Array(totalPontos).fill(null);
 
     if (indicesValidos.length >= 2) {
@@ -1066,23 +1147,30 @@ function atualizarGraficoMTTR(tickets) {
         const m = denom !== 0 ? (n * sumXY - sumX * sumY) / denom : 0;
         const b = (sumY - m * sumX) / n;
 
-        console.log('Tendência MTTR - inclinação (m):', m,
-            ' -> m > 0: tende a subir, m < 0: tende a cair');
+        console.log('Tendência MTTR - inclinação (m):', m);
 
-        const ultimoIndiceReal = mttrDiario.length - 1;  // 6
-        const primeiroFuturo   = mttrDiario.length;      // 7
+        const ultimoIndiceReal = mttrDiario.length - 1;
+        const primeiroFuturo   = mttrDiario.length;
 
-        // NÃO coloca mais valor real na predição:
         dadosPredicao[ultimoIndiceReal] = null;
 
-        // predição só dos 2 dias futuros
         for (let i = primeiroFuturo; i < totalPontos; i++) {
             const x = i;
             let yPred = m * x + b;
             if (yPred < 0) yPred = 0;
             dadosPredicao[i] = Number(yPred.toFixed(2));
-            }
         }
+    }
+
+    // ====== NOVO: garantir que o eixo Y enxergue a SLA ======
+    const maxReal   = mttrDiario.length ? Math.max(...mttrDiario) : 0;
+    const maxPrev   = dadosPredicao.filter(v => v != null && v > 0);
+    const maxPrevVal = maxPrev.length ? Math.max(...maxPrev) : 0;
+
+    // maior valor entre dados e SLA
+    const maxData = Math.max(maxReal, maxPrevVal, SLA_MTTR_HORAS);
+    // coloca um "respiro" de 20% acima
+    const yMax = maxData * 1.2;
 
     const optionsMTTR = {
         series: [
@@ -1099,7 +1187,7 @@ function atualizarGraficoMTTR(tickets) {
         colors: [COR_REAL, COR_PROBLEMA],
         fill: {
             type: 'solid',
-            opacity: [0.25, 0] // real preenchido, predição só linha
+            opacity: [0.25, 0]
         },
         stroke: {
             width: [3, 2],
@@ -1114,6 +1202,8 @@ function atualizarGraficoMTTR(tickets) {
             axisTicks:  { show: false }
         },
         yaxis: {
+            min: 0,
+            max: yMax, // <- garante que a linha da SLA (4h) caiba no gráfico
             labels: {
                 style: { colors: COR_TEXTO, fontSize: '10px' },
                 formatter: (val) => formatarTempo(val)
@@ -1136,7 +1226,25 @@ function atualizarGraficoMTTR(tickets) {
             borderColor: COR_GRID,
             strokeDashArray: 3
         },
-        annotations: {}, // SLA removido
+        // ====== AQUI A LINHA VERMELHA DA SLA ======
+        annotations: {
+            yaxis: [
+                {
+                    y: SLA_MTTR_HORAS,
+                    borderColor: COR_SLA,       // cor vermelha da SLA
+                    strokeDashArray: 4,
+                    label: {
+                        borderColor: COR_SLA,
+                        style: {
+                            color: '#fff',
+                            background: COR_SLA,
+                            fontSize: '10px'
+                        },
+                        text: `SLA - ${formatarTempo(SLA_MTTR_HORAS)}`
+                    }
+                }
+            ]
+        },
         legend: { show: true }
     };
 
@@ -1147,10 +1255,11 @@ function atualizarGraficoMTTR(tickets) {
 
 
 
+// ======================= TICKETS POR RECURSO (Incidentes) =======================
 function calcularTicketsPorRecursoDia(tickets, tipoVisao = 'incidentes') {
     const recursos = { GPU: [], CPU: [], RAM: [], Disco: [] };
     const hoje = new Date();
-    const categorias = []; // rótulos de datas (dd/MM) para o eixo X
+    const categorias = [];
 
     for (let i = 6; i >= 0; i--) {
         const diaIni = new Date(hoje);
@@ -1160,7 +1269,6 @@ function calcularTicketsPorRecursoDia(tickets, tipoVisao = 'incidentes') {
         const diaFim = new Date(diaIni);
         diaFim.setHours(23, 59, 59, 999);
 
-        // label tipo "03/12"
         const label =
             String(diaIni.getDate()).padStart(2, '0') + '/' +
             String(diaIni.getMonth() + 1).padStart(2, '0');
@@ -1170,7 +1278,6 @@ function calcularTicketsPorRecursoDia(tickets, tipoVisao = 'incidentes') {
             const dataCriacao = parseJiraDate(ticket.datas.criacao);
             if (!dataCriacao || dataCriacao < diaIni || dataCriacao > diaFim) return false;
 
-            if (tipoVisao === 'problemas')  return ticket.tipo === 'Problema';
             if (tipoVisao === 'incidentes') return ticket.tipo === 'Incidente';
             return true;
         });
@@ -1190,21 +1297,21 @@ function calcularTicketsPorRecursoDia(tickets, tipoVisao = 'incidentes') {
             { name: 'RAM',   data: recursos.RAM },
             { name: 'Disco', data: recursos.Disco }
         ],
-        categorias // datas (últimos 7 dias)
+        categorias
     };
 }
 
-
 function atualizarGraficoRecursos(tickets) {
     const dadosInc  = calcularTicketsPorRecursoDia(tickets, 'incidentes');
-    const dadosProb = calcularTicketsPorRecursoDia(tickets, 'problemas');
+    const seriesInc = dadosInc.series;
+    const categoriasDias = dadosInc.categorias;
 
-    const seriesInc  = dadosInc.series;
-    const seriesProb = dadosProb.series;
-    const categoriasDias = dadosInc.categorias; // mesmos dias para ambos
-
-    const colorsInc  = ['#00B2B2', '#006E66', '#B74C4C', '#D97706'];
-    const colorsProb = ['#D97706', '#EA580C', '#B74C4C', '#F59E0B'];
+    const colorsInc = [
+    '#138D8D', // GPU
+    '#2C3E50', // CPU
+    '#120A8F', // RAM
+    '#B2A300'  // Disco
+];
 
     const optionsResource = {
         series: seriesInc,
@@ -1233,7 +1340,6 @@ function atualizarGraficoRecursos(tickets) {
         theme: { mode: 'light' },
         stroke: { show: true, width: 0, colors: ['transparent'] },
         xaxis: {
-            // AGORA MOSTRA AS DATAS DOS ÚLTIMOS 7 DIAS
             categories: categoriasDias,
             labels: { style: { colors: COR_TEXTO, fontSize: '10px' } },
             axisBorder: { show: false },
@@ -1252,76 +1358,30 @@ function atualizarGraficoRecursos(tickets) {
     chartResource = new ApexCharts(document.querySelector('#resourceChart'), optionsResource);
     chartResource.render();
 
-    // guardar pro toggle
-    window.seriesInc   = seriesInc;
-    window.seriesProb  = seriesProb;
-    window.colorsInc   = colorsInc;
-    window.colorsProb  = colorsProb;
-    window.categoriasDias = categoriasDias;
-    window.chartResource = chartResource;
+    window.seriesResource  = seriesInc;
+    window.categoriasDias  = categoriasDias;
+    window.colorsResource  = colorsInc;
+    window.chartResource   = chartResource;
 
     const dotGpu   = document.getElementById('leg-gpu');
     const dotCpu   = document.getElementById('leg-cpu');
     const dotRam   = document.getElementById('leg-ram');
     const dotDisco = document.getElementById('leg-disco');
-    if (dotGpu)   dotGpu.style.background  = colorsInc[0];
-    if (dotCpu)   dotCpu.style.background  = colorsInc[1];
-    if (dotRam)   dotRam.style.background  = colorsInc[2];
-    if (dotDisco) dotDisco.style.background= colorsInc[3];
+    if (dotGpu)   dotGpu.style.background   = colorsInc[0];
+    if (dotCpu)   dotCpu.style.background   = colorsInc[1];
+    if (dotRam)   dotRam.style.background   = colorsInc[2];
+    if (dotDisco) dotDisco.style.background = colorsInc[3];
 }
 
-
-// botãozinho Incidentes / Problemas
-function updateResourceChart(tipo) {
-    if (!window.chartResource) return;
-
-    const btnInc  = document.getElementById('btn-inc');
-    const btnProb = document.getElementById('btn-prob');
-    const dotGpu   = document.getElementById('leg-gpu');
-    const dotCpu   = document.getElementById('leg-cpu');
-    const dotRam   = document.getElementById('leg-ram');
-    const dotDisco = document.getElementById('leg-disco');
-    const componentSelect = document.getElementById('componentSelect');
-
-    if (tipo === 'incidentes') {
-        window.chartResource.updateSeries(window.seriesInc);
-        window.chartResource.updateOptions({ colors: window.colorsInc });
-        btnInc?.classList.add('active');
-        btnProb?.classList.remove('active', 'problem-mode');
-        if (dotGpu)   dotGpu.style.background   = window.colorsInc[0];
-        if (dotCpu)   dotCpu.style.background   = window.colorsInc[1];
-        if (dotRam)   dotRam.style.background   = window.colorsInc[2];
-        if (dotDisco) dotDisco.style.background = window.colorsInc[3];
-    } else {
-        window.chartResource.updateSeries(window.seriesProb);
-        window.chartResource.updateOptions({ colors: window.colorsProb });
-        btnInc?.classList.remove('active');
-        btnProb?.classList.add('active', 'problem-mode');
-        if (dotGpu)   dotGpu.style.background   = window.colorsProb[0];
-        if (dotCpu)   dotCpu.style.background   = window.colorsProb[1];
-        if (dotRam)   dotRam.style.background   = window.colorsProb[2];
-        if (dotDisco) dotDisco.style.background = window.colorsProb[3];
-    }
-    
-    // Reseta o select de componentes ao mudar de tipo
-    if (componentSelect) componentSelect.value = 'all';
-}
-
-// ======================= FILTRO POR COMPONENTE =======================
 function filterResourceChart(componente) {
-    if (!window.chartResource || !window.seriesInc || !window.seriesProb) return;
+    if (!window.chartResource || !window.seriesResource) return;
 
-    const btnInc = document.getElementById('btn-inc');
-    const isIncidente = btnInc?.classList.contains('active');
-    const series = isIncidente ? window.seriesInc : window.seriesProb;
-    
+    const series = window.seriesResource;
     let filteredSeries;
-    
+
     if (componente === 'all') {
-        // Mostra todos os componentes
         filteredSeries = series;
     } else {
-        // Filtra apenas o componente selecionado
         const componenteMap = { 'GPU': 0, 'CPU': 1, 'RAM': 2, 'Disco': 3 };
         const index = componenteMap[componente];
         if (index !== undefined && series[index]) {
@@ -1330,7 +1390,7 @@ function filterResourceChart(componente) {
             filteredSeries = series;
         }
     }
-    
+
     window.chartResource.updateSeries(filteredSeries);
 }
 
@@ -1372,7 +1432,6 @@ function calcularStatusPorZona(tickets) {
         z.totalGeral++;
     });
 
-    // calcula MTTR médio da zona usando a mesma lógica de antes
     Object.keys(zonas).forEach(zona => {
         const ticketsZona = tickets.filter(t => (t.zona || t.identificador?.zona_nome) === zona);
         const mttrZona = calcularMTTR(ticketsZona);
@@ -1388,8 +1447,6 @@ function gerarRecomendacao() {
     return { texto: 'Ver mais', classe: 'priority-warn' };
 }
 
-
-
 function atualizarTabelaZonas(tickets) {
     const tbody = document.querySelector('.benchmark-table tbody');
     if (!tbody) return;
@@ -1401,7 +1458,7 @@ function atualizarTabelaZonas(tickets) {
 
     zonasOrdenadas.forEach(zona => {
         const z = zonas[zona];
-        const rec = gerarRecomendacao(); // agora SEM lógica
+        const rec = gerarRecomendacao();
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -1426,7 +1483,6 @@ function atualizarTabelaZonas(tickets) {
         tbody.appendChild(tr);
     });
 
-    // clique do "ver mais"
     const botoesVerMais = tbody.querySelectorAll('.ver-mais-btn');
     botoesVerMais.forEach(btn => {
         const zona = btn.getAttribute('data-zona');
@@ -1437,7 +1493,7 @@ function atualizarTabelaZonas(tickets) {
 
             zonaSelecionada = zona;
             if (select) {
-                select.value = zona; // sincroniza com o dropdown
+                select.value = zona;
             }
 
             atualizarTituloDashboard();
@@ -1445,6 +1501,7 @@ function atualizarTabelaZonas(tickets) {
         });
     });
 }
+
 
 // ======================= SELECT DE ZONAS / TÍTULO =======================
 function popularSelectZonas(tickets) {
@@ -1478,47 +1535,51 @@ function atualizarTituloDashboard() {
     const selectedZone   = selectedOption ? selectedOption.text : 'Todas as Zonas';
 
     if (select.value === 'all') {
-        titleElement.textContent = 'Dashboard - Performance de Tickets (Últimos 7 dias)';
+        titleElement.innerHTML = 'Dashboard - Performance de Resoluções dos Tickets das Zonas (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>';
     } else {
-        titleElement.textContent = `Dashboard - Performance de Tickets - ${selectedZone} (Últimos 7 dias)`;
+        titleElement.innerHTML = `Dashboard - Performance de Resoluções dos Tickets das Zonas - ${selectedZone} (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>`;
     }
+}
+
+
+// ======================= SLA NA PRIMEIRA KPI =======================
+function inicializarSlaKpi() {
+    const slaEl = document.getElementById('slaTargetValue');
+    if (!slaEl) return;
+    slaEl.textContent = formatarTempo(SLA_MTTR_HORAS);
 }
 
 
 // ======================= APLICA FILTROS E ATUALIZA TUDO =======================
 function aplicarFiltrosDashboard() {
-    // 1) tickets filtrados pela zona selecionada (pra quase tudo)
     const ticketsFiltradosZona    = filtrarPorZona(dadosTickets, zonaSelecionada);
     const ticketsUltimos7DiasZona = filtrarUltimos7Dias(ticketsFiltradosZona);
 
-    // 2) tickets de TODAS as zonas (pra tabela de zonas)
     const ticketsUltimos7DiasTodos = filtrarUltimos7Dias(dadosTickets);
 
-    // --- tudo que é "por zona selecionada" continua igual ---
     const mttr = calcularMTTR(ticketsUltimos7DiasZona);
     atualizarMTTRCards(mttr);
 
     const matriz = calcularMatrizStatus(ticketsUltimos7DiasZona);
     atualizarTabelaStatus(matriz);
 
-    const problemas = contarProblemas(ticketsUltimos7DiasZona);
-    atualizarListaProblemas(problemas);
+    // NOVO: KPI de equipe
+    atualizarKpiEquipe(zonaSelecionada, ticketsUltimos7DiasZona);
 
     atualizarGraficoMTTR(ticketsUltimos7DiasZona);
     atualizarGraficoRecursos(ticketsUltimos7DiasZona);
 
-    // --- AQUI: tabela de zonas usa SEMPRE todas as zonas ---
     atualizarTabelaZonas(ticketsUltimos7DiasTodos);
 
     console.log('Dashboard atualizado. Zona:', zonaSelecionada);
 }
 
 
-
 // ======================= ESPERAR APexCharts CARREGAR =======================
 function aguardarApexCharts() {
     if (typeof ApexCharts !== 'undefined') {
         console.log('ApexCharts carregado, iniciando dashboard...');
+        inicializarSlaKpi();
         inicializarDashboard();
     } else {
         console.log('Aguardando ApexCharts...');

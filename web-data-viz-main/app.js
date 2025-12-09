@@ -29,6 +29,7 @@ var ticketsRoute = require("./src/routes/tickets");
 var s3TicketRoute = require("./src/routes/s3Ticket")
 var alertasRoute = require("./src/routes/alertas");
 const s3Router = require('./src/routes/s3Route');
+const s3RouteAndre = require('./src/routes/s3Route-andre'); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -52,6 +53,7 @@ app.use("/mural",muralRoute)
 app.use("/tickets",ticketsRoute)
 app.use("/s3Ticket", s3TicketRoute)
 app.use("/api/alertas", alertasRoute);
+app.use('/s3Route-andre', s3RouteAndre);
 
 app.listen(PORTA_APP, function () {
     console.log(`

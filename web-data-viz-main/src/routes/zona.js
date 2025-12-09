@@ -34,6 +34,10 @@ router.get("/listar/:fkEmpresa", function (req, res) {
     zonaController.listar(req, res);
 });
 
+router.get("/tecnicos/:fkEmpresa", function (req, res) {
+    zonaController.contarTecnicosPorZona(req, res);
+});
+
 router.post("/vincularArquitetura/:id_zona", function (req, res) {
     zonaController.vincularArquitetura(req, res);
 });

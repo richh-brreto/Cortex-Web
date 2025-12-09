@@ -1,5 +1,3 @@
-
-
 const axios = require("axios");
 
 var database = require("../database/config");

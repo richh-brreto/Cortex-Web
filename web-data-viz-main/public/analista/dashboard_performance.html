@@ -11,8 +11,7 @@
 </head>
 <body>
     
-    <nav class="barra-lateral"">
-
+    <nav class="barra-lateral">
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
@@ -59,7 +58,6 @@
             <span class="texto-notificacao" id="notificacoes">Alertas</span>
         </a>
 
-
         <div class="item-com-submenu">
             <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
                 <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
@@ -95,11 +93,10 @@
     <div class="dashboard-wrapper">
         <div class="main-header">
             <div class="dash-title">
-                <span id="dashName">Dashboard - Performance de Tickets (Últimos 7 dias)</span>
+                <span id="dashName">Dashboard - Performance da Resoluções dos Tickets das Zonas (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span></span>
             </div>
 
             <div class="controls">
-                <!-- Zonas serão preenchidas via JS -->
                 <select class="zone-select" id="zoneSelect">
                     <option value="all">Todas as Zonas</option>
                 </select>
@@ -107,9 +104,10 @@
         </div>
 
         <div class="kpi-grid">
+            <!-- KPI 1: MTTR + SLA -->
             <div class="card">
                 <div class="card-header">
-                    <span>Tempo Médio de Resolução de Recursos (MTTR) (Últimos 7 dias)</span>
+                    <span>Tempo Médio de Resolução por Recursos (MTTR) </span>
                 </div>
 
                 <div class="items-grid-mttr">
@@ -135,9 +133,10 @@
                 </div>
             </div>
 
+            <!-- KPI 2: Matriz de Status -->
             <div class="card">
                 <div class="card-header">
-                    <span>Matriz de Status dos Tickets (Últimos 7 dias)</span>
+                    <span>Matriz de Status dos Tickets </span>
                 </div>
 
                 <table class="status-table">
@@ -195,42 +194,43 @@
                 </table>
             </div>
 
+            <!-- KPI 3: Performance da Equipe -->
             <div class="card">
                 <div class="card-header">
-                    <span>Problemas Identificados</span>
+                    <span>Performance da Equipe na Zona</span>
                 </div>
 
-                <div class="problem-list">
-                    <div class="problem-row">
-                        <span class="prob-label"><div class="prob-indicator"></div> GPU</span>
-                        <span class="prob-value">0</span>
+                <div class="team-kpi">
+                    <div class="team-kpi-row">
+                        <span class="team-kpi-label">Qtd. de Tecnicos na zona:</span>
+                        <span id="teamAnalystsValue" class="team-kpi-value">--</span>
                     </div>
 
-                    <div class="problem-row">
-                        <span class="prob-label"><div class="prob-indicator"></div> CPU</span>
-                        <span class="prob-value">0</span>
+                    <div class="team-kpi-row">
+                        <span class="team-kpi-label">MTTR Equipe:</span>
+                        <span class="team-kpi-value">
+                            <span id="teamMttrValue">--</span>
+                            <span id="teamMttrBadge" class="sla-status sla-pending">--</span>
+                        </span>
                     </div>
 
-                    <div class="problem-row">
-                        <span class="prob-label"><div class="prob-indicator"></div> RAM</span>
-                        <span class="prob-value">0</span>
-                    </div>
-
-                    <div class="problem-row">
-                        <span class="prob-label"><div class="prob-indicator"></div> Disco</span>
-                        <span class="prob-value">0</span>
+                    <div class="team-kpi-row">
+                        <span class="team-kpi-label">% tickets dentro do SLA:</span>
+                        <span id="teamSlaPct" class="team-kpi-value">--</span>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- GRÁFICOS -->
         <div class="charts-grid">
             <div class="card">
                 <div class="card-header">
-                    <span>MTTR Geral + Predição (Últimos 7 dias)</span>
+                    <span>MTTR Geral + Predição </span>
                     <div class="chart-legend">
                         <div class="legend-item"><div class="dot" style="background-color: var(--color-real)"></div> Real</div>
                         <div class="legend-item"><div class="dot" style="background-color: var(--color-problema)"></div> Predição</div>
+                        <div class="legend-item"><div class="dot" style="background-color: var(--color-sla)"></div> Sla-4hrs</div>
                     </div>
                 </div>
 
@@ -239,7 +239,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <span>Tickets por Recurso (Últimos 7 dias)</span>
+                    <span>Tickets por Recurso </span>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <div style="display: flex; align-items: center; gap: 5px;">
                             <label for="componentSelect" style="font-size: 0.9rem;">Componente:</label>
@@ -250,10 +250,6 @@
                                 <option value="RAM">RAM</option>
                                 <option value="Disco">Disco</option>
                             </select>
-                        </div>
-                        <div class="toggle-container">
-                            <button id="btn-inc" class="toggle-btn active" onclick="updateResourceChart('incidentes')">Incidentes</button>
-                            <button id="btn-prob" class="toggle-btn" onclick="updateResourceChart('problemas')">Problemas</button>
                         </div>
                     </div>
                 </div>
@@ -268,6 +264,8 @@
                 <div id="resourceChart" style="min-height: 350px;"></div>
             </div>
         </div>
+
+        <!-- A tabela de zonas fica em outro trecho do HTML (preservado no seu arquivo original, se existir) -->
     </div>
 
     <script src="../js/dashboard_performance.js"></script>
