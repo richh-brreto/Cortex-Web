@@ -876,10 +876,10 @@ function atualizarKpiEquipe(zona, ticketsZona) {
         elBadge.textContent = "--";
         elBadge.classList.add("sla-pending");
     } else if (mttr <= SLA_MTTR_HORAS) {
-        elBadge.textContent = "Dentro";
+        elBadge.textContent = "Dentro da SLA";
         elBadge.classList.add("sla-ok");
     } else {
-        elBadge.textContent = "Fora";
+        elBadge.textContent = "Fora da SLA";
         elBadge.classList.add("sla-bad");
     }
 
@@ -1195,10 +1195,10 @@ function atualizarTituloDashboard() {
 
     if (zonaSelecionada === "all") {
         title.innerHTML = 
-            `Dashboard - Performance dos Tickets (7 dias) <span style="color:#006E66">SLA 4h</span>`;
+            `Dashboard - Performance dos Tickets (Últimos 7 dias) -  <span style="color:#006E66">SLA 4h</span>`;
     } else {
         title.innerHTML = 
-            `Dashboard - Zona ${zonaSelecionada} (7 dias) <span style="color:#006E66">SLA 4h</span>`;
+            `Dashboard - Performance dos Tickets Zona ${zonaSelecionada} (Últimos 7 dias) -  <span style="color:#006E66">SLA 4h</span>`;
     }
 }
 
