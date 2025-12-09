@@ -1,104 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/mural_de_alertas.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/mural_de_alertas.css" />
     <script src="../js/navbar.js"></script>
-    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../base/navbar.css" />
     <title>Mural de Avisos</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <nav class="barra-lateral">
+      <a class="item-logo">
+        <img
+          src="../assets/icon/menu-aberto.png"
+          alt="Logo Cortex"
+          class="logotipo"
+        />
+        <span class="texto-logo">Cortex</span>
+      </a>
 
-        <a class="item-logo">
-            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-            <span class="texto-logo">Cortex</span>
-        </a>
+      <a class="item-navegacao" href="../bill/index.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Geral</span>
+      </a>
+      <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Gerenciamento de modelos</span>
+      </a>
+      <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Infraestrutura</span>
+      </a>
+      <a class="item-navegacao" href="mural_de_alertas.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Mural de alertas</span>
+      </a>
+      <a class="item-navegacao" href="../individual-richard/alertas_dash.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Alertas</span>
+      </a>
+      <a class="item-navegacao" href="dashboard_performance.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Performance</span>
+      </a>
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-        </a>
+      <div class="divisor"></div>
 
-        <div class="divisor"></div>
+      <h3 class="subTitulo">Gerenciamento</h3>
 
-        <h3 class="subTitulo">Gerenciamento</h3>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_funcionario-analista.html"
+      >
+        <img
+          src="../assets/icon/carteira-de-identidade.png"
+          id="atribuicao"
+          alt=""
+        />
+        <span class="texto">Funcionários</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_arquitetura-analista.html"
+      >
+        <img src="../assets/icon/modelo.png" id="gerenciamento" alt="" />
+        <span class="texto">Arquitetura</span>
+      </a>
+      <a class="item-navegacao" href="zona-analista.html">
+        <img src="../assets/icon/pin.png" id="gerenciamento" alt="" />
+        <span class="texto">Zonas</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
+      <div class="divisor"></div>
 
-        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-            <span class="texto">Clientes</span>
-        </a>
+      <a class="item-notificacao" href="mural_de_alertas.html">
+        <img src="../assets/icon/alerta.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+      </a>
+      <a class="item-notificacao" href="historico-tickets.html">
+        <img src="../assets/icon/69926.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes"
+          >Histórcio Tickets</span
+        >
+      </a>
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+      <a class="item-usuario" href="perfil-analista.html">
+        <img src="" alt="Foto de perfil" class="avatar-usuario" />
+        <span class="texto-usuario"></span>
+      </a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+      <div class="divisor"></div>
 
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" href="mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
-        </a>
-
-        <!-- ITEM COM SUBMENU -->
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-                </span>
-            </a>
-            <div class="submenu">
-                <div class="submenu-item ativo">Jira</div>
-                <div class="submenu-item">Slack</div>
-            </div>
-        </div>
-
-        <a class="item-usuario" href="perfil-analista.html">
-            <img src="" alt="Foto de perfil" class="avatar-usuario">
-            <span class="texto-usuario"></span>
-        </a>
-
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" onclick="logout()">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
+      <a class="item-notificacao" onclick="logout()">
+        <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="" />
+        <span class="texto-notificacao" id="sair">Sair</span>
+      </a>
     </nav>
     <script src="../js/logout.js"></script>
     <script src="../js/avatar-apply.js"></script>
 
     <div class="container">
-        <div class="header">
-            <h1>Mural de Tickets</h1>
-            <a href="../individual-richard/alertas_dash.html">
-                <button id="buttonLink" class="btn-modeloEspecifico">
-                    Ir para Alertas em Modelos
-                </button>
-            </a>
-        </div>
+      <div class="header">
+        <h1>Mural de Tickets</h1>
+        <a href="../individual-richard/alertas_dash.html">
+          <button id="buttonLink" class="btn-modeloEspecifico">
+            Ir para Alertas em Modelos
+          </button>
+        </a>
+      </div>
 
-        <!--
+      <!--
 <div class="tabs">
 <div class="tab active">
 Todos
@@ -119,96 +132,90 @@ Alerta 3
 </div>
 Tabs -->
 
-        <!-- Cards Grid -->
-        <div class="cards-grid">
-            <p id="status-message"></p>
-
-        </div>
+      <!-- Cards Grid -->
+      <div class="cards-grid">
+        <p id="status-message"></p>
+      </div>
     </div>
     <script>
-        // Funções de utilidade para processar dados do Jira
+      // Funções de utilidade para processar dados do Jira
 
-
-
-        // Adicione esta função ANTES da sua função carregarMural()
-        function mapCustomFieldToAlertClass(customFieldValue) {
-            if (!customFieldValue) {
-                return ''; // Não aplica classe se o campo for nulo/indefinido
-            }
-
-            // Converte para minúsculas e remove espaços para comparação segura
-            const value = customFieldValue.toLowerCase().trim();
-
-            if (value.includes("em alerta")) {
-                // Para "Em alerta (ticket mais atual)"
-                return 'alert-1';
-            } else if (value.includes("normal")) {
-                // Para "Normal (ticket antigo)"
-                return 'alert-2';
-            } else {
-                return ''; // Classe padrão (sem cor especial)
-            }
-
+      // Adicione esta função ANTES da sua função carregarMural()
+      function mapCustomFieldToAlertClass(customFieldValue) {
+        if (!customFieldValue) {
+          return ""; // Não aplica classe se o campo for nulo/indefinido
         }
 
+        // Converte para minúsculas e remove espaços para comparação segura
+        const value = customFieldValue.toLowerCase().trim();
 
+        if (value.includes("em alerta")) {
+          // Para "Em alerta (ticket mais atual)"
+          return "alert-1";
+        } else if (value.includes("normal")) {
+          // Para "Normal (ticket antigo)"
+          return "alert-2";
+        } else {
+          return ""; // Classe padrão (sem cor especial)
+        }
+      }
 
-        // Função principal para buscar e renderizar os tickets
-        async function carregarMural() {
-            const cardsGrid = document.querySelector(".cards-grid");
-            const statusMessage = document.getElementById("status-message");
+      // Função principal para buscar e renderizar os tickets
+      async function carregarMural() {
+        const cardsGrid = document.querySelector(".cards-grid");
+        const statusMessage = document.getElementById("status-message");
 
-            // Rota para buscar todos os tickets (sem filtro)
-            const apiUrl = "/mural/todos";
+        // Rota para buscar todos os tickets (sem filtro)
+        const apiUrl = "/mural/todos";
 
-            try {
-                statusMessage.textContent = "Buscando tickets abertos no Jira...";
+        try {
+          statusMessage.textContent = "Buscando tickets abertos no Jira...";
 
-                const response = await fetch(apiUrl);
+          const response = await fetch(apiUrl);
 
-                if (response.status === 204) {
-                    cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
-                    return;
-                }
+          if (response.status === 204) {
+            cardsGrid.innerHTML =
+              "<p>Nenhum alerta de ticket aberto encontrado.</p>";
+            return;
+          }
 
-                if (!response.ok) {
-                    throw new Error(`Erro HTTP: ${response.status}`);
-                }
+          if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+          }
 
-                const tickets = await response.json();
+          const tickets = await response.json();
 
-                // Limpa o grid antes de renderizar
-                cardsGrid.innerHTML = '';
+          // Limpa o grid antes de renderizar
+          cardsGrid.innerHTML = "";
 
+          // 3. RESPONSÁVEL (ASSIGNEE)
+          // O campo é 'assignee' (corrigido no Model). Verifica se existe e pega o displayName.
 
+          // 4. LABELS (opcional: para usar no card-date, se não quiser a data de criação)
+          var labels;
 
+          for (const ticket of tickets) {
+            const campo = ticket.fields;
+            const maquinaNome = campo.customfield_10060
+              ? campo.customfield_10060.value
+              : "N/A";
+            const responsavelNome = campo.assignee
+              ? campo.assignee.displayName
+              : "Não Atribuído";
 
-                // 3. RESPONSÁVEL (ASSIGNEE)
-                // O campo é 'assignee' (corrigido no Model). Verifica se existe e pega o displayName.
+            const alertClass = mapCustomFieldToAlertClass(maquinaNome);
 
+            var labels = "";
+            for (let i = 0; i < campo.labels.length; i++) {
+              labels += campo.labels[i] + "   ";
+            }
 
-                // 4. LABELS (opcional: para usar no card-date, se não quiser a data de criação)
-                var labels
-
-                for (const ticket of tickets) {
-
-                    const campo = ticket.fields
-                    const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
-                    const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
-
-                    const alertClass = mapCustomFieldToAlertClass(maquinaNome);
-
-                    var labels = "";
-                    for (let i = 0; i < campo.labels.length; i++) {
-                        labels += campo.labels[i] + "   ";
-                    }
-
-                    const identificador = campo.customfield_10093.split(";")
-                    const idModelo = identificador[0]
-                    const idZona = identificador[1]
-                    const idEmpresa = identificador[2]
-                    console.log(labels)
-                    cardsGrid.innerHTML += `
+            const identificador = campo.customfield_10093.split(";");
+            const idModelo = identificador[0];
+            const idZona = identificador[1];
+            const idEmpresa = identificador[2];
+            console.log(labels);
+            cardsGrid.innerHTML += `
                         <div class="card ${alertClass}">
                             <div class="card-header">
 
@@ -233,37 +240,32 @@ Tabs -->
                             </div>
                         </div>
                     `;
-                }
+          }
 
-
-
-                // Remove a mensagem de status se os cards foram carregados
-                if (cardsGrid.children.length === 0) {
-                    cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
-                }
-
-            } catch (erro) {
-                console.error("Erro na requisição ou processamento dos dados:", erro);
-                cardsGrid.innerHTML = `<p style="color: red;">Falha ao carregar o mural. Verifique sua conexão e o console para detalhes.</p>`;
-            }
+          // Remove a mensagem de status se os cards foram carregados
+          if (cardsGrid.children.length === 0) {
+            cardsGrid.innerHTML =
+              "<p>Nenhum alerta de ticket aberto encontrado.</p>";
+          }
+        } catch (erro) {
+          console.error("Erro na requisição ou processamento dos dados:", erro);
+          cardsGrid.innerHTML = `<p style="color: red;">Falha ao carregar o mural. Verifique sua conexão e o console para detalhes.</p>`;
         }
+      }
 
-        // Inicia o carregamento dos dados quando a página é carregada
-        document.addEventListener('DOMContentLoaded', carregarMural);
+      // Inicia o carregamento dos dados quando a página é carregada
+      document.addEventListener("DOMContentLoaded", carregarMural);
 
+      function irParaJira(key) {
+        var link = `https://cortexsptech.atlassian.net/browse/${key}`;
+        window.open(link, "_blank");
+      }
 
-        function irParaJira(key) {
-            var link = `https://cortexsptech.atlassian.net/browse/${key}`
-            window.open(link, '_blank')
-        }
-
-        function irParaDashboardTicket(modelo, key) {
-            sessionStorage.setItem('ID_MODELO_SELECIONADO', modelo);
-            sessionStorage.setItem('KEY_JIRA_SLECIONADO', key);
-            window.location.href = 'dash-chamado.html'
-        }
+      function irParaDashboardTicket(modelo, key) {
+        sessionStorage.setItem("ID_MODELO_SELECIONADO", modelo);
+        sessionStorage.setItem("KEY_JIRA_SLECIONADO", key);
+        window.location.href = "dash-chamado.html";
+      }
     </script>
-</body>
-
-
+  </body>
 </html>
