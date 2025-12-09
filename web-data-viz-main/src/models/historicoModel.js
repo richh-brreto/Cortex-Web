@@ -27,7 +27,6 @@ async function buscarTicketsHistorico() {
         ],
     };
     try {
-        console.log(url);
         const response = await axios.post(
             `${url}/rest/api/3/search/jql`,
             body,
