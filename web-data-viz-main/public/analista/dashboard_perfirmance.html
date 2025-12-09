@@ -11,82 +11,90 @@
 </head>
 <body>
     
-    <nav class="barra-lateral">
-        <a class="item-logo">
-            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-            <span class="texto-logo">Cortex</span>
-        </a>
+      <nav class="barra-lateral">
+      <a class="item-logo">
+        <img
+          src="../assets/icon/menu-aberto.png"
+          alt="Logo Cortex"
+          class="logotipo"
+        />
+        <span class="texto-logo">Cortex</span>
+      </a>
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-        </a>
+      <a class="item-navegacao" href="../bill/index.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Geral</span>
+      </a>
+      <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Gerenciamento de modelos</span>
+      </a>
+      <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Infraestrutura</span>
+      </a>
+  
+      <a class="item-navegacao" href="../individual-richard/alertas_dash.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Alertas</span>
+      </a>
+      <a class="item-navegacao" href="dashboard_perfirmance.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Performance</span>
+      </a>
 
-        <div class="divisor"></div>
+      <div class="divisor"></div>
 
-        <h3 class="subTitulo">Gerenciamento</h3>
+      <h3 class="subTitulo">Gerenciamento</h3>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_funcionario-analista.html"
+      >
+        <img
+          src="../assets/icon/carteira-de-identidade.png"
+          id="atribuicao"
+          alt=""
+        />
+        <span class="texto">Funcionários</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_arquitetura-analista.html"
+      >
+        <img src="../assets/icon/modelo.png" id="gerenciamento" alt="" />
+        <span class="texto">Arquitetura</span>
+      </a>
+      <a class="item-navegacao" href="zona-analista.html">
+        <img src="../assets/icon/pin.png" id="gerenciamento" alt="" />
+        <span class="texto">Zonas</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_cliente-analista.html">
-            <img src="../assets/icon/clientes.png" id="gerenciamento" alt="">
-            <span class="texto">Clientes</span>
-        </a>
+      <div class="divisor"></div>
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+      <a class="item-notificacao" href="mural_de_alertas.html">
+        <img src="../assets/icon/alerta.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+      </a>
+      <a class="item-notificacao" href="historico-tickets.html">
+        <img src="../assets/icon/69926.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes"
+          >Histórico Tickets</span
+        >
+      </a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+      <a class="item-usuario" href="perfil-analista.html">
+        <img src="" alt="Foto de perfil" class="avatar-usuario" />
+        <span class="texto-usuario"></span>
+      </a>
 
-        <div class="divisor"></div>
+      <div class="divisor"></div>
 
-        <a class="item-notificacao" href="mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Alertas</span>
-        </a>
-
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-                </span>
-            </a>
-            <div class="submenu">
-                <div class="submenu-item ativo">
-                    <a href="https://spt ech-hydroscan.atlassian.net/jira/ser vicedesk/projects/CTX/list?jql=project %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
-                        style="text-decoration: none;color: inherit;">Jira</a>
-                </div>
-                <div class="submenu-item">
-                    <a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
-                        style="text-decoration: none;color: inherit;">Slack</a>
-                </div>
-            </div>
-        </div>
-
-        <a class="item-usuario" href="perfil-analista.html">
-            <img src="" alt="Foto de perfil" class="avatar-usuario">
-            <span class="texto-usuario"></span>
-        </a>
-
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" onclick="logout()">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
+      <a class="item-notificacao" onclick="logout()">
+        <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="" />
+        <span class="texto-notificacao" id="sair">Sair</span>
+      </a>
     </nav>
     <script src="../js/logout.js"></script>
 

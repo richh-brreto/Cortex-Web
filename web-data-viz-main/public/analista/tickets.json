@@ -1,0 +1,118 @@
+[ {
+  "chave" : "CTX-65",
+  "resumo" : "ALERTA CRÍTICO: Modelo AetherLink Máquina SV-SP01-INF-21 - Última Atualização 2025-12-07_20-27-25",
+  "tipo_issue" : "Crítico",
+  "tipo" : "Incidente",
+  "prioridade" : "Low",
+  "status" : "Concluído",
+  "datas" : {
+    "criacao" : "2025-12-08T03:48:18.633-0300",
+    "resolucao" : null
+  },
+  "labels" : [ "cpu" ],
+  "identificador" : {
+    "valor_bruto" : "21;1;1",
+    "modelo_id" : "21",
+    "zona_id" : "1",
+    "empresa_id" : "1",
+    "zona_nome" : "SP-01"
+  },
+  "zona" : "SP-01",
+  "historico_status" : [ {
+    "data" : "2025-12-08T03:50:25.682-0300",
+    "de" : "In Progress",
+    "para" : "Done"
+  }, {
+    "data" : "2025-12-08T03:50:11.960-0300",
+    "de" : "Open",
+    "para" : "In Progress"
+  } ]
+}, {
+  "chave" : "CTX-64",
+  "resumo" : "ALERTA CRÍTICO: Modelo NovaQuest Máquina SV-SP01-NPL-01 - Última Atualização 2025-12-07_19-30-05",
+  "tipo_issue" : "Crítico",
+  "tipo" : "Incidente",
+  "prioridade" : "Medium",
+  "status" : "Em andamento",
+  "datas" : {
+    "criacao" : "2025-12-08T03:45:38.975-0300",
+    "resolucao" : null
+  },
+  "labels" : [ "cpu", "ram" ],
+  "identificador" : {
+    "valor_bruto" : "1;1;1",
+    "modelo_id" : "1",
+    "zona_id" : "1",
+    "empresa_id" : "1",
+    "zona_nome" : "SP-01"
+  },
+  "zona" : "SP-01",
+  "historico_status" : [ {
+    "data" : "2025-12-08T03:45:56.727-0300",
+    "de" : "Open",
+    "para" : "In Progress"
+  } ]
+}, {
+  "chave" : "CTX-63",
+  "resumo" : "ALERTA CRÍTICO: Modelo AetherLink Máquina SV-SP01-INF-21 - Última Atualização 2025-12-08_09-20-05",
+  "tipo_issue" : "Crítico",
+  "tipo" : "Incidente",
+  "prioridade" : "High",
+  "status" : "Aberto",
+  "datas" : {
+    "criacao" : "2025-12-08T03:42:48.269-0300",
+    "resolucao" : null
+  },
+  "labels" : [ "cpu" ],
+  "identificador" : {
+    "valor_bruto" : "21;1;1",
+    "modelo_id" : "21",
+    "zona_id" : "1",
+    "empresa_id" : "1",
+    "zona_nome" : "SP-01"
+  },
+  "zona" : "SP-01",
+  "historico_status" : [ ]
+}, {
+  "chave" : "CTX-62",
+  "resumo" : "ALERTA CRÍTICO: Modelo GenAi Máquina SV-SP02-REC-03 - Última Atualização 2025-12-08_10-30-05",
+  "tipo_issue" : "Crítico",
+  "tipo" : "Incidente",
+  "prioridade" : "High",
+  "status" : "Aberto",
+  "datas" : {
+    "criacao" : "2025-12-08T03:40:12.007-0300",
+    "resolucao" : null
+  },
+  "labels" : [ "cpu", "ram" ],
+  "identificador" : {
+    "valor_bruto" : "3;2;1",
+    "modelo_id" : "3",
+    "zona_id" : "2",
+    "empresa_id" : "1",
+    "zona_nome" : "SP-02"
+  },
+  "zona" : "SP-02",
+  "historico_status" : [ ]
+}, {
+  "chave" : "CTX-61",
+  "resumo" : "ALERTA CRÍTICO: Modelo NovaQuest Máquina SV-SP01-NPL-01 - Última Atualização 2025-12-08_09-30-05",
+  "tipo_issue" : "Crítico",
+  "tipo" : "Incidente",
+  "prioridade" : "High",
+  "status" : "Aberto",
+  "datas" : {
+    "criacao" : "2025-12-08T03:35:56.055-0300",
+    "resolucao" : null
+  },
+  "labels" : [ "cpu", "ram" ],
+  "identificador" : {
+    "valor_bruto" : "1;1;1",
+    "modelo_id" : "1",
+    "zona_id" : "1",
+    "empresa_id" : "1",
+    "zona_nome" : "SP-01"
+  },
+  "zona" : "SP-01",
+  "historico_status" : [ ]
+} ]
