@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Funcionário | Cortex</title>
+    <title>Dashboard processos | Cortex</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;600;700&display=swap"
@@ -254,8 +254,8 @@
 
 
     #grafCpu {
-        width: 70% !important;
-        height: 270px !important;
+        width: 65% !important;
+        height: 220px !important;
     }
 
     #containerOutlier {
@@ -263,13 +263,12 @@
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 4px 5px rgba(0, 0, 0, 0.05);
-        padding: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         padding: 10px;
-        transform: scaleY(0.95);
+        height: 400px;
         margin-top: -15px;
     }
 
@@ -399,8 +398,9 @@
         border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        margin-bottom: -10px;
+        margin-bottom: 10px;
         transform: scale(0.75);
+        margin-left: auto;
 
     }
 
@@ -473,7 +473,7 @@
             border: 1px solid #ddd !important;
             page-break-inside: avoid;
 
-           
+
             max-height: 450px !important;
             max-height: none !important;
             margin-bottom: 20px !important;
@@ -516,54 +516,55 @@
         }
     }
 
-    .btn-modal-primario, .btn-modal-secundario {
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px; 
-}
+    .btn-modal-primario,
+    .btn-modal-secundario {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
 
 
-.btn-modal-primario {
-    background-color: #138D8D; 
-    color: white;
-    border: none;
-    box-shadow: 0 4px 6px rgba(19, 141, 141, 0.2);
-}
+    .btn-modal-primario {
+        background-color: #138D8D;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 6px rgba(19, 141, 141, 0.2);
+    }
 
-.btn-modal-primario:hover {
-    background-color: #0e6b6b; 
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 12px rgba(19, 141, 141, 0.3);
-}
+    .btn-modal-primario:hover {
+        background-color: #0e6b6b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(19, 141, 141, 0.3);
+    }
 
-.btn-modal-primario:active {
-    transform: translateY(0); 
-}
+    .btn-modal-primario:active {
+        transform: translateY(0);
+    }
 
-.btn-modal-secundario {
-    background-color: transparent;
-    color: #666;
-    border: 2px solid #e0e0e0;
-}
+    .btn-modal-secundario {
+        background-color: transparent;
+        color: #666;
+        border: 2px solid #e0e0e0;
+    }
 
-.btn-modal-secundario:hover {
-    background-color: #f8f9fa;
-    border-color: #b0b0b0;
-    color: #333;
-}
+    .btn-modal-secundario:hover {
+        background-color: #f8f9fa;
+        border-color: #b0b0b0;
+        color: #333;
+    }
 </style>
 
 <body>
 
     <nav class="barra-lateral">
-        
+
         <a class="item-logo">
             <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
             <span class="texto-logo">Cortex</span>
@@ -572,244 +573,215 @@
         <a class="item-navegacao" href="dahsboard_infraestrutura.html">
             <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
             <span class="texto" id="texto-dash">Infraestrutura</span>
-   
-
-        <div class="divisor"></div>
-
-        <h3 class="subTitulo">Gerenciamento</h3>
-
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
-
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
 
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+            <div class="divisor"></div>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+            <h3 class="subTitulo">Gerenciamento</h3>
 
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" href="mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
-        </a>
-          <a class="item-notificacao" href="historico-tickets.html">
-            <img src="../assets/icon/69926.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Histórcio Tickets</span>
-        </a>
-
-        <!-- ITEM COM SUBMENU -->
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-                </span>
+            <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+                <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+                <span class="texto">Funcionários</span>
             </a>
-            <div class="submenu">
-                <div class="submenu-item ativo"><a href="https://spt
+
+            <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+                <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+                <span class="texto">Arquitetura</span>
+            </a>
+
+
+            <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+                <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+                <span class="texto">Modelos</span>
+            </a>
+
+            <a class="item-navegacao" href="zona-analista.html">
+                <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+                <span class="texto">Zonas</span>
+            </a>
+
+            <div class="divisor"></div>
+
+            <a class="item-notificacao" href="mural_de_alertas.html">
+                <img src="../assets/icon/alerta.png" id="sino" alt="">
+                <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+            </a>
+            <a class="item-notificacao" href="historico-tickets.html">
+                <img src="../assets/icon/69926.png" id="sino" alt="">
+                <span class="texto-notificacao" id="notificacoes">Histórcio Tickets</span>
+            </a>
+
+            <!-- ITEM COM SUBMENU -->
+            <div class="item-com-submenu">
+                <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                    <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                    <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                    </span>
+                </a>
+                <div class="submenu">
+                    <div class="submenu-item ativo"><a href="https://spt
                     ech-hydroscan.atlassian.net/jira/ser
                     vicedesk/projects/CTX/list?jql=project
-                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
-                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
-                    style="text-decoration: none;color: inherit;">Slack</a></div>
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
+                            style="text-decoration: none;color: inherit;">Jira</a></div>
+                    <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
+                            style="text-decoration: none;color: inherit;">Slack</a></div>
+                </div>
             </div>
-        </div>
 
-        <a class="item-usuario" href="perfil-analista.html">
-            <img src="../assets/imgs/sem-foto.png" alt="Foto de perfil" class="avatar-usuario">
-            <span class="texto-usuario"></span>
-        </a>
+            <a class="item-usuario" href="perfil-analista.html">
+                <img src="../assets/imgs/sem-foto.png" alt="Foto de perfil" class="avatar-usuario">
+                <span class="texto-usuario"></span>
+            </a>
 
-        <div class="divisor"></div>
+            <div class="divisor"></div>
 
-        <a class="item-notificacao" onclick="logout()">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
+            <a class="item-notificacao" onclick="logout()">
+                <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+                <span class="texto-notificacao" id="sair">Sair</span>
+            </a>
     </nav>
 
 
 
 
     <script src="../js/logout.js"></script>
+<div id="geral">
+    
+    <div id="containerGeral">
 
-
-    <div id="geral">
-        <div id="containerGeral">
-
-            <div class="header">
-                <div class="header-content">
-                    <div class="header-info">
-                        <h1 id="nome-modelo">GPT-5</h1>
-                        <p>ID: <strong id="codigo-modelo">MDL-H333-2024</strong></p>
-                        <p>Cliente: <strong id="nome-cliente"> OPEN AI</strong></p>
-                        <p>Última atualização: <strong id="ultima-atualizacao"></strong></p>
-
-
-                    </div>
-                    <div class="status-badge active">
-                        <div class="status-indicator active"></div>
-                        <span class="status-text active">Em execução</span>
-                    </div>
+        <div class="header">
+            <div class="header-content">
+                <div class="header-info">
+                    <h1 id="nome-modelo">GPT-5</h1>
+                    <p>ID: <strong id="codigo-modelo">MDL-H333-2024</strong></p>
+                    <p>Cliente: <strong id="nome-cliente"> OPEN AI</strong></p>
+                    <p>Última atualização: <strong id="ultima-atualizacao"></strong></p>
+                </div>
+                <div class="status-badge active">
+                    <div class="status-indicator active"></div>
+                    <span class="status-text active">Em execução</span>
                 </div>
             </div>
-            <div id="area-titulo-impresso">
-                <h1>Relatório Executivo - Cortex</h1>
-                <p>Análise de Performance e Infraestrutura</p>
-                <p>Gerado em: <span id="data-impressao"></span></p>
-            </div>
-
-            <div id="graficos">
-
-                <div class="card-grafico">
-                    <h1>Média de uso de recursos nos últimos 6 meses</h1>
-                    <canvas id="grafCpu"></canvas>
-                </div>
-
-                <div class="card-grafico">
-                    <h1>Média de uso de recursos em <span id="spanmesAtual"></span> por período do dia:</h1>
-                    <canvas id="grafGpu"></canvas>
-                </div>
-                <div id="relatorio-ia-impresso" class="secao-impressao">
-                    <h2> Análise Inteligente (IA)</h2>
-                    <p id="conteudo-ia-impresso">
-                        Nenhuma análise foi gerada antes da exportação deste relatório.
-                    </p>
-                </div>
-
-
-            </div>
-
         </div>
 
-        <div id="geral2">
+        <div id="area-titulo-impresso">
+            <h1>Relatório Executivo - Cortex</h1>
+            <p>Análise de Performance e Infraestrutura</p>
+            <p>Gerado em: <span id="data-impressao"></span></p>
+        </div>
 
-            <div id="kpis">
-                <div id="crescimento" class="kpi">
-                    <p>Variação de Consumo</p>
-
-                    <div id="kpi-crescimento"
-                        style="display: flex;  flex-direction: column; gap: 8px; margin-top: 5px;">
-                        <span style="font-size: 0.9em; color: #888;">Calculando...</span>
-                    </div>
-                    <span class="kpi-periodo" style="margin-top: 0px;">Mês Atual vs Mês Anterior</span>
-
-                </div>
-                <div class="kpi">
-                    <div class="card-info">
-                        <h3>Perfil de Carga Diária em <span id="spanmesAtual2"></span></h3>
-                        <div class="periodo-item"
-                            style="border-bottom: 1px dashed #eee; padding-bottom: 0px; margin-bottom: 0px; margin-top: 20PX;">
-                            <span style="color: #555; font-size: 1.2em;">Maior Utilização:</span>
-                            <div
-                                style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
-                                <span style="font-size: 1.2em;"></span>
-                                <strong id="kpi-periodo-maior" style="color: #0e6b6b; font-size: 1.1em;">--</strong>
-                            </div>
-                        </div>
-
-                        <div class="periodo-item">
-                            <span style="color: #555; font-size: 0.9em;">Menor Utilização:</span>
-                            <div
-                                style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
-                                <span style="font-size: 1.2em;"></span>
-                                <strong id="kpi-periodo-menor" style="color: #2C3E50; font-size: 1.1em;">--</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+        <div id="graficos">
+            
+            <div style="height: 44.9%;" class="card-grafico">
+                <h1>Média de uso de recursos nos últimos 3 meses</h1>
+                <canvas id="grafCpu"></canvas>
             </div>
 
-            <div id="containerOutlier">
-                <div style="display: flex; gap: 20px; width: 100%; font-family: 'Segoe UI', sans-serif;">
+            <div id="containerOutlier" style="margin-top: 5px; transform: none; width: 99%; box-sizing: border-box; margin-left: 10px; height: 52%;">
+                <div style="display: flex; gap: 10px;height: 100px; width: 100%; font-family: 'Segoe UI', sans-serif; transform: scale(0.9);">
 
-                    <div
-                        style="flex: 1; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #0e6b6b; position: relative; height: 100px; border-right: 0px solid transparent;">
-                        <div
-                            style="color: #6c757d; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                            <i class="fa fa-bell"></i> Volumetria de incidentes
+                    <div style="flex: 1; background: #fff; padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #0e6b6b; position: relative; height: 100px;">
+                        <div style="color: #6c757d; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                            <i class="fa fa-bell"></i> Volumetria de registros críticos
                         </div>
-
                         <div style="margin-top: 5px; display: flex; align-items: baseline;">
                             <span id="kpiTotalAtual" style="font-size: 30px; font-weight: 800; color: #333;">0</span>
-
-
+                            <span id="kpiVariacaoAlertas" style="font-size: 14px; font-weight: bold;">0</span>
                         </div>
                         <div style="font-size: 12px; color: #aaa; margin-top: 5px;">No mês atual</div>
                     </div>
 
-                    <div
-                        style="flex: 1; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                        <div
-                            style="color: #6c757d; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
-                            <i class="fa fa-chart-pie"></i>Incidentes por Componente
+                    <div style="flex: 1; background: #fff; padding: 5px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                        <div style="color: #6c757d; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
+                            <i class="fa fa-chart-pie"></i> registros críticos por Componente
                         </div>
-
-                        <div
-                            style="display: flex; justify-content: space-between; gap: 10px; height: 20px; margin-top: -20px;">
-
-                            <div
-                                style="flex: 1; background: #2C3E50; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                        <div style="display: flex; justify-content: space-between; gap: 10px; height: 20px; margin-top: -20px;">
+                            <div style="flex: 1; background: #2C3E50; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
                                 <div style="font-size: 11px; font-weight: bold; color: #fff;">CPU</div>
                                 <div id="kpiCpuAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
-
-                            <div
-                                style="flex: 1; background: #138D8D; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                            <div style="flex: 1; background: #138D8D; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
                                 <div style="font-size: 11px; font-weight: bold; color: #fff;">GPU</div>
                                 <div id="kpiGpuAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
-
-                            <div
-                                style="flex: 1; background: #120a8f; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
+                            <div style="flex: 1; background: #120a8f; border-radius: 8px; padding: 1px; text-align: center; height: 40px;">
                                 <div style="font-size: 11px; font-weight: bold; color: #fff;">RAM</div>
                                 <div id="kpiRamAtual" style="font-size: 18px; font-weight: bold; color: #fff;">0</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-                <canvas id="myChart" width="400" height="190"></canvas>
-                <button onclick="abrirModalDetalhes()" class="btn-detalhes">Ver Detalhes </button>
+                 <button onclick="abrirModalDetalhes()" class="btn-detalhes" style="margin-top: 10px;">Ver Detalhes</button>
+               <canvas id="myChart" style="height: 200px; width: 750px; margin-top: -45px;"></canvas> <div style="width: 100%; display: flex; justify-content: flex-end;">
+                   
+                </div>
             </div>
 
-
-
-
-            <div id="botoes-acao">
-                <div id="btn-2">
-                    <button onclick="abrirModalIA()" class="btn btn-principal">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="29px" viewBox="0 -960 960 960" width="34px"
-                            fill="#FFF">
-                            <path
-                                d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 34.5T840-360h-80v120q0 33-23.5 56.5T680-160h-80v80h-80v-160h160v-200h108l-38-155q-23-91-98-148t-172-57q-116 0-198 81t-82 197q0 60 24.5 114t69.5 96l26 24v208h-80Zm254-360Zm-14 120q17 0 28.5-11.5T520-360q0-17-11.5-28.5T480-400q-17 0-28.5 11.5T440-360q0 17 11.5 28.5T480-320Zm-30-128h61q0-25 6.5-40.5T544-526q18-20 35-40.5t17-53.5q0-42-32.5-71T483-720q-40 0-72.5 23T365-637l55 23q7-22 24.5-35.5T483-663q22 0 36.5 12t14.5 31q0 21-12.5 37.5T492-549q-20 21-31 42t-11 59Z" />
-                        </svg>Gerar relatório com IA</button>
-                    <button onclick="imprimirRelatorio()" class="btn btn-principal"><svg
-                            xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="29px"
-                            fill="#FFF">
-                            <path
-                                d="m648-140 112-112v92h40v-160H640v40h92L620-168l28 28Zm-448 20q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z" />
-                        </svg>Exportar relatório </button>
-                </div>
-
+            <div id="relatorio-ia-impresso" class="secao-impressao">
+                <h2> Análise Inteligente (IA)</h2>
+                <p id="conteudo-ia-impresso">
+                    Nenhuma análise foi gerada antes da exportação deste relatório.
+                </p>
             </div>
 
         </div>
     </div>
+
+    <div id="geral2">
+
+        <div id="kpis">
+            <div id="crescimento" class="kpi">
+                <p style="font-size: 12px;">Variação de Consumo por recurso</p>
+                <div id="kpi-crescimento" style="display: flex; flex-direction: column; gap: 8px; margin-top: 5px;">
+                    <span style="font-size: 0.9em; color: #888;">Calculando...</span>
+                </div>
+                <span class="kpi-periodo" style="margin-top: 0px;">Mês Atual vs Mês Anterior</span>
+            </div>
+            
+            <div class="kpi">
+                <div class="card-info">
+                    <h3>Perfil de Carga Diária em <span id="spanmesAtual2"></span></h3>
+                    <div class="periodo-item" style="border-bottom: 1px dashed #eee; padding-bottom: 0px; margin-bottom: 0px; margin-top: 20PX;">
+                        <span style="color: #555; font-size: 1.2em;">Maior Utilização:</span>
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
+                            <span style="font-size: 1.2em;"></span>
+                            <strong id="kpi-periodo-maior" style="color: #0e6b6b; font-size: 1.1em;">--</strong>
+                        </div>
+                    </div>
+                    <div class="periodo-item">
+                        <span style="color: #555; font-size: 0.9em;">Menor Utilização:</span>
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-top: 5px;">
+                            <span style="font-size: 1.2em;"></span>
+                            <strong id="kpi-periodo-menor" style="color: #2C3E50; font-size: 1.1em;">--</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-grafico" style="height: 400px; margin-left: 0; width: 100%; margin-top: -10px;">
+            <h1 style="font-size: 18px;">Média por Período do Dia (<span id="spanmesAtual"></span>):</h1>
+            <canvas height="250px" width="400px" id="grafGpu"></canvas>
+        </div>
+
+        <div id="botoes-acao">
+            <div id="btn-2">
+                <button onclick="abrirModalIA()" class="btn btn-principal">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="29px" viewBox="0 -960 960 960" width="34px" fill="#FFF">
+                        <path d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 34.5T840-360h-80v120q0 33-23.5 56.5T680-160h-80v80h-80v-160h160v-200h108l-38-155q-23-91-98-148t-172-57q-116 0-198 81t-82 197q0 60 24.5 114t69.5 96l26 24v208h-80Zm254-360Zm-14 120q17 0 28.5-11.5T520-360q0-17-11.5-28.5T480-400q-17 0-28.5 11.5T440-360q0 17 11.5 28.5T480-320Zm-30-128h61q0-25 6.5-40.5T544-526q18-20 35-40.5t17-53.5q0-42-32.5-71T483-720q-40 0-72.5 23T365-637l55 23q7-22 24.5-35.5T483-663q22 0 36.5 12t14.5 31q0 21-12.5 37.5T492-549q-20 21-31 42t-11 59Z" />
+                    </svg>Gerar relatório com IA
+                </button>
+                <button onclick="imprimirRelatorio()" class="btn btn-principal">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="29px" fill="#FFF">
+                        <path d="m648-140 112-112v92h40v-160H640v40h92L620-168l28 28Zm-448 20q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z" />
+                    </svg>Exportar relatório
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
     <div id="modalIA" class="modal-fundo">
         <div class="modal-conteudo">
@@ -906,11 +878,16 @@
     let chartLinha;
     let chartBarra;
     let jsonUltimoMesGlobal = null; // Variável global para guardar os dados
+    var jsonPenultimoMes = null;
 
     // variaveis globais
     var chartLinhas;
     var charBarras;
     var contextoGeralIA = {};
+
+    var limiteCpuGlobal = 80; 
+    var limiteRamGlobal = 80;
+    var limiteGpuGlobal = 80;
 
     window.onload = function () {
         infoModeloGet(idModelo);
@@ -938,7 +915,7 @@
 
         // for p pegar os 3 meses
 
-        for (var i = 5; i >= 0; i--) {
+        for (var i = 2; i >= 0; i--) {
 
             var mesBusca = mesAtual - i;
             var anoBusca = anoAtual;
@@ -963,6 +940,9 @@
 
                 if (resposta.ok) {
                     var dados = await resposta.json();
+
+                    if (i === 0) jsonUltimoMes = dados;    // Mês Atual
+                    if (i === 1) jsonPenultimoMes = dados; // Mês Passado (Para comparar)
 
                     // Adiciona nas listas
                     listaMeses.push(mesString + "/" + anoBusca);
@@ -1040,157 +1020,246 @@
         plotarGraficoLinha(listaMeses, listaCpu, listaRam, listaGpu);
         atualizarKpiCrescimento(listaCpu, listaRam, listaGpu);
 
-        if (jsonUltimoMes != null) {
-            plotarGraficoBarra(jsonUltimoMes.mediasPeriodo);
+       if (jsonUltimoMes != null) {
+            //  o mês atual E o anterior (ou null se não existir)
+            plotarGraficoBarra(
+                jsonUltimoMes.mediasPeriodo, 
+                jsonPenultimoMes ? jsonPenultimoMes.mediasPeriodo : null 
+            );
         }
 
-        console.log(dadosCriticosCPU,dadosCriticosGPU,dadosCriticosRAM);
+        console.log(dadosCriticosCPU, dadosCriticosGPU, dadosCriticosRAM);
 
         atualizarKpiPeriodos(jsonUltimoMes.mediasPeriodo);
         atualizarKpiComposicao(jsonUltimoMes);
         criarGraficoBarrasCriticos(
-    dadosCriticosCPU.slice(-3), 
-    dadosCriticosGPU.slice(-3), 
-    dadosCriticosRAM.slice(-3)
-);
+            dadosCriticosCPU.slice(-3),
+            dadosCriticosGPU.slice(-3),
+            dadosCriticosRAM.slice(-3)
+        );
+
+        atualizarVolumetriaComVariacao(dadosCriticosCPU, dadosCriticosGPU, dadosCriticosRAM);
+
         document.getElementById("spanmesAtual").innerText = getUltimosTresMeses().slice(-1)[0];
         document.getElementById("spanmesAtual2").innerText = getUltimosTresMeses().slice(-1)[0];
     }
 
-    
-    
+function plotarGraficoLinha(labels, cpu, ram, gpu) {
+    var ctx = document.getElementById("grafCpu").getContext("2d");
 
-    function plotarGraficoLinha(labels, cpu, ram, gpu) {
-        var ctx = document.getElementById("grafCpu").getContext("2d");
+    if (chartLinha) chartLinha.destroy();
 
-        if (chartLinha) chartLinha.destroy();
+ 
+    const corDinamica = (ctx, limite) => {
+        // Se o valor for maior que o limite, retorna Vermelho (#dc3545)
+        // Se não, retorna Verde (#28a745)
+        return ctx.p1.parsed.y > limite ? '#dc3545' : '#28a745';
+    };
 
-        // Estilo da linha pontilhada para a previsão 
-        // aq tive q usar IA para mudar estilo da linha pontilhada
+   
+    const estiloLinha = (ctx) => ctx.p1DataIndex === (labels.length - 1) ? [6, 6] : undefined;
 
-        //resumo: Se estiver desenhando a linha do index 6,deixe pontilhada.
-        const estiloSegmentoPrevisao = {
-            borderDash: ctx => ctx.p1DataIndex === 6 ? [5, 5] : undefined,
-        };
-
-        chartLinha = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: "CPU (%)",
-                        data: cpu,
-                        borderColor: "#2C3E50",
-                        backgroundColor: "rgba(44, 62, 80, 0.1)",
-
-                        fill: false,
-                        tension: 0.3,
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointHoverRadius: 6,
-                        segment: estiloSegmentoPrevisao
-                    },
-                    {
-                        label: "GPU (%)",
-                        data: gpu,
-                        borderColor: "#138D8D",
-                        backgroundColor: "rgba(19, 141, 141, 0.1)",
-
-                        fill: false,
-                        tension: 0.3,
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointHoverRadius: 6,
-                        segment: estiloSegmentoPrevisao
-                    },
-                    {
-                        label: "RAM (%)",
-                        data: ram,
-                        borderColor: "#120a8f",
-                        backgroundColor: "rgba(127, 140, 141, 0.1)",
-
-                        fill: false,
-                        tension: 0.3,
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointHoverRadius: 6,
-                        segment: estiloSegmentoPrevisao
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        grid: {
-                            color: "rgba(0,0,0,0.05)" // Grade suave
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false // Limpo
-                        }
+    chartLinha = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                // ---------------- CPU ----------------
+                {
+                    label: "CPU (%)",
+                    data: cpu,
+                    // A linha não tem cor fixa, é definida pelo 'segment' abaixo
+                   backgroundColor: "#2C3E50", // Cor "padrão" da legenda
+                    
+                    // AS BOLINHAS MANTÊM A IDENTIDADE (Azul Escuro)
+                    pointBackgroundColor: "#2C3E50",
+                    pointBorderColor: "#2C3E50",
+                    
+                    fill: false,
+                    tension: 0.3,
+                    borderWidth: 1,
+                    pointRadius: 4, // Bolinha um pouco maior para ver a cor
+                    pointHoverRadius: 6,
+                    
+                    // AQUI A MÁGICA ACONTECE:
+                    segment: {
+                        borderColor: ctx => corDinamica(ctx, limiteCpuGlobal),
+                        borderDash: ctx => estiloLinha(ctx)
                     }
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-
-                            boxWidth: 26,
-                            color: "#555" // Texto da legenda cinza escuro
-                        }
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        backgroundColor: 'rgba(255, 255, 255, 0.9)', // Tooltip branca moderna
-                        titleColor: '#333',
-                        bodyColor: '#333',
-                        borderColor: '#ddd',
-                        borderWidth: 1
+                // ---------------- GPU ----------------
+                {
+                    label: "GPU (%)",
+                    data: gpu,
+                    backgroundColor: "#138D8D", // Cor da legenda
+                    
+                    // AS BOLINHAS MANTÊM A IDENTIDADE (Teal)
+                    pointBackgroundColor: "#138D8D",
+                    pointBorderColor: "#138D8D",
+                    
+                    fill: false, tension: 0.3, borderWidth: 1, pointRadius: 4, pointHoverRadius: 6,
+                    
+                    segment: {
+                        borderColor: ctx => corDinamica(ctx, limiteGpuGlobal),
+                        borderDash: ctx => estiloLinha(ctx)
                     }
+                },
+                // ---------------- RAM ----------------
+                {
+                    label: "RAM (%)",
+                    data: ram,
+                    backgroundColor: "#120a8f", // Cor da legenda
+                    
+                    // AS BOLINHAS MANTÊM A IDENTIDADE (Roxo)
+                    pointBackgroundColor: "#120a8f",
+                    pointBorderColor: "#120a8f",
+                    
+                    fill: false, tension: 0.3, borderWidth: 1, pointRadius: 4, pointHoverRadius: 6,
+                    
+                    segment: {
+                        borderColor: ctx => corDinamica(ctx, limiteRamGlobal),
+                        borderDash: ctx => estiloLinha(ctx)
+                    }
+                },
+             
+            ]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 105,
+                    grid: { color: "rgba(0,0,0,0.05)" },title: {
+                            display: true,
+                            text: 'Média de Uso (%)', // O texto que você quer
+                            color: '#666',          // Cor do texto
+                            font: {
+                                size: 12,           // Tamanho da fonte
+                                weight: 'bold'      // Negrito
+                            }
+                        }
+                        // --------------------------
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    labels: { usePointStyle: false, boxWidth: 30, color: "#555" }
                 }
             }
-        });
-    }
-
-
+        }
+    });
+}
     // jsonUltimoMes.mediasPeriodo é o objeto que tem os dados do grafico de barra 
-    function plotarGraficoBarra(periodos) {
-        var ctx = document.getElementById("grafGpu").getContext("2d");
+  function plotarGraficoBarra(periodosAtual, periodosAnterior) {
+    var ctx = document.getElementById("grafGpu").getContext("2d");
 
+    if (chartBarra) chartBarra.destroy();
 
+    // 1. DADOS ATUAIS
+    var manha = periodosAtual.MANHA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+    var tarde = periodosAtual.TARDE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+    var noite = periodosAtual.NOITE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+    var madru = periodosAtual.MADRUGADA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
 
-        // Extraindo os dados  do objeto
-        var manha = periodos.MANHA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
-        var tarde = periodos.TARDE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
-        var noite = periodos.NOITE || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
-        var madrugada = periodos.MADRUGADA || { mediaCpu: 0, mediaGpu: 0, mediaRam: 0 };
+    var dadosCpu = [manha.mediaCpu, tarde.mediaCpu, noite.mediaCpu, madru.mediaCpu];
+    var dadosGpu = [manha.mediaGpu, tarde.mediaGpu, noite.mediaGpu, madru.mediaGpu];
+    var dadosRam = [manha.mediaRam, tarde.mediaRam, noite.mediaRam, madru.mediaRam];
 
-        // Montando arrays na ordem correta
-        var dadosCpu = [manha.mediaCpu, tarde.mediaCpu, noite.mediaCpu, madrugada.mediaCpu];
-        var dadosGpu = [manha.mediaGpu, tarde.mediaGpu, noite.mediaGpu, madrugada.mediaGpu];
-        var dadosRam = [manha.mediaRam, tarde.mediaRam, noite.mediaRam, madrugada.mediaRam];
+    // 2. DADOS ANTERIORES
+    const getVal = (obj, turno, tipo) => (obj && obj[turno]) ? obj[turno][tipo] : 0;
 
-        chartBarra = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Manhã", "Tarde", "Noite", "Madrugada"],
-                datasets: [
-                    { label: "CPU (%)", data: dadosCpu, backgroundColor: "#2C3E50" },
-                    { label: "GPU (%)", data: dadosGpu, backgroundColor: "#138D8D" },
-                    { label: "RAM (%)", data: dadosRam, backgroundColor: "#120a8f" }
-                ]
+    var prevCpu = [getVal(periodosAnterior, 'MANHA', 'mediaCpu'), getVal(periodosAnterior, 'TARDE', 'mediaCpu'), getVal(periodosAnterior, 'NOITE', 'mediaCpu'), getVal(periodosAnterior, 'MADRUGADA', 'mediaCpu')];
+    var prevGpu = [getVal(periodosAnterior, 'MANHA', 'mediaGpu'), getVal(periodosAnterior, 'TARDE', 'mediaGpu'), getVal(periodosAnterior, 'NOITE', 'mediaGpu'), getVal(periodosAnterior, 'MADRUGADA', 'mediaGpu')];
+    var prevRam = [getVal(periodosAnterior, 'MANHA', 'mediaRam'), getVal(periodosAnterior, 'TARDE', 'mediaRam'), getVal(periodosAnterior, 'NOITE', 'mediaRam'), getVal(periodosAnterior, 'MADRUGADA', 'mediaRam')];
+
+    // 3. PLUGIN DAS SETAS COM VALOR
+// 3. PLUGIN DAS SETAS (MOSTRAR TUDO)
+    const pluginSetas = {
+        id: 'setasComparacao',
+        afterDatasetsDraw: (chart) => {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.font = 'bold 11px Arial';
+            ctx.textAlign = 'center';
+
+            chart.data.datasets.forEach((dataset, i) => {
+                const meta = chart.getDatasetMeta(i);
+                
+                let dadosPassados = [];
+                if (i === 0) dadosPassados = prevCpu;
+                if (i === 1) dadosPassados = prevGpu;
+                if (i === 2) dadosPassados = prevRam;
+
+                meta.data.forEach((barra, index) => {
+                    const valorAtual = dataset.data[index];
+                    const valorAntigo = dadosPassados[index];
+
+                    // Só desenha se tiver histórico para comparar
+                    if (valorAntigo !== undefined && valorAntigo !== null) {
+                        const diff = valorAtual - valorAntigo;
+                        let textoFinal = '';
+                        let cor = '';
+
+                        // Lógica: Mostra qualquer diferença, mesmo pequena
+                        if (diff > 0) { 
+                            textoFinal = `▲ ${Math.abs(diff).toFixed(0)}%`; 
+                            cor = '#dc3545'; // Vermelho (Subiu)
+                        } else if (diff < 0) { 
+                            textoFinal = `▼ ${Math.abs(diff).toFixed(0)}%`; 
+                            cor = '#28a745'; // Verde (Caiu)
+                        } else {
+                            // Se for exatamente igual (0%)
+                            textoFinal = '=';
+                            cor = '#999'; // Cinza
+                        }
+
+                        // Desenha
+                        const x = barra.x;
+                        const y = barra.y - 8; 
+                        ctx.fillStyle = cor;
+                        ctx.fillText(textoFinal, x, y);
+                    }
+                });
+            });
+            ctx.restore();
+        }
+    };
+
+    chartBarra = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Manhã", "Tarde", "Noite", "Madrugada"],
+            datasets: [
+                { label: "CPU (%)", data: dadosCpu, backgroundColor: "#2C3E50" },
+                { label: "GPU (%)", data: dadosGpu, backgroundColor: "#138D8D" },
+                { label: "RAM (%)", data: dadosRam, backgroundColor: "#120a8f" } 
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { 
+                y: { 
+                    beginAtZero: true, 
+                    max: 100, // Aumentei um pouco mais o teto para caber o texto
+                    grid: { color: "rgba(0,0,0,0.05)" }
+                },
+                x: { grid: { display: false } }
             },
-            options: {
-                responsive: true,
-                scales: { y: { beginAtZero: true, max: 100 } }
+            plugins: {
+                legend: { position: 'top', labels: { usePointStyle: false, boxWidth: 16 } }
             }
-        });
-    }
+        },
+        plugins: [pluginSetas]
+    });
+}
 
     function infoModeloGet(idModelo) {
 
@@ -1202,9 +1271,26 @@
                     document.getElementById('codigo-modelo').textContent = dados[0].id_modelo;
                     document.getElementById('nome-modelo').textContent = dados[0].nome_processo;
                     document.getElementById('ultima-atualizacao').textContent = '\u00A0' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR');
+
+                
+                    console.log(dados[0].limite_cpu);
+                    
+                limiteCpuGlobal = dados[0].limite_cpu;
+                limiteRamGlobal = dados[0].limite_ram;
+                limiteGpuGlobal = dados[0].limite_gpu;
+
+                console.log(limiteCpuGlobal);
+                console.log(limiteGpuGlobal);
+                console.log(limiteRamGlobal);
+                
+                
+                
                 }
             })
             .catch(function (error) { console.error("Erro header:", error); });
+
+            
+            
     }
 
     function getUltimosTresMeses() {
@@ -1264,11 +1350,18 @@
                 ]
             },
             options: {
-                responsive: true,
+                responsive: false,
+               
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Registros acima dos parâmetros do servidor por Componente (Últimos 3 Meses)'
+                        text: 'Registros acima dos parâmetros do servidor (Últimos 3 Meses)',
+                        color: '#138D8D',
+                        font: {
+                            size: 16,
+                            weight: 'bold',
+                            color: '#138D8D'
+                        },
                     },
                     legend: {
                         position: 'top', // Legenda em cima
@@ -1282,7 +1375,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Quantidade de Alertas'
+                            text: 'Quantidade de registros'
                         }
                     }
                 }
@@ -1425,71 +1518,86 @@
         alert("Texto copiado!");
     }
 
-    function atualizarKpiCrescimento(listaCpu, listaRam, listaGpu) {
+   function atualizarKpiCrescimento(listaCpu, listaRam, listaGpu) {
 
-        function montarLinha(nome, lista) {
+    function montarLinha(nome, lista) {
+        // Índices
+        var indiceAtual = lista.length - 2; 
+        var indiceAnterior = lista.length - 3;
 
-            var indiceAtual = lista.length - 2;
-            var indiceAnterior = lista.length - 3;
+        if (indiceAtual < 0) indiceAtual = 0;
+        if (indiceAnterior < 0) indiceAnterior = 0;
 
-            if (indiceAtual < 0) indiceAtual = 0;
-            if (indiceAnterior < 0) indiceAnterior = 0;
+        var atual = lista[indiceAtual] || 0;
+        var anterior = lista[indiceAnterior] || 0;
 
-            var atual = lista[indiceAtual] || 0;
-            var anterior = lista[indiceAnterior] || 0;
+        // Limites para cor do valor principal
+        let limiteAtual = 80;
+        if (nome === 'CPU') limiteAtual = limiteCpuGlobal;
+        if (nome === 'RAM') limiteAtual = limiteRamGlobal;
+        if (nome === 'GPU') limiteAtual = limiteGpuGlobal;
 
-            var variacao = 0;
-            var cor = "#6c757d";
-            var sinal = "";
+        // ============================================================
+        // MUDANÇA AQUI: CÁLCULO SIMPLIFICADO (SUBTRAÇÃO)
+        // ============================================================
+        var variacao = atual - anterior; 
+        
+        var corVariacao = "#6c757d"; 
+        var sinal = "";
 
-            if (anterior > 0) {
-                variacao = ((atual - anterior) / anterior) * 100;
-            } else if (atual > 0) {
-                variacao = 100;
-            }
+        // Lógica de Cores e Sinais
+        if (variacao > 0) {
+            corVariacao = "#dc3545"; // Vermelho
+            sinal = "+";
+        } else if (variacao < 0) {
+            corVariacao = "#28a745"; // Verde
+            // variacao já é negativa, o sinal de menos vem automático no número
+        } else {
+            // Se for 0
+            sinal = "";
+        }
 
-            if (variacao > 0) {
-                cor = "#977373";
-                sinal = "+";
-            } else if (variacao < 0) {
-                cor = "#28a745";
-            }
+        // Cor do Valor Principal (Status vs Limite)
+        var corValorPrincipal = (atual >= limiteAtual) ? "#dc3545" : "#28a745";
 
-
-            return `
+        return `
         <div style="
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             border-bottom: 1px solid #eee; 
-            padding: 5px 0; /* Padding reduzido para economizar altura */
+            padding: 5px 0;
         ">
             <div style="font-weight: 700; font-size: 1em; color: #555;">
-                ${nome}
+                ${nome} 
+                <span style="font-size:0.7em; color:#999; font-weight:normal;">(Lim: ${limiteAtual}%)</span>
             </div>
             
             <div style="display: flex; flex-direction: column; align-items: flex-end;">
                 
-                <span style="font-size: 1.1em; font-weight: 800; color: #333; line-height: 1.1;">
+                <span style="font-size: 1.1em; font-weight: 800; color: ${corValorPrincipal}; line-height: 1.1;">
                     ${atual.toFixed(1)}%
                 </span>
 
-                <span style="font-size: 0.75em; font-weight: 600; color: ${cor};">
+                <span style="font-size: 0.75em; font-weight: 600; color: ${corVariacao};">
                     ${sinal}${variacao.toFixed(1)}%
                 </span>
             </div>
 
         </div>
         `;
-        }
-
-        var htmlFinal = "";
-        htmlFinal += montarLinha("CPU", listaCpu);
-        htmlFinal += montarLinha("RAM", listaRam);
-        htmlFinal += montarLinha("GPU", listaGpu);
-
-        document.getElementById("kpi-crescimento").innerHTML = htmlFinal;
     }
+
+    var htmlFinal = "";
+    // Atualizei o título da legenda para refletir a mudança
+   
+    
+    htmlFinal += montarLinha("CPU", listaCpu);
+    htmlFinal += montarLinha("RAM", listaRam);
+    htmlFinal += montarLinha("GPU", listaGpu);
+
+    document.getElementById("kpi-crescimento").innerHTML = htmlFinal;
+}
     function atualizarKpiComposicao(dadosMes) {
         var qtdCpu = 0;
         var qtdGpu = 0;
@@ -1645,6 +1753,39 @@
         // para garantir que fique entre 0 e 100
         return Math.max(0, Math.min(100, previsao));
     }
+
+    function atualizarVolumetriaComVariacao(listaCpu, listaGpu, listaRam) {
+    //  (Último vs Penúltimo)
+    var atualIdx = listaCpu.length - 1;
+    var anteriorIdx = listaCpu.length - 2;
+
+
+    var totalAtual = (listaCpu[atualIdx] || 0) + (listaGpu[atualIdx] || 0) + (listaRam[atualIdx] || 0);
+
+    var totalAnterior = (listaCpu[anteriorIdx] || 0) + (listaGpu[anteriorIdx] || 0) + (listaRam[anteriorIdx] || 0);
+
+
+    var diff = totalAtual - totalAnterior;
+
+  
+    var elTotal = document.getElementById("kpiTotalAtual");
+    var elVariacao = document.getElementById("kpiVariacaoAlertas");
+
+    if (elTotal) elTotal.innerText = totalAtual;
+
+    if (elVariacao) {
+        if (diff > 0) {
+           
+            elVariacao.innerHTML = `<span style="color: #dc3545;">+${diff}</span> <i class="fa fa-arrow-up" style="font-size:0.8em; color:#dc3545"></i>`;
+        } else if (diff < 0) {
+            
+            elVariacao.innerHTML = `<span style="color: #28a745;">${diff}</span> <i class="fa fa-arrow-down" style="font-size:0.8em; color:#28a745"></i>`;
+        } else {
+            
+            elVariacao.innerHTML = `<span style="color: #999;">=</span>`;
+        }
+    }
+}
 </script>
 
 </html>

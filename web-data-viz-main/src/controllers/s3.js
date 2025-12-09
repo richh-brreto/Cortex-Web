@@ -2,26 +2,17 @@ const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3({
   region: "us-east-1",
-  accessKeyId: "ASIARFLCETINJE3X7NTK",
-  secretAccessKey: "T7YE1gHEohvGiISJqxiwu9kUdC7PeKBiY5bWjyEW",
-  sessionToken: `IQoJb3JpZ2luX2VjENv//////////wEaCXVzLXdlc3QtMiJHMEUCIBmaKs+xQBZ7A8bNA+lrLl2reMKaCKcPIC0WIa5tZv1MAiEA9yvBshhuC+IzE9h3qlRvG6XokbLEBEvP+51DJQ2jelAqugIIpP//////////ARAAGgwwODAxOTk1ODgzNzgiDAmA4bjiTxmrUBvQLiqOAoCzrWaDFgGJ7wInW2Pzm2UwlryfzXDuWcfdvcDHRtSHv4rBhtD9WZGtCHe2tSxEQIlwJ8myapT8CRGRkf+ODI+BKrh06/pi0KIh2l1yRzYrMcz6IEWH9qBu0MtAMj7jv2tj/42LLHKt65zre0fPNUveKXdSu6DznQhWYlDl6hRHFmOSyF7t2Ia+iHxn8v+FblAE1VX4hKsjMWANwwLBZjYsF69Peae0ktl/E3WApsJcXCRZcfzsS3RF6tOEf5CuaCZN5pcQpsHoHVP80IQjHbe6cKrIROHGANUASQuojZY5iNKARx3+vuj9zP74gVKElQx2IY9ly0K+VhcjYDHhFdDxEkF1aFOsaK7TN13v+zCL19rJBjqdATpSoGB0FZSzSPL7w77NzMv4ykp4v0XzyyFiXSZVz3yTRP2Kyw7szXHU5jsaGgPTtlAcXmU2sTVHttOYDhGcurZWqRHcMt9oFQ/N4I8+vncbvtSyTXVEW8dSgSUUGJD4bNujgriC2lqHxGw6qrnujQJYSQCwWu3J7uUFfY0HOsisP3RMMi4p2mZDAZWnYU1GhOMdDWSzcSPUEYQWnUo=`,
+  accessKeyId: "ASIARFLCETINJOFOKZFL",
+  secretAccessKey: "Xqo1dzbyzNrLyoj4WYi7ynit2uoF1q+khPuQAATs",
+  sessionToken: `IQoJb3JpZ2luX2VjEOb//////////wEaCXVzLXdlc3QtMiJHMEUCIQCf/Y9VeqiA9GJdj5pPaYoDiW85PYA4gOecYB/lZrjyiwIgFVieneATs/Z7MZ16v8zh+Y3xmSS954g2ySkNxIc0qDsqugIIr///////////ARAAGgwwODAxOTk1ODgzNzgiDFQEo68GvwytMnYRISqOAowzRYVZUVJ5hmckWMbC5c86P62BC1yVixHSFaj2UcTy3PbljywzBdsfOW1PkU9hCiTosSfqOdDLipqJFGqcjPrcR19MLKY5avV9RQQcUvOBwpXIHAIDz/FzqwAACOmfW7teFr0EXglGxfGoEAio5pGJUGY+cEuTS9d9eqZ00/M8gRX6dFRNwJHkLdsrWjmaEibgw3FEzkiXHXSNZeLAMn9XC7ekK7mYsy8XgG2/Ug5I836WG4DEXUK9zBMJQ+A7soQJw8dflor3x8CiDXPwD23Hy1XYlFJ1VRYOjjbjk89kSfcVjZvGenUxxuEYJcwuo3bvAFBSqfmNzI56bZxL+8lSDke0kdOLgIetztizPTC4m93JBjqdAQ7F2puQs/QpXA0R/zZEUrvUCVDd/30ZdgJb2EiWY+b9OKjjW+N9PfR6dCC4ckyl7WZQLbQZl+0XypAiwZqO4JBfauB875D1HR1Iseio46XG0Fpwp2zRRrW7tcm8kqlw12TOC0j8QfcVRS87tJYQXYfYPOFRFXHg5DqW8p2WRb+3KUAI2FnwFcb9vGp+dRLLn1k2PHUMfbTzm9xPJvU=`,
 });
 
 async function lerArquivo(req, res) {
   try {
-<<<<<<< HEAD
-    console.log(12)
     const fileKey = req.params.pasta
       ? `${req.params.pasta}/${req.params.arquivo}`
       : `${req.params.arquivo}`;
 
-=======
-    const fileKey = req.params.pasta + "/" +  req.params.arquivo;
-    
-
-    console.log(process.env,fileKey);
-    
->>>>>>> 8bc9f836c8317b1cb785a63138f2addcbf91f631
     const params = {
       Bucket: "cortex-client-bill",
       Key: fileKey,

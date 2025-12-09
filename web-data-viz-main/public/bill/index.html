@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="../base/navbar.css" />
     <script src="../js/navbar.js"></script>
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="app.js" defer></script>
   </head>
   <body>
+    <!-- NAVBAR LATERAL -->
     <nav class="barra-lateral">
       <a class="item-logo">
         <img
@@ -30,22 +30,12 @@
 
       <h3 class="subTitulo">Gerenciamento</h3>
 
-      <a
-        class="item-navegacao"
-        href="gerenciamento_de_funcionario-analista.html"
-      >
-        <img
-          src="../assets/icon/carteira-de-identidade.png"
-          id="atribuicao"
-          alt=""
-        />
+      <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+        <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="" />
         <span class="texto">Funcionários</span>
       </a>
 
-      <a
-        class="item-navegacao"
-        href="gerenciamento_de_arquitetura-analista.html"
-      >
+      <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
         <img src="../assets/icon/modelo.png" id="gerenciamento" alt="" />
         <span class="texto">Arquitetura</span>
       </a>
@@ -56,11 +46,7 @@
       </a>
 
       <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-        <img
-          src="../assets/icon/tecnologia-de-ia.png"
-          id="gerenciamento"
-          alt=""
-        />
+        <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="" />
         <span class="texto">Modelos</span>
       </a>
 
@@ -76,35 +62,19 @@
         <span class="texto-notificacao" id="notificacoes">Alertas</span>
       </a>
 
-      <!-- ITEM COM SUBMENU -->
       <div class="item-com-submenu">
         <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-          <img
-            src="../assets/icon/icons8-ferramentas-50.png"
-            id="gerenciamento"
-            alt=""
-          />
-          <span class="texto"
-            >Ferramentas<span class="seta-expansao">▼</span>
-          </span>
+          <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="" />
+          <span class="texto">Ferramentas<span class="seta-expansao">▼</span></span>
         </a>
         <div class="submenu">
           <div class="submenu-item ativo">
-            <a
-              href="https://spt
-                    ech-hydroscan.atlassian.net/jira/ser
-                    vicedesk/projects/CTX/list?jql=project
-                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
-              style="text-decoration: none; color: inherit"
-              >Jira</a
-            >
+            <a href="https://sptech-hydroscan.atlassian.net/jira/servicedesk/projects/CTX/list?jql=project%20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" 
+               style="text-decoration: none; color: inherit">Jira</a>
           </div>
           <div class="submenu-item">
-            <a
-              href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
-              style="text-decoration: none; color: inherit"
-              >Slack</a
-            >
+            <a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9" 
+               style="text-decoration: none; color: inherit">Slack</a>
           </div>
         </div>
       </div>
@@ -121,30 +91,24 @@
         <span class="texto-notificacao" id="sair">Sair</span>
       </a>
     </nav>
-    <div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-content">
       <script src="../js/logout.js"></script>
       <script src="../js/avatar-apply.js"></script>
-      <button id="chatToggle" class="chat-toggle-btn">🤖</button>
 
-      <div id="chatPanel" class="chat-panel hidden">
-        <div class="chat-header">
-          <span>Copiloto IA • Modelos em produção</span>
-          <button id="chatClose" class="chat-close-btn">×</button>
+      <!-- HEADER DA DASHBOARD -->
+      <header class="dashboard-header">
+        <div class="dashboard-title">
+          <h1 id="layout-name">Carregando...</h1>
+          <span id="empresa-name" class="empresa-name">—</span>
         </div>
-        <div id="chatMessages" class="chat-messages"></div>
-        <form id="chatForm" class="chat-form">
-          <input
-            id="chatInput"
-            type="text"
-            placeholder="Pergunte algo sobre os modelos, SLAs, zonas..."
-            autocomplete="off"
-          />
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
+      </header>
 
-      <button id="toggleHelp" class="help-toggle-btn">?</button>
+      <!-- BOTÃO AJUDA -->
+      <button id="toggleHelp" class="help-toggle-btn" title="Ajuda">?</button>
 
+      <!-- BANNER DE AJUDA -->
       <div id="helpBanner" class="help-banner collapsed">
         <div class="help-text">
           <strong>📘 Como ler esta tela?</strong>
@@ -171,47 +135,30 @@
         </div>
       </div>
 
+      <!-- DASHBOARD PRINCIPAL -->
       <main class="dashboard-main"></main>
 
-      <div id="copilot-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-dialog">
-          <div class="modal-header">
-            <h3>Copiloto de Layout</h3>
-            <button id="copilot-close" class="btn icon">✕</button>
-          </div>
-          <div class="modal-body">
-            <p class="context">
-              No momento existe apenas o layout holístico padrão. Futuramente
-              você pode integrar aqui um /ai para reorganizar a dashboard por
-              comando de texto.
-            </p>
-            <textarea
-              id="copilot-prompt"
-              rows="4"
-              placeholder="Ex.: 'mostrar só modelos críticos', 'focar em GPU', 'visão por zona'"
-            ></textarea>
-            <div id="copilot-output" class="copilot-output"></div>
-          </div>
-          <div class="modal-footer">
-            <button id="copilot-cancel" class="btn ghost">Fechar</button>
-            <button id="copilot-generate" class="btn" disabled>
-              Gerar layout
-            </button>
-            <button id="copilot-apply" class="btn primary" disabled>
-              Aplicar layout
-            </button>
-          </div>
+      <!-- CHAT COPILOTO -->
+      <button id="chatToggle" class="chat-toggle-btn" title="Chat IA">🤖</button>
+
+      <div id="chatPanel" class="chat-panel hidden">
+        <div class="chat-header">
+          <span>Copiloto IA • Modelos em produção</span>
+          <button id="chatClose" class="chat-close-btn">×</button>
         </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="chatForm" class="chat-form">
+          <input
+            id="chatInput"
+            type="text"
+            placeholder="Pergunte sobre modelos, SLAs, zonas..."
+            autocomplete="off"
+          />
+          <button type="submit">Enviar</button>
+        </form>
       </div>
 
-      <div id="detail-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-dialog large">
-          <div id="detail-content"></div>
-        </div>
-      </div>
-
+      <!-- TOAST NOTIFICATIONS -->
       <div id="toast-container" class="toast-container"></div>
     </div>
   </body>

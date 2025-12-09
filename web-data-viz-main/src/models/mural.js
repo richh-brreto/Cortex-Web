@@ -1,15 +1,14 @@
 
 
 const axios = require("axios");
-const JIRA_BASE_URL="https://cortexsptech.atlassian.net";
-const JIRA_EMAIL="cortexsptech@gmail.com";
-const JIRA_API_TOKEN="ATATT3xFfGF0UdJuzw13k39QLIoC2z0bObFzP5UUdZJ5thGII_xnewusoZK8Y9QKEEKc7n2UWbPKfWKgivJ324MKFaozkphGxjpiIexViv1NxVuHKtgFEP_LImLO0Lg0HQwd0NXHD4fIRTq17dC2NkbAiTite30W19yC_qOBG2XuopeRqQYfouo=80646DED"
-
-const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64")}`;
+const url = process.env.JIRA_BASE_URL
+const email = process.env.JIRA_EMAIL
+const token = process.env.JIRA_API_TOKEN
+const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${email}:${token}`).toString("base64")}`;
 async function buscarTodosTickets() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-
+    console.log(url)
     const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
     
     const body = {
@@ -26,7 +25,7 @@ async function buscarTodosTickets() {
 
     try {
         const response = await axios.post(
-            `${JIRA_BASE_URL}/rest/api/3/search/jql`,
+            `${url}/rest/api/3/search/jql`,
             body,
             {
                 headers: {

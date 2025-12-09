@@ -91,6 +91,11 @@
     <div class="container">
         <div class="header">
             <h1>Mural de Tickets</h1>
+            <a href="../individual-richard/alertas_dash.html">
+                <button id="buttonLink" class="btn-modeloEspecifico">
+                    Ir para Alertas em Modelos
+                </button>
+            </a>
         </div>
 
         <!--
@@ -117,84 +122,84 @@ Tabs -->
         <!-- Cards Grid -->
         <div class="cards-grid">
             <p id="status-message"></p>
-           
+
         </div>
     </div>
-<script>
+    <script>
         // Funções de utilidade para processar dados do Jira
 
 
 
-// Adicione esta função ANTES da sua função carregarMural()
-function mapCustomFieldToAlertClass(customFieldValue) {
-    if (!customFieldValue) {
-        return ''; // Não aplica classe se o campo for nulo/indefinido
-    }
-    
-    // Converte para minúsculas e remove espaços para comparação segura
-    const value = customFieldValue.toLowerCase().trim();
+        // Adicione esta função ANTES da sua função carregarMural()
+        function mapCustomFieldToAlertClass(customFieldValue) {
+            if (!customFieldValue) {
+                return ''; // Não aplica classe se o campo for nulo/indefinido
+            }
 
-    if (value.includes("em alerta")) {
-        // Para "Em alerta (ticket mais atual)"
-        return 'alert-1'; 
-    } else if (value.includes("normal")) {
-        // Para "Normal (ticket antigo)"
-        return 'alert-2'; 
-    } else {
-        return ''; // Classe padrão (sem cor especial)
-    }
+            // Converte para minúsculas e remove espaços para comparação segura
+            const value = customFieldValue.toLowerCase().trim();
 
-}
-    
+            if (value.includes("em alerta")) {
+                // Para "Em alerta (ticket mais atual)"
+                return 'alert-1';
+            } else if (value.includes("normal")) {
+                // Para "Normal (ticket antigo)"
+                return 'alert-2';
+            } else {
+                return ''; // Classe padrão (sem cor especial)
+            }
 
-        
+        }
+
+
+
         // Função principal para buscar e renderizar os tickets
         async function carregarMural() {
             const cardsGrid = document.querySelector(".cards-grid");
             const statusMessage = document.getElementById("status-message");
 
             // Rota para buscar todos os tickets (sem filtro)
-            const apiUrl = "/mural/todos"; 
+            const apiUrl = "/mural/todos";
 
             try {
                 statusMessage.textContent = "Buscando tickets abertos no Jira...";
-                
+
                 const response = await fetch(apiUrl);
 
                 if (response.status === 204) {
                     cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
                     return;
                 }
-                
+
                 if (!response.ok) {
                     throw new Error(`Erro HTTP: ${response.status}`);
                 }
 
                 const tickets = await response.json();
-                
+
                 // Limpa o grid antes de renderizar
-                cardsGrid.innerHTML = ''; 
+                cardsGrid.innerHTML = '';
 
-              
-            
 
-            // 3. RESPONSÁVEL (ASSIGNEE)
-            // O campo é 'assignee' (corrigido no Model). Verifica se existe e pega o displayName.
-         
-            
-            // 4. LABELS (opcional: para usar no card-date, se não quiser a data de criação)
-           var labels 
-    
+
+
+                // 3. RESPONSÁVEL (ASSIGNEE)
+                // O campo é 'assignee' (corrigido no Model). Verifica se existe e pega o displayName.
+
+
+                // 4. LABELS (opcional: para usar no card-date, se não quiser a data de criação)
+                var labels
+
                 for (const ticket of tickets) {
 
                     const campo = ticket.fields
-                 const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
-                       const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
+                    const maquinaNome = campo.customfield_10060 ? campo.customfield_10060.value : 'N/A';
+                    const responsavelNome = campo.assignee ? campo.assignee.displayName : 'Não Atribuído';
 
-                       const alertClass = mapCustomFieldToAlertClass(maquinaNome);
-                
+                    const alertClass = mapCustomFieldToAlertClass(maquinaNome);
+
                     var labels = "";
-                    for(let i =0; i<campo.labels.length; i++){
+                    for (let i = 0; i < campo.labels.length; i++) {
                         labels += campo.labels[i] + "   ";
                     }
 
@@ -230,11 +235,11 @@ function mapCustomFieldToAlertClass(customFieldValue) {
                     `;
                 }
 
-           
-                
+
+
                 // Remove a mensagem de status se os cards foram carregados
-                if(cardsGrid.children.length === 0) {
-                     cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
+                if (cardsGrid.children.length === 0) {
+                    cardsGrid.innerHTML = '<p>Nenhum alerta de ticket aberto encontrado.</p>';
                 }
 
             } catch (erro) {
@@ -247,12 +252,12 @@ function mapCustomFieldToAlertClass(customFieldValue) {
         document.addEventListener('DOMContentLoaded', carregarMural);
 
 
-        function irParaJira(key){
-            var link =  `https://cortexsptech.atlassian.net/browse/${key}` 
+        function irParaJira(key) {
+            var link = `https://cortexsptech.atlassian.net/browse/${key}`
             window.open(link, '_blank')
         }
 
-        function irParaDashboardTicket(modelo,key){
+        function irParaDashboardTicket(modelo, key) {
             sessionStorage.setItem('ID_MODELO_SELECIONADO', modelo);
             sessionStorage.setItem('KEY_JIRA_SLECIONADO', key);
             window.location.href = 'dash-chamado.html'

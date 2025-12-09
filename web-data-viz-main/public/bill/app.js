@@ -2,7 +2,6 @@ const CONFIG = {
   API_URL: "http://localhost:8080",
   DATA_PATH: "/s3Route/dados/Latest.json",
   AI_URL: "http://localhost:3333/ai/actions",
-  REFRESH_INTERVAL: 60000,
 };
 
 const state = {
@@ -10,12 +9,13 @@ const state = {
   empresaNome: "",
   models: [],
   zones: [],
-  currentLayout: "default",
-  charts: {},
-  loading: false,
-  error: null,
   aiActions: null,
 };
+
+// ============================================================================
+// CHAT COPILOTO
+// ============================================================================
+
 function initCopilotChat() {
   const toggleBtn = document.getElementById("chatToggle");
   const panel = document.getElementById("chatPanel");
@@ -36,9 +36,7 @@ function initCopilotChat() {
 
   toggleBtn.addEventListener("click", () => {
     panel.classList.toggle("hidden");
-    if (!panel.classList.contains("hidden")) {
-      input.focus();
-    }
+    if (!panel.classList.contains("hidden")) input.focus();
   });
 
   closeBtn.addEventListener("click", () => {
@@ -50,11 +48,10 @@ function initCopilotChat() {
     const text = input.value.trim();
     if (!text) return;
     input.value = "";
-
     appendMessage(text, "user");
 
     try {
-      const modelsPayload = (state.models || []).map((m) => ({
+      const modelsPayload = state.models.map((m) => ({
         name: m.name,
         hostname: m.hostname,
         zona: m.zona,
@@ -78,10 +75,7 @@ function initCopilotChat() {
       });
 
       if (!res.ok) {
-        appendMessage(
-          "Não consegui falar com a IA agora. Tente novamente mais tarde.",
-          "ai"
-        );
+        appendMessage("Não consegui falar com a IA agora. Tente novamente mais tarde.", "ai");
         return;
       }
 
@@ -93,6 +87,10 @@ function initCopilotChat() {
     }
   });
 }
+
+// ============================================================================
+// UTILIDADES
+// ============================================================================
 
 const Utils = {
   getEmpresaIdFromUrl() {
@@ -126,6 +124,10 @@ const Utils = {
   },
 };
 
+// ============================================================================
+// TEMPLATES DE COMPONENTES
+// ============================================================================
+
 const ComponentTemplates = {
   snapshotOperation: (data) => `
     <div class="component" data-component="snapshotOperation">
@@ -134,46 +136,52 @@ const ComponentTemplates = {
         <div class="component-title">
           <h3>Resumo da Operação</h3>
           <p class="context">
-            Foto atual da empresa • ${data.empresaNome} • ${
-    data.zonesCount
-  } zonas • ${data.totalModels} modelos monitorados.
+            ${data.zonesCount} zonas • ${data.totalModels} modelos monitorados.
           </p>
         </div>
       </div>
       <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card ${data.zonesCount > 80 ?"ok": (data.zonesCount > 60? "warning":"critical")}">
           <div class="stat-icon">🎯</div>
           <div class="stat-content">
             <span class="stat-label">SLA Global de Recursos</span>
-            <span class="stat-value">${data.slaGlobal.toFixed(1)}%</span>
-            <span class="stat-context">% de medições de CPU, RAM, GPU e Disco dentro do limite configurado em SLA.</span>
+            <span class="stat-value ">${data.slaGlobal.toFixed(1)}%</span>
           </div>
+          <span class="stat-context">% de medições de CPU, RAM, GPU e Disco dentro do limite configurado em SLA de cada modelo junto.</span>
         </div>
         <div class="stat-card critical">
           <div class="stat-icon">🚨</div>
           <div class="stat-content">
             <span class="stat-label">Modelos Críticos</span>
             <span class="stat-value">${data.criticalCount}</span>
-            <span class="stat-context">Health &lt; 60% ou violações graves de SLA.</span>
           </div>
+          <span class="stat-context">Saude < 60% ou violações graves de SLA do modelo.</span>
         </div>
         <div class="stat-card warning">
           <div class="stat-icon">⚠️</div>
-            <div class="stat-content">
+          <div class="stat-content">
             <span class="stat-label">Modelos em Atenção</span>
             <span class="stat-value">${data.warningCount}</span>
-            <span class="stat-context">Health entre 60% e 80% ou métricas se aproximando do limite.</span>
           </div>
+          <span class="stat-context">Saude entre 60% e 80% ou métricas de recursos se aproximando do limite da SLA.</span>
         </div>
-        <div class="stat-card">
+        <div class="stat-card ${data.totalTickets < 3 ? "ok": (data.totalTickets < 7? "warning":"critical")}">
           <div class="stat-icon">🎟️</div>
           <div class="stat-content">
             <span class="stat-label">Tickets Abertos</span>
             <span class="stat-value">${data.totalTickets}</span>
-            <span class="stat-context">Incidentes em andamento associados aos modelos monitorados.</span>
+          </div>
+          <span class="stat-context">Total te tickets em andamento associados aos modelos monitorados.</span>
+        </div>
+        </div>
+        <div class="component-footer">
+          <div class="legend">
+            <span class="legend-label">Legenda:</span>
+            <span class="legend-item ok"><div class="severity-dot ok"></div><div class="legenda"> Saudável</div></span>
+            <span class="legend-item warning"><div class="severity-dot warning"></div><div class="legenda"> Atenção</div></span>
+            <span class="legend-item critical"><div class="severity-dot critical"></div><div class="legenda"> Crítico</div></span>
           </div>
         </div>
-      </div>
     </div>
   `,
 
@@ -184,7 +192,7 @@ const ComponentTemplates = {
         <div class="component-title">
           <h3>Mapa de Risco por Zona</h3>
           <p class="context">
-            Health médio, quantidade de modelos críticos/em atenção e recurso que mais pressiona em cada zona.
+            Saude da Zona, quantidade de modelos críticos/em atenção e recurso que mais pressiona em cada zona.
           </p>
         </div>
       </div>
@@ -208,9 +216,9 @@ const ComponentTemplates = {
       <div class="component-footer">
         <div class="legend">
           <span class="legend-label">Legenda:</span>
-          <span class="legend-item ok">■ 80–100% Saudável</span>
-          <span class="legend-item warning">■ 60–80% Atenção</span>
-          <span class="legend-item critical">■ 0–60% Crítico</span>
+          <span class="legend-item ok"><div class="severity-dot ok"></div><div class="legenda"> 80–100% Saudável</div></span>
+          <span class="legend-item warning"><div class="severity-dot warning"></div><div class="legenda"> 60–80% Atenção</div></span>
+          <span class="legend-item critical"><div class="severity-dot critical"></div><div class="legenda"> 0–60% Crítico</div></span>
         </div>
       </div>
     </div>
@@ -232,7 +240,7 @@ const ComponentTemplates = {
           <div class="stat-icon">🌐</div>
           <div class="stat-content">
             <span class="stat-label">Zonas Ativas</span>
-            <span class="stat-value">${data.zonesCount}</span>
+            <span class="stat-value ">${data.zonesCount}</span>
             <span class="stat-context">Ambientes distintos onde há modelos em execução.</span>
           </div>
         </div>
@@ -330,7 +338,7 @@ const ComponentTemplates = {
             ${models
               .map(
                 (m) => `
-        <tr class="clickable" onclick="verProcesso(1)" data-id-modelo="${m.idModelo || ""}">
+        <tr class="clickable" data-id-modelo="${m.idModelo || ""}">
           <td>
             <div class="cell-main">${m.name}</div>
             <div class="cell-sub">${m.hostname} • ${m.zona}</div>
@@ -346,20 +354,11 @@ const ComponentTemplates = {
             <td>
               <div class="metric-row">
                 <div class="metric-bar-container">
-                  <div class="metric-bar" style="width:${Math.min(
-                    100,
-                    m.metrics[key] || 0
-                  )}%"></div>
+                  <div class="metric-bar" style="width:${Math.min(100, m.metrics[key] || 0)}%"></div>
                 </div>
-                <span class="metric-value">${(m.metrics[key] || 0).toFixed(
-                  1
-                )}%</span>
+                <span class="metric-value">${(m.metrics[key] || 0).toFixed(1)}%</span>
                 <span class="metric-sla">
-                  SLA: ${
-                    key === "storage"
-                      ? m.sla.DISCO || 0
-                      : m.sla[key.toUpperCase()] || 0
-                  }%
+                  SLA: ${key === "storage" ? m.sla.DISCO || 0 : m.sla[key.toUpperCase()] || 0}%
                 </span>
               </div>
             </td>
@@ -441,9 +440,7 @@ const ComponentTemplates = {
       <div class="alerts-list">
         ${
           alerts.length === 0
-            ? `
-          <div class="empty-state"><p>✅ Nenhum alerta relevante no momento.</p></div>
-        `
+            ? `<div class="empty-state"><p>✅ Nenhum alerta relevante no momento.</p></div>`
             : alerts
                 .map(
                   (a) => `
@@ -451,9 +448,7 @@ const ComponentTemplates = {
             <div class="alert-header">
               <strong>${a.modelo}</strong>
               <span class="alert-badge">
-                ${a.recurso.toUpperCase()} • ${a.valor.toFixed(1)}% (> SLA ${
-                    a.limit
-                  }%)
+                ${a.recurso.toUpperCase()} • ${a.valor.toFixed(1)}% (> SLA ${a.limit}%)
               </span>
             </div>
             <div class="alert-details">
@@ -497,9 +492,7 @@ const ComponentTemplates = {
           <tbody>
             ${
               tickets.length === 0
-                ? `
-              <tr><td class="cell-sub" colspan="5">✅ Nenhum ticket aberto.</td></tr>
-            `
+                ? `<tr><td class="cell-sub" colspan="5">✅ Nenhum ticket aberto.</td></tr>`
                 : tickets
                     .map(
                       (t) => `
@@ -547,370 +540,69 @@ const ComponentTemplates = {
           .join("")}
       </ol>
       <div class="component-footer">
-        <small>💡 Este bloco pode ser integrado ao seu /ai para gerar recomendações dinâmicas via copiloto.</small>
+        <small>💡 Este bloco pode ser usado como copiloto.</small>
       </div>
     </div>
   `,
 };
 
-const LayoutPresets = {
-  default: {
-    title: "Visão Holística da Operação",
-    components: [
-      "snapshotOperation",
-      "riskByZone",
-      "scopeSummary",
-      "slaByResource",
-      "modelsRisk",
-      "architecturesPressure",
-      "alertsTop5",
-      "ticketsPanel",
-      "aiActions",
-    ],
-  },
-};
+// ============================================================================
+// LAYOUT ENGINE
+// ============================================================================
 
 const LayoutEngine = {
   mainEl: null,
-  currentPreset: LayoutPresets.default,
+  components: [
+    "snapshotOperation",
+    "riskByZone",
+    "scopeSummary",
+    "slaByResource",
+    "modelsRisk",
+    "architecturesPressure",
+    "alertsTop5",
+    "ticketsPanel",
+    "aiActions",
+  ],
 
   init() {
     this.mainEl = document.querySelector(".dashboard-main");
     const layoutName = document.getElementById("layout-name");
     if (layoutName) {
-      layoutName.textContent = this.currentPreset.title;
+      layoutName.textContent = "Visão Geral";
     }
   },
 
   render() {
     if (!this.mainEl) return;
-    const html = this.currentPreset.components
+    const html = this.components
       .map((type) => this.renderComponent(type))
       .filter(Boolean)
       .join("");
     this.mainEl.innerHTML = html;
-    function initModelsRiskClicks() {
-      const rows = document.querySelectorAll(
-        '[data-component="modelsRisk"] tbody tr.clickable'
-      );
+    this.initModelsRiskClicks();
+  },
 
-      rows.forEach((row) => {
-        row.addEventListener("click", () => {
-          const id = row.getAttribute("data-id-modelo");
-          if (id) {
-            verProcesso(id);
-          }
-        });
+  initModelsRiskClicks() {
+    const rows = document.querySelectorAll('[data-component="modelsRisk"] tbody tr.clickable');
+    rows.forEach((row) => {
+      row.addEventListener("click", () => {
+        const id = row.getAttribute("data-id-modelo");
+        if (id) verProcesso(id);
       });
-    }
-    initModelsRiskClicks();
+    });
   },
 
   renderComponent(type) {
-    const models = state.models || [];
-    const empresaNome = state.empresaNome || "Empresa";
-    const zones = state.zones || [];
-
-    const calcSlaStats = () => {
-      let total = 0;
-      let ok = 0;
-      models.forEach((m) => {
-        if (!m.metrics || !m.sla) return;
-        const checks = [
-          { val: m.metrics.cpu, limit: m.sla.CPU },
-          { val: m.metrics.ram, limit: m.sla.RAM },
-          { val: m.metrics.gpu, limit: m.sla.GPU },
-          { val: m.metrics.storage, limit: m.sla.DISCO },
-        ];
-        checks.forEach((c) => {
-          if (!c.limit) return;
-          total++;
-          if (c.val <= c.limit) ok++;
-        });
-      });
-      return {
-        slaGlobal: total ? (ok / total) * 100 : 100,
-        totalChecks: total,
-      };
-    };
-
-    const aggregateZones = () => {
-      const aggregated = {};
-      models.forEach((m) => {
-        const zone = m.zona || "Sem zona";
-        if (!aggregated[zone]) {
-          aggregated[zone] = {
-            count: 0,
-            totalHealth: 0,
-            critical: 0,
-            warning: 0,
-            resources: { cpu: 0, ram: 0, gpu: 0, storage: 0 },
-          };
-        }
-        const z = aggregated[zone];
-        z.count++;
-        z.totalHealth += m.health || 0;
-        if (m.status === "critical") z.critical++;
-        if (m.status === "warning") z.warning++;
-
-        if (m.metrics && m.sla) {
-          if (m.metrics.cpu > m.sla.CPU) z.resources.cpu++;
-          if (m.metrics.ram > m.sla.RAM) z.resources.ram++;
-          if (m.metrics.gpu > m.sla.GPU) z.resources.gpu++;
-          if (m.metrics.storage > m.sla.DISCO) z.resources.storage++;
-        }
-      });
-
-      Object.keys(aggregated).forEach((zone) => {
-        const z = aggregated[zone];
-        z.avgHealth = z.count ? z.totalHealth / z.count : 100;
-        z.status =
-          z.avgHealth >= 80 ? "ok" : z.avgHealth >= 60 ? "warning" : "critical";
-        const res = z.resources;
-        const sorted = Object.entries(res)
-          .sort((a, b) => b[1] - a[1])
-          .filter(([, v]) => v > 0);
-        z.mainResource = sorted.length ? sorted[0][0] : null;
-      });
-
-      return aggregated;
-    };
-
-    const aggregateSlaByResource = () => {
-      const keys = ["cpu", "ram", "gpu", "storage"];
-      return keys.map((key) => {
-        let total = 0;
-        let ok = 0;
-        let violatingModels = new Set();
-        let worstModel = null;
-
-        models.forEach((m) => {
-          if (!m.metrics || !m.sla) return;
-          const val = m.metrics[key] || 0;
-          const limit =
-            key === "storage" ? m.sla.DISCO : m.sla[key.toUpperCase()];
-          if (!limit) return;
-          total++;
-          if (val <= limit) {
-            ok++;
-          } else {
-            violatingModels.add(m.hostname);
-            const diff = val - limit;
-            if (!worstModel || diff > worstModel.diff) {
-              worstModel = { ...m, diff };
-            }
-          }
-        });
-
-        return {
-          key,
-          label: key === "storage" ? "Disco" : key.toUpperCase(),
-          violating: violatingModels.size,
-          okRate: total ? (ok / total) * 100 : 100,
-          worstModel,
-        };
-      });
-    };
-
-    const aggregateArchitectures = () => {
-      const map = {};
-      models.forEach((m) => {
-        const arch = m.architecture || "Arquitetura padrão";
-        if (!map[arch]) {
-          map[arch] = {
-            name: arch,
-            spec: m.archSpec || "",
-            models: 0,
-            critical: 0,
-            warning: 0,
-            violCpu: 0,
-            violRam: 0,
-            violGpu: 0,
-            violStorage: 0,
-          };
-        }
-        const a = map[arch];
-        a.models++;
-        if (m.status === "critical") a.critical++;
-        if (m.status === "warning") a.warning++;
-
-        if (m.metrics && m.sla) {
-          if (m.metrics.cpu > m.sla.CPU) a.violCpu++;
-          if (m.metrics.ram > m.sla.RAM) a.violRam++;
-          if (m.metrics.gpu > m.sla.GPU) a.violGpu++;
-          if (m.metrics.storage > m.sla.DISCO) a.violStorage++;
-        }
-      });
-
-      return Object.values(map).map((a) => {
-        const totalViol = a.violCpu + a.violRam + a.violGpu + a.violStorage;
-        const maxViol = a.models * 4 || 1;
-        const pressureBase = totalViol / maxViol;
-        const pressure = Math.min(100, pressureBase * 100);
-        const resSorted = [
-          ["CPU", a.violCpu],
-          ["RAM", a.violRam],
-          ["GPU", a.violGpu],
-          ["DISCO", a.violStorage],
-        ]
-          .sort((x, y) => y[1] - x[1])
-          .filter(([, v]) => v > 0);
-        return {
-          ...a,
-          pressure,
-          mainPressure: resSorted.length
-            ? resSorted.map((r) => r[0]).join(", ")
-            : "Distribuído",
-        };
-      });
-    };
-
-    const buildAlertsFromModels = () => {
-      const alerts = [];
-      models.forEach((m) => {
-        if (!m.metrics || !m.sla) return;
-        const checks = [
-          { key: "cpu", label: "CPU", val: m.metrics.cpu, limit: m.sla.CPU },
-          { key: "ram", label: "RAM", val: m.metrics.ram, limit: m.sla.RAM },
-          { key: "gpu", label: "GPU", val: m.metrics.gpu, limit: m.sla.GPU },
-          {
-            key: "storage",
-            label: "DISCO",
-            val: m.metrics.storage,
-            limit: m.sla.DISCO,
-          },
-        ];
-        checks.forEach((c) => {
-          if (!c.limit) return;
-          if (c.val > c.limit) {
-            alerts.push({
-              modelo: m.name,
-              hostname: m.hostname,
-              zona: m.zona,
-              recurso: c.label,
-              valor: c.val,
-              limit: c.limit,
-              severity: m.status === "critical" ? "critical" : "warning",
-            });
-          }
-        });
-      });
-
-      alerts.sort((a, b) => {
-        const sev = (s) => (s === "critical" ? 2 : 1);
-        if (sev(b.severity) !== sev(a.severity)) {
-          return sev(b.severity) - sev(a.severity);
-        }
-        return b.valor - a.valor;
-      });
-
-      return alerts.slice(0, 5);
-    };
-
-    const flattenTickets = () => {
-      const all = [];
-      const now = new Date();
-      models.forEach((m) => {
-        (m.rawTickets || []).forEach((t) => {
-          const key = t.key || t.id || "—";
-          const fields = t.fields || {};
-          const statusObj = fields.status || {};
-          const statusCategory =
-            (statusObj.statusCategory && statusObj.statusCategory.key) || "new";
-          const statusLabel = statusObj.name || statusCategory;
-          const created = fields.created ? new Date(fields.created) : null;
-          const updated = fields.updated ? new Date(fields.updated) : null;
-          const openFor = created ? Utils.formatDuration(now - created) : "—";
-          const updatedAgo = updated
-            ? Utils.formatDuration(now - updated)
-            : "—";
-
-          all.push({
-            key,
-            modelName: m.name,
-            hostname: m.hostname,
-            statusCategory,
-            statusLabel,
-            openFor,
-            updatedAgo,
-          });
-        });
-      });
-      return all;
-    };
-
-    const buildAiActionsFallback = () => {
-      const criticalModels = models.filter((m) => m.status === "critical");
-      const warningModels = models.filter((m) => m.status === "warning");
-      const slaStats = calcSlaStats();
-      const archs = aggregateArchitectures();
-      const actions = [];
-
-      if (criticalModels.length) {
-        actions.push({
-          title: `Tratar modelos críticos (${criticalModels.length})`,
-          detail: `Priorize: ${criticalModels
-            .map((m) => `${m.name} (${m.zona})`)
-            .join(
-              ", "
-            )}. Verifique CPU/RAM/GPU e considere escala de recursos ou otimização de código.`,
-        });
-      }
-
-      if (archs.length) {
-        const worstArch = [...archs].sort((a, b) => b.pressure - a.pressure)[0];
-        actions.push({
-          title: `Revisar arquitetura mais pressionada (${worstArch.name})`,
-          detail: `Pressão estimada em ${worstArch.pressure.toFixed(
-            0
-          )}%, com foco em ${
-            worstArch.mainPressure
-          }. Avalie redistribuição de modelos ou aumento de capacidade.`,
-        });
-      }
-
-      if (warningModels.length) {
-        actions.push({
-          title: `Monitorar modelos em atenção (${warningModels.length})`,
-          detail: `Eles ainda não estouraram o SLA, mas estão se aproximando: ${warningModels
-            .map((m) => m.name)
-            .join(", ")}. Considere alertas proativos antes do estouro.`,
-        });
-      }
-
-      if (slaStats.slaGlobal < 90) {
-        actions.push({
-          title: "Melhorar aderência ao SLA",
-          detail: `SLA Global em ${slaStats.slaGlobal.toFixed(
-            1
-          )}%. Revise principalmente os recursos com maior número de violações em CPU/RAM/GPU/Disco.`,
-        });
-      }
-
-      if (!actions.length) {
-        actions.push({
-          title: "Ambiente saudável",
-          detail:
-            "Nenhuma ação urgente identificada. Mantenha monitoramento e ajuste limiares de SLA conforme aprendizado.",
-        });
-      }
-
-      return actions;
-    };
+    const models = state.models;
+    const empresaNome = state.empresaNome;
+    const zones = state.zones;
 
     switch (type) {
       case "snapshotOperation": {
-        const slaStats = calcSlaStats();
-        const criticalCount = models.filter(
-          (m) => m.status === "critical"
-        ).length;
-        const warningCount = models.filter(
-          (m) => m.status === "warning"
-        ).length;
-        const totalTickets = models.reduce(
-          (acc, m) => acc + ((m.rawTickets && m.rawTickets.length) || 0),
-          0
-        );
+        const slaStats = this.calcSlaStats();
+        const criticalCount = models.filter((m) => m.status === "critical").length;
+        const warningCount = models.filter((m) => m.status === "warning").length;
+        const totalTickets = models.reduce((acc, m) => acc + (m.rawTickets?.length || 0), 0);
         return ComponentTemplates.snapshotOperation({
           empresaNome,
           slaGlobal: slaStats.slaGlobal,
@@ -922,13 +614,11 @@ const LayoutEngine = {
         });
       }
 
-      case "riskByZone": {
-        const z = aggregateZones();
-        return ComponentTemplates.riskByZone(z);
-      }
+      case "riskByZone":
+        return ComponentTemplates.riskByZone(this.aggregateZones());
 
       case "scopeSummary": {
-        const archs = aggregateArchitectures();
+        const archs = this.aggregateArchitectures();
         const archCount = archs.length;
         const avgModelsPerArch = archCount ? models.length / archCount : 0;
         return ComponentTemplates.scopeSummary({
@@ -939,10 +629,8 @@ const LayoutEngine = {
         });
       }
 
-      case "slaByResource": {
-        const resources = aggregateSlaByResource();
-        return ComponentTemplates.slaByResource(resources);
-      }
+      case "slaByResource":
+        return ComponentTemplates.slaByResource(this.aggregateSlaByResource());
 
       case "modelsRisk": {
         const riskModels = models
@@ -951,26 +639,17 @@ const LayoutEngine = {
         return ComponentTemplates.modelsRisk(riskModels);
       }
 
-      case "architecturesPressure": {
-        const archs = aggregateArchitectures();
-        return ComponentTemplates.architecturesPressure(archs);
-      }
+      case "architecturesPressure":
+        return ComponentTemplates.architecturesPressure(this.aggregateArchitectures());
 
-      case "alertsTop5": {
-        const alerts = buildAlertsFromModels();
-        return ComponentTemplates.alertsTop5(alerts);
-      }
+      case "alertsTop5":
+        return ComponentTemplates.alertsTop5(this.buildAlertsFromModels());
 
-      case "ticketsPanel": {
-        const tickets = flattenTickets();
-        return ComponentTemplates.ticketsPanel(tickets);
-      }
+      case "ticketsPanel":
+        return ComponentTemplates.ticketsPanel(this.flattenTickets());
 
       case "aiActions": {
-        if (state.aiActions && state.aiActions.length) {
-          return ComponentTemplates.aiActions(state.aiActions);
-        }
-        const actions = buildAiActionsFallback();
+        const actions = state.aiActions || this.buildAiActionsFallback();
         return ComponentTemplates.aiActions(actions);
       }
 
@@ -978,7 +657,281 @@ const LayoutEngine = {
         return "";
     }
   },
+
+  calcSlaStats() {
+    let total = 0;
+    let ok = 0;
+    state.models.forEach((m) => {
+      if (!m.metrics || !m.sla) return;
+      console.log(m)
+      const checks = [
+        { val: m.metrics.cpu, limit: m.sla.CPU },
+        { val: m.metrics.ram, limit: m.sla.RAM },
+        { val: m.metrics.gpu, limit: m.sla.GPU },
+        { val: m.metrics.storage, limit: m.sla.DISCO },
+      ];
+      checks.forEach((c) => {
+        console.log(c,total, ok)
+        if (!c.limit) return;
+        total++;
+        if (c.val <= c.limit) ok++;
+      });
+    });
+    console.log(total, ok);
+    return { slaGlobal: total ? (ok / total) * 100 : 100 };
+  },
+
+  aggregateZones() {
+    const aggregated = {};
+    state.models.forEach((m) => {
+      const zone = m.zona || "Sem zona";
+      if (!aggregated[zone]) {
+        aggregated[zone] = {
+          count: 0,
+          totalHealth: 0,
+          critical: 0,
+          warning: 0,
+          resources: { cpu: 0, ram: 0, gpu: 0, storage: 0 },
+        };
+      }
+      const z = aggregated[zone];
+      z.count++;
+      z.totalHealth += m.health || 0;
+      if (m.status === "critical") z.critical++;
+      if (m.status === "warning") z.warning++;
+
+      if (m.metrics && m.sla) {
+        if (m.metrics.cpu > m.sla.CPU) z.resources.cpu++;
+        if (m.metrics.ram > m.sla.RAM) z.resources.ram++;
+        if (m.metrics.gpu > m.sla.GPU) z.resources.gpu++;
+        if (m.metrics.storage > m.sla.DISCO) z.resources.storage++;
+      }
+    });
+
+    Object.keys(aggregated).forEach((zone) => {
+      const z = aggregated[zone];
+      z.avgHealth = z.count ? z.totalHealth / z.count : 100;
+      z.status = z.avgHealth >= 80 ? "ok" : z.avgHealth >= 60 ? "warning" : "critical";
+      const sorted = Object.entries(z.resources)
+        .sort((a, b) => b[1] - a[1])
+        .filter(([, v]) => v > 0);
+      z.mainResource = sorted.length ? sorted[0][0] : null;
+    });
+
+    return aggregated;
+  },
+
+  aggregateSlaByResource() {
+    const keys = ["cpu", "ram", "gpu", "storage"];
+    return keys.map((key) => {
+      let total = 0;
+      let ok = 0;
+      let violatingModels = new Set();
+      let worstModel = null;
+
+      state.models.forEach((m) => {
+        if (!m.metrics || !m.sla) return;
+        const val = m.metrics[key] || 0;
+        const limit = key === "storage" ? m.sla.DISCO : m.sla[key.toUpperCase()];
+        if (!limit) return;
+        total++;
+        if (val <= limit) {
+          ok++;
+        } else {
+          violatingModels.add(m.hostname);
+          const diff = val - limit;
+          if (!worstModel || diff > worstModel.diff) {
+            worstModel = { ...m, diff };
+          }
+        }
+      });
+
+      return {
+        key,
+        label: key === "storage" ? "Disco" : key.toUpperCase(),
+        violating: violatingModels.size,
+        okRate: total ? (ok / total) * 100 : 100,
+        worstModel,
+      };
+    });
+  },
+
+  aggregateArchitectures() {
+    const map = {};
+    state.models.forEach((m) => {
+      const arch = m.architecture || "Arquitetura padrão";
+      if (!map[arch]) {
+        map[arch] = {
+          name: arch,
+          spec: m.archSpec || "",
+          models: 0,
+          critical: 0,
+          warning: 0,
+          violCpu: 0,
+          violRam: 0,
+          violGpu: 0,
+          violStorage: 0,
+        };
+      }
+      const a = map[arch];
+      a.models++;
+      if (m.status === "critical") a.critical++;
+      if (m.status === "warning") a.warning++;
+
+      if (m.metrics && m.sla) {
+        if (m.metrics.cpu > m.sla.CPU) a.violCpu++;
+        if (m.metrics.ram > m.sla.RAM) a.violRam++;
+        if (m.metrics.gpu > m.sla.GPU) a.violGpu++;
+        if (m.metrics.storage > m.sla.DISCO) a.violStorage++;
+      }
+    });
+
+    return Object.values(map).map((a) => {
+      const totalViol = a.violCpu + a.violRam + a.violGpu + a.violStorage;
+      const maxViol = a.models * 4 || 1;
+      const pressure = Math.min(100, (totalViol / maxViol) * 100);
+      const resSorted = [
+        ["CPU", a.violCpu],
+        ["RAM", a.violRam],
+        ["GPU", a.violGpu],
+        ["DISCO", a.violStorage],
+      ]
+        .sort((x, y) => y[1] - x[1])
+        .filter(([, v]) => v > 0);
+      return {
+        ...a,
+        pressure,
+        mainPressure: resSorted.length ? resSorted.map((r) => r[0]).join(", ") : "Distribuído",
+      };
+    });
+  },
+
+  buildAlertsFromModels() {
+    const alerts = [];
+    state.models.forEach((m) => {
+      if (!m.metrics || !m.sla) return;
+      const checks = [
+        { key: "cpu", label: "CPU", val: m.metrics.cpu, limit: m.sla.CPU },
+        { key: "ram", label: "RAM", val: m.metrics.ram, limit: m.sla.RAM },
+        { key: "gpu", label: "GPU", val: m.metrics.gpu, limit: m.sla.GPU },
+        { key: "storage", label: "DISCO", val: m.metrics.storage, limit: m.sla.DISCO },
+      ];
+      checks.forEach((c) => {
+        if (!c.limit) return;
+        if (c.val > c.limit) {
+          alerts.push({
+            modelo: m.name,
+            hostname: m.hostname,
+            zona: m.zona,
+            recurso: c.label,
+            valor: c.val,
+            limit: c.limit,
+            severity: m.status === "critical" ? "critical" : "warning",
+          });
+        }
+      });
+    });
+
+    alerts.sort((a, b) => {
+      const sev = (s) => (s === "critical" ? 2 : 1);
+      if (sev(b.severity) !== sev(a.severity)) {
+        return sev(b.severity) - sev(a.severity);
+      }
+      return b.valor - a.valor;
+    });
+
+    return alerts.slice(0, 5);
+  },
+
+  flattenTickets() {
+    const all = [];
+    const now = new Date();
+    state.models.forEach((m) => {
+      (m.rawTickets || []).forEach((t) => {
+        const key = t.key || t.id || "—";
+        const fields = t.fields || {};
+        const statusObj = fields.status || {};
+        const statusCategory = (statusObj.statusCategory?.key) || "new";
+        const statusLabel = statusObj.name || statusCategory;
+        const created = fields.created ? new Date(fields.created) : null;
+        const updated = fields.updated ? new Date(fields.updated) : null;
+        const openFor = created ? Utils.formatDuration(now - created) : "—";
+        const updatedAgo = updated ? Utils.formatDuration(now - updated) : "—";
+
+        all.push({
+          key,
+          modelName: m.name,
+          hostname: m.hostname,
+          statusCategory,
+          statusLabel,
+          openFor,
+          updatedAgo,
+        });
+      });
+    });
+    return all;
+  },
+
+  buildAiActionsFallback() {
+    const models = state.models;
+    const criticalModels = models.filter((m) => m.status === "critical");
+    const warningModels = models.filter((m) => m.status === "warning");
+    const slaStats = this.calcSlaStats();
+    const archs = this.aggregateArchitectures();
+    const actions = [];
+
+    if (criticalModels.length) {
+      actions.push({
+        title: `Tratar modelos críticos (${criticalModels.length})`,
+        detail: `Priorize: ${criticalModels
+          .map((m) => `${m.name} (${m.zona})`)
+          .join(", ")}. Verifique CPU/RAM/GPU e considere escala de recursos ou otimização de código.`,
+      });
+    }
+
+    if (archs.length) {
+      const worstArch = [...archs].sort((a, b) => b.pressure - a.pressure)[0];
+      actions.push({
+        title: `Revisar arquitetura mais pressionada (${worstArch.name})`,
+        detail: `Pressão estimada em ${worstArch.pressure.toFixed(0)}%, com foco em ${
+          worstArch.mainPressure
+        }. Avalie redistribuição de modelos ou aumento de capacidade.`,
+      });
+    }
+
+    if (warningModels.length) {
+      actions.push({
+        title: `Monitorar modelos em atenção (${warningModels.length})`,
+        detail: `Eles ainda não estouraram o SLA, mas estão se aproximando: ${warningModels
+          .map((m) => m.name)
+          .join(", ")}. Considere alertas proativos antes do estouro.`,
+      });
+    }
+
+    if (slaStats.slaGlobal < 90) {
+      actions.push({
+        title: "Melhorar aderência ao SLA",
+        detail: `SLA Global em ${slaStats.slaGlobal.toFixed(
+          1
+        )}%. Revise principalmente os recursos com maior número de violações em CPU/RAM/GPU/Disco.`,
+      });
+    }
+
+    if (!actions.length) {
+      actions.push({
+        title: "Ambiente saudável",
+        detail:
+          "Nenhuma ação urgente identificada. Mantenha monitoramento e ajuste limiares de SLA conforme aprendizado.",
+      });
+    }
+
+    return actions;
+  },
 };
+
+// ============================================================================
+// DATA PROCESSING
+// ============================================================================
 
 function computeHealthAndStatus(metrics, sla) {
   const scores = [];
@@ -1031,7 +984,7 @@ function transformEmpresa(rawEmpresa) {
     const zonaNome = z.nome || "Zona sem nome";
     zonesSet.add(zonaNome);
 
-    const archObj = (z.arquiteturas && z.arquiteturas[0]) || {};
+    const archObj = (z.arquiteturas?.[0]) || {};
     const archName = archObj.idArquitetura
       ? `Arquitetura #${archObj.idArquitetura}`
       : "Arquitetura padrão";
@@ -1045,7 +998,7 @@ function transformEmpresa(rawEmpresa) {
       .join(" • ");
 
     (z.modelos || []).forEach((m) => {
-      const slaObj = (m.slas && m.slas[0]) || {};
+      const slaObj = (m.slas?.[0]) || {};
       const sla = {
         CPU: Number(slaObj.CPU || 0),
         RAM: Number(slaObj.RAM || 0),
@@ -1053,12 +1006,7 @@ function transformEmpresa(rawEmpresa) {
         DISCO: Number(slaObj.DISCO || 0),
       };
 
-      let metrics = {
-        cpu: 0,
-        ram: 0,
-        gpu: 0,
-        storage: 0,
-      };
+      let metrics = { cpu: 0, ram: 0, gpu: 0, storage: 0 };
 
       if (Array.isArray(m.medicao) && m.medicao.length > 0) {
         const last = m.medicao[m.medicao.length - 1];
@@ -1077,7 +1025,7 @@ function transformEmpresa(rawEmpresa) {
       const { health, status } = computeHealthAndStatus(metrics, sla);
 
       models.push({
-        idModelo: m.idModelos || m.id_modelo || m.id, // ajuste pro seu campo real
+        idModelo: m.idModelos || m.id_modelo || m.id,
         empresa: rawEmpresa.nome,
         empresaId: rawEmpresa.idEmpresas,
         zona: zonaNome,
@@ -1090,12 +1038,7 @@ function transformEmpresa(rawEmpresa) {
         sla,
         health,
         status,
-        statusLabel:
-          status === "critical"
-            ? "Crítico"
-            : status === "warning"
-            ? "Atenção"
-            : "OK",
+        statusLabel: status === "critical" ? "Crítico" : status === "warning" ? "Atenção" : "OK",
         rawTickets: m.tickets || [],
       });
     });
@@ -1105,6 +1048,10 @@ function transformEmpresa(rawEmpresa) {
   state.zones = Array.from(zonesSet);
   state.empresaNome = rawEmpresa.nome || "Empresa";
 }
+
+// ============================================================================
+// API CALLS
+// ============================================================================
 
 async function loadAiActionsFromServer() {
   if (!CONFIG.AI_URL || !state.models.length) return;
@@ -1119,8 +1066,7 @@ async function loadAiActionsFromServer() {
           key: t.key || t.id || "—",
           modelName: m.name,
           hostname: m.hostname,
-          status:
-            (statusObj.statusCategory && statusObj.statusCategory.key) || "new",
+          status: (statusObj.statusCategory?.key) || "new",
           created: fields.created,
           updated: fields.updated,
         });
@@ -1162,8 +1108,6 @@ async function loadAiActionsFromServer() {
 }
 
 async function loadData() {
-  state.loading = true;
-  state.aiActions = null;
   try {
     const resp = await fetch(`${CONFIG.API_URL}${CONFIG.DATA_PATH}`);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -1175,14 +1119,13 @@ async function loadData() {
       empresaId = empresas[0].idEmpresas;
     }
 
-    const empresa =
-      empresas.find((e) => e.idEmpresas === empresaId) || empresas[0];
-
+    const empresa = empresas.find((e) => e.idEmpresas === empresaId) || empresas[0];
     if (!empresa) throw new Error("Nenhuma empresa encontrada no JSON");
 
     state.empresaId = empresa.idEmpresas;
     transformEmpresa(empresa);
 
+    console.log(state,1117)
     const nameEl = document.getElementById("empresa-name");
     if (nameEl) nameEl.textContent = state.empresaNome;
 
@@ -1192,19 +1135,15 @@ async function loadData() {
     loadAiActionsFromServer();
   } catch (err) {
     console.error(err);
-    state.error = err;
     Utils.showToast("Erro ao carregar dados. Usando dados de exemplo.");
     loadMockData();
     LayoutEngine.render();
-  } finally {
-    state.loading = false;
   }
 }
 
 function loadMockData() {
   state.empresaNome = "TechCloud (Mock)";
   state.zones = ["us-east-1a", "us-east-1b"];
-
   state.models = [
     {
       empresa: state.empresaNome,
@@ -1257,82 +1196,33 @@ function loadMockData() {
   ];
 }
 
-const Copilot = {
-  open() {
-    document.getElementById("copilot-modal").classList.remove("hidden");
-  },
-  close() {
-    document.getElementById("copilot-modal").classList.add("hidden");
-  },
-  reset() {
-    LayoutEngine.currentPreset = LayoutPresets.default;
-    const layoutName = document.getElementById("layout-name");
-    if (layoutName) layoutName.textContent = LayoutPresets.default.title;
-    LayoutEngine.render();
-    Utils.showToast("Layout resetado para visão holística padrão.");
-  },
-};
+// ============================================================================
+// NAVIGATION
+// ============================================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-  LayoutEngine.init();
-  loadData();
+function verProcesso(idModelo) {
+  if (!idModelo) return;
+  sessionStorage.ID_MODELO_SELECIONADO = idModelo;
+  window.location.href = "dashprocesso.html?id_modelo=" + idModelo;
+}
 
-  const reloadBtn = document.getElementById("reload-btn");
-  if (reloadBtn) {
-    reloadBtn.addEventListener("click", () => loadData());
-  }
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
 
-  const copilotBtn = document.getElementById("copilot-btn");
-  const copilotClose = document.getElementById("copilot-close");
-  const copilotCancel = document.getElementById("copilot-cancel");
-  const copilotGenerate = document.getElementById("copilot-generate");
-  const copilotApply = document.getElementById("copilot-apply");
-
-  if (copilotBtn) copilotBtn.addEventListener("click", () => Copilot.open());
-  if (copilotClose)
-    copilotClose.addEventListener("click", () => Copilot.close());
-  if (copilotCancel)
-    copilotCancel.addEventListener("click", () => Copilot.close());
-
-  if (copilotGenerate) {
-    copilotGenerate.addEventListener("click", () => {
-      const out = document.getElementById("copilot-output");
-      if (out) {
-        out.textContent =
-          "Por enquanto, só existe o layout holístico padrão. Integre seu /ai aqui para gerar layouts dinâmicos.";
-      }
-      if (copilotApply) copilotApply.disabled = true;
-    });
-  }
-
-  if (copilotApply) {
-    copilotApply.addEventListener("click", () => {
-      Copilot.close();
-    });
-  }
-
-  const resetBtn = document.getElementById("copilot-reset");
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => Copilot.reset());
-  }
-
-  console.log("✅ Dashboard holística com /ai carregada.");
-});
 document.addEventListener("DOMContentLoaded", () => {
   LayoutEngine.init();
   loadData();
   initCopilotChat();
+
+  // Help banner
   const banner = document.getElementById("helpBanner");
   const toggle = document.getElementById("toggleHelp");
+  if (banner && toggle) {
+    toggle.addEventListener("click", () => {
+      banner.classList.toggle("collapsed");
+    });
+  }
 
-  toggle.addEventListener("click", () => {
-    banner.classList.toggle("collapsed");
-  });
+  console.log("✅ Dashboard holística carregada.");
 });
-function verProcesso(idModelo) {
-  if (!idModelo) return;
-
-  sessionStorage.ID_MODELO_SELECIONADO = idModelo;
-
-  window.location.href = "dashprocesso.html?id_modelo=" + idModelo;
-}
