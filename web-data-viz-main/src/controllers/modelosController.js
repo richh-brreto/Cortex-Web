@@ -9,13 +9,9 @@ function listarPorEmpresa(req, res) {
     } else {
         modeloModel.listarPorEmpresa(idEmpresa)
             .then(function (resultado) {
-                console.log(`\nResultados encontrados: ${resultado.length}`);
-                console.log(`Resultados: ${JSON.stringify(resultado)}`); 
                 res.status(200).json(resultado);
             })
             .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar a consulta! Erro: ", erro.sqlMessage || erro); 
                 res.status(500).json(erro.sqlMessage || erro);
             });
     }
@@ -24,7 +20,6 @@ function listarPorEmpresa(req, res) {
 // Função CADASTRAR
 function cadastrar(req, res) {
     var dados = req.body; 
-    console.log("Controller: Recebido POST em /modelos/cadastrar:", dados);
 
     if (dados.nome == undefined) {
         res.status(400).send("O nome do modelo está indefinido!");
@@ -43,8 +38,6 @@ function cadastrar(req, res) {
                 res.status(201).json(resultado); 
             })
             .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar o cadastro! Erro: ", erro.sqlMessage || erro);
                 res.status(500).json(erro.sqlMessage || erro);
             });
     }
@@ -64,8 +57,6 @@ function atualizar(req, res) {
                 res.status(200).json(resultado);
             })
             .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao realizar a atualização! Erro: ", erro.sqlMessage || erro);
                 res.status(500).json(erro.sqlMessage || erro);
             });
     }
@@ -83,8 +74,6 @@ function deletar(req, res) {
                 res.status(200).json(resultado); 
             })
             .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao deletar o modelo! Erro: ", erro.sqlMessage || erro);
                 res.status(500).json(erro.sqlMessage || erro);
             });
     }
@@ -101,8 +90,6 @@ function contarModelos(req, res) {
                 res.json(resultado);
             })
             .catch(function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao contar modelos: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             });
     }

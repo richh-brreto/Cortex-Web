@@ -7,10 +7,8 @@ async function dadosSlack(req, res) {
     if (!mensagens) {
       return res.status(200).json([]);
     }
-    console.log(`Total de mensagens encontradas: ${mensagens.length} (Controller)`);
     return res.status(200).json(mensagens);
   } catch (erro) {
-    console.error(`Erro ao listar alertas: ${erro.message} (Controller)`);
     res.status(500).send({
       message: "Erro interno no servidor ao processar a busca Slack.",
       details: erro.message
@@ -30,7 +28,6 @@ async function listarModelosUsuario(req, res) {
     const modelos = await alertasModel.listarModelosParaUsuario(fk_usuario, fk_empresa);
     return res.status(200).json(modelos);
   } catch (erro) {
-    console.error("Erro ao listar modelos para usuário:", erro);
     return res.status(500).json({ message: "Erro interno", details: erro.sqlMessage || erro.message });
   }
 }

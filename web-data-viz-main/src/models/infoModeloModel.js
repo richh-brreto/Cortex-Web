@@ -1,8 +1,7 @@
 var database = require("../database/config");
 
 function infoModeloGet(idModelo) {
-
-    var instrucao = `
+  var instrucao = `
       SELECT 
     m.id_modelo, 
     m.nome AS nome_modelo, 
@@ -38,90 +37,65 @@ WHERE
     m.id_modelo = ${idModelo};
     `;
 
-
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  return database.executar(instrucao);
 }
 
-
 function listarBlacklist(idModelo) {
-
-    var instrucao = `
+  var instrucao = `
       select nome,id_processo from whitelist where fk_modelo = ${idModelo};
     `;
 
-
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  return database.executar(instrucao);
 }
 
 function removerDaBlacklist(idProcesso) {
-
-    var instrucao = `
+  var instrucao = `
       delete from whitelist where id_processo=${idProcesso}
     `;
 
-
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+  return database.executar(instrucao);
 }
 function matarProcesso(fkModelo, nomeProcesso) {
-
-   
- var instrucaoSql = `
+  var instrucaoSql = `
         UPDATE whitelist SET matar = true WHERE fk_modelo = ${fkModelo} AND nome = "${nomeProcesso}";
     `;
-    
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function adicionarBlacklist(fkModelo, nomeProcesso) {
-    
-
-   
- var instrucaoSql = `
+  var instrucaoSql = `
         INSERT INTO whitelist (fk_modelo, nome)
         VALUES (${fkModelo}, '${nomeProcesso}');
     `;
-    
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+  return database.executar(instrucaoSql);
 }
 
 function atualizarStatus(idProcesso, novoStatus) {
-    
-   
-    var instrucaoSql = `
+  var instrucaoSql = `
         UPDATE black_list 
         SET status = '${novoStatus}' 
         WHERE id_processo = ${idProcesso};
     `;
-    
-     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+
+  return database.executar(instrucaoSql);
 }
 
 function procMortos(idModelo) {
-    
-   
-    var instrucaoSql = `
+  var instrucaoSql = `
         SELECT id_log, nome, dataKill FROM log_processos WHERE fk_modelo = ${idModelo};
     `;
-    
-     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+
+  return database.executar(instrucaoSql);
 }
 
-
 module.exports = {
-    infoModeloGet,
-    adicionarBlacklist,
-    listarBlacklist,
-    removerDaBlacklist,
-    atualizarStatus,
-    matarProcesso,
-    procMortos
+  infoModeloGet,
+  adicionarBlacklist,
+  listarBlacklist,
+  removerDaBlacklist,
+  atualizarStatus,
+  matarProcesso,
+  procMortos,
 };

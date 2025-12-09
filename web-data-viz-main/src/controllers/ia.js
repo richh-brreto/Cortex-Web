@@ -1,6 +1,5 @@
 export async function iaMichel(req, res, chatIA) {
   try {
-    console.log("Recebido pedido IA:", req.body);
     const { pergunta, dados } = req.body;
     const dadosTexto = JSON.stringify(dados);
 
@@ -35,10 +34,8 @@ export async function iaMichel(req, res, chatIA) {
     const response = await result.response;
     const text = response.text();
 
-    console.log("Resposta IA:", text);
     res.json({ resultado: text });
   } catch (error) {
-    console.error("Erro no Gemini:", error);
     res.status(500).json({ erro: "Erro ao processar a solicitação." });
   }
 }

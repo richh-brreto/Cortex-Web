@@ -11,14 +11,11 @@ function buscarDadosFormulario(req, res) {
         empresaDadosModel.buscarDadosFormulario(idEmpresa)
             .then(
                 function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
                     
                     res.status(200).json(resultado);
                 }
             ).catch(
                 function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao buscar os dados do formulário: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );

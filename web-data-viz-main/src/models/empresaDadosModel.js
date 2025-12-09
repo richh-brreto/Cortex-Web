@@ -1,9 +1,7 @@
 var database = require("../database/config");
 
 function buscarDadosFormulario(idEmpresa) {
-    console.log("ACESSEI O EMPRESADADOS MODEL para buscar dados do formulário da empresa: ", idEmpresa);
-   
-     var instrucao = `
+  var instrucao = `
         SELECT 
             'zona' AS tipo, 
             id_zona AS id, 
@@ -18,12 +16,10 @@ function buscarDadosFormulario(idEmpresa) {
             nome 
         FROM cliente WHERE fk_empresa = ${idEmpresa};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 module.exports = {
-    buscarDadosFormulario
+  buscarDadosFormulario,
 };

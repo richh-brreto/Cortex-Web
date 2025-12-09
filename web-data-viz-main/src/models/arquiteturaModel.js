@@ -2,7 +2,6 @@ var database = require("../database/config");
 
 // Função LISTAR
 function listar(idEmpresa) {
-    console.log(`Model: Listando arquiteturas para a empresa: ${idEmpresa}`);
     
 
     var instrucaoSql = `
@@ -14,7 +13,6 @@ function listar(idEmpresa) {
 }
 
 function cadastrar(dados) {
-    console.log("Model: Cadastrando nova arquitetura:", dados.nome);
     
     var instrucaoSql = `
        INSERT INTO arquitetura (nome, modelo_cpu, qtd_cpu, qtd_ram, modelo_gpu, so, maxDisco, fk_empresa)
@@ -25,7 +23,6 @@ function cadastrar(dados) {
 
 
 function atualizar(idArquitetura, dados) {
-    console.log(`Model: Atualizando arquitetura ID: ${idArquitetura}`);
     
     var instrucaoSql = `
         UPDATE arquitetura 
@@ -45,7 +42,6 @@ function atualizar(idArquitetura, dados) {
 
 
 function deletar(idArquitetura) {
-    console.log(`Model: Deletando arquitetura ID: ${idArquitetura}`);
     
     var instrucaoSql = `
         DELETE FROM arquitetura WHERE id_arquitetura = ${idArquitetura};
@@ -60,7 +56,6 @@ function contarArquiteturas(fk_empresa) {
         WHERE fk_empresa = ${fk_empresa};
     `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 

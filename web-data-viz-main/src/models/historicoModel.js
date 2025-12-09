@@ -11,7 +11,6 @@ var database = require("../database/config");
 
 
 async function buscarTicketsHistorico() {
-    console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
     const jql = 'project = "CTX" ORDER BY created DESC';
     
@@ -44,13 +43,11 @@ async function buscarTicketsHistorico() {
             key: issue.key})) || [];
 
     } catch (error) {
-        console.error("Erro na integração com o Jira:", error.response?.data || error.message);
         throw new Error("Falha ao buscar tickets na API do Jira.");
     }
 }
 
 function bancoInfos(idmodelo) {
-    console.log(`Model: Listando modelos para a empresa: ${idmodelo}. ACESSEI O MODELO MODEL`);
 
     var instrucaoSql = `
         SELECT 
@@ -62,7 +59,6 @@ function bancoInfos(idmodelo) {
 
     `;
     
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql); 
 }
 

@@ -1,8 +1,7 @@
 var database = require("../database/config");
 
-function possibilidadesPesquisa(idcliente){
-       
-     var instrucao = `
+function possibilidadesPesquisa(idcliente) {
+  var instrucao = `
         SELECT 
             nome
         FROM 
@@ -10,15 +9,12 @@ function possibilidadesPesquisa(idcliente){
         WHERE
             fk_cliente = ${idcliente};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 function infoClienteInfo(idcliente) {
-   
-     var instrucao = `
+  var instrucao = `
         SELECT 
             nome, email_contato, telefone_contato, cnpj, descricao
         FROM 
@@ -26,15 +22,12 @@ function infoClienteInfo(idcliente) {
         WHERE
             id_cliente = ${idcliente};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
-function infoModelosClientes(idcliente){
-       
-     var instrucao = `
+function infoModelosClientes(idcliente) {
+  var instrucao = `
         SELECT 
             m.nome, m.descricao, m.ip, m.hostname, m.tempo_parametro_min ,
 		    m.limite_cpu, m.limite_disco, m.limite_ram, m.limite_gpu, c.nome as cliente, z.nome as zona 
@@ -47,15 +40,12 @@ function infoModelosClientes(idcliente){
         WHERE 
             m.fk_cliente = ${idcliente};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
-function clienteKpi(idcliente){
-       
-     var instrucao = `
+function clienteKpi(idcliente) {
+  var instrucao = `
         SELECT 
             count(id_modelo) as qtdModelo, count(distinct fk_zona_disponibilidade) as zona
         FROM 
@@ -63,15 +53,13 @@ function clienteKpi(idcliente){
         WHERE 
             fk_cliente = ${idcliente};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 module.exports = {
-    infoClienteInfo,
-    possibilidadesPesquisa,
-    infoModelosClientes,
-    clienteKpi
+  infoClienteInfo,
+  possibilidadesPesquisa,
+  infoModelosClientes,
+  clienteKpi,
 };

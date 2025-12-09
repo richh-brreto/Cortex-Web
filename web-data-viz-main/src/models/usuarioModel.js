@@ -6,7 +6,6 @@ function cadastrarUsuario(idEmpresa, nome, email, senha, tel) {
         VALUES ('${idEmpresa}','${nome}','${email}','${senha}','${tel}');
         
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -14,7 +13,6 @@ function cadastrarEmpresa(cnpj, nomeEmpresa, telefoneResponsavel, nomeResponsave
     var instrucaoSql = `
         INSERT INTO empresa (cnpj, nome, nome_responsavel, telefone_responsavel) VALUES ('${cnpj}','${nomeEmpresa}','${nomeResponsavel}','${telefoneResponsavel}');
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -23,7 +21,6 @@ function buscarId(cnpj) {
         SELECT id FROM empresa
         WHERE cnpj = '${cnpj}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -33,7 +30,6 @@ function login(email, senha) {
     inner join empresa as e on e.id = u.fk_empresa
     where u.email = '${email}' and u.senha = '${senha}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -43,7 +39,6 @@ function buscarPorId(idUsuario) {
         FROM usuario
         WHERE id = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -52,7 +47,6 @@ function verificarSenha(idUsuario, senha) {
         SELECT id FROM usuario
         WHERE id = ${idUsuario} AND senha = '${senha}';
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -60,7 +54,6 @@ function alterarSenha(idUsuario, novaSenha) {
     var instrucaoSql = `
         UPDATE usuario SET senha = '${novaSenha}' WHERE id = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
@@ -70,7 +63,6 @@ function contarFuncionarios(fk_empresa) {
         FROM usuario 
         WHERE fk_empresa = ${fk_empresa};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 

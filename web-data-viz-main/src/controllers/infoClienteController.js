@@ -11,14 +11,11 @@ function possibilidadesPesquisa(req, res){
         infoClienteModel.possibilidadesPesquisa(idcliente)
             .then(
                 function(resultado) {
-                    console.log("Tudo certo no controller")
 
                     res.status(200).json(resultado)
                 }
             ).catch(
                 function(erro){
-                    console.log(erro)
-                    console.log("\nErro ao buscar possibilidades de pesquisa", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
@@ -35,14 +32,11 @@ function infoClienteInfo(req, res) {
         infoClienteModel.infoClienteInfo(idcliente)
             .then(
                 function(resultado) {
-                    console.log("Tudo certo no controller")
 
                     res.status(200).json(resultado)
                 }
             ).catch(
                 function(erro){
-                    console.log(erro)
-                    console.log("\nErro ao buscar informações do cliente", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
@@ -60,14 +54,11 @@ function infoModelosClientes(req, res){
         infoClienteModel.infoModelosClientes(idcliente)
             .then(
                 function(resultado) {
-                    console.log("Tudo certo no controller")
 
                     res.status(200).json(resultado)
                 }
             ).catch(
                 function(erro){
-                    console.log(erro)
-                    console.log("\nErro ao buscar info modelos", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
@@ -84,14 +75,11 @@ function clienteKpi(req, res){
         infoClienteModel.clienteKpi(idcliente)
             .then(
                 function(resultado) {
-                    console.log("Tudo certo no controller")
 
                     res.status(200).json(resultado)
                 }
             ).catch(
                 function(erro){
-                    console.log(erro)
-                    console.log("\nErro ao buscar info da dash", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )
@@ -108,14 +96,11 @@ function clienteGrafico(){
         infoClienteModel.clienteGrafico(idcliente)
             .then(
                 function(resultado) {
-                    console.log("Tudo certo no controller")
 
                     res.status(200).json(resultado)
                 }
             ).catch(
                 function(erro){
-                    console.log(erro)
-                    console.log("\nErro ao buscar info da dash", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             )

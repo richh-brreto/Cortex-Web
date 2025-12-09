@@ -1,7 +1,6 @@
 var database = require("../database/config"); 
 
 function listarPorModelo(idModelo) {
-    console.log(`Model: Listando processo para o modelo ID: ${idModelo}. ACESSEI O PROCESSO MODEL`);
     var instrucaoSql = `
         SELECT 
             p.*, 
@@ -13,7 +12,6 @@ function listarPorModelo(idModelo) {
         INNER JOIN cliente AS c ON a.fk_empresa = c.fk_empresa
         WHERE m.id_modelo = ${idModelo};
     `;  
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql); 
 }
 

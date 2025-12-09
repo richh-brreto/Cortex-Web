@@ -1,22 +1,18 @@
 var database = require("../database/config");
 
 function cadastrarzona(nomeZona, idEmpresa) {
-   
-     var instrucao = `
+  var instrucao = `
         INSERT INTO 
             zonadisponibilidade (nome, fk_empresa) 
         VALUES
             ('${nomeZona}',${idEmpresa});
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 function carregarAbas(idEmpresa) {
-   
-     var instrucao = `
+  var instrucao = `
         SELECT
             nome, id_zona
         FROM
@@ -24,15 +20,12 @@ function carregarAbas(idEmpresa) {
         WHERE
             fk_empresa = ${idEmpresa};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 function qtdModelo(idZona) {
-   
-     var instrucao = `
+  var instrucao = `
         SELECT
             count(id_modelo) as qtd
         FROM
@@ -40,15 +33,12 @@ function qtdModelo(idZona) {
         WHERE
             fk_zona_disponibilidade = ${idZona};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
 function info_usuario(idZona) {
-   
-     var instrucao = `
+  var instrucao = `
         SELECT 
             u.nome as nome_usuario, u.email as email, c.nome as cargo 
         FROM 
@@ -60,16 +50,13 @@ function info_usuario(idZona) {
         WHERE 
             az.fk_zona = ${idZona};
     `;
-    
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+
+  return database.executar(instrucao);
 }
 
-
 module.exports = {
-    cadastrarzona,
-    carregarAbas,
-    qtdModelo,
-    info_usuario
+  cadastrarzona,
+  carregarAbas,
+  qtdModelo,
+  info_usuario,
 };
