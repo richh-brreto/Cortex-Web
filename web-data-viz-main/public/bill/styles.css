@@ -56,6 +56,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  zoom: 75%;
 }
 
 /* ============================================================================
@@ -72,11 +73,13 @@ body {
   box-shadow: var(--shadow-soft);
   gap: 16px;
 }
+
 .dashboard-title {
   display: flex;
   flex-direction: row;
-      gap: 10px;
+  gap: 10px;
 }
+
 .dashboard-title h1 {
   margin: 0;
   font-size: 20px;
@@ -257,16 +260,16 @@ body {
 }
 
 .component-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    background: #e5f6f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    color: var(--accent);
-    flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: #e5f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 .component-icon.critical {
@@ -286,10 +289,10 @@ body {
 }
 
 .component-title .context {
-    margin: 4px 0 0;
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1;
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1;
 }
 
 .component-footer {
@@ -330,15 +333,15 @@ body {
 }
 
 .stat-card {
-    border-radius: 12px;
-    padding: 10px 12px;
-    border: 1px solid var(--border-subtle);
-    background: #ffffff;
-    display: flex;
-    gap: 5px;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: space-between;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  display: flex;
+  gap: 5px;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .stat-card.critical {
@@ -350,29 +353,31 @@ body {
   background: var(--warning-soft);
   border-color: #fed7aa;
 }
+
 .stat-card.ok {
   background: var(--success-soft);
   border-color: #bbf7d0;
 }
+
 .stat-icon {
-    width: 15px;
-    height: 15px;
-    border-radius: 8px;
-    background: #e5f6f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    color: var(--accent);
-    flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 8px;
+  background: #e5f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 .stat-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    min-width: 0;
-    text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  min-width: 0;
+  text-align: center;
 }
 
 .stat-label {
@@ -408,21 +413,31 @@ body {
 }
 
 .heatmap-cell {
-    border-radius: 12px;
-    padding: 10px;
-    border: 1px solid var(--border-subtle);
-    background: #ffffff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    align-items: flex-start;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
 }
-.ok {  color: rgba(16, 185, 129, 0.3);}
-.warning {  color: rgba(245, 158, 11, 0.3);}
-.critical {  color: rgba(239, 68, 68, 0.4);}
+
+.ok {
+  color: rgba(16, 185, 129, 0.3);
+}
+
+.warning {
+  color: rgba(245, 158, 11, 0.3);
+}
+
+.critical {
+  color: rgba(239, 68, 68, 0.4);
+}
+
 .legenda {
   color: var(--text-muted);
 }
@@ -441,6 +456,7 @@ body {
   background: var(--critical-soft);
   box-shadow: inset 0 0 0 2px rgba(239, 68, 68, 0.4);
 }
+
 .heatmap-cell:hover {
   transform: translateY(-2px);
 
@@ -551,14 +567,17 @@ body {
   font-weight: 500;
   color: var(--text-primary);
 }
+
 .cell.ok {
   background: var(--success-soft);
   color: #000;
 }
+
 .cell.warning {
   background: var(--warning-soft);
   color: #000;
 }
+
 .cell.critical {
   background: var(--critical-soft);
   color: #000;
@@ -969,6 +988,7 @@ body {
     transform: translateX(400px);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
