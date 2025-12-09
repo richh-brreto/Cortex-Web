@@ -1,7 +1,7 @@
 const CONFIG = {
   API_URL: "http://localhost:8080",
   DATA_PATH: "/s3Route/dados/Latest.json",
-  AI_URL: "http://localhost:3333/ai/actions",
+  AI_URL: "http://localhost:8080/ai/actions",
 };
 
 const state = {
@@ -75,14 +75,16 @@ function initCopilotChat() {
       });
 
       if (!res.ok) {
-        appendMessage("Não consegui falar com a IA agora. Tente novamente mais tarde.", "ai");
+        appendMessage(
+          "Não consegui falar com a IA agora. Tente novamente mais tarde.",
+          "ai"
+        );
         return;
       }
 
       const data = await res.json();
       appendMessage(data.reply || "Sem resposta da IA.", "ai");
     } catch (err) {
-      console.error(err);
       appendMessage("Ocorreu um erro ao consultar a IA.", "ai");
     }
   });
@@ -141,7 +143,13 @@ const ComponentTemplates = {
         </div>
       </div>
       <div class="stats-grid">
-        <div class="stat-card ${data.zonesCount > 80 ?"ok": (data.zonesCount > 60? "warning":"critical")}">
+        <div class="stat-card ${
+          data.zonesCount > 80
+            ? "ok"
+            : data.zonesCount > 60
+            ? "warning"
+            : "critical"
+        }">
           <div class="stat-icon">🎯</div>
           <div class="stat-content">
             <span class="stat-label">SLA Global de Recursos</span>
@@ -165,7 +173,13 @@ const ComponentTemplates = {
           </div>
           <span class="stat-context">Saude entre 60% e 80% ou métricas de recursos se aproximando do limite da SLA.</span>
         </div>
-        <div class="stat-card ${data.totalTickets < 3 ? "ok": (data.totalTickets < 7? "warning":"critical")}">
+        <div class="stat-card ${
+          data.totalTickets < 3
+            ? "ok"
+            : data.totalTickets < 7
+            ? "warning"
+            : "critical"
+        }">
           <div class="stat-icon">🎟️</div>
           <div class="stat-content">
             <span class="stat-label">Tickets Abertos</span>
@@ -291,8 +305,20 @@ const ComponentTemplates = {
                 (r) => `
               <tr>
                 <td class="cell-main">${r.label}</td>
-                <td>${r.violating}</td>
-                <td>${r.okRate.toFixed(1)}%</td>
+                <td class="cell ${
+                  r.okRate.toFixed(1) > 80
+                    ? "ok"
+                    : r.okRate.toFixed(1) > 60
+                    ? "warning"
+                    : "critical"
+                }">${r.violating}</td>
+                <td class="cell ${
+                  r.okRate.toFixed(1) > 80
+                    ? "ok"
+                    : r.okRate.toFixed(1) > 60
+                    ? "warning"
+                    : "critical"
+                }">${r.okRate.toFixed(1)}%</td>
                 <td>
                   ${
                     r.worstModel
@@ -338,7 +364,9 @@ const ComponentTemplates = {
             ${models
               .map(
                 (m) => `
-        <tr class="clickable" data-id-modelo="${m.idModelo || ""}">
+        <tr class="clickable" onclick="verProcesso(${
+          m.idModelo
+        })" data-id-modelo="${m.idModelo || ""}">
           <td>
             <div class="cell-main">${m.name}</div>
             <div class="cell-sub">${m.hostname} • ${m.zona}</div>
@@ -354,11 +382,20 @@ const ComponentTemplates = {
             <td>
               <div class="metric-row">
                 <div class="metric-bar-container">
-                  <div class="metric-bar" style="width:${Math.min(100, m.metrics[key] || 0)}%"></div>
+                  <div class="metric-bar" style="width:${Math.min(
+                    100,
+                    m.metrics[key] || 0
+                  )}%"></div>
                 </div>
-                <span class="metric-value">${(m.metrics[key] || 0).toFixed(1)}%</span>
+                <span class="metric-value">${(m.metrics[key] || 0).toFixed(
+                  1
+                )}%</span>
                 <span class="metric-sla">
-                  SLA: ${key === "storage" ? m.sla.DISCO || 0 : m.sla[key.toUpperCase()] || 0}%
+                  SLA: ${
+                    key === "storage"
+                      ? m.sla.DISCO || 0
+                      : m.sla[key.toUpperCase()] || 0
+                  }%
                 </span>
               </div>
             </td>
@@ -448,7 +485,9 @@ const ComponentTemplates = {
             <div class="alert-header">
               <strong>${a.modelo}</strong>
               <span class="alert-badge">
-                ${a.recurso.toUpperCase()} • ${a.valor.toFixed(1)}% (> SLA ${a.limit}%)
+                ${a.recurso.toUpperCase()} • ${a.valor.toFixed(1)}% (> SLA ${
+                    a.limit
+                  }%)
               </span>
             </div>
             <div class="alert-details">
@@ -496,7 +535,7 @@ const ComponentTemplates = {
                 : tickets
                     .map(
                       (t) => `
-              <tr>
+              <tr onclick="verjira('${t.key}')" class="clickable"> >
                 <td class="cell-main">${t.key}</td>
                 <td>
                   <div class="cell-main">${t.modelName}</div>
@@ -583,7 +622,9 @@ const LayoutEngine = {
   },
 
   initModelsRiskClicks() {
-    const rows = document.querySelectorAll('[data-component="modelsRisk"] tbody tr.clickable');
+    const rows = document.querySelectorAll(
+      '[data-component="modelsRisk"] tbody tr.clickable'
+    );
     rows.forEach((row) => {
       row.addEventListener("click", () => {
         const id = row.getAttribute("data-id-modelo");
@@ -600,9 +641,16 @@ const LayoutEngine = {
     switch (type) {
       case "snapshotOperation": {
         const slaStats = this.calcSlaStats();
-        const criticalCount = models.filter((m) => m.status === "critical").length;
-        const warningCount = models.filter((m) => m.status === "warning").length;
-        const totalTickets = models.reduce((acc, m) => acc + (m.rawTickets?.length || 0), 0);
+        const criticalCount = models.filter(
+          (m) => m.status === "critical"
+        ).length;
+        const warningCount = models.filter(
+          (m) => m.status === "warning"
+        ).length;
+        const totalTickets = models.reduce(
+          (acc, m) => acc + (m.rawTickets?.length || 0),
+          0
+        );
         return ComponentTemplates.snapshotOperation({
           empresaNome,
           slaGlobal: slaStats.slaGlobal,
@@ -640,7 +688,9 @@ const LayoutEngine = {
       }
 
       case "architecturesPressure":
-        return ComponentTemplates.architecturesPressure(this.aggregateArchitectures());
+        return ComponentTemplates.architecturesPressure(
+          this.aggregateArchitectures()
+        );
 
       case "alertsTop5":
         return ComponentTemplates.alertsTop5(this.buildAlertsFromModels());
@@ -663,7 +713,6 @@ const LayoutEngine = {
     let ok = 0;
     state.models.forEach((m) => {
       if (!m.metrics || !m.sla) return;
-      console.log(m)
       const checks = [
         { val: m.metrics.cpu, limit: m.sla.CPU },
         { val: m.metrics.ram, limit: m.sla.RAM },
@@ -671,13 +720,11 @@ const LayoutEngine = {
         { val: m.metrics.storage, limit: m.sla.DISCO },
       ];
       checks.forEach((c) => {
-        console.log(c,total, ok)
         if (!c.limit) return;
         total++;
         if (c.val <= c.limit) ok++;
       });
     });
-    console.log(total, ok);
     return { slaGlobal: total ? (ok / total) * 100 : 100 };
   },
 
@@ -711,7 +758,8 @@ const LayoutEngine = {
     Object.keys(aggregated).forEach((zone) => {
       const z = aggregated[zone];
       z.avgHealth = z.count ? z.totalHealth / z.count : 100;
-      z.status = z.avgHealth >= 80 ? "ok" : z.avgHealth >= 60 ? "warning" : "critical";
+      z.status =
+        z.avgHealth >= 80 ? "ok" : z.avgHealth >= 60 ? "warning" : "critical";
       const sorted = Object.entries(z.resources)
         .sort((a, b) => b[1] - a[1])
         .filter(([, v]) => v > 0);
@@ -732,7 +780,8 @@ const LayoutEngine = {
       state.models.forEach((m) => {
         if (!m.metrics || !m.sla) return;
         const val = m.metrics[key] || 0;
-        const limit = key === "storage" ? m.sla.DISCO : m.sla[key.toUpperCase()];
+        const limit =
+          key === "storage" ? m.sla.DISCO : m.sla[key.toUpperCase()];
         if (!limit) return;
         total++;
         if (val <= limit) {
@@ -801,7 +850,9 @@ const LayoutEngine = {
       return {
         ...a,
         pressure,
-        mainPressure: resSorted.length ? resSorted.map((r) => r[0]).join(", ") : "Distribuído",
+        mainPressure: resSorted.length
+          ? resSorted.map((r) => r[0]).join(", ")
+          : "Distribuído",
       };
     });
   },
@@ -814,7 +865,12 @@ const LayoutEngine = {
         { key: "cpu", label: "CPU", val: m.metrics.cpu, limit: m.sla.CPU },
         { key: "ram", label: "RAM", val: m.metrics.ram, limit: m.sla.RAM },
         { key: "gpu", label: "GPU", val: m.metrics.gpu, limit: m.sla.GPU },
-        { key: "storage", label: "DISCO", val: m.metrics.storage, limit: m.sla.DISCO },
+        {
+          key: "storage",
+          label: "DISCO",
+          val: m.metrics.storage,
+          limit: m.sla.DISCO,
+        },
       ];
       checks.forEach((c) => {
         if (!c.limit) return;
@@ -851,7 +907,7 @@ const LayoutEngine = {
         const key = t.key || t.id || "—";
         const fields = t.fields || {};
         const statusObj = fields.status || {};
-        const statusCategory = (statusObj.statusCategory?.key) || "new";
+        const statusCategory = statusObj.statusCategory?.key || "new";
         const statusLabel = statusObj.name || statusCategory;
         const created = fields.created ? new Date(fields.created) : null;
         const updated = fields.updated ? new Date(fields.updated) : null;
@@ -885,7 +941,9 @@ const LayoutEngine = {
         title: `Tratar modelos críticos (${criticalModels.length})`,
         detail: `Priorize: ${criticalModels
           .map((m) => `${m.name} (${m.zona})`)
-          .join(", ")}. Verifique CPU/RAM/GPU e considere escala de recursos ou otimização de código.`,
+          .join(
+            ", "
+          )}. Verifique CPU/RAM/GPU e considere escala de recursos ou otimização de código.`,
       });
     }
 
@@ -893,7 +951,9 @@ const LayoutEngine = {
       const worstArch = [...archs].sort((a, b) => b.pressure - a.pressure)[0];
       actions.push({
         title: `Revisar arquitetura mais pressionada (${worstArch.name})`,
-        detail: `Pressão estimada em ${worstArch.pressure.toFixed(0)}%, com foco em ${
+        detail: `Pressão estimada em ${worstArch.pressure.toFixed(
+          0
+        )}%, com foco em ${
           worstArch.mainPressure
         }. Avalie redistribuição de modelos ou aumento de capacidade.`,
       });
@@ -984,7 +1044,7 @@ function transformEmpresa(rawEmpresa) {
     const zonaNome = z.nome || "Zona sem nome";
     zonesSet.add(zonaNome);
 
-    const archObj = (z.arquiteturas?.[0]) || {};
+    const archObj = z.arquiteturas?.[0] || {};
     const archName = archObj.idArquitetura
       ? `Arquitetura #${archObj.idArquitetura}`
       : "Arquitetura padrão";
@@ -998,7 +1058,7 @@ function transformEmpresa(rawEmpresa) {
       .join(" • ");
 
     (z.modelos || []).forEach((m) => {
-      const slaObj = (m.slas?.[0]) || {};
+      const slaObj = m.slas?.[0] || {};
       const sla = {
         CPU: Number(slaObj.CPU || 0),
         RAM: Number(slaObj.RAM || 0),
@@ -1023,9 +1083,8 @@ function transformEmpresa(rawEmpresa) {
       }
 
       const { health, status } = computeHealthAndStatus(metrics, sla);
-
       models.push({
-        idModelo: m.idModelos || m.id_modelo || m.id,
+        idModelo: m.idModelos || m.id_modelo || m.id || z.Modelo_idModelo,
         empresa: rawEmpresa.nome,
         empresaId: rawEmpresa.idEmpresas,
         zona: zonaNome,
@@ -1038,7 +1097,12 @@ function transformEmpresa(rawEmpresa) {
         sla,
         health,
         status,
-        statusLabel: status === "critical" ? "Crítico" : status === "warning" ? "Atenção" : "OK",
+        statusLabel:
+          status === "critical"
+            ? "Crítico"
+            : status === "warning"
+            ? "Atenção"
+            : "OK",
         rawTickets: m.tickets || [],
       });
     });
@@ -1066,7 +1130,7 @@ async function loadAiActionsFromServer() {
           key: t.key || t.id || "—",
           modelName: m.name,
           hostname: m.hostname,
-          status: (statusObj.statusCategory?.key) || "new",
+          status: statusObj.statusCategory?.key || "new",
           created: fields.created,
           updated: fields.updated,
         });
@@ -1119,13 +1183,13 @@ async function loadData() {
       empresaId = empresas[0].idEmpresas;
     }
 
-    const empresa = empresas.find((e) => e.idEmpresas === empresaId) || empresas[0];
+    const empresa =
+      empresas.find((e) => e.idEmpresas === empresaId) || empresas[0];
     if (!empresa) throw new Error("Nenhuma empresa encontrada no JSON");
 
     state.empresaId = empresa.idEmpresas;
     transformEmpresa(empresa);
 
-    console.log(state,1117)
     const nameEl = document.getElementById("empresa-name");
     if (nameEl) nameEl.textContent = state.empresaNome;
 
@@ -1134,7 +1198,6 @@ async function loadData() {
 
     loadAiActionsFromServer();
   } catch (err) {
-    console.error(err);
     Utils.showToast("Erro ao carregar dados. Usando dados de exemplo.");
     loadMockData();
     LayoutEngine.render();
@@ -1203,7 +1266,11 @@ function loadMockData() {
 function verProcesso(idModelo) {
   if (!idModelo) return;
   sessionStorage.ID_MODELO_SELECIONADO = idModelo;
-  window.location.href = "dashprocesso.html?id_modelo=" + idModelo;
+  window.location.href = "../analista/dashprocesso.html?id_modelo=" + idModelo;
+}
+function verjira(key) {
+  const url = `https://cortexsptech.atlassian.net/browse/${key}`;
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 // ============================================================================
@@ -1223,6 +1290,4 @@ document.addEventListener("DOMContentLoaded", () => {
       banner.classList.toggle("collapsed");
     });
   }
-
-  console.log("✅ Dashboard holística carregada.");
 });

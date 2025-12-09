@@ -1,10 +1,23 @@
+// backend/server.js
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const app = express();
+
+const PORT = process.env.PORT || 8080;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-pro";
 
 const LATEST_JSON_PATH =
   process.env.LATEST_JSON_PATH || path.join(__dirname, "Latest.json");
 
-
+app.use(cors());
+app.use(express.json({ limit: "2mb" }));
 
 function sanitizeModelsForAI(models = []) {
   return models.map((m) => ({

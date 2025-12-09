@@ -551,6 +551,19 @@ body {
   font-weight: 500;
   color: var(--text-primary);
 }
+.cell.ok {
+  background: var(--success-soft);
+  color: #000;
+}
+.cell.warning {
+  background: var(--warning-soft);
+  color: #000;
+}
+.cell.critical {
+  background: var(--critical-soft);
+  color: #000;
+}
+
 
 .cell-sub {
   font-size: 10px;
