@@ -1535,9 +1535,9 @@ function atualizarTituloDashboard() {
     const selectedZone   = selectedOption ? selectedOption.text : 'Todas as Zonas';
 
     if (select.value === 'all') {
-        titleElement.innerHTML = 'Dashboard - Performance de Resoluções dos Tickets das Zonas (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>';
+        titleElement.innerHTML = 'Dashboard - Performance de Resoluções dos Tickets das Zonas - (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>';
     } else {
-        titleElement.innerHTML = `Dashboard - Performance de Resoluções dos Tickets das Zonas - ${selectedZone} (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>`;
+        titleElement.innerHTML = `Dashboard - Performance de Resoluções dos Tickets da Zona ${selectedZone} - (Últimos 7 dias) - <span style="color: #006E66;">SLA - 4hrs</span>`;
     }
 }
 
