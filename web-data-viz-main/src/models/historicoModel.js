@@ -2,7 +2,7 @@
 
 const axios = require("axios");
 
-const url = process.env.JIRA_BASE_URL
+const url = process.env.JIRA_BASE_URL || process.env.JIRA_URL;
 const email = process.env.JIRA_EMAIL
 const token = process.env.JIRA_API_TOKEN
 const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${email}:${token}`).toString("base64")}`;
@@ -26,8 +26,8 @@ async function buscarTicketsHistorico() {
             "customfield_10059"  // problema ou incidente
         ],
     };
-
     try {
+        console.log(url);
         const response = await axios.post(
             `${url}/rest/api/3/search/jql`,
             body,

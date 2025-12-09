@@ -8,7 +8,6 @@ async function listarAlertasHistorico(req, res) {
   
         const tickets = await historicoModel.buscarTicketsHistorico();
 
-
         if (tickets.length > 0) {
             return res.status(200).json(tickets);
         } else {

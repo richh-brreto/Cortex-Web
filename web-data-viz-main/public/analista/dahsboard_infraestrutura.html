@@ -1,521 +1,555 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dahsboard_infraestrutura.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/dahsboard_infraestrutura.css" />
     <script src="../js/navbar.js"></script>
-    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../base/navbar.css" />
     <title>Dashboard Infraestrutura</title>
-</head>
+  </head>
 
-<body onload="carregarTudo()">
-
+  <body onload="carregarTudo()">
     <nav class="barra-lateral">
+      <a class="item-logo">
+        <img
+          src="../assets/icon/menu-aberto.png"
+          alt="Logo Cortex"
+          class="logotipo"
+        />
+        <span class="texto-logo">Cortex</span>
+      </a>
 
-        <a class="item-logo">
-            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
-            <span class="texto-logo">Cortex</span>
-        </a>
+      <a class="item-navegacao" href="../bill/index.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Geral</span>
+      </a>
+      <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Gerenciamento de modelos</span>
+      </a>
+      <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Infraestrutura</span>
+      </a>
+      <a class="item-navegacao" href="mural_de_alertas.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Mural de alertas</span>
+      </a>
+      <a class="item-navegacao" href="../individual-richard/alertas_dash.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Alertas</span>
+      </a>
+      <a class="item-navegacao" href="dashboard_performance.html">
+        <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="" />
+        <span class="texto" id="texto-dash">Dashboard Performance</span>
+      </a>
 
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-    </a>
-        <a class="item-navegacao" href="../individual-richard/alertas_dash.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Alertas</span>
-    </a>
-        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
-            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
-            <span class="texto" id="texto-dash">Infraestrutura</span>
-    </a>
+      <div class="divisor"></div>
 
-        <div class="divisor"></div>
+      <h3 class="subTitulo">Gerenciamento</h3>
 
-        <h3 class="subTitulo">Gerenciamento</h3>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_funcionario-analista.html"
+      >
+        <img
+          src="../assets/icon/carteira-de-identidade.png"
+          id="atribuicao"
+          alt=""
+        />
+        <span class="texto">Funcionários</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
-            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
-            <span class="texto">Funcionários</span>
-        </a>
+      <a
+        class="item-navegacao"
+        href="gerenciamento_de_arquitetura-analista.html"
+      >
+        <img src="../assets/icon/modelo.png" id="gerenciamento" alt="" />
+        <span class="texto">Arquitetura</span>
+      </a>
+      <a class="item-navegacao" href="zona-analista.html">
+        <img src="../assets/icon/pin.png" id="gerenciamento" alt="" />
+        <span class="texto">Zonas</span>
+      </a>
 
-        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
-            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
-            <span class="texto">Arquitetura</span>
-        </a>
+      <div class="divisor"></div>
 
+      <a class="item-notificacao" href="mural_de_alertas.html">
+        <img src="../assets/icon/alerta.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+      </a>
+      <a class="item-notificacao" href="historico-tickets.html">
+        <img src="../assets/icon/69926.png" id="sino" alt="" />
+        <span class="texto-notificacao" id="notificacoes"
+          >Histórcio Tickets</span
+        >
+      </a>
 
-        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
-            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
-            <span class="texto">Modelos</span>
-        </a>
+      <a class="item-usuario" href="perfil-analista.html">
+        <img src="" alt="Foto de perfil" class="avatar-usuario" />
+        <span class="texto-usuario"></span>
+      </a>
 
-        <a class="item-navegacao" href="zona-analista.html">
-            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
-            <span class="texto">Zonas</span>
-        </a>
+      <div class="divisor"></div>
 
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" href="mural_de_alertas.html">
-            <img src="../assets/icon/alerta.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
-        </a>
-          <a class="item-notificacao" href="historico-tickets.html">
-            <img src="../assets/icon/69926.png" id="sino" alt="">
-            <span class="texto-notificacao" id="notificacoes">Histórcio Tickets</span>
-        </a>
-
-        <!-- ITEM COM SUBMENU -->
-        <div class="item-com-submenu">
-            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
-                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
-                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
-                </span>
-            </a>
-            <div class="submenu">
-                <div class="submenu-item ativo"><a href="https://spt
-                    ech-hydroscan.atlassian.net/jira/ser
-                    vicedesk/projects/CTX/list?jql=project
-                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC"
-                        style="text-decoration: none;color: inherit;">Jira</a></div>
-                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 "
-                        style="text-decoration: none;color: inherit;">Slack</a></div>
-            </div>
-        </div>
-
-        <a class="item-usuario" href="perfil-analista.html">
-            <img src="" alt="Foto de perfil" class="avatar-usuario">
-            <span class="texto-usuario"></span>
-        </a>
-
-        <div class="divisor"></div>
-
-        <a class="item-notificacao" onclick="logout()">
-            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
-            <span class="texto-notificacao" id="sair">Sair</span>
-        </a>
+      <a class="item-notificacao" onclick="logout()">
+        <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="" />
+        <span class="texto-notificacao" id="sair">Sair</span>
+      </a>
     </nav>
     <script src="../js/logout.js"></script>
     <script src="../js/avatar-apply.js"></script>
 
     <div class="dashboard">
-        <div class="header">
-            <h1>Dashboard Infraestrutura</h1>
-            <div class="container-zonas">
-                <div style="display: flex; justify-content: center; align-items: center; gap: 12px;">
-                    <p style="font-size: 18px;">Zona:</p>
-                    <select class="simple-select" id="zoneSelect" onchange="carregarTop4(() => carregarGraficoMensal());atualizarKPIMedia();
+      <div class="header">
+        <h1>Dashboard Infraestrutura</h1>
+        <div class="container-zonas">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 12px;
+            "
+          >
+            <p style="font-size: 18px">Zona:</p>
+            <select
+              class="simple-select"
+              id="zoneSelect"
+              onchange="carregarTop4(() => carregarGraficoMensal());atualizarKPIMedia();
                     atualizarKPIMediana();
-                    atualizarKPIOutlier(); atualizarGraficoa()">
-                    <option value="todas">Todas</option>
-                    </select>
-                </div>
-                <div class="selects" style="display: flex; gap: 12px; justify-content: center; align-items: center;">
-                        <p style="font-size: 18px;">Componentes:</p>
-                        <div class="component-select">
-                            <select id="component-select" class="simple-select" onchange="atualizarKPIMedia(); atualizarKPIMediana(); atualizarKPIOutlier(); atualizarGraficoa()">
-                                <option value="cpu">CPU</option>
-                                <option value="ram">RAM</option>
-                                <option value="disco">Disco</option>
-                                <option value="gpu">GPU</option>
-                            </select>
-                        </div>
-                    </div>
+                    atualizarKPIOutlier(); atualizarGraficoa()"
+            >
+              <option value="todas">Todas</option>
+            </select>
+          </div>
+          <div
+            class="selects"
+            style="
+              display: flex;
+              gap: 12px;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <p style="font-size: 18px">Componentes:</p>
+            <div class="component-select">
+              <select
+                id="component-select"
+                class="simple-select"
+                onchange="atualizarKPIMedia(); atualizarKPIMediana(); atualizarKPIOutlier(); atualizarGraficoa()"
+              >
+                <option value="cpu">CPU</option>
+                <option value="ram">RAM</option>
+                <option value="disco">Disco</option>
+                <option value="gpu">GPU</option>
+              </select>
             </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="kpis-grid">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title">Arquiteturas Mais Utilizadas</div>
+          </div>
+          <div class="arch-compact-grid arch-compact-grid-top"></div>
         </div>
 
-        <div class="kpis-grid">
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title">Arquiteturas Mais Utilizadas</div>
-                </div>
-                <div class="arch-compact-grid arch-compact-grid-top">
-                </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title kpi-title-comp">
+              Média da Ineficiência por Arquitetura
+            </div>
+          </div>
+
+          <div class="arch-compact-grid">
+            <div class="arch-compact-item arch-compact-item-mean">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-2</span>
+                <span class="arch-compact-percent">1º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 90%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
 
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title kpi-title-comp">Média da Ineficiência por Arquitetura</div>
-                </div>
-
-                <div class="arch-compact-grid">
-                    <div class="arch-compact-item arch-compact-item-mean">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-2</span>
-                            <span class="arch-compact-percent">1º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 90%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-mean">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-core</span>
-                            <span class="arch-compact-percent">2º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 86%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-mean">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-Mini</span>
-                            <span class="arch-compact-percent">3º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 97%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-mean">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-1</span>
-                            <span class="arch-compact-percent">4º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 88%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="arch-compact-item arch-compact-item-mean">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-core</span>
+                <span class="arch-compact-percent">2º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 86%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
 
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title kpi-title-comp">Mediana da Ineficiência por Arquitetura</div>
-                </div>
-
-                <div class="arch-compact-grid">
-                    <div class="arch-compact-item arch-compact-item-median">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-2</span>
-                            <span class="arch-compact-percent">1º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 90%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-median">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-core</span>
-                            <span class="arch-compact-percent">2º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 86%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-median">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-Mini</span>
-                            <span class="arch-compact-percent">3º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 97%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-median">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-1</span>
-                            <span class="arch-compact-percent">4º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 88%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="arch-compact-item arch-compact-item-mean">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-Mini</span>
+                <span class="arch-compact-percent">3º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 97%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
 
-            <div class="kpi-card">
-                <div class="kpi-header">
-                    <div class="kpi-title kpi-title-comp">Outliers por Arquitetura</div>
-                </div>
-
-                <div class="arch-compact-grid">
-                    <div class="arch-compact-item arch-compact-item-outlier">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-2</span>
-                            <span class="arch-compact-percent">1º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 90%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-outlier">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-core</span>
-                            <span class="arch-compact-percent">2º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 86%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-outlier">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Astra-Mini</span>
-                            <span class="arch-compact-percent">3º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 97%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-
-                    <div class="arch-compact-item arch-compact-item-outlier">
-                        <div class="arch-compact-header">
-                            <span class="arch-compact-name">Vortex-1</span>
-                            <span class="arch-compact-percent">4º</span>
-                        </div>
-                        <div class="arch-compact-bar">
-                            <div class="arch-compact-fill" style="width: 88%"></div>
-                        </div>
-                        <div class="arch-compact-footer">
-                            <span class="arch-compact-remaining">45%</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="arch-compact-item arch-compact-item-mean">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-1</span>
+                <span class="arch-compact-percent">4º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 88%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
+          </div>
         </div>
 
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Utilização de arquiteturas nos últimos 12 meses</h3>
-                    <div class="multiselect-container">
-                        <div class="multiselect-trigger" onclick="toggleMultiselect()">
-                            <span id="selectedCount">3 selecionadas</span>
-                            <span>▼</span>
-                        </div>
-                        <div class="multiselect-dropdown" id="multiselectDropdown">
-                            <div class="multiselect-search">
-                                <input type="text" placeholder="Pesquisar..." id="searchInput"
-                                    oninput="filterOptions()">
-                            </div>
-                            <div class="multiselect-options" id="optionsList"></div>
-                            <div class="multiselect-actions">
-                                <button class="multiselect-select-btn" onclick="applySelection()">Aplicar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="lineChart"></canvas>
-                </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title kpi-title-comp">
+              Mediana da Ineficiência por Arquitetura
+            </div>
+          </div>
+
+          <div class="arch-compact-grid">
+            <div class="arch-compact-item arch-compact-item-median">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-2</span>
+                <span class="arch-compact-percent">1º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 90%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
 
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title chart-title-comp">Métricas de uso de componente</h3>
-                </div>
-                <div class="chart-container">
-                    <canvas id="componentTrendChart"></canvas>
-                </div>
+            <div class="arch-compact-item arch-compact-item-median">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-core</span>
+                <span class="arch-compact-percent">2º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 86%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
             </div>
+
+            <div class="arch-compact-item arch-compact-item-median">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-Mini</span>
+                <span class="arch-compact-percent">3º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 97%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+
+            <div class="arch-compact-item arch-compact-item-median">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-1</span>
+                <span class="arch-compact-percent">4º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 88%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-title kpi-title-comp">Outliers por Arquitetura</div>
+          </div>
+
+          <div class="arch-compact-grid">
+            <div class="arch-compact-item arch-compact-item-outlier">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-2</span>
+                <span class="arch-compact-percent">1º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 90%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+
+            <div class="arch-compact-item arch-compact-item-outlier">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-core</span>
+                <span class="arch-compact-percent">2º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 86%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+
+            <div class="arch-compact-item arch-compact-item-outlier">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Astra-Mini</span>
+                <span class="arch-compact-percent">3º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 97%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+
+            <div class="arch-compact-item arch-compact-item-outlier">
+              <div class="arch-compact-header">
+                <span class="arch-compact-name">Vortex-1</span>
+                <span class="arch-compact-percent">4º</span>
+              </div>
+              <div class="arch-compact-bar">
+                <div class="arch-compact-fill" style="width: 88%"></div>
+              </div>
+              <div class="arch-compact-footer">
+                <span class="arch-compact-remaining">45%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title">
+              Utilização de arquiteturas nos últimos 12 meses
+            </h3>
+            <div class="multiselect-container">
+              <div class="multiselect-trigger" onclick="toggleMultiselect()">
+                <span id="selectedCount">3 selecionadas</span>
+                <span>▼</span>
+              </div>
+              <div class="multiselect-dropdown" id="multiselectDropdown">
+                <div class="multiselect-search">
+                  <input
+                    type="text"
+                    placeholder="Pesquisar..."
+                    id="searchInput"
+                    oninput="filterOptions()"
+                  />
+                </div>
+                <div class="multiselect-options" id="optionsList"></div>
+                <div class="multiselect-actions">
+                  <button
+                    class="multiselect-select-btn"
+                    onclick="applySelection()"
+                  >
+                    Aplicar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3 class="chart-title chart-title-comp">
+              Métricas de uso de componente
+            </h3>
+          </div>
+          <div class="chart-container">
+            <canvas id="componentTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
+      const API_BASE = "/dashinfra";
+      const idEmpresa = sessionStorage.EMPRESA_USUARIO;
+      let idArquiteturasSelecionadas = [];
+      let idArquiteturas = [];
 
+      function listarZonas(idEmpresa) {
+        if (!idEmpresa) {
+          console.log("Nenhuma empresa encontrada no login.");
+        } else {
+          fetch(`${API_BASE}/zonas/${idEmpresa}`)
+            .then((res) => res.json())
+            .then((zonas) => {
+              console.log("Zonas recebidas:", zonas);
 
-        const API_BASE = '/dashinfra';
-        const idEmpresa = sessionStorage.EMPRESA_USUARIO;
-        let idArquiteturasSelecionadas = [];
-        let idArquiteturas = [];
+              const select = document.getElementById("zoneSelect");
 
-        function listarZonas(idEmpresa) {
-            if (!idEmpresa) {
-                console.log("Nenhuma empresa encontrada no login.");
+              for (let i = 0; i < zonas.length; i++) {
+                const option = document.createElement("option");
+                option.value = zonas[i].id_zona;
+                option.textContent = zonas[i].nome;
+                select.appendChild(option);
+              }
+            })
+            .catch((err) => console.log("Erro ao carregar zonas:", err));
+        }
+      }
 
-            } else {
-                fetch(`${API_BASE}/zonas/${idEmpresa}`)
-                    .then(res => res.json())
-                    .then(zonas => {
-                        console.log("Zonas recebidas:", zonas);
+      function carregarTop4(callback) {
+        console.log("CarregarTop4 DISPAROU");
 
-                        const select = document.getElementById("zoneSelect")
+        const select = document.getElementById("zoneSelect");
+        const idZona = select.value;
 
-                        for (let i = 0; i < zonas.length; i++) {
-                            const option = document.createElement("option");
-                            option.value = zonas[i].id_zona;
-                            option.textContent = zonas[i].nome;
-                            select.appendChild(option);
-                        }
-                    })
-                    .catch(err => console.log("Erro ao carregar zonas:", err));
+        let url;
 
-            }
+        if (idZona === "todas") {
+          url = `${API_BASE}/top4/${idEmpresa}`;
+        } else {
+          url = `${API_BASE}/top4/${idEmpresa}?idZona=${idZona}`;
         }
 
-        function carregarTop4(callback) {
-            console.log("CarregarTop4 DISPAROU");
+        console.log("Chamando rota TOP4:", url);
 
-            const select = document.getElementById("zoneSelect");
-            const idZona = select.value;
+        fetch(url)
+          .then((res) => res.json())
+          .then((dados) => {
+            montarTop4(dados);
+            carregarMultiselectArquiteturas(idEmpresa, idZona);
+            if (callback) callback();
+          })
+          .catch((err) => console.log("Erro ao carregar TOP 4:", err));
+      }
 
-            let url;
+      function montarTop4(dados) {
+        const grid = document.querySelector(".arch-compact-grid-top");
+        grid.innerHTML = "";
+        idArquiteturasTop4 = [];
 
-            if (idZona === "todas") {
-                url = `${API_BASE}/top4/${idEmpresa}`;
-            } else {
-                url = `${API_BASE}/top4/${idEmpresa}?idZona=${idZona}`;
-            }
+        console.log(dados);
+        for (let i = 0; i < dados.length; i++) {
+          const item = dados[i];
 
-            console.log("Chamando rota TOP4:", url);
+          idArquiteturasTop4.push(item.id);
 
-            fetch(url)
-                .then(res => res.json())
-                .then(dados => {
-                    montarTop4(dados);
-                    carregarMultiselectArquiteturas(idEmpresa, idZona);
-                    if (callback) callback();
-                })
-                .catch(err => console.log("Erro ao carregar TOP 4:", err));
+          const totalBase = item.totalZona || item.totalGlobal; // fallback
+          const percentual = item.porcentagem;
+
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "arch-compact-item";
+
+          const header = document.createElement("div");
+          header.className = "arch-compact-header";
+
+          const nameSpan = document.createElement("span");
+          nameSpan.className = "arch-compact-name";
+          nameSpan.textContent = item.arquitetura;
+
+          const rankSpan = document.createElement("span");
+          rankSpan.className = "arch-compact-percent";
+          rankSpan.style.color = "#00B2B2";
+          rankSpan.textContent = `${i + 1}º`;
+
+          header.appendChild(nameSpan);
+          header.appendChild(rankSpan);
+
+          const bar = document.createElement("div");
+          bar.className = "arch-compact-bar";
+
+          const fill = document.createElement("div");
+          fill.className = "arch-compact-fill";
+          fill.style.width = percentual + "%";
+          fill.style.background =
+            "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
+          bar.appendChild(fill);
+
+          const footer = document.createElement("div");
+          footer.className = "arch-compact-footer";
+
+          const detailSpan = document.createElement("span");
+          detailSpan.className = "arch-compact-detail";
+          detailSpan.textContent = `${item.totalArquitetura}/${totalBase}`;
+
+          const percentSpan = document.createElement("span");
+          percentSpan.className = "arch-compact-remaining";
+          percentSpan.style.color = "#00B2B2";
+          percentSpan.textContent = percentual + "%";
+
+          footer.appendChild(detailSpan);
+          footer.appendChild(percentSpan);
+
+          itemDiv.appendChild(header);
+          itemDiv.appendChild(bar);
+          itemDiv.appendChild(footer);
+
+          grid.appendChild(itemDiv);
+        }
+      }
+
+      async function carregarMultiselectArquiteturas(idEmpresa, idZona) {
+        let url;
+
+        if (idZona === "todas") {
+          url = `${API_BASE}/arquiteturas/${idEmpresa}`;
+        } else {
+          url = `${API_BASE}/arquiteturas/${idEmpresa}?idZona=${idZona}`;
         }
 
-        function montarTop4(dados) {
-            const grid = document.querySelector(".arch-compact-grid-top");
-            grid.innerHTML = "";
-            idArquiteturasTop4 = [];
+        console.log("Carregando arquiteturas para multiselect:", url);
 
-            console.log(dados)
-            for (let i = 0; i < dados.length; i++) {
-                const item = dados[i];
+        try {
+          const res = await fetch(url);
+          const arquiteturas = await res.json();
 
-                idArquiteturasTop4.push(item.id);
-
-                const totalBase = item.totalZona || item.totalGlobal; // fallback
-                const percentual = item.porcentagem;
-
-                const itemDiv = document.createElement("div");
-                itemDiv.className = "arch-compact-item";
-
-                const header = document.createElement("div");
-                header.className = "arch-compact-header";
-
-                const nameSpan = document.createElement("span");
-                nameSpan.className = "arch-compact-name";
-                nameSpan.textContent = item.arquitetura;
-
-                const rankSpan = document.createElement("span");
-                rankSpan.className = "arch-compact-percent";
-                rankSpan.style.color = "#00B2B2";
-                rankSpan.textContent = `${i + 1}º`;
-
-                header.appendChild(nameSpan);
-                header.appendChild(rankSpan);
-
-                const bar = document.createElement("div");
-                bar.className = "arch-compact-bar";
-
-                const fill = document.createElement("div");
-                fill.className = "arch-compact-fill";
-                fill.style.width = percentual + "%";
-                fill.style.background = "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
-                bar.appendChild(fill);
-
-                const footer = document.createElement("div");
-                footer.className = "arch-compact-footer";
-
-                const detailSpan = document.createElement("span");
-                detailSpan.className = "arch-compact-detail";
-                detailSpan.textContent = `${item.totalArquitetura}/${totalBase}`;
-
-                const percentSpan = document.createElement("span");
-                percentSpan.className = "arch-compact-remaining";
-                percentSpan.style.color = "#00B2B2";
-                percentSpan.textContent = percentual + "%";
-
-                footer.appendChild(detailSpan);
-                footer.appendChild(percentSpan);
-
-                itemDiv.appendChild(header);
-                itemDiv.appendChild(bar);
-                itemDiv.appendChild(footer);
-
-                grid.appendChild(itemDiv);
-            }
-
+          montarMultiselect(arquiteturas);
+        } catch (erro) {
+          console.log("Erro ao carregar arquiteturas:", erro);
         }
+      }
 
-        async function carregarMultiselectArquiteturas(idEmpresa, idZona) {
-            let url;
+      function montarMultiselect(lista) {
+        const optionsList = document.getElementById("optionsList");
+        optionsList.innerHTML = "";
 
-            if (idZona === "todas") {
-                url = `${API_BASE}/arquiteturas/${idEmpresa}`;
-            } else {
-                url = `${API_BASE}/arquiteturas/${idEmpresa}?idZona=${idZona}`;
-            }
+        // top4 devem entrar automaticamente como selecionadas
+        idArquiteturasSelecionadas = [...idArquiteturasTop4];
 
-            console.log("Carregando arquiteturas para multiselect:", url);
+        for (let i = 0; i < lista.length; i++) {
+          const arq = lista[i];
 
-            try {
-                const res = await fetch(url);
-                const arquiteturas = await res.json();
+          const div = document.createElement("div");
+          div.classList.add("multiselect-option");
 
-                montarMultiselect(arquiteturas);
-            } catch (erro) {
-                console.log("Erro ao carregar arquiteturas:", erro);
-            }
-        }
+          const checked = idArquiteturasSelecionadas.includes(arq.id);
 
-        function montarMultiselect(lista) {
-            const optionsList = document.getElementById('optionsList');
-            optionsList.innerHTML = "";
-
-            // top4 devem entrar automaticamente como selecionadas
-            idArquiteturasSelecionadas = [...idArquiteturasTop4];
-
-            for (let i = 0; i < lista.length; i++) {
-                const arq = lista[i];
-
-                const div = document.createElement("div");
-                div.classList.add("multiselect-option");
-
-                const checked = idArquiteturasSelecionadas.includes(arq.id);
-
-                div.innerHTML = `
+          div.innerHTML = `
             <label>
                 <input type="checkbox" value="${arq.id}" 
                     ${checked ? "checked" : ""} 
@@ -524,1283 +558,1453 @@
             </label>
         `;
 
-                optionsList.appendChild(div);
+          optionsList.appendChild(div);
+        }
+
+        updateSelectionCount();
+      }
+
+      const pasta = "pasta";
+      const arquivo = "media-mediana-outlier.json";
+
+      function limitarSelecao(checkbox) {
+        const checkboxes = document.querySelectorAll(
+          '#optionsList input[type="checkbox"]'
+        );
+
+        const selecionados = [];
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            selecionados.push(Number(checkboxes[i].value));
+          }
+        }
+
+        if (selecionados.length > 4) {
+          checkbox.checked = false;
+          return;
+        }
+
+        idArquiteturasSelecionadas = selecionados;
+        updateSelectionCount();
+      }
+
+      function updateSelectionCount() {
+        const checkboxes = document.querySelectorAll(
+          '#optionsList input[type="checkbox"]'
+        );
+
+        let selecionados = 0;
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) selecionados++;
+        }
+
+        // atualiza badge
+        const el = document.getElementById("selectedCount");
+        el.textContent = `${selecionados} selecionada${
+          selecionados !== 1 ? "s" : ""
+        }`;
+
+        // regra do limite
+        const limite = 4;
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          const optionDiv = checkboxes[i].parentElement;
+
+          if (!checkboxes[i].checked && selecionados >= limite) {
+            checkboxes[i].disabled = true;
+            optionDiv.style.opacity = "0.4";
+            optionDiv.style.pointerEvents = "none";
+          } else {
+            checkboxes[i].disabled = false;
+            optionDiv.style.opacity = "1";
+            optionDiv.style.pointerEvents = "auto";
+          }
+        }
+      }
+
+      function toggleMultiselect() {
+        const dropdown = document.getElementById("multiselectDropdown");
+        dropdown.classList.toggle("active");
+      }
+
+      function filterOptions() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const options = document.querySelectorAll(".multiselect-option");
+        options.forEach((option) => {
+          const text = option.textContent.toLowerCase();
+          option.style.display = text.includes(filter) ? "flex" : "none";
+        });
+      }
+
+      function applySelection() {
+        console.log("Selecionadas:", idArquiteturasSelecionadas);
+        const checkboxes = document.querySelectorAll(
+          '#optionsList input[type="checkbox"]'
+        );
+        idArquiteturas = [];
+
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            idArquiteturas.push(Number(checkboxes[i].value));
+          }
+        }
+
+        updateSelectionCount();
+        toggleMultiselect();
+
+        carregarGraficoMensalFiltrado();
+      }
+
+      function carregarGraficoMensal() {
+        const select = document.getElementById("zoneSelect");
+        const idZona = select.value;
+
+        let url = `${API_BASE}/grafico-mensal/${idEmpresa}`;
+        if (idZona !== "todas") url += `?idZona=${idZona}`;
+
+        fetch(url)
+          .then((r) => r.json())
+          .then((res) => montarGrafico(res))
+          .catch((e) => console.log("Erro ao carregar gráfico mensal:", e));
+      }
+
+      function carregarGraficoMensalFiltrado() {
+        if (idArquiteturas.length === 0) {
+          console.log("Nenhuma arquitetura selecionada");
+          return;
+        }
+        const select = document.getElementById("zoneSelect");
+        const idZona = select.value;
+        const query = idArquiteturas.join(",");
+        let url = `${API_BASE}/grafico-mensal-filtrado/${idEmpresa}?idArquiteturas=${query}`;
+        if (idZona !== "todas") url += `&idZona=${idZona}`;
+        fetch(url)
+          .then((r) => r.json())
+          .then((res) => montarGrafico(res))
+          .catch((e) => console.log("Erro ao carregar gráfico filtrado:", e));
+      }
+
+      let chartMensal;
+
+      function montarGrafico(resposta) {
+        const ctx = document.getElementById("lineChart").getContext("2d");
+
+        let labels = [];
+        let datasets = [];
+
+        // 1) Montar lista de meses sem duplicar
+        for (let i = 0; i < resposta.dados.length; i++) {
+          let mes = resposta.dados[i].periodo;
+          let existe = false;
+
+          for (let j = 0; j < labels.length; j++) {
+            if (labels[j] === mes) {
+              existe = true;
             }
-
-            updateSelectionCount();
+          }
+          if (!existe) labels.push(mes);
         }
 
-        const pasta = "pasta";
-        const arquivo = "media-mediana-outlier.json";
+        // 2) Para cada arquitetura do top4
+        for (let a = 0; a < resposta.arquiteturas.length; a++) {
+          let arq = resposta.arquiteturas[a];
+          let valores = [];
 
-        function limitarSelecao(checkbox) {
-            const checkboxes = document.querySelectorAll('#optionsList input[type="checkbox"]');
+          // para cada mês da label
+          for (let m = 0; m < labels.length; m++) {
+            let encontrado = false;
 
-            const selecionados = [];
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    selecionados.push(Number(checkboxes[i].value));
-                }
-            }
-
-            if (selecionados.length > 4) {
-                checkbox.checked = false;
-                return;
-            }
-
-            idArquiteturasSelecionadas = selecionados;
-            updateSelectionCount();
-        }
-
-        function updateSelectionCount() {
-            const checkboxes = document.querySelectorAll('#optionsList input[type="checkbox"]');
-
-            let selecionados = 0;
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) selecionados++;
-            }
-
-            // atualiza badge
-            const el = document.getElementById('selectedCount');
-            el.textContent = `${selecionados} selecionada${selecionados !== 1 ? 's' : ''}`;
-
-            // regra do limite
-            const limite = 4;
-
-            for (let i = 0; i < checkboxes.length; i++) {
-                const optionDiv = checkboxes[i].parentElement;
-
-                if (!checkboxes[i].checked && selecionados >= limite) {
-                    checkboxes[i].disabled = true;
-                    optionDiv.style.opacity = "0.4";
-                    optionDiv.style.pointerEvents = "none";
-                } else {
-                    checkboxes[i].disabled = false;
-                    optionDiv.style.opacity = "1";
-                    optionDiv.style.pointerEvents = "auto";
-                }
-            }
-        }
-
-        function toggleMultiselect() {
-            const dropdown = document.getElementById('multiselectDropdown');
-            dropdown.classList.toggle('active');
-        }
-
-        function filterOptions() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const options = document.querySelectorAll('.multiselect-option');
-            options.forEach(option => {
-                const text = option.textContent.toLowerCase();
-                option.style.display = text.includes(filter) ? 'flex' : 'none';
-            });
-        }
-
-        function applySelection() {
-            console.log("Selecionadas:", idArquiteturasSelecionadas);
-            const checkboxes = document.querySelectorAll('#optionsList input[type="checkbox"]');
-            idArquiteturas = [];
-
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    idArquiteturas.push( Number(checkboxes[i].value) );
-                }
-            }
-
-            updateSelectionCount();          
-            toggleMultiselect();
-
-            carregarGraficoMensalFiltrado();
-        }
-
-        function carregarGraficoMensal() {
-            const select = document.getElementById("zoneSelect");
-            const idZona = select.value;
-
-            let url = `${API_BASE}/grafico-mensal/${idEmpresa}`;
-            if (idZona !== "todas") url += `?idZona=${idZona}`;
-
-            fetch(url)
-                .then(r => r.json())
-                .then(res => montarGrafico(res))
-                .catch(e => console.log("Erro ao carregar gráfico mensal:", e));
-        }
-
-        function carregarGraficoMensalFiltrado() {
-            if (idArquiteturas.length === 0) {
-                console.log("Nenhuma arquitetura selecionada");
-                return;
-            }
-            const select = document.getElementById("zoneSelect");
-            const idZona = select.value;
-            const query = idArquiteturas.join(",");
-            let url = `${API_BASE}/grafico-mensal-filtrado/${idEmpresa}?idArquiteturas=${query}`;
-            if (idZona !== "todas") url += `&idZona=${idZona}`;
-            fetch(url)
-                .then(r => r.json())
-                .then(res => montarGrafico(res))
-                .catch(e => console.log("Erro ao carregar gráfico filtrado:", e));
-        }
-
-        let chartMensal;
-
-        function montarGrafico(resposta) {
-            const ctx = document.getElementById("lineChart").getContext("2d");
-
-            let labels = [];
-            let datasets = [];
-
-            // 1) Montar lista de meses sem duplicar
             for (let i = 0; i < resposta.dados.length; i++) {
-                let mes = resposta.dados[i].periodo;
-                let existe = false;
-
-                for (let j = 0; j < labels.length; j++) {
-                    if (labels[j] === mes) {
-                        existe = true;
-                    }
-                }
-                if (!existe) labels.push(mes);
+              if (
+                resposta.dados[i].arquitetura === arq &&
+                resposta.dados[i].periodo === labels[m]
+              ) {
+                valores.push(resposta.dados[i].utilizacoes);
+                encontrado = true;
+              }
             }
 
-            // 2) Para cada arquitetura do top4
-            for (let a = 0; a < resposta.arquiteturas.length; a++) {
-                let arq = resposta.arquiteturas[a];
-                let valores = [];
+            if (!encontrado) valores.push(0);
+          }
 
-                // para cada mês da label
-                for (let m = 0; m < labels.length; m++) {
-                    let encontrado = false;
+          datasets.push({
+            label: arq,
+            data: valores,
+            borderWidth: 2,
+            fill: false,
+          });
+        }
 
-                    for (let i = 0; i < resposta.dados.length; i++) {
-                        if (resposta.dados[i].arquitetura === arq &&
-                            resposta.dados[i].periodo === labels[m]) {
+        // destruir gráfico antigo
+        if (chartMensal instanceof Chart) {
+          chartMensal.destroy();
+        }
 
-                            valores.push(resposta.dados[i].utilizacoes);
-                            encontrado = true;
-                        }
-                    }
+        chartMensal = new Chart(ctx, {
+          type: "line",
+          data: { labels, datasets },
+          options: { responsive: true },
+        });
+      }
 
-                    if (!encontrado) valores.push(0);
-                }
+      async function dashprocesso(pasta, arquivo) {
+        let dados = await JSON.parse(
+          await (await fetch(`/s3Route/dados/${pasta}/${arquivo}`)).text()
+        );
+        console.log("Arquivo JSON vindo do S3: ", dados);
+        return dados;
+      }
 
-                datasets.push({
-                    label: arq,
-                    data: valores,
-                    borderWidth: 2,
-                    fill: false
-                });
+      let dadosDoDashboard;
+
+      async function carregarDadosIniciais() {
+        dadosDoDashboard = await dashprocesso(pasta, arquivo);
+      }
+
+      // Chame a função para iniciar o carregamento dos dados
+      carregarDadosIniciais();
+
+      function obterDadosDaZona(zoneId) {
+        if (
+          !dadosDoDashboard ||
+          !dadosDoDashboard.companies ||
+          dadosDoDashboard.companies.length === 0
+        ) {
+          console.error("Dados do dashboard não carregados ou vazios.");
+          return null;
+        }
+
+        // Supondo que você só tenha uma empresa (company_id: 1)
+        const companyData = dadosDoDashboard.companies[0];
+
+        if (zoneId === "todas") {
+          // Lógica para quando 'Todas' é selecionado.
+          // Você precisará AGREGAR os dados de todas as zonas aqui, se necessário.
+          // Por enquanto, retorna todos os dados da empresa como exemplo.
+          return companyData.zones;
+        }
+
+        // Procura o objeto de zona cujo 'zone_id' corresponde ao ID selecionado
+        const zonaSelecionada = companyData.zones.find(
+          (zone) => String(zone.zone_id) === String(zoneId)
+        );
+
+        return zonaSelecionada;
+      }
+
+      function carregarTudo() {
+        listarZonas(idEmpresa);
+        carregarTop4(() => carregarGraficoMensal());
+        atualizarGraficoa();
+        atualizarKPIMedia();
+        atualizarKPIMediana();
+        atualizarKPIOutlier();
+      }
+
+      const dadosOutliers = {
+        1: {
+          cpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 22 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 17 },
+            { architecture_id: 1, architecture_name: "Astras-Mini", value: 8 },
+            { architecture_id: 2, architecture_name: "Astra-Core", value: 12 },
+          ],
+          ram: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 20 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 16 },
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 6 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 11 },
+          ],
+          disco: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 23 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 16 },
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 7 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 10 },
+          ],
+          gpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 25 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 21 },
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 5 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 14 },
+          ],
+        },
+        2: {
+          cpu: [
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 7 },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 14 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 11 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 18 },
+          ],
+          ram: [
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 6 },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 13 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 10 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 16 },
+          ],
+          disco: [
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 8 },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 15 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 12 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 19 },
+          ],
+          gpu: [
+            { architecture_id: 1, architecture_name: "Astras-mini", value: 6 },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 17 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 13 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 20 },
+          ],
+        },
+        3: {
+          cpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 13 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 9 },
+          ],
+          ram: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 12 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 10 },
+          ],
+          disco: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 12 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 13 },
+          ],
+          gpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 10 },
+            { architecture_id: 2, architecture_name: "Astra-core", value: 10 },
+          ],
+        },
+      };
+
+      function atualizarKPIOutlier() {
+        const zoneSelect = document.getElementById("zoneSelect");
+        const componentSelect = document.getElementById("component-select");
+
+        const zone = zoneSelect.value;
+        const component = componentSelect.value;
+
+        let kpiData = [];
+
+        if (zone === "todas") {
+          // Calcula média agregada para "todas"
+          kpiData = calcularMediaAgregada(dadosOutliers, component);
+        } else if (dadosOutliers[zone] && dadosOutliers[zone][component]) {
+          // Dados normais para zona específica
+          kpiData = [...dadosOutliers[zone][component]];
+        }
+
+        if (kpiData.length > 0) {
+          // Ordena por 'value' decrescente
+          kpiData.sort((a, b) => b.value - a.value);
+
+          // Seleciona os 4 itens da KPI
+          const kpiItems = document.querySelectorAll(
+            ".arch-compact-item-outlier"
+          );
+
+          kpiItems.forEach((item, index) => {
+            if (index < kpiData.length) {
+              const data = kpiData[index];
+              const position = `${index + 1}º`;
+
+              // Define estilos baseados no value
+              const isHigh = data.value > 80;
+              const textColor = isHigh ? "#D94444" : "#00B2B2";
+              const fillGradient = isHigh
+                ? "linear-gradient(90deg, #B74C4C 0%, #D94444 100%)"
+                : "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
+
+              // Atualiza os elementos
+              item.querySelector(".arch-compact-name").textContent =
+                data.architecture_name;
+              item.querySelector(".arch-compact-percent").textContent =
+                position;
+              item.querySelector(".arch-compact-percent").style.color =
+                textColor;
+              item.querySelector(
+                ".arch-compact-fill"
+              ).style.width = `${data.value}%`;
+              item.querySelector(".arch-compact-fill").style.background =
+                fillGradient;
+              item.querySelector(
+                ".arch-compact-remaining"
+              ).textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
+              item.querySelector(".arch-compact-remaining").style.color =
+                textColor;
+
+              // Mostra o item
+              item.style.display = "block";
+            } else {
+              // Oculta os itens extras
+              item.style.display = "none";
             }
+          });
+        } else {
+          // Mostra todos os itens se não houver dados
+          const kpiItems = document.querySelectorAll(".arch-compact-item");
+          kpiItems.forEach((item) => {
+            item.style.display = "block";
+          });
+        }
+      }
 
-            // destruir gráfico antigo
-            if (chartMensal instanceof Chart) {
-                chartMensal.destroy();
+      const dadosMediana = {
+        1: {
+          cpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 74.3 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 66.8 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-Mini",
+              value: 40.2,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-Core",
+              value: 53.9,
+            },
+          ],
+          ram: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 69.0 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 61.1 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 36.4,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 47.2,
+            },
+          ],
+          disco: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 76.2 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 67.6 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 42.1,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 55.0,
+            },
+          ],
+          gpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 80.5 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 72.0 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 39.9,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 58.7,
+            },
+          ],
+        },
+        2: {
+          cpu: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 38.0,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 57.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 51.1,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 64.9 },
+          ],
+          ram: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 35.2,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 52.8 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 46.0,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 60.0 },
+          ],
+          disco: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 40.0,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 59.9 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 51.5,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 67.1 },
+          ],
+          gpu: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 38.1,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 63.4 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 56.1,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 70.8 },
+          ],
+        },
+        3: {
+          cpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 28.4 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 26.8,
+            },
+          ],
+          ram: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 38.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 39.6,
+            },
+          ],
+          disco: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 75.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 37.6,
+            },
+          ],
+          gpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 12.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 10.6,
+            },
+          ],
+        },
+      };
+
+      function atualizarKPIMediana() {
+        const zoneSelect = document.getElementById("zoneSelect");
+        const componentSelect = document.getElementById("component-select");
+
+        const zone = zoneSelect.value;
+        const component = componentSelect.value;
+
+        let kpiData = [];
+
+        if (zone === "todas") {
+          // Calcula média agregada para "todas"
+          kpiData = calcularMediaAgregada(dadosMediana, component);
+        } else if (dadosMediana[zone] && dadosMediana[zone][component]) {
+          // Dados normais para zona específica
+          kpiData = [...dadosMediana[zone][component]];
+        }
+
+        if (kpiData.length > 0) {
+          // Ordena por 'value' decrescente
+          kpiData.sort((a, b) => b.value - a.value);
+
+          // Seleciona os 4 itens da KPI
+          const kpiItems = document.querySelectorAll(
+            ".arch-compact-item-median"
+          );
+
+          kpiItems.forEach((item, index) => {
+            if (index < kpiData.length) {
+              const data = kpiData[index];
+              const position = `${index + 1}º`;
+
+              // Define estilos baseados no value
+              const isHigh = data.value > 80;
+              const textColor = isHigh ? "#D94444" : "#00B2B2";
+              const fillGradient = isHigh
+                ? "linear-gradient(90deg, #B74C4C 0%, #D94444 100%)"
+                : "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
+
+              // Atualiza os elementos
+              item.querySelector(".arch-compact-name").textContent =
+                data.architecture_name;
+              item.querySelector(".arch-compact-percent").textContent =
+                position;
+              item.querySelector(".arch-compact-percent").style.color =
+                textColor;
+              item.querySelector(
+                ".arch-compact-fill"
+              ).style.width = `${data.value}%`;
+              item.querySelector(".arch-compact-fill").style.background =
+                fillGradient;
+              item.querySelector(
+                ".arch-compact-remaining"
+              ).textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
+              item.querySelector(".arch-compact-remaining").style.color =
+                textColor;
+
+              // Mostra o item
+              item.style.display = "block";
+            } else {
+              // Oculta os itens extras
+              item.style.display = "none";
             }
-
-            chartMensal = new Chart(ctx, {
-                type: "line",
-                data: { labels, datasets },
-                options: { responsive: true }
-            });
+          });
+        } else {
+          // Mostra todos os itens se não houver dados
+          const kpiItems = document.querySelectorAll(".arch-compact-item");
+          kpiItems.forEach((item) => {
+            item.style.display = "block";
+          });
         }
+      }
 
-        async function dashprocesso(pasta,arquivo) {
-            let dados = await JSON.parse(await (await fetch(`/s3Route/dados/${pasta}/${arquivo}`)).text());
-            console.log("Arquivo JSON vindo do S3: ",dados);
-            return dados
-        }
+      // Dados do JSON organizados por zona e componente
+      const kpiDataByZoneAndComponent = {
+        1: {
+          cpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 75.9 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 68.4 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-Mini",
+              value: 42.5,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-Core",
+              value: 55.3,
+            },
+          ],
+          ram: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 70.6 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 63.2 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 38.1,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 49.7,
+            },
+          ],
+          disco: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 78.0 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 69.4 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 44.8,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 57.9,
+            },
+          ],
+          gpu: [
+            { architecture_id: 5, architecture_name: "WAPX", value: 82.3 },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 73.8 },
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 41.7,
+            },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 60.2,
+            },
+          ],
+        },
+        2: {
+          cpu: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 39.4,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 59.1 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 52.8,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 66.8 },
+          ],
+          ram: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 36.7,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 54.5 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 47.9,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 62.0 },
+          ],
+          disco: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 41.1,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 61.8 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 53.7,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 68.5 },
+          ],
+          gpu: [
+            {
+              architecture_id: 1,
+              architecture_name: "Astras-mini",
+              value: 40.5,
+            },
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 65.2 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 58.4,
+            },
+            { architecture_id: 4, architecture_name: "Vortex-2", value: 72.9 },
+          ],
+        },
+        3: {
+          cpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 56.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 49.6,
+            },
+          ],
+          ram: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 46.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 40.6,
+            },
+          ],
+          disco: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 86.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 39.6,
+            },
+          ],
+          gpu: [
+            { architecture_id: 3, architecture_name: "Vortex-1", value: 16.3 },
+            {
+              architecture_id: 2,
+              architecture_name: "Astra-core",
+              value: 19.6,
+            },
+          ],
+        },
+      };
 
-        let dadosDoDashboard;
+      // Função para atualizar a KPI
+      // Função para atualizar a KPI
+      function atualizarKPI() {
+        const zoneSelect = document.getElementById("zoneSelect");
+        const componentSelect = document.getElementById("component-select");
 
-        async function carregarDadosIniciais() {
-            dadosDoDashboard = await dashprocesso(pasta, arquivo); 
-        }
+        const zone = zoneSelect.value;
+        const component = componentSelect.value;
 
-        // Chame a função para iniciar o carregamento dos dados
-        carregarDadosIniciais();
-         
-        function obterDadosDaZona(zoneId) {
-            if (!dadosDoDashboard || !dadosDoDashboard.companies || dadosDoDashboard.companies.length === 0) {
-                console.error("Dados do dashboard não carregados ou vazios.");
-                return null;
-            }
-            
-            // Supondo que você só tenha uma empresa (company_id: 1)
-            const companyData = dadosDoDashboard.companies[0]; 
-            
-            if (zoneId === "todas") {
-                // Lógica para quando 'Todas' é selecionado. 
-                // Você precisará AGREGAR os dados de todas as zonas aqui, se necessário.
-                // Por enquanto, retorna todos os dados da empresa como exemplo.
-                return companyData.zones; 
-            }
-
-            // Procura o objeto de zona cujo 'zone_id' corresponde ao ID selecionado
-            const zonaSelecionada = companyData.zones.find(zone => String(zone.zone_id) === String(zoneId));
-            
-            return zonaSelecionada;
-        }
-
-        function carregarTudo() {
-            listarZonas(idEmpresa);
-            carregarTop4(() => carregarGraficoMensal());
-            atualizarGraficoa();
-            atualizarKPIMedia();
-            atualizarKPIMediana();
-            atualizarKPIOutlier();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-        const dadosOutliers = {
-            "1": {
-        cpu: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 22 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 17 },
-                { "architecture_id": 1, "architecture_name": "Astras-Mini", "value": 8 },
-                { "architecture_id": 2, "architecture_name": "Astra-Core", "value": 12 }
-              ],
-        ram: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 20 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 16 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 6 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 11 }
-              ],
-        disco: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 23 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 16 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 7 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 10 }
-              ],
-        gpu: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 25 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 21 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 5 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 14 }
-              ]
-    },
-    "2": {
-        cpu: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 7 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 14 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 11 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 18 }
-              ],
-        ram: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 6 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 13 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 10 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 16 }
-              ],
-        disco: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 8 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 15 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 12 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 19 }
-              ],
-        gpu: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 6 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 17 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 13 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 20 }
-              ]
-    },
-    "3": {
-        cpu: [
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 13 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 9 }
-              ],
-        ram: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 12 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 10 }
-        ],
-        disco: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 12 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 13 }
-        ],
-        gpu: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 10 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 10 }
-        ]
-    }
-        }
-
-
-
-function atualizarKPIOutlier() {
-    const zoneSelect = document.getElementById('zoneSelect');
-    const componentSelect = document.getElementById('component-select');
-    
-    const zone = zoneSelect.value;
-    const component = componentSelect.value;
-    
-    let kpiData = [];
-    
-    if (zone === 'todas') {
-        // Calcula média agregada para "todas"
-        kpiData = calcularMediaAgregada(dadosOutliers, component);
-    } else if (dadosOutliers[zone] && dadosOutliers[zone][component]) {
-        // Dados normais para zona específica
-        kpiData = [...dadosOutliers[zone][component]];
-    }
-    
-    if (kpiData.length > 0) {
-        // Ordena por 'value' decrescente
-        kpiData.sort((a, b) => b.value - a.value);
-        
         // Seleciona os 4 itens da KPI
-        const kpiItems = document.querySelectorAll('.arch-compact-item-outlier');
-        
-        kpiItems.forEach((item, index) => {
+        const kpiItems = document.querySelectorAll(".arch-compact-item-mean");
+
+        // Verifica se há dados para a zona e componente selecionados
+        if (
+          kpiDataByZoneAndComponent[zone] &&
+          kpiDataByZoneAndComponent[zone][component]
+        ) {
+          // Faz uma cópia do array para não alterar o original
+          let kpiData = [...kpiDataByZoneAndComponent[zone][component]];
+
+          // Ordena por 'value' decrescente (maior eficiência primeiro)
+          kpiData.sort((a, b) => b.value - a.value);
+
+          // Atualiza cada item com os dados ordenados (até o tamanho do array)
+          kpiItems.forEach((item, index) => {
             if (index < kpiData.length) {
-                const data = kpiData[index];
-                const position = `${index + 1}º`;
-                
-                // Define estilos baseados no value
-                const isHigh = data.value > 80;
-                const textColor = isHigh ? '#D94444' : '#00B2B2';
-                const fillGradient = isHigh 
-                    ? 'linear-gradient(90deg, #B74C4C 0%, #D94444 100%)' 
-                    : 'linear-gradient(90deg, #00B2B2 0%, #006E66 100%)';
-                
-                // Atualiza os elementos
-                item.querySelector('.arch-compact-name').textContent = data.architecture_name;
-                item.querySelector('.arch-compact-percent').textContent = position;
-                item.querySelector('.arch-compact-percent').style.color = textColor;
-                item.querySelector('.arch-compact-fill').style.width = `${data.value}%`;
-                item.querySelector('.arch-compact-fill').style.background = fillGradient;
-                item.querySelector('.arch-compact-remaining').textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
-                item.querySelector('.arch-compact-remaining').style.color = textColor;
-                
-                // Mostra o item
-                item.style.display = 'block';
+              const data = kpiData[index];
+              const position = `${index + 1}º`; // 1º, 2º, etc.
+
+              // Define estilos baseados no value
+              const isHigh = data.value > 80;
+              const textColor = isHigh ? "#D94444" : "#00B2B2"; // Vermelho para >80, azul/teal para <=80
+              const fillGradient = isHigh
+                ? "linear-gradient(90deg, #B74C4C 0%, #D94444 100%)"
+                : "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
+
+              // Atualiza os elementos
+              item.querySelector(".arch-compact-name").textContent =
+                data.architecture_name;
+              item.querySelector(".arch-compact-percent").textContent =
+                position;
+              item.querySelector(".arch-compact-percent").style.color =
+                textColor;
+              item.querySelector(
+                ".arch-compact-fill"
+              ).style.width = `${data.value}%`;
+              item.querySelector(".arch-compact-fill").style.background =
+                fillGradient;
+              item.querySelector(
+                ".arch-compact-remaining"
+              ).textContent = `${data.value}%`;
+              item.querySelector(".arch-compact-remaining").style.color =
+                textColor;
+
+              // Mostra o item (caso estivesse oculto)
+              item.style.display = "block";
             } else {
-                // Oculta os itens extras
-                item.style.display = 'none';
+              // Oculta os itens extras (além do tamanho do array)
+              item.style.display = "none";
             }
-        });
-    } else {
-        // Mostra todos os itens se não houver dados
-        const kpiItems = document.querySelectorAll('.arch-compact-item');
-        kpiItems.forEach((item) => {
-            item.style.display = 'block';
-        });
-    }
-}
-
-
-
-
-
-
-
-
-
-
-const dadosMediana = {
-    "1": {
-        cpu: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 74.3 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 66.8 },
-                { "architecture_id": 1, "architecture_name": "Astras-Mini", "value": 40.2 },
-                { "architecture_id": 2, "architecture_name": "Astra-Core", "value": 53.9 }
-              ],
-        ram: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 69.0 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 61.1 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 36.4 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 47.2 }
-              ],
-        disco: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 76.2 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 67.6 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 42.1 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 55.0 }
-              ],
-        gpu: [
-                { "architecture_id": 5, "architecture_name": "WAPX", "value": 80.5 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 72.0 },
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 39.9 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 58.7 }
-              ]
-    },
-    "2": {
-        cpu: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 38.0 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 57.3 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 51.1 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 64.9 }
-              ],
-        ram: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 35.2 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 52.8 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 46.0 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 60.0 }
-              ],
-        disco: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 40.0 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 59.9 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 51.5 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 67.1 }
-              ],
-        gpu: [
-                { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 38.1 },
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 63.4 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 56.1 },
-                { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 70.8 }
-              ]
-    },
-    "3": {
-        cpu: [
-                { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 28.4 },
-                { "architecture_id": 2, "architecture_name": "Astra-core", "value": 26.8 }
-              ],
-        ram: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 38.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 39.6 }
-        ],
-        disco: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 75.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 37.6 }
-        ],
-        gpu: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 12.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 10.6 }
-        ]
-    }
-}
-
-function atualizarKPIMediana() {
-    const zoneSelect = document.getElementById('zoneSelect');
-    const componentSelect = document.getElementById('component-select');
-    
-    const zone = zoneSelect.value;
-    const component = componentSelect.value;
-    
-    let kpiData = [];
-    
-    if (zone === 'todas') {
-        // Calcula média agregada para "todas"
-        kpiData = calcularMediaAgregada(dadosMediana, component);
-    } else if (dadosMediana[zone] && dadosMediana[zone][component]) {
-        // Dados normais para zona específica
-        kpiData = [...dadosMediana[zone][component]];
-    }
-    
-    if (kpiData.length > 0) {
-        // Ordena por 'value' decrescente
-        kpiData.sort((a, b) => b.value - a.value);
-        
-        // Seleciona os 4 itens da KPI
-        const kpiItems = document.querySelectorAll('.arch-compact-item-median');
-        
-        kpiItems.forEach((item, index) => {
-            if (index < kpiData.length) {
-                const data = kpiData[index];
-                const position = `${index + 1}º`;
-                
-                // Define estilos baseados no value
-                const isHigh = data.value > 80;
-                const textColor = isHigh ? '#D94444' : '#00B2B2';
-                const fillGradient = isHigh 
-                    ? 'linear-gradient(90deg, #B74C4C 0%, #D94444 100%)' 
-                    : 'linear-gradient(90deg, #00B2B2 0%, #006E66 100%)';
-                
-                // Atualiza os elementos
-                item.querySelector('.arch-compact-name').textContent = data.architecture_name;
-                item.querySelector('.arch-compact-percent').textContent = position;
-                item.querySelector('.arch-compact-percent').style.color = textColor;
-                item.querySelector('.arch-compact-fill').style.width = `${data.value}%`;
-                item.querySelector('.arch-compact-fill').style.background = fillGradient;
-                item.querySelector('.arch-compact-remaining').textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
-                item.querySelector('.arch-compact-remaining').style.color = textColor;
-                
-                // Mostra o item
-                item.style.display = 'block';
-            } else {
-                // Oculta os itens extras
-                item.style.display = 'none';
-            }
-        });
-    } else {
-        // Mostra todos os itens se não houver dados
-        const kpiItems = document.querySelectorAll('.arch-compact-item');
-        kpiItems.forEach((item) => {
-            item.style.display = 'block';
-        });
-    }
-}
-
-
-
-// Dados do JSON organizados por zona e componente
-const kpiDataByZoneAndComponent = {
-    "1": {
-        cpu: [
-            { "architecture_id": 5, "architecture_name": "WAPX", "value": 75.9 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 68.4 },
-            { "architecture_id": 1, "architecture_name": "Astras-Mini", "value": 42.5 },
-            { "architecture_id": 2, "architecture_name": "Astra-Core", "value": 55.3 }
-        ],
-        ram: [
-            { "architecture_id": 5, "architecture_name": "WAPX", "value": 70.6 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 63.2 },
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 38.1 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 49.7 }
-        ],
-        disco: [
-            { "architecture_id": 5, "architecture_name": "WAPX", "value": 78.0 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 69.4 },
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 44.8 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 57.9 }
-        ],
-        gpu: [
-            { "architecture_id": 5, "architecture_name": "WAPX", "value": 82.3 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 73.8 },
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 41.7 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 60.2 }
-        ]
-    },
-    "2": {
-        cpu: [
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 39.4 },
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 59.1 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 52.8 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 66.8 }
-        ],
-        ram: [
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 36.7 },
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 54.5 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 47.9 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 62.0 }
-        ],
-        disco: [
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 41.1 },
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 61.8 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 53.7 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 68.5 }
-        ],
-        gpu: [
-            { "architecture_id": 1, "architecture_name": "Astras-mini", "value": 40.5 },
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 65.2 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 58.4 },
-            { "architecture_id": 4, "architecture_name": "Vortex-2", "value": 72.9 }
-        ]
-    },
-    "3": {
-        cpu: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 56.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 49.6 }
-        ],
-        ram: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 46.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 40.6 }
-        ],
-        disco: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 86.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 39.6 }
-        ],
-        gpu: [
-            { "architecture_id": 3, "architecture_name": "Vortex-1", "value": 16.3 },
-            { "architecture_id": 2, "architecture_name": "Astra-core", "value": 19.6 }
-        ]
-    }
-};
-
-// Função para atualizar a KPI
-// Função para atualizar a KPI
-function atualizarKPI() {
-    const zoneSelect = document.getElementById('zoneSelect');
-    const componentSelect = document.getElementById('component-select');
-    
-    const zone = zoneSelect.value;
-    const component = componentSelect.value;
-    
-    // Seleciona os 4 itens da KPI
-    const kpiItems = document.querySelectorAll('.arch-compact-item-mean');
-    
-    // Verifica se há dados para a zona e componente selecionados
-    if (kpiDataByZoneAndComponent[zone] && kpiDataByZoneAndComponent[zone][component]) {
-        // Faz uma cópia do array para não alterar o original
-        let kpiData = [...kpiDataByZoneAndComponent[zone][component]];
-        
-        // Ordena por 'value' decrescente (maior eficiência primeiro)
-        kpiData.sort((a, b) => b.value - a.value);
-        
-        // Atualiza cada item com os dados ordenados (até o tamanho do array)
-        kpiItems.forEach((item, index) => {
-            if (index < kpiData.length) {
-                const data = kpiData[index];
-                const position = `${index + 1}º`; // 1º, 2º, etc.
-                
-                // Define estilos baseados no value
-                const isHigh = data.value > 80;
-                const textColor = isHigh ? '#D94444' : '#00B2B2'; // Vermelho para >80, azul/teal para <=80
-                const fillGradient = isHigh 
-                    ? 'linear-gradient(90deg, #B74C4C 0%, #D94444 100%)' 
-                    : 'linear-gradient(90deg, #00B2B2 0%, #006E66 100%)';
-                
-                // Atualiza os elementos
-                item.querySelector('.arch-compact-name').textContent = data.architecture_name;
-                item.querySelector('.arch-compact-percent').textContent = position;
-                item.querySelector('.arch-compact-percent').style.color = textColor;
-                item.querySelector('.arch-compact-fill').style.width = `${data.value}%`;
-                item.querySelector('.arch-compact-fill').style.background = fillGradient;
-                item.querySelector('.arch-compact-remaining').textContent = `${data.value}%`;
-                item.querySelector('.arch-compact-remaining').style.color = textColor;
-                
-                // Mostra o item (caso estivesse oculto)
-                item.style.display = 'block';
-            } else {
-                // Oculta os itens extras (além do tamanho do array)
-                item.style.display = 'none';
-            }
-        });
-    } else {
-        // Se não houver dados (ex.: zona "todas" ou combinação inválida), mostra todos os itens (volta ao estado original)
-        kpiItems.forEach((item) => {
-            item.style.display = 'block';
+          });
+        } else {
+          // Se não houver dados (ex.: zona "todas" ou combinação inválida), mostra todos os itens (volta ao estado original)
+          kpiItems.forEach((item) => {
+            item.style.display = "block";
             // Opcional: reseta estilos para padrão, se necessário (ex.: remove cores aplicadas)
             // item.querySelector('.arch-compact-percent').style.color = '';
             // item.querySelector('.arch-compact-remaining').style.color = '';
             // item.querySelector('.arch-compact-fill').style.background = '';
-        });
-    }
-}
+          });
+        }
+      }
 
+      // Variável global para o gráfico (para evitar recriar)
+      let componentTrendChart;
 
-    // Variável global para o gráfico (para evitar recriar)
-let componentTrendChart;
+      // Função para atualizar o gráfico
 
-// Função para atualizar o gráfico
+      // Adicione isso no topo, com os outros dados
 
+      // Função auxiliar para calcular média agregada por arquitetura/componente em todas as zonas
+      function calcularMediaAgregada(dataSource, component) {
+        const aggregated = {};
 
-
-// Adicione isso no topo, com os outros dados
-
-
-// Função auxiliar para calcular média agregada por arquitetura/componente em todas as zonas
-function calcularMediaAgregada(dataSource, component) {
-    const aggregated = {};
-    
-    // Itera por todas as zonas
-    Object.keys(dataSource).forEach(zone => {
-        if (dataSource[zone][component]) {
-            dataSource[zone][component].forEach(item => {
-                const id = item.architecture_id;
-                if (!aggregated[id]) {
-                    aggregated[id] = {
-                        architecture_id: id,
-                        architecture_name: item.architecture_name,
-                        values: [],
-                        count: 0
-                    };
-                }
-                aggregated[id].values.push(item.value);
-                aggregated[id].count += 1;
+        // Itera por todas as zonas
+        Object.keys(dataSource).forEach((zone) => {
+          if (dataSource[zone][component]) {
+            dataSource[zone][component].forEach((item) => {
+              const id = item.architecture_id;
+              if (!aggregated[id]) {
+                aggregated[id] = {
+                  architecture_id: id,
+                  architecture_name: item.architecture_name,
+                  values: [],
+                  count: 0,
+                };
+              }
+              aggregated[id].values.push(item.value);
+              aggregated[id].count += 1;
             });
-        }
-    });
-    
-    // Calcula a média para cada arquitetura
-    return Object.values(aggregated).map(item => ({
-        architecture_id: item.architecture_id,
-        architecture_name: item.architecture_name,
-        value: item.values.reduce((sum, val) => sum + val, 0) / item.count
-    }));
-}
+          }
+        });
 
-// Função para atualizar a KPI
-function atualizarKPIMedia() {
-    const zoneSelect = document.getElementById('zoneSelect');
-    const componentSelect = document.getElementById('component-select');
-    
-    const zone = zoneSelect.value;
-    const component = componentSelect.value;
-    
-    let kpiData = [];
-    
-    if (zone === 'todas') {
-        // Calcula média agregada para "todas"
-        kpiData = calcularMediaAgregada(kpiDataByZoneAndComponent, component);
-    } else if (kpiDataByZoneAndComponent[zone] && kpiDataByZoneAndComponent[zone][component]) {
-        // Dados normais para zona específica
-        kpiData = [...kpiDataByZoneAndComponent[zone][component]];
-    }
-    
-    if (kpiData.length > 0) {
-        // Ordena por 'value' decrescente
-        kpiData.sort((a, b) => b.value - a.value);
-        
-        // Seleciona os 4 itens da KPI
-        const kpiItems = document.querySelectorAll('.arch-compact-item-mean');
-        
-        kpiItems.forEach((item, index) => {
+        // Calcula a média para cada arquitetura
+        return Object.values(aggregated).map((item) => ({
+          architecture_id: item.architecture_id,
+          architecture_name: item.architecture_name,
+          value: item.values.reduce((sum, val) => sum + val, 0) / item.count,
+        }));
+      }
+
+      // Função para atualizar a KPI
+      function atualizarKPIMedia() {
+        const zoneSelect = document.getElementById("zoneSelect");
+        const componentSelect = document.getElementById("component-select");
+
+        const zone = zoneSelect.value;
+        const component = componentSelect.value;
+
+        let kpiData = [];
+
+        if (zone === "todas") {
+          // Calcula média agregada para "todas"
+          kpiData = calcularMediaAgregada(kpiDataByZoneAndComponent, component);
+        } else if (
+          kpiDataByZoneAndComponent[zone] &&
+          kpiDataByZoneAndComponent[zone][component]
+        ) {
+          // Dados normais para zona específica
+          kpiData = [...kpiDataByZoneAndComponent[zone][component]];
+        }
+
+        if (kpiData.length > 0) {
+          // Ordena por 'value' decrescente
+          kpiData.sort((a, b) => b.value - a.value);
+
+          // Seleciona os 4 itens da KPI
+          const kpiItems = document.querySelectorAll(".arch-compact-item-mean");
+
+          kpiItems.forEach((item, index) => {
             if (index < kpiData.length) {
-                const data = kpiData[index];
-                const position = `${index + 1}º`;
-                
-                // Define estilos baseados no value
-                const isHigh = data.value > 80;
-                const textColor = isHigh ? '#D94444' : '#00B2B2';
-                const fillGradient = isHigh 
-                    ? 'linear-gradient(90deg, #B74C4C 0%, #D94444 100%)' 
-                    : 'linear-gradient(90deg, #00B2B2 0%, #006E66 100%)';
-                
-                // Atualiza os elementos
-                item.querySelector('.arch-compact-name').textContent = data.architecture_name;
-                item.querySelector('.arch-compact-percent').textContent = position;
-                item.querySelector('.arch-compact-percent').style.color = textColor;
-                item.querySelector('.arch-compact-fill').style.width = `${data.value}%`;
-                item.querySelector('.arch-compact-fill').style.background = fillGradient;
-                item.querySelector('.arch-compact-remaining').textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
-                item.querySelector('.arch-compact-remaining').style.color = textColor;
-                
-                // Mostra o item
-                item.style.display = 'block';
-            } else {
-                // Oculta os itens extras
-                item.style.display = 'none';
-            }
-        });
-    } else {
-        // Mostra todos os itens se não houver dados
-        const kpiItems = document.querySelectorAll('.arch-compact-item');
-        kpiItems.forEach((item) => {
-            item.style.display = 'block';
-        });
-    }
-}
+              const data = kpiData[index];
+              const position = `${index + 1}º`;
 
-// Função para atualizar o gráfico
-function atualizarGraficoa() {
-    const zoneSelect = document.getElementById('zoneSelect');
-    const componentSelect = document.getElementById('component-select');
-    
-    const zone = zoneSelect.value;
-    const component = componentSelect.value;
-    
-    let mediaData = [];
-    let medianaData = [];
-    let outliersData = [];
-    
-    if (zone === 'todas') {
-        // Calcula médias agregadas para "todas"
-        mediaData = calcularMediaAgregada(kpiDataByZoneAndComponent, component);
-        medianaData = calcularMediaAgregada(dadosMediana, component);
-        outliersData = calcularMediaAgregada(dadosOutliers, component);
-    } else if (kpiDataByZoneAndComponent[zone] && kpiDataByZoneAndComponent[zone][component]) {
-        // Dados normais para zona específica
-        mediaData = [...kpiDataByZoneAndComponent[zone][component]];
-        medianaData = [...dadosMediana[zone][component]];
-        outliersData = [...dadosOutliers[zone][component]];
-    }
-    
-    if (mediaData.length > 0) {
-        // Ordena por média decrescente
-        mediaData.sort((a, b) => b.value - a.value);
-        
-        // Ordena mediana e outliers pela mesma ordem (por architecture_id)
-        medianaData.sort((a, b) => {
-            const mediaA = mediaData.find(m => m.architecture_id === a.architecture_id);
-            const mediaB = mediaData.find(m => m.architecture_id === b.architecture_id);
-            return mediaB.value - mediaA.value;
-        });
-        outliersData.sort((a, b) => {
-            const mediaA = mediaData.find(m => m.architecture_id === a.architecture_id);
-            const mediaB = mediaData.find(m => m.architecture_id === b.architecture_id);
-            return mediaB.value - mediaA.value;
-        });
-        
-        // Labels e valores
-        const labels = mediaData.map(item => item.architecture_name);
-        const mediaValues = mediaData.map(item => item.value);
-        const medianaValues = medianaData.map(item => item.value);
-        const outliersValues = outliersData.map(item => item.value);
-        
-        // Configuração do gráfico
-        const ctx = document.getElementById('componentTrendChart').getContext('2d');
-        if (componentTrendChart) {
-            componentTrendChart.destroy();
+              // Define estilos baseados no value
+              const isHigh = data.value > 80;
+              const textColor = isHigh ? "#D94444" : "#00B2B2";
+              const fillGradient = isHigh
+                ? "linear-gradient(90deg, #B74C4C 0%, #D94444 100%)"
+                : "linear-gradient(90deg, #00B2B2 0%, #006E66 100%)";
+
+              // Atualiza os elementos
+              item.querySelector(".arch-compact-name").textContent =
+                data.architecture_name;
+              item.querySelector(".arch-compact-percent").textContent =
+                position;
+              item.querySelector(".arch-compact-percent").style.color =
+                textColor;
+              item.querySelector(
+                ".arch-compact-fill"
+              ).style.width = `${data.value}%`;
+              item.querySelector(".arch-compact-fill").style.background =
+                fillGradient;
+              item.querySelector(
+                ".arch-compact-remaining"
+              ).textContent = `${data.value.toFixed(1)}%`; // Arredonda para 1 casa decimal
+              item.querySelector(".arch-compact-remaining").style.color =
+                textColor;
+
+              // Mostra o item
+              item.style.display = "block";
+            } else {
+              // Oculta os itens extras
+              item.style.display = "none";
+            }
+          });
+        } else {
+          // Mostra todos os itens se não houver dados
+          const kpiItems = document.querySelectorAll(".arch-compact-item");
+          kpiItems.forEach((item) => {
+            item.style.display = "block";
+          });
         }
-        componentTrendChart = new Chart(ctx, {
-            type: 'bar',
+      }
+
+      // Função para atualizar o gráfico
+      function atualizarGraficoa() {
+        const zoneSelect = document.getElementById("zoneSelect");
+        const componentSelect = document.getElementById("component-select");
+
+        const zone = zoneSelect.value;
+        const component = componentSelect.value;
+
+        let mediaData = [];
+        let medianaData = [];
+        let outliersData = [];
+
+        if (zone === "todas") {
+          // Calcula médias agregadas para "todas"
+          mediaData = calcularMediaAgregada(
+            kpiDataByZoneAndComponent,
+            component
+          );
+          medianaData = calcularMediaAgregada(dadosMediana, component);
+          outliersData = calcularMediaAgregada(dadosOutliers, component);
+        } else if (
+          kpiDataByZoneAndComponent[zone] &&
+          kpiDataByZoneAndComponent[zone][component]
+        ) {
+          // Dados normais para zona específica
+          mediaData = [...kpiDataByZoneAndComponent[zone][component]];
+          medianaData = [...dadosMediana[zone][component]];
+          outliersData = [...dadosOutliers[zone][component]];
+        }
+
+        if (mediaData.length > 0) {
+          // Ordena por média decrescente
+          mediaData.sort((a, b) => b.value - a.value);
+
+          // Ordena mediana e outliers pela mesma ordem (por architecture_id)
+          medianaData.sort((a, b) => {
+            const mediaA = mediaData.find(
+              (m) => m.architecture_id === a.architecture_id
+            );
+            const mediaB = mediaData.find(
+              (m) => m.architecture_id === b.architecture_id
+            );
+            return mediaB.value - mediaA.value;
+          });
+          outliersData.sort((a, b) => {
+            const mediaA = mediaData.find(
+              (m) => m.architecture_id === a.architecture_id
+            );
+            const mediaB = mediaData.find(
+              (m) => m.architecture_id === b.architecture_id
+            );
+            return mediaB.value - mediaA.value;
+          });
+
+          // Labels e valores
+          const labels = mediaData.map((item) => item.architecture_name);
+          const mediaValues = mediaData.map((item) => item.value);
+          const medianaValues = medianaData.map((item) => item.value);
+          const outliersValues = outliersData.map((item) => item.value);
+
+          // Configuração do gráfico
+          const ctx = document
+            .getElementById("componentTrendChart")
+            .getContext("2d");
+          if (componentTrendChart) {
+            componentTrendChart.destroy();
+          }
+          componentTrendChart = new Chart(ctx, {
+            type: "bar",
             data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Média',
-                        data: mediaValues,
-                        backgroundColor: 'rgba(0, 178, 178, 0.8)',
-                        borderColor: 'rgba(0, 178, 178, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Mediana',
-                        data: medianaValues,
-                        backgroundColor: 'rgba(183, 76, 76, 0.8)',
-                        borderColor: 'rgba(183, 76, 76, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Outliers',
-                        data: outliersValues,
-                        backgroundColor: 'rgba(255, 165, 0, 0.8)', // Laranja para outliers
-                        borderColor: 'rgba(255, 165, 0, 1)',
-                        borderWidth: 1
-                    }
-                ]
+              labels: labels,
+              datasets: [
+                {
+                  label: "Média",
+                  data: mediaValues,
+                  backgroundColor: "rgba(0, 178, 178, 0.8)",
+                  borderColor: "rgba(0, 178, 178, 1)",
+                  borderWidth: 1,
+                },
+                {
+                  label: "Mediana",
+                  data: medianaValues,
+                  backgroundColor: "rgba(183, 76, 76, 0.8)",
+                  borderColor: "rgba(183, 76, 76, 1)",
+                  borderWidth: 1,
+                },
+                {
+                  label: "Outliers",
+                  data: outliersValues,
+                  backgroundColor: "rgba(255, 165, 0, 0.8)", // Laranja para outliers
+                  borderColor: "rgba(255, 165, 0, 1)",
+                  borderWidth: 1,
+                },
+              ],
             },
             options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Valor (%)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Arquiteturas'
-                        }
-                    }
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: "Valor (%)",
+                  },
                 },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
+                x: {
+                  title: {
+                    display: true,
+                    text: "Arquiteturas",
+                  },
+                },
+              },
+              plugins: {
+                legend: {
+                  display: true,
+                  position: "top",
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      return `${context.dataset.label}: ${context.parsed.y}%`;
                     },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.y}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    } else {
-        // Destrói o gráfico se não houver dados
-        if (componentTrendChart) {
+                  },
+                },
+              },
+            },
+          });
+        } else {
+          // Destrói o gráfico se não houver dados
+          if (componentTrendChart) {
             componentTrendChart.destroy();
             componentTrendChart = null;
+          }
         }
-    }
-}
+      }
 
-// Aguarda o DOM carregar completamente
-document.addEventListener('DOMContentLoaded', function() {
-  // Seleciona o select e todas as divs com classes kpi-title e chart-title-comp
-  const selectElement = document.getElementById('component-select'); // Substitua pelo ID real
-  const titulos = document.querySelectorAll('.kpi-title-comp, .chart-title-comp'); // Seleciona ambas as classes
-  
-  // Verifica se o select existe
-  if (!selectElement) {
-    console.error('Erro: Elemento com ID "meuSelect" não encontrado.');
-    return;
-  }
-  
-  // Array para armazenar o texto base de cada div
-  const textosBase = [];
-  
-  // Armazena o texto base de cada div no carregamento
-  titulos.forEach(titulo => {
-    textosBase.push(titulo.textContent.trim()); // Salva o texto original
-  });
-  
-  // Função para atualizar todos os títulos
-  function atualizarTitulos() {
-    const valorSelecionado = selectElement.value.toUpperCase(); // Pega o valor do select
-    
-    // Itera sobre cada div e seu texto base correspondente
-    titulos.forEach((titulo, index) => {
-      const textoBase = textosBase[index]; // Pega o texto base salvo
-      // Usa innerHTML para adicionar HTML com cor apenas no valor selecionado
-      titulo.innerHTML = textoBase + " <span style='color: #00B2B2;'>" + valorSelecionado + "</span>";
-    });
-  }
-  
-  // Adiciona um event listener para quando o select muda
-  selectElement.addEventListener('change', atualizarTitulos);
-  
-  // Chama a função uma vez no carregamento da página para o valor inicial
-  atualizarTitulos();
-});
+      // Aguarda o DOM carregar completamente
+      document.addEventListener("DOMContentLoaded", function () {
+        // Seleciona o select e todas as divs com classes kpi-title e chart-title-comp
+        const selectElement = document.getElementById("component-select"); // Substitua pelo ID real
+        const titulos = document.querySelectorAll(
+          ".kpi-title-comp, .chart-title-comp"
+        ); // Seleciona ambas as classes
 
+        // Verifica se o select existe
+        if (!selectElement) {
+          console.error('Erro: Elemento com ID "meuSelect" não encontrado.');
+          return;
+        }
 
+        // Array para armazenar o texto base de cada div
+        const textosBase = [];
 
+        // Armazena o texto base de cada div no carregamento
+        titulos.forEach((titulo) => {
+          textosBase.push(titulo.textContent.trim()); // Salva o texto original
+        });
 
+        // Função para atualizar todos os títulos
+        function atualizarTitulos() {
+          const valorSelecionado = selectElement.value.toUpperCase(); // Pega o valor do select
 
-        //     let lineChart = null;
-        //     let componentChartInstance = null;
+          // Itera sobre cada div e seu texto base correspondente
+          titulos.forEach((titulo, index) => {
+            const textoBase = textosBase[index]; // Pega o texto base salvo
+            // Usa innerHTML para adicionar HTML com cor apenas no valor selecionado
+            titulo.innerHTML =
+              textoBase +
+              " <span style='color: #00B2B2;'>" +
+              valorSelecionado +
+              "</span>";
+          });
+        }
 
-        //     // ---------- UTIL helpers ----------
-        //     function qsEscape(v) { return encodeURIComponent(v); }
+        // Adiciona um event listener para quando o select muda
+        selectElement.addEventListener("change", atualizarTitulos);
 
-        //     function getEmpresaIdFromSession() {
-        //         const e = sessionStorage.EMPRESA_USUARIO;
-        //         if (!e) {
-        //             console.error('sessionStorage.EMPRESA_USUARIO não definido. Faça login primeiro.');
-        //             return null;
-        //         }
-        //         return e;
-        //     }
+        // Chama a função uma vez no carregamento da página para o valor inicial
+        atualizarTitulos();
+      });
 
-        //     // ---------- Multiselect UI ----------
-        
+      //     let lineChart = null;
+      //     let componentChartInstance = null;
 
-        //     // ---------- Renderers ----------
-        //     function renderTop4KPIs(top4) {
-        //         // Localiza o card "Arquiteturas Mais Utilizadas"
-        //         const cards = Array.from(document.querySelectorAll('.kpi-card'));
-        //         const card = cards.find(c => {
-        //             const h = c.querySelector('.kpi-title');
-        //             return h && h.textContent.trim().toLowerCase().includes('arquiteturas mais utilizadas');
-        //         });
-        //         if (!card) return;
-        //         const grid = card.querySelector('.arch-compact-grid');
-        //         if (!grid) return;
-        //         grid.innerHTML = '';
+      //     // ---------- UTIL helpers ----------
+      //     function qsEscape(v) { return encodeURIComponent(v); }
 
-        //         top4.forEach((a, idx) => {
-        //             const item = document.createElement('div');
-        //             item.className = 'arch-compact-item';
-        //             const percent = a.total || 0;
-        //             // visual percentage relative: podemos normalizar por max (simples), aqui mostramos total
-        //             item.innerHTML = `
-        //   <div class="arch-compact-header">
-        //     <span class="arch-compact-name">${a.arquitetura_name}</span>
-        //     <span class="arch-compact-percent" style="color:#00B2B2;">${idx + 1}º</span>
-        //   </div>
-        //   <div class="arch-compact-bar">
-        //     <div class="arch-compact-fill" style="width: ${Math.min(100, Math.round(percent))}%; background: linear-gradient(90deg,#00B2B2 0%,#006E66 100%);"></div>
-        //   </div>
-        //   <div class="arch-compact-footer">
-        //     <span class="arch-compact-detail">${percent} modelos</span>
-        //   </div>
-        // `;
-        //             grid.appendChild(item);
-        //         });
-        //     }
+      //     function getEmpresaIdFromSession() {
+      //         const e = sessionStorage.EMPRESA_USUARIO;
+      //         if (!e) {
+      //             console.error('sessionStorage.EMPRESA_USUARIO não definido. Faça login primeiro.');
+      //             return null;
+      //         }
+      //         return e;
+      //     }
 
-        //     function populateArquiteturasMultiselect(list, selecionadasIds) {
-        //         // list: [{id, nome}], selecionadasIds: [id,...]
-        //         const optionsList = document.getElementById('optionsList');
-        //         if (!optionsList) return;
-        //         optionsList.innerHTML = '';
+      //     // ---------- Multiselect UI ----------
 
-        //         // build labels (checkboxes)
-        //         list.forEach(a => {
-        //             const checked = Array.isArray(selecionadasIds) && selecionadasIds.includes(a.id) ? 'checked' : '';
-        //             const label = document.createElement('label');
-        //             label.className = 'multiselect-option';
-        //             label.innerHTML = `
-        //   <input type="checkbox" value="${a.id}" ${checked} />
-        //   <span>${a.nome}</span>
-        // `;
-        //             // attach change handler
-        //             label.querySelector('input').addEventListener('change', () => {
-        //                 updateSelectionCount();
-        //             });
-        //             optionsList.appendChild(label);
-        //         });
+      //     // ---------- Renderers ----------
+      //     function renderTop4KPIs(top4) {
+      //         // Localiza o card "Arquiteturas Mais Utilizadas"
+      //         const cards = Array.from(document.querySelectorAll('.kpi-card'));
+      //         const card = cards.find(c => {
+      //             const h = c.querySelector('.kpi-title');
+      //             return h && h.textContent.trim().toLowerCase().includes('arquiteturas mais utilizadas');
+      //         });
+      //         if (!card) return;
+      //         const grid = card.querySelector('.arch-compact-grid');
+      //         if (!grid) return;
+      //         grid.innerHTML = '';
 
-        //         updateSelectionCount();
-        //     }
+      //         top4.forEach((a, idx) => {
+      //             const item = document.createElement('div');
+      //             item.className = 'arch-compact-item';
+      //             const percent = a.total || 0;
+      //             // visual percentage relative: podemos normalizar por max (simples), aqui mostramos total
+      //             item.innerHTML = `
+      //   <div class="arch-compact-header">
+      //     <span class="arch-compact-name">${a.arquitetura_name}</span>
+      //     <span class="arch-compact-percent" style="color:#00B2B2;">${idx + 1}º</span>
+      //   </div>
+      //   <div class="arch-compact-bar">
+      //     <div class="arch-compact-fill" style="width: ${Math.min(100, Math.round(percent))}%; background: linear-gradient(90deg,#00B2B2 0%,#006E66 100%);"></div>
+      //   </div>
+      //   <div class="arch-compact-footer">
+      //     <span class="arch-compact-detail">${percent} modelos</span>
+      //   </div>
+      // `;
+      //             grid.appendChild(item);
+      //         });
+      //     }
 
-        //     // ---------- Chart render ----------
-        //     function renderLineChartFromPayload(graficoPayload) {
-        //         // graficoPayload: { labels: [...], datasets: [{label, data, borderColor, ...}, ...] }
-        //         const ctx = document.getElementById('lineChart').getContext('2d');
-        //         if (lineChart) lineChart.destroy();
+      //     function populateArquiteturasMultiselect(list, selecionadasIds) {
+      //         // list: [{id, nome}], selecionadasIds: [id,...]
+      //         const optionsList = document.getElementById('optionsList');
+      //         if (!optionsList) return;
+      //         optionsList.innerHTML = '';
 
-        //         // Normalize datasets -> ensure data length matches labels (safety)
-        //         const labels = graficoPayload.labels || [];
-        //         const datasets = (graficoPayload.datasets || []).map(ds => {
-        //             // fallback if ds.data shorter/longer
-        //             const data = Array.from({ length: labels.length }).map((_, i) => (ds.data && ds.data[i] != null) ? ds.data[i] : 0);
-        //             return {
-        //                 label: ds.label,
-        //                 data,
-        //                 borderColor: ds.borderColor || undefined,
-        //                 backgroundColor: ds.backgroundColor || undefined,
-        //                 tension: ds.tension != null ? ds.tension : 0.4,
-        //                 fill: ds.fill != null ? ds.fill : false
-        //             };
-        //         });
+      //         // build labels (checkboxes)
+      //         list.forEach(a => {
+      //             const checked = Array.isArray(selecionadasIds) && selecionadasIds.includes(a.id) ? 'checked' : '';
+      //             const label = document.createElement('label');
+      //             label.className = 'multiselect-option';
+      //             label.innerHTML = `
+      //   <input type="checkbox" value="${a.id}" ${checked} />
+      //   <span>${a.nome}</span>
+      // `;
+      //             // attach change handler
+      //             label.querySelector('input').addEventListener('change', () => {
+      //                 updateSelectionCount();
+      //             });
+      //             optionsList.appendChild(label);
+      //         });
 
-        //         lineChart = new Chart(ctx, {
-        //             type: 'line',
-        //             data: { labels, datasets },
-        //             options: {
-        //                 responsive: true,
-        //                 maintainAspectRatio: false,
-        //                 plugins: { legend: { position: 'bottom' } },
-        //                 scales: {
-        //                     y: { beginAtZero: true, title: { display: true, text: 'Quantidade' } },
-        //                     x: { title: { display: true, text: 'Mês' } }
-        //                 }
-        //             }
-        //         });
-        //     }
+      //         updateSelectionCount();
+      //     }
 
-        //     // ---------- Load (core) ----------
-        //     async function loadDashboard(zona = 'all', arquiteturasIds = null) {
-        //         const empresa = getEmpresaIdFromSession();
-        //         if (!empresa) {
-        //             alert('Empresa não definida no sessionStorage. Faça login.');
-        //             return;
-        //         }
+      //     // ---------- Chart render ----------
+      //     function renderLineChartFromPayload(graficoPayload) {
+      //         // graficoPayload: { labels: [...], datasets: [{label, data, borderColor, ...}, ...] }
+      //         const ctx = document.getElementById('lineChart').getContext('2d');
+      //         if (lineChart) lineChart.destroy();
 
-        //         const params = new URLSearchParams();
-        //         params.set('empresa', empresa);
-        //         params.set('zona', zona || 'all');
-        //         if (Array.isArray(arquiteturasIds) && arquiteturasIds.length) {
-        //             params.set('arquiteturas', arquiteturasIds.join(','));
-        //         }
+      //         // Normalize datasets -> ensure data length matches labels (safety)
+      //         const labels = graficoPayload.labels || [];
+      //         const datasets = (graficoPayload.datasets || []).map(ds => {
+      //             // fallback if ds.data shorter/longer
+      //             const data = Array.from({ length: labels.length }).map((_, i) => (ds.data && ds.data[i] != null) ? ds.data[i] : 0);
+      //             return {
+      //                 label: ds.label,
+      //                 data,
+      //                 borderColor: ds.borderColor || undefined,
+      //                 backgroundColor: ds.backgroundColor || undefined,
+      //                 tension: ds.tension != null ? ds.tension : 0.4,
+      //                 fill: ds.fill != null ? ds.fill : false
+      //             };
+      //         });
 
-        //         const url = API_BASE + '?' + params.toString();
+      //         lineChart = new Chart(ctx, {
+      //             type: 'line',
+      //             data: { labels, datasets },
+      //             options: {
+      //                 responsive: true,
+      //                 maintainAspectRatio: false,
+      //                 plugins: { legend: { position: 'bottom' } },
+      //                 scales: {
+      //                     y: { beginAtZero: true, title: { display: true, text: 'Quantidade' } },
+      //                     x: { title: { display: true, text: 'Mês' } }
+      //                 }
+      //             }
+      //         });
+      //     }
 
-        //         try {
-        //             const resp = await fetch(url);
-        //             if (!resp.ok) {
-        //                 console.error('Erro ao buscar dashboard:', resp.status, resp.statusText);
-        //                 return;
-        //             }
-        //             const payload = await resp.json();
+      //     // ---------- Load (core) ----------
+      //     async function loadDashboard(zona = 'all', arquiteturasIds = null) {
+      //         const empresa = getEmpresaIdFromSession();
+      //         if (!empresa) {
+      //             alert('Empresa não definida no sessionStorage. Faça login.');
+      //             return;
+      //         }
 
-        //             // payload: { zona, arquiteturasList, arquiteturasSelecionadas, kpis: {top4}, grafico12meses: {labels,datasets} }
-        //             renderTop4KPIs(payload.kpis.top4 || []);
-        //             populateArquiteturasMultiselect(payload.arquiteturasList || [], payload.arquiteturasSelecionadas || []);
-        //             renderLineChartFromPayload(payload.grafico12meses || { labels: [], datasets: [] });
+      //         const params = new URLSearchParams();
+      //         params.set('empresa', empresa);
+      //         params.set('zona', zona || 'all');
+      //         if (Array.isArray(arquiteturasIds) && arquiteturasIds.length) {
+      //             params.set('arquiteturas', arquiteturasIds.join(','));
+      //         }
 
-        //         } catch (err) {
-        //             console.error('Erro na requisição do dashboard', err);
-        //         }
-        //     }
+      //         const url = API_BASE + '?' + params.toString();
 
-        //     // ---------- Apply selection (substitutive) ----------
-        //     function applySelection() {
-        //         // coleta ids marcados
-        //         const checked = Array.from(document.querySelectorAll('#optionsList input[type="checkbox"]:checked'))
-        //             .map(cb => Number(cb.value));
+      //         try {
+      //             const resp = await fetch(url);
+      //             if (!resp.ok) {
+      //                 console.error('Erro ao buscar dashboard:', resp.status, resp.statusText);
+      //                 return;
+      //             }
+      //             const payload = await resp.json();
 
-        //         const zona = document.getElementById('zoneSelect').value || 'all';
-        //         // chamada substitutiva: passamos exatamente os ids marcados
-        //         loadDashboard(zona, checked);
-        //         toggleMultiselect();
-        //     }
+      //             // payload: { zona, arquiteturasList, arquiteturasSelecionadas, kpis: {top4}, grafico12meses: {labels,datasets} }
+      //             renderTop4KPIs(payload.kpis.top4 || []);
+      //             populateArquiteturasMultiselect(payload.arquiteturasList || [], payload.arquiteturasSelecionadas || []);
+      //             renderLineChartFromPayload(payload.grafico12meses || { labels: [], datasets: [] });
 
-        //     // ---------- zone change handler ----------
-        //     document.getElementById('zoneSelect').addEventListener('change', () => {
-        //         // ao mudar zona, reset de seleção — backend fornecerá top4 por padrão
-        //         loadDashboard(document.getElementById('zoneSelect').value, null);
-        //         // também atualiza o componente de ocupação
-        //         updateComponentChart();
-        //     });
+      //         } catch (err) {
+      //             console.error('Erro na requisição do dashboard', err);
+      //         }
+      //     }
 
-        //     // ---------- Inicialização ao carregar a página ----------
-        //     document.addEventListener('DOMContentLoaded', () => {
-        //         // inicializa: pega zona atual do select e pede dados ao backend
-        //         const zona = document.getElementById('zoneSelect').value || 'all';
-        //         loadDashboard(zona, null);
+      //     // ---------- Apply selection (substitutive) ----------
+      //     function applySelection() {
+      //         // coleta ids marcados
+      //         const checked = Array.from(document.querySelectorAll('#optionsList input[type="checkbox"]:checked'))
+      //             .map(cb => Number(cb.value));
 
-        //         // fecha dropdown ao clicar fora (preserva seu comportamento)
-        //         document.addEventListener('click', (e) => {
-        //             const container = document.querySelector('.multiselect-container');
-        //             if (!container.contains(e.target)) {
-        //                 document.getElementById('multiselectDropdown').classList.remove('active');
-        //             }
-        //         });
-        //     });
+      //         const zona = document.getElementById('zoneSelect').value || 'all';
+      //         // chamada substitutiva: passamos exatamente os ids marcados
+      //         loadDashboard(zona, checked);
+      //         toggleMultiselect();
+      //     }
 
-        //     // ---------- Component occupancy chart (mantive sua implementação) ----------
-        //     /* occupancyData e plugin tendenciasPorColuna e updateComponentChart
-        //        foram mantidos exatamente como no seu HTML original para não quebrar UX.
-        //        Colei a implementação abaixo (sem alteração lógica), adaptando apenas a
-        //        dependência de selected zone já presente. */
+      //     // ---------- zone change handler ----------
+      //     document.getElementById('zoneSelect').addEventListener('change', () => {
+      //         // ao mudar zona, reset de seleção — backend fornecerá top4 por padrão
+      //         loadDashboard(document.getElementById('zoneSelect').value, null);
+      //         // também atualiza o componente de ocupação
+      //         updateComponentChart();
+      //     });
 
-        //     const occupancyData = {
-        //         disco: {
-        //             zona1: { percent: 72, used: 720, total: 1000, trend: 8, forecast: '3 meses', forecastClass: 'critical' },
-        //             zona2: { percent: 45, used: 360, total: 800, trend: 2, forecast: '18 meses', forecastClass: 'safe' },
-        //             zona3: { percent: 88, used: 528, total: 600, trend: 12, forecast: '1 mês', forecastClass: 'critical' },
-        //             zona4: { percent: 65, used: 390, total: 600, trend: 1, forecast: '24+ meses', forecastClass: 'safe' }
-        //         },
-        //         gpu: {
-        //             zona1: { percent: 85, used: 170, total: 200, trend: 5, forecast: '4 meses', forecastClass: 'warning' },
-        //             zona2: { percent: 60, used: 96, total: 160, trend: 3, forecast: '12 meses', forecastClass: 'safe' },
-        //             zona3: { percent: 92, used: 138, total: 150, trend: 15, forecast: '2 semanas', forecastClass: 'critical' },
-        //             zona4: { percent: 55, used: 88, total: 160, trend: 2, forecast: '20 meses', forecastClass: 'safe' }
-        //         },
-        //         ram: {
-        //             zona1: { percent: 78, used: 1560, total: 2000, trend: 6, forecast: '5 meses', forecastClass: 'warning' },
-        //             zona2: { percent: 52, used: 832, total: 1600, trend: 1, forecast: '36+ meses', forecastClass: 'safe' },
-        //             zona3: { percent: 90, used: 1440, total: 1600, trend: 10, forecast: '1 mês', forecastClass: 'critical' },
-        //             zona4: { percent: 68, used: 1088, total: 1600, trend: 4, forecast: '8 meses', forecastClass: 'warning' }
-        //         },
-        //         cpu: {
-        //             zona1: { percent: 70, used: 560, total: 800, trend: 4, forecast: '8 meses', forecastClass: 'warning' },
-        //             zona2: { percent: 48, used: 307, total: 640, trend: 2, forecast: '16 meses', forecastClass: 'safe' },
-        //             zona3: { percent: 86, used: 550, total: 640, trend: 9, forecast: '2 meses', forecastClass: 'critical' },
-        //             zona4: { percent: 62, used: 397, total: 640, trend: 3, forecast: '10 meses', forecastClass: 'safe' }
-        //         }
-        //     };
+      //     // ---------- Inicialização ao carregar a página ----------
+      //     document.addEventListener('DOMContentLoaded', () => {
+      //         // inicializa: pega zona atual do select e pede dados ao backend
+      //         const zona = document.getElementById('zoneSelect').value || 'all';
+      //         loadDashboard(zona, null);
 
-        //     const tendenciasPorColuna = {
-        //         id: "tendenciasPorColuna",
-        //         afterDatasetsDraw: (chart) => {
-        //             const { ctx } = chart;
-        //             const dataset = chart.data.datasets[0];
-        //             const tendencias = dataset.customTrends || [];
-        //             const meta = chart.getDatasetMeta(0);
+      //         // fecha dropdown ao clicar fora (preserva seu comportamento)
+      //         document.addEventListener('click', (e) => {
+      //             const container = document.querySelector('.multiselect-container');
+      //             if (!container.contains(e.target)) {
+      //                 document.getElementById('multiselectDropdown').classList.remove('active');
+      //             }
+      //         });
+      //     });
 
-        //             ctx.save();
-        //             ctx.font = "bold 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-        //             ctx.textAlign = "center";
+      //     // ---------- Component occupancy chart (mantive sua implementação) ----------
+      //     /* occupancyData e plugin tendenciasPorColuna e updateComponentChart
+      //        foram mantidos exatamente como no seu HTML original para não quebrar UX.
+      //        Colei a implementação abaixo (sem alteração lógica), adaptando apenas a
+      //        dependência de selected zone já presente. */
 
-        //             dataset.data.forEach((valor, i) => {
-        //                 const bar = meta.data[i];
-        //                 if (!bar) return;
-        //                 const x = bar.x;
-        //                 const y = bar.y;
-        //                 const variacao = tendencias[i] || 0;
-        //                 const positiva = variacao >= 0;
-        //                 const cor = positiva ? "#16a34a" : "#dc2626";
-        //                 const icone = positiva ? "▲" : "▼";
-        //                 const texto = `${icone} ${positiva ? '+' : ''}${variacao.toFixed(0)}%    últimos (30d)`;
-        //                 ctx.fillStyle = cor;
-        //                 ctx.fillText(texto, x, y - 8);
-        //             });
+      //     const occupancyData = {
+      //         disco: {
+      //             zona1: { percent: 72, used: 720, total: 1000, trend: 8, forecast: '3 meses', forecastClass: 'critical' },
+      //             zona2: { percent: 45, used: 360, total: 800, trend: 2, forecast: '18 meses', forecastClass: 'safe' },
+      //             zona3: { percent: 88, used: 528, total: 600, trend: 12, forecast: '1 mês', forecastClass: 'critical' },
+      //             zona4: { percent: 65, used: 390, total: 600, trend: 1, forecast: '24+ meses', forecastClass: 'safe' }
+      //         },
+      //         gpu: {
+      //             zona1: { percent: 85, used: 170, total: 200, trend: 5, forecast: '4 meses', forecastClass: 'warning' },
+      //             zona2: { percent: 60, used: 96, total: 160, trend: 3, forecast: '12 meses', forecastClass: 'safe' },
+      //             zona3: { percent: 92, used: 138, total: 150, trend: 15, forecast: '2 semanas', forecastClass: 'critical' },
+      //             zona4: { percent: 55, used: 88, total: 160, trend: 2, forecast: '20 meses', forecastClass: 'safe' }
+      //         },
+      //         ram: {
+      //             zona1: { percent: 78, used: 1560, total: 2000, trend: 6, forecast: '5 meses', forecastClass: 'warning' },
+      //             zona2: { percent: 52, used: 832, total: 1600, trend: 1, forecast: '36+ meses', forecastClass: 'safe' },
+      //             zona3: { percent: 90, used: 1440, total: 1600, trend: 10, forecast: '1 mês', forecastClass: 'critical' },
+      //             zona4: { percent: 68, used: 1088, total: 1600, trend: 4, forecast: '8 meses', forecastClass: 'warning' }
+      //         },
+      //         cpu: {
+      //             zona1: { percent: 70, used: 560, total: 800, trend: 4, forecast: '8 meses', forecastClass: 'warning' },
+      //             zona2: { percent: 48, used: 307, total: 640, trend: 2, forecast: '16 meses', forecastClass: 'safe' },
+      //             zona3: { percent: 86, used: 550, total: 640, trend: 9, forecast: '2 meses', forecastClass: 'critical' },
+      //             zona4: { percent: 62, used: 397, total: 640, trend: 3, forecast: '10 meses', forecastClass: 'safe' }
+      //         }
+      //     };
 
-        //             ctx.restore();
-        //         }
-        //     };
+      //     const tendenciasPorColuna = {
+      //         id: "tendenciasPorColuna",
+      //         afterDatasetsDraw: (chart) => {
+      //             const { ctx } = chart;
+      //             const dataset = chart.data.datasets[0];
+      //             const tendencias = dataset.customTrends || [];
+      //             const meta = chart.getDatasetMeta(0);
 
-        //     function updateComponentChart() {
-        //         const selectedZone = document.getElementById('zoneSelect').value;
+      //             ctx.save();
+      //             ctx.font = "bold 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+      //             ctx.textAlign = "center";
 
-        //         const labels = ['Disco', 'GPU', 'RAM', 'CPU'];
-        //         const valores = [];
-        //         const tendencias = [];
-        //         const backgroundColors = [];
+      //             dataset.data.forEach((valor, i) => {
+      //                 const bar = meta.data[i];
+      //                 if (!bar) return;
+      //                 const x = bar.x;
+      //                 const y = bar.y;
+      //                 const variacao = tendencias[i] || 0;
+      //                 const positiva = variacao >= 0;
+      //                 const cor = positiva ? "#16a34a" : "#dc2626";
+      //                 const icone = positiva ? "▲" : "▼";
+      //                 const texto = `${icone} ${positiva ? '+' : ''}${variacao.toFixed(0)}%    últimos (30d)`;
+      //                 ctx.fillStyle = cor;
+      //                 ctx.fillText(texto, x, y - 8);
+      //             });
 
-        //         labels.forEach(componentName => {
-        //             const componentKey = componentName.toLowerCase();
-        //             const data = occupancyData[componentKey][selectedZone] || { percent: 0, trend: 0 };
-        //             valores.push(data.percent);
-        //             tendencias.push(data.trend);
+      //             ctx.restore();
+      //         }
+      //     };
 
-        //             if (data.percent >= 85) {
-        //                 backgroundColors.push('rgba(220, 38, 38, 0.7)');
-        //             } else if (data.percent >= 70) {
-        //                 backgroundColors.push('rgba(245, 158, 11, 0.7)');
-        //             } else {
-        //                 backgroundColors.push('rgba(0, 178, 178, 0.7)');
-        //             }
-        //         });
+      //     function updateComponentChart() {
+      //         const selectedZone = document.getElementById('zoneSelect').value;
 
-        //         const ctx = document.getElementById('componentTrendChart').getContext('2d');
+      //         const labels = ['Disco', 'GPU', 'RAM', 'CPU'];
+      //         const valores = [];
+      //         const tendencias = [];
+      //         const backgroundColors = [];
 
-        //         if (componentChartInstance) {
-        //             componentChartInstance.destroy();
-        //         }
+      //         labels.forEach(componentName => {
+      //             const componentKey = componentName.toLowerCase();
+      //             const data = occupancyData[componentKey][selectedZone] || { percent: 0, trend: 0 };
+      //             valores.push(data.percent);
+      //             tendencias.push(data.trend);
 
-        //         componentChartInstance = new Chart(ctx, {
-        //             type: "bar",
-        //             data: {
-        //                 labels,
-        //                 datasets: [{
-        //                     label: `Ocupação % (${selectedZone})`,
-        //                     data: valores,
-        //                     backgroundColor: backgroundColors,
-        //                     borderRadius: 6,
-        //                     customTrends: tendencias
-        //                 }]
-        //             },
-        //             options: {
-        //                 responsive: true,
-        //                 maintainAspectRatio: false,
-        //                 plugins: {
-        //                     legend: { display: false },
-        //                     tooltip: {
-        //                         enabled: true,
-        //                         callbacks: {
-        //                             label: function (context) {
-        //                                 let label = context.dataset.label || '';
-        //                                 if (label) label += ': ';
-        //                                 if (context.parsed.y !== null) label += context.parsed.y + '%';
-        //                                 return label;
-        //                             }
-        //                         }
-        //                     }
-        //                 },
-        //                 scales: {
-        //                     y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + '%' } }
-        //                 }
-        //             },
-        //             plugins: [tendenciasPorColuna]
-        //         });
-        //     }
+      //             if (data.percent >= 85) {
+      //                 backgroundColors.push('rgba(220, 38, 38, 0.7)');
+      //             } else if (data.percent >= 70) {
+      //                 backgroundColors.push('rgba(245, 158, 11, 0.7)');
+      //             } else {
+      //                 backgroundColors.push('rgba(0, 178, 178, 0.7)');
+      //             }
+      //         });
 
-        //     // inicial desenha ocupação
-        //     updateComponentChart();
+      //         const ctx = document.getElementById('componentTrendChart').getContext('2d');
 
+      //         if (componentChartInstance) {
+      //             componentChartInstance.destroy();
+      //         }
+
+      //         componentChartInstance = new Chart(ctx, {
+      //             type: "bar",
+      //             data: {
+      //                 labels,
+      //                 datasets: [{
+      //                     label: `Ocupação % (${selectedZone})`,
+      //                     data: valores,
+      //                     backgroundColor: backgroundColors,
+      //                     borderRadius: 6,
+      //                     customTrends: tendencias
+      //                 }]
+      //             },
+      //             options: {
+      //                 responsive: true,
+      //                 maintainAspectRatio: false,
+      //                 plugins: {
+      //                     legend: { display: false },
+      //                     tooltip: {
+      //                         enabled: true,
+      //                         callbacks: {
+      //                             label: function (context) {
+      //                                 let label = context.dataset.label || '';
+      //                                 if (label) label += ': ';
+      //                                 if (context.parsed.y !== null) label += context.parsed.y + '%';
+      //                                 return label;
+      //                             }
+      //                         }
+      //                     }
+      //                 },
+      //                 scales: {
+      //                     y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + '%' } }
+      //                 }
+      //             },
+      //             plugins: [tendenciasPorColuna]
+      //         });
+      //     }
+
+      //     // inicial desenha ocupação
+      //     updateComponentChart();
     </script>
-</body>
-
+  </body>
 </html>
