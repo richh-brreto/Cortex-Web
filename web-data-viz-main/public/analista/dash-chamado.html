@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ticket CTX-001</title>
+    <link rel="stylesheet" href="../css/dash-chamado.css">
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../base/navbar.css">
+    <link rel="stylesheet" href="../css/gerenciamento_geral.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=manage_search" />
+
+</head>
+
+<body>
+
+    <nav class="barra-lateral">
+        
+        <a class="item-logo">
+            <img src="../assets/icon/menu-aberto.png" alt="Logo Cortex" class="logotipo">
+            <span class="texto-logo">Cortex</span>
+        </a>
+
+        <a class="item-navegacao" href="dahsboard_infraestrutura.html">
+            <img src="../assets/icon/a-infraestrutura.png" id="dash-zona" alt="">
+            <span class="texto" id="texto-dash">Infraestrutura</span>
+   
+
+        <div class="divisor"></div>
+
+        <h3 class="subTitulo">Gerenciamento</h3>
+
+        <a class="item-navegacao" href="gerenciamento_de_funcionario-analista.html">
+            <img src="../assets/icon/carteira-de-identidade.png" id="atribuicao" alt="">
+            <span class="texto">Funcionários</span>
+        </a>
+
+        <a class="item-navegacao" href="gerenciamento_de_arquitetura-analista.html">
+            <img src="../assets/icon/modelo.png" id="gerenciamento" alt="">
+            <span class="texto">Arquitetura</span>
+        </a>
+
+
+        <a class="item-navegacao" href="Gerenciamento_modelos-analista.html">
+            <img src="../assets/icon/tecnologia-de-ia.png" id="gerenciamento" alt="">
+            <span class="texto">Modelos</span>
+        </a>
+
+        <a class="item-navegacao" href="zona-analista.html">
+            <img src="../assets/icon/pin.png" id="gerenciamento" alt="">
+            <span class="texto">Zonas</span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" href="mural_de_alertas.html">
+            <img src="../assets/icon/alerta.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Mural Tickets</span>
+        </a>
+          <a class="item-notificacao" href="historico-tickets.html">
+            <img src="../assets/icon/69926.png" id="sino" alt="">
+            <span class="texto-notificacao" id="notificacoes">Histórcio Tickets</span>
+        </a>
+
+        <!-- ITEM COM SUBMENU -->
+        <div class="item-com-submenu">
+            <a class="item-navegacao" onclick="toggleSubmenu(event, this)">
+                <img src="../assets/icon/icons8-ferramentas-50.png" id="gerenciamento" alt="">
+                <span class="texto">Ferramentas<span class="seta-expansao">▼</span>
+                </span>
+            </a>
+            <div class="submenu">
+                <div class="submenu-item ativo"><a href="https://spt
+                    ech-hydroscan.atlassian.net/jira/ser
+                    vicedesk/projects/CTX/list?jql=project
+                    %20%3D%20%22CTX%22%20ORDER%20BY%20created%20DESC" style="text-decoration: none;color: inherit;">Jira</a></div>
+                <div class="submenu-item"><a href="https://app.slack.com/client/T09C1L798AZ/C09NXDCDJN9 " 
+                    style="text-decoration: none;color: inherit;">Slack</a></div>
+            </div>
+        </div>
+
+        <a class="item-usuario" href="perfil-analista.html">
+            <img src="" alt="Foto de perfil" class="avatar-usuario">
+            <span class="texto-usuario"></span>
+        </a>
+
+        <div class="divisor"></div>
+
+        <a class="item-notificacao" onclick="logout()">
+            <img src="../assets/icon/sair (1).png" id="sair-imagem" alt="">
+            <span class="texto-notificacao" id="sair">Sair</span>
+        </a>
+    </nav>
+    <script src="../js/logout.js"></script>
+    <script src="../js/avatar-apply.js"></script>
+
+    <div class="dashboard">
+        <!-- Header - Identificação do Modelo -->
+        <div class="header">
+            <div class="header-content" id="header-content">
+              
+<!-- 
+                    <div class="header-info">
+                        <div class="info">
+                            <h1 id="nome-modelo">CTX-001 - Nome do Modelo</h1>
+                        </div>
+
+                        <div class="info" id="statusMaquina">
+                            <h3>Status da Máquina:</h3>
+                            <span style="background-color: #95a9ec; border-radius: 10px; padding: 5px; 
+                        color: #070707;">
+                                <h4>Normal (ticket antigo)</h4>
+                            </span>
+                               <span style="background-color: #f33232; border-radius: 10px; padding: 5px; 
+                        color: #070707;">
+                                 <h4>Em Alerta (ticket mais atual)</h4>
+                            </span> 
+
+                        </div>
+                    </div> -->
+                
+
+                    <!-- <div class="header-info2">
+                        <div class="info">
+                            <h3>Status do Ticket:</h3>
+                            <span style="background-color: #94C748; border-radius: 10px; padding: 5px; 
+                        color: #292A2E;">
+                                <h4>Concluido/Fechado</h4>
+                            </span>
+                             <span style="background-color: #6BA5F2; border-radius: 10px; padding: 5px; 
+                        color: #332C34;"><h4>Em andamento</h4></span>
+                            <span style="background-color: #F2F2F2; border-radius: 10px; padding: 5px; 
+                        color: #232426;"><h4>Aberto</h4></span>
+                        </div>
+
+
+                        <div class="info">
+                            <h3>Alertas do Ticket:</h3>
+                            <span style="background-color: #b0f7f7; border-radius: 10px; padding: 5px; 
+                        color: #00B2B2;">
+                                <h4>CPU</h4>
+                            </span>
+                            <span style="background-color: rgb(169, 252, 164); border-radius: 10px; padding: 5px; 
+                        color: #0cb200ff;">
+                                <h4>RAM</h4>
+                            </span>
+                            <span style="background-color: rgb(166, 170, 252); border-radius: 10px; padding: 5px; 
+                        color: #0009b2ff;">
+                                <h4>GPU</h4>
+                            </span>
+                            <span style="background-color: rgb(252, 252, 181); border-radius: 10px; padding: 5px; 
+                        color: #b2b200ff;">
+                                <h4>Disco</h4>
+                            </span>
+                        </div>
+
+
+
+                    </div> -->
+
+
+
+
+                        <div class="info">
+                            <button class="btn btn-secundario" id="modal-um" onclick="openModal()">Ver detalhes</button>
+                        </div>
+
+                    
+                
+
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis-grid">
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B2B2" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="kpi-title">Duração <b style="font-weight: 800;">em Alerta</b> </div>
+                </div>
+                <div class="kpi-value primary" id="duracao">00:10:02</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-server">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                            <line x1="6" y1="6" x2="6.01" y2="6" />
+                            <line x1="6" y1="18" x2="6.01" y2="18" />
+                        </svg>
+                    </div>
+                    <div class="kpi-title">DOWNTIME do <b style="font-weight: 800;">Servidor</b></div>
+                </div>
+                <div class="kpi-value primary" id="downtimeServer">---</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <div class="kpi-icon primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="#00B2B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevrons-down">
+                            <polyline points="7 13 12 18 17 13" />
+                            <polyline points="7 6 12 11 17 6" />
+                        </svg>
+                    </div>
+                    <div class="kpi-title">DOWNTIME do <b style="font-weight: 800;">Processo da Ia</b> </div>
+                </div>
+                <div class="kpi-value primary" id="downtimeProcesso">00:02:05</div>
+            </div>
+
+            <!-- Alertas -->
+
+        </div>
+
+        <!-- Gráficos -->
+        <div class="charts-grid">
+            <!-- Gráfico de Recursos -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title"> <span style="font-size: 20px; font-weight: 600;">Servidor</span> - Porcentagem de uso dos Recursos por Tempo </h2>
+                    <div class="chart-filters">
+                        <div class="multiselect-container">
+                            <div class="multiselect-trigger" onclick="toggleMultiselect()">
+                                <span id="selectedCount">Todos</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="multiselect-dropdown" id="multiselectDropdown">
+                                <div class="multiselect-options" id="optionsList">
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="CPU" checked onchange="updateSelection()">
+                                        <span>CPU</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="RAM" checked onchange="updateSelection()">
+                                        <span>RAM</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="Disco" checked onchange="updateSelection()">
+                                        <span>Disco</span>
+                                    </label>
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" value="GPU" checked onchange="updateSelection()">
+                                        <span>GPU</span>
+                                    </label>
+
+                                </div>
+                                <div class="multiselect-actions">
+                                    <button class="multiselect-select-btn" onclick="applySelection()">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="alertsChart2"></canvas>
+                   
+                </div>
+            </div>
+
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title"><span style="font-size: 20px; font-weight: 600;">Processo da Ia</span>  - Porcentagem de Uso dos Recursos por Tempo</h2>
+                    <div class="chart-filters">
+                        <div class="multiselect-container2">
+                            <div class="multiselect-trigger2" onclick="toggleMultiselect2()">
+                                <span id="selectedCount2">Todos</span>
+                                <span>▼</span>
+                            </div>
+                            <div class="multiselect-dropdown2" id="multiselectDropdown2">
+                                <div class="multiselect-options2" id="optionsList2">
+                                    <label class="multiselect-option2">
+                                        <input type="checkbox" value="CPU" checked onchange="updateSelection2()">
+                                        <span>CPU</span>
+                                    </label>
+                                    <label class="multiselect-option2">
+                                        <input type="checkbox" value="RAM" checked onchange="updateSelection2()">
+                                        <span>RAM</span>
+                                    </label>
+                                    <label class="multiselect-option2">
+                                        <input type="checkbox" value="GPU" checked onchange="updateSelection2()">
+                                        <span>GPU</span>
+                                    </label>
+
+                                </div>
+                                <div class="multiselect-actions2">
+                                    <button class="multiselect-select-btn2" onclick="applySelection2()">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="alertsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="modelModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="detalhesChamado" class="modal-title ativo">Detalhes do Ticket</h3>
+                    <h3 id="informacoesModelo" class="modal-title">Informações do Modelo</h3>
+                    <h3 id="arquitetura" class="modal-title">Arquitetura</h3>
+                    <button class="modal-close" onclick="closeModal('modelModal')">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+<!--                     <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Informações Gerais</h4>
+                        </div>
+                        <div class="corpo">
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Criação do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 09:34</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Duração da Resolução:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">1w 3d 4h 5m</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Urgência:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">Lorem.</span>
+                                </div>
+                            </div>
+                            <div class="container-item-coluna">
+                                <div class="info-item">
+                                    <span class="info-item-label">Resolução do Ticket:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">11/10/2004 10:34</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Responsável:</span>
+                                    <span id="info-nome" class="info-item-value">Marilia Toscano</span>
+
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-item-label">Impacto:</span>
+                                    <span id="info-modelo-cliente" class="info-item-value">Lorem dawdadwa.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Duração de cada Alerta</h4>
+                        </div>
+                        <div class="corpo">
+                            <span class="item-alerta"><span class="item-componente cpu">CPU:</span> 04:06</span>
+                            <span class="item-alerta"><span class="item-componente ram">RAM:</span> 00:30</span>
+                            <span class="item-alerta"> <span class="item-componente gpu">GPU:</span>02:05</span>
+                            <span class="item-alerta"><span  class="item-componente disco"> Disco:</span> 00:05</span>                           
+                        </div>
+                    </div>
+                    <div class="container-modal">
+                        <div class="titulo">
+                            <h4>Linha do Tempo do Ticket</h4>
+                        </div>
+                        <div class="linha-do-tempo">
+                            <div class="item-linha">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                            <span>Início <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:10:30 </span>
+                            </div>
+                            <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                <span>Início  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:20</span>
+                            </div>
+                             <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                           <span>Fim  <span class="item-componente tempo ram">RAM</span>  - 10/11/2025_11:12:50</span>
+                             </div>
+                              <div class="item-linha">
+                                       <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                 <span>Início  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:13:20</span>
+                              </div>
+                               <div class="item-linha">
+                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                <span>Fim  <span class="item-componente tempo cpu">CPU</span>  - 10/11/2025_11:14:20</span>
+                               </div>
+                                <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo gpu">GPU</span>  - 10/11/2025_11:14:25</span>
+                                </div>
+                                 <div class="item-linha">
+                                           <svg xmlns="http://www.w3.org/2000/svg" 
+                                height="24px" viewBox="0 -960 960 960" width="24px" 
+                                fill="rgb(23, 255, 6)">
+                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg>
+                                    <span>Início  <span class="item-componente tempo disco">Disco</span>  - 10/11/2025_11:14:40</span>
+                                 </div>
+                                  <div class="item-linha">
+                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" 
+                           viewBox="0 -960 960 960" width="24px" fill="rgb(253, 5, 5)">
+                           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg> 
+                                    <span>Fim  <span class="item-componente tempo disco">Disco</span>   - 10/11/2025_11:15:00</span> 
+                                  </div>            
+                        </div>
+                    </div> -->
+
+                
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="../js/dash-chamado.js"></script>
+</body>
+<script>
+
+</script>
+
+</html>

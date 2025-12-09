@@ -1,25 +1,30 @@
 
 
 const axios = require("axios");
+
 const url = process.env.JIRA_BASE_URL
 const email = process.env.JIRA_EMAIL
 const token = process.env.JIRA_API_TOKEN
 const JIRA_AUTH_HEADER = `Basic ${Buffer.from(`${email}:${token}`).toString("base64")}`;
-async function buscarTodosTickets() {
+
+var database = require("../database/config");
+
+
+async function buscarTicketsHistorico() {
     console.log(`[MODEL] Buscando todos os tickets abertos...`);
 
-    console.log(url)
-    const jql = 'project = "CTX" AND status = "1" ORDER BY created DESC';
+    const jql = 'project = "CTX" ORDER BY created DESC';
     
     const body = {
         jql,
         fields: [
-            "summary",
             "customfield_10060", // maquina
             "labels",
             "assignee",
             "status",
-            "customfield_10093"
+            "created",
+            "customfield_10093", // identificador
+            "customfield_10059"  // problema ou incidente
         ],
     };
 
@@ -35,8 +40,6 @@ async function buscarTodosTickets() {
                 },
             }
         );
-
-   
         return response.data.issues.map(issue =>({fields : issue.fields, 
             key: issue.key})) || [];
 
@@ -46,6 +49,24 @@ async function buscarTodosTickets() {
     }
 }
 
+function bancoInfos(idmodelo) {
+    console.log(`Model: Listando modelos para a empresa: ${idmodelo}. ACESSEI O MODELO MODEL`);
+
+    var instrucaoSql = `
+        SELECT 
+            m.nome, m.hostname 
+        FROM 
+            modelo m 
+        WHERE 
+            m.id_modelo = ${idmodelo};
+
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql); 
+}
+
 module.exports = {
-    buscarTodosTickets,
+    buscarTicketsHistorico,
+    bancoInfos
 };

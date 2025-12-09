@@ -14,6 +14,7 @@ function infoModeloGet(idModelo) {
     m.limite_disco, 
     m.limite_ram, 
     m.limite_gpu,
+    m.nome_processo,
     c.nome AS cliente_nome, 
     z.nome AS zona_nome,
     a.id_arquitetura,
