@@ -1207,17 +1207,22 @@ function calcularMTTRGeralHoras(tickets) {
 function calcularSLADaEquipe(tickets, slaHoras) {
     let total = 0;
     let dentro = 0;
+    let acimaSla = 0;
 
     tickets.forEach(ticket => {
         const dur = obterMTTRTicketHoras(ticket);
         if (dur === null) return;
         total++;
-        if (dur <= slaHoras) dentro++;
+        if (dur <= slaHoras) {
+            dentro++;
+        } else {
+            acimaSla++;
+        }
     });
 
     const pct = total > 0 ? (dentro/total)*100 : 0;
 
-    return { pctDentro: pct, totalConsiderados: total };
+    return { pctDentro: pct, totalConsiderados: total, ticketsAcimaSla: acimaSla };
 }
 
 function formatarTempo(h) {
@@ -1314,7 +1319,7 @@ function atualizarKpiEquipe(zona, ticketsZona) {
 
     const qtdTec = obterQtdTecnicos(zona);
     const mttr = calcularMTTRGeralHoras(ticketsZona);
-    const { pctDentro } = calcularSLADaEquipe(ticketsZona, SLA_MTTR_HORAS);
+    const { ticketsAcimaSla } = calcularSLADaEquipe(ticketsZona, SLA_MTTR_HORAS);
 
     elTec.textContent = qtdTec;
     elMTTR.textContent = mttr > 0 ? formatarTempo(mttr) : "--";
@@ -1332,7 +1337,7 @@ function atualizarKpiEquipe(zona, ticketsZona) {
         elBadge.classList.add("sla-bad");
     }
 
-    elPct.textContent = pctDentro > 0 ? pctDentro.toFixed(1)+"%" : "--";
+    elPct.textContent = ticketsAcimaSla > 0 ? ticketsAcimaSla : "0";
 }
 
 

@@ -15,6 +15,7 @@ async function lerArquivo(req, res) {
       Bucket: process.env.S3_BUCKET,
       Key: fileKey,
     };
+    console.log("Lendo arquivo S3:", fileKey,process.env.S3_BUCKET);
 
     const data = await s3.getObject(params).promise();
     const text = data.Body.toString("utf-8").trim();
