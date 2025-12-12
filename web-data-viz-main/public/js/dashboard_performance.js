@@ -1,1057 +1,1057 @@
 // ======================= MOCKS (tickets fake pra encher a dashboard) =======================
-const MOCK_TICKETS = [
-  // ===================== 03/12/2025 =====================
-  {
-    "chave": "MOCK-301",
-    "resumo": "ALERTA: CPU 90% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-03T08:05:00.000-0300",
-      "resolucao": "2025-12-03T09:35:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "301;1;1",
-      "modelo_id": "301",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-03T08:15:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-03T09:35:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-302",
-    "resumo": "ALERTA: RAM acima de 85% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-03T10:10:00.000-0300",
-      "resolucao": "2025-12-03T12:40:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "302;1;1",
-      "modelo_id": "302",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-03T10:25:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-03T12:40:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+// const MOCK_TICKETS = [
+//   // ===================== 03/12/2025 =====================
+//   {
+//     "chave": "MOCK-301",
+//     "resumo": "ALERTA: CPU 90% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-03T08:05:00.000-0300",
+//       "resolucao": "2025-12-03T09:35:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "301;1;1",
+//       "modelo_id": "301",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-03T08:15:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-03T09:35:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-302",
+//     "resumo": "ALERTA: RAM acima de 85% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-03T10:10:00.000-0300",
+//       "resolucao": "2025-12-03T12:40:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "302;1;1",
+//       "modelo_id": "302",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-03T10:25:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-03T12:40:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-303",
-    "resumo": "ALERTA: CPU 95% - SP-02",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Concluído",
-    "datas": {
-      "criacao": "2025-12-03T09:00:00.000-0300",
-      "resolucao": "2025-12-03T09:40:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "303;2;1",
-      "modelo_id": "303",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-03T09:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-03T09:40:00.000-0300", "de": "In Progress", "para": "Concluído" }
-    ]
-  },
-  {
-    "chave": "MOCK-304",
-    "resumo": "ALERTA: Disco 92% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Closed",
-    "datas": {
-      "criacao": "2025-12-03T11:20:00.000-0300",
-      "resolucao": "2025-12-03T11:55:00.000-0300"
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "304;2;1",
-      "modelo_id": "304",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-03T11:25:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-03T11:55:00.000-0300", "de": "In Progress", "para": "Closed" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-303",
+//     "resumo": "ALERTA: CPU 95% - SP-02",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Concluído",
+//     "datas": {
+//       "criacao": "2025-12-03T09:00:00.000-0300",
+//       "resolucao": "2025-12-03T09:40:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "303;2;1",
+//       "modelo_id": "303",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-03T09:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-03T09:40:00.000-0300", "de": "In Progress", "para": "Concluído" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-304",
+//     "resumo": "ALERTA: Disco 92% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Closed",
+//     "datas": {
+//       "criacao": "2025-12-03T11:20:00.000-0300",
+//       "resolucao": "2025-12-03T11:55:00.000-0300"
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "304;2;1",
+//       "modelo_id": "304",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-03T11:25:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-03T11:55:00.000-0300", "de": "In Progress", "para": "Closed" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-305",
-    "resumo": "PROBLEMA: Saturação recorrente de CPU - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Problema",
-    "prioridade": "High",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-03T08:30:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "305;6;3",
-      "modelo_id": "305",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-03T08:45:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-306",
-    "resumo": "ALERTA CRÍTICO: RAM 98% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-03T09:15:00.000-0300",
-      "resolucao": "2025-12-03T15:10:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "306;6;3",
-      "modelo_id": "306",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-03T09:25:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-03T15:10:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-305",
+//     "resumo": "PROBLEMA: Saturação recorrente de CPU - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Problema",
+//     "prioridade": "High",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-03T08:30:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "305;6;3",
+//       "modelo_id": "305",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-03T08:45:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-306",
+//     "resumo": "ALERTA CRÍTICO: RAM 98% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-03T09:15:00.000-0300",
+//       "resolucao": "2025-12-03T15:10:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "306;6;3",
+//       "modelo_id": "306",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-03T09:25:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-03T15:10:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  // ===================== 04/12/2025 =====================
-  {
-    "chave": "MOCK-307",
-    "resumo": "ALERTA: GPU 90% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-04T08:00:00.000-0300",
-      "resolucao": "2025-12-04T09:20:00.000-0300"
-    },
-    "labels": ["gpu"],
-    "identificador": {
-      "valor_bruto": "307;1;1",
-      "modelo_id": "307",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-04T08:10:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-04T09:20:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-308",
-    "resumo": "PROBLEMA: Gargalo de disco em backup - SP-01",
-    "tipo_issue": "Maior",
-    "tipo": "Problema",
-    "prioridade": "Medium",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-04T14:00:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "308;1;1",
-      "modelo_id": "308",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-04T14:20:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
+//   // ===================== 04/12/2025 =====================
+//   {
+//     "chave": "MOCK-307",
+//     "resumo": "ALERTA: GPU 90% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-04T08:00:00.000-0300",
+//       "resolucao": "2025-12-04T09:20:00.000-0300"
+//     },
+//     "labels": ["gpu"],
+//     "identificador": {
+//       "valor_bruto": "307;1;1",
+//       "modelo_id": "307",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-04T08:10:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-04T09:20:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-308",
+//     "resumo": "PROBLEMA: Gargalo de disco em backup - SP-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Problema",
+//     "prioridade": "Medium",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-04T14:00:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "308;1;1",
+//       "modelo_id": "308",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-04T14:20:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-309",
-    "resumo": "ALERTA: CPU 85% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Closed",
-    "datas": {
-      "criacao": "2025-12-04T09:05:00.000-0300",
-      "resolucao": "2025-12-04T09:40:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "309;2;1",
-      "modelo_id": "309",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-04T09:10:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-04T09:40:00.000-0300", "de": "In Progress", "para": "Closed" }
-    ]
-  },
-  {
-    "chave": "MOCK-310",
-    "resumo": "ALERTA: RAM 88% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-04T11:00:00.000-0300",
-      "resolucao": "2025-12-04T11:35:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "310;2;1",
-      "modelo_id": "310",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-04T11:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-04T11:35:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-309",
+//     "resumo": "ALERTA: CPU 85% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Closed",
+//     "datas": {
+//       "criacao": "2025-12-04T09:05:00.000-0300",
+//       "resolucao": "2025-12-04T09:40:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "309;2;1",
+//       "modelo_id": "309",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-04T09:10:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-04T09:40:00.000-0300", "de": "In Progress", "para": "Closed" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-310",
+//     "resumo": "ALERTA: RAM 88% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-04T11:00:00.000-0300",
+//       "resolucao": "2025-12-04T11:35:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "310;2;1",
+//       "modelo_id": "310",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-04T11:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-04T11:35:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-311",
-    "resumo": "ALERTA CRÍTICO: CPU 99% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-04T07:30:00.000-0300",
-      "resolucao": "2025-12-04T13:10:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "311;6;3",
-      "modelo_id": "311",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-04T07:45:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-04T13:10:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-312",
-    "resumo": "PROBLEMA: I/O de disco extremamente lento - MG-01",
-    "tipo_issue": "Maior",
-    "tipo": "Problema",
-    "prioridade": "Medium",
-    "status": "Aberto",
-    "datas": {
-      "criacao": "2025-12-04T16:50:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "312;6;3",
-      "modelo_id": "312",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": []
-  },
+//   {
+//     "chave": "MOCK-311",
+//     "resumo": "ALERTA CRÍTICO: CPU 99% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-04T07:30:00.000-0300",
+//       "resolucao": "2025-12-04T13:10:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "311;6;3",
+//       "modelo_id": "311",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-04T07:45:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-04T13:10:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-312",
+//     "resumo": "PROBLEMA: I/O de disco extremamente lento - MG-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Problema",
+//     "prioridade": "Medium",
+//     "status": "Aberto",
+//     "datas": {
+//       "criacao": "2025-12-04T16:50:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "312;6;3",
+//       "modelo_id": "312",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": []
+//   },
 
-  // ===================== 05/12/2025 =====================
-  {
-    "chave": "MOCK-313",
-    "resumo": "ALERTA: RAM 90% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-05T09:00:00.000-0300",
-      "resolucao": "2025-12-05T10:10:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "313;1;1",
-      "modelo_id": "313",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-05T09:10:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-05T10:10:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-314",
-    "resumo": "PROBLEMA: CPU alta em janelas de batch - SP-01",
-    "tipo_issue": "Maior",
-    "tipo": "Problema",
-    "prioridade": "Medium",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-05T18:30:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "314;1;1",
-      "modelo_id": "314",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-05T18:45:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
+//   // ===================== 05/12/2025 =====================
+//   {
+//     "chave": "MOCK-313",
+//     "resumo": "ALERTA: RAM 90% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-05T09:00:00.000-0300",
+//       "resolucao": "2025-12-05T10:10:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "313;1;1",
+//       "modelo_id": "313",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-05T09:10:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-05T10:10:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-314",
+//     "resumo": "PROBLEMA: CPU alta em janelas de batch - SP-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Problema",
+//     "prioridade": "Medium",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-05T18:30:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "314;1;1",
+//       "modelo_id": "314",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-05T18:45:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-315",
-    "resumo": "ALERTA: Disco 95% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-05T08:40:00.000-0300",
-      "resolucao": "2025-12-05T09:10:00.000-0300"
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "315;2;1",
-      "modelo_id": "315",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-05T08:45:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-05T09:10:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-316",
-    "resumo": "ALERTA CRÍTICO: CPU e RAM altas - SP-02",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Concluído",
-    "datas": {
-      "criacao": "2025-12-05T13:00:00.000-0300",
-      "resolucao": "2025-12-05T13:35:00.000-0300"
-    },
-    "labels": ["cpu", "ram"],
-    "identificador": {
-      "valor_bruto": "316;2;1",
-      "modelo_id": "316",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-05T13:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-05T13:35:00.000-0300", "de": "In Progress", "para": "Concluído" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-315",
+//     "resumo": "ALERTA: Disco 95% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-05T08:40:00.000-0300",
+//       "resolucao": "2025-12-05T09:10:00.000-0300"
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "315;2;1",
+//       "modelo_id": "315",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-05T08:45:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-05T09:10:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-316",
+//     "resumo": "ALERTA CRÍTICO: CPU e RAM altas - SP-02",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Concluído",
+//     "datas": {
+//       "criacao": "2025-12-05T13:00:00.000-0300",
+//       "resolucao": "2025-12-05T13:35:00.000-0300"
+//     },
+//     "labels": ["cpu", "ram"],
+//     "identificador": {
+//       "valor_bruto": "316;2;1",
+//       "modelo_id": "316",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-05T13:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-05T13:35:00.000-0300", "de": "In Progress", "para": "Concluído" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-317",
-    "resumo": "ALERTA CRÍTICO: GPU 100% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-05T07:40:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["gpu"],
-    "identificador": {
-      "valor_bruto": "317;6;3",
-      "modelo_id": "317",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-05T07:50:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-318",
-    "resumo": "ALERTA: Disco 97% em storage - MG-01",
-    "tipo_issue": "Maior",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-05T10:20:00.000-0300",
-      "resolucao": "2025-12-05T16:50:00.000-0300"
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "318;6;3",
-      "modelo_id": "318",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-05T10:30:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-05T16:50:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-317",
+//     "resumo": "ALERTA CRÍTICO: GPU 100% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-05T07:40:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["gpu"],
+//     "identificador": {
+//       "valor_bruto": "317;6;3",
+//       "modelo_id": "317",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-05T07:50:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-318",
+//     "resumo": "ALERTA: Disco 97% em storage - MG-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-05T10:20:00.000-0300",
+//       "resolucao": "2025-12-05T16:50:00.000-0300"
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "318;6;3",
+//       "modelo_id": "318",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-05T10:30:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-05T16:50:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  // ===================== 06/12/2025 =====================
-  {
-    "chave": "MOCK-319",
-    "resumo": "ALERTA: CPU 88% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-06T08:10:00.000-0300",
-      "resolucao": "2025-12-06T09:25:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "319;1;1",
-      "modelo_id": "319",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-06T08:20:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-06T09:25:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-320",
-    "resumo": "ALERTA: RAM elevada em nó de aplicação - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-06T11:00:00.000-0300",
-      "resolucao": "2025-12-06T13:10:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "320;1;1",
-      "modelo_id": "320",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-06T11:10:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-06T13:10:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   // ===================== 06/12/2025 =====================
+//   {
+//     "chave": "MOCK-319",
+//     "resumo": "ALERTA: CPU 88% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-06T08:10:00.000-0300",
+//       "resolucao": "2025-12-06T09:25:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "319;1;1",
+//       "modelo_id": "319",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-06T08:20:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-06T09:25:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-320",
+//     "resumo": "ALERTA: RAM elevada em nó de aplicação - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-06T11:00:00.000-0300",
+//       "resolucao": "2025-12-06T13:10:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "320;1;1",
+//       "modelo_id": "320",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-06T11:10:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-06T13:10:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-321",
-    "resumo": "ALERTA: GPU 85% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Closed",
-    "datas": {
-      "criacao": "2025-12-06T07:45:00.000-0300",
-      "resolucao": "2025-12-06T08:20:00.000-0300"
-    },
-    "labels": ["gpu"],
-    "identificador": {
-      "valor_bruto": "321;2;1",
-      "modelo_id": "321",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-06T07:50:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-06T08:20:00.000-0300", "de": "In Progress", "para": "Closed" }
-    ]
-  },
-  {
-    "chave": "MOCK-322",
-    "resumo": "ALERTA: Disco 90% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-06T15:20:00.000-0300",
-      "resolucao": "2025-12-06T15:55:00.000-0300"
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "322;2;1",
-      "modelo_id": "322",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-06T15:25:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-06T15:55:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-321",
+//     "resumo": "ALERTA: GPU 85% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Closed",
+//     "datas": {
+//       "criacao": "2025-12-06T07:45:00.000-0300",
+//       "resolucao": "2025-12-06T08:20:00.000-0300"
+//     },
+//     "labels": ["gpu"],
+//     "identificador": {
+//       "valor_bruto": "321;2;1",
+//       "modelo_id": "321",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-06T07:50:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-06T08:20:00.000-0300", "de": "In Progress", "para": "Closed" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-322",
+//     "resumo": "ALERTA: Disco 90% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-06T15:20:00.000-0300",
+//       "resolucao": "2025-12-06T15:55:00.000-0300"
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "322;2;1",
+//       "modelo_id": "322",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-06T15:25:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-06T15:55:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-323",
-    "resumo": "ALERTA CRÍTICO: RAM 99% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-06T06:50:00.000-0300",
-      "resolucao": "2025-12-06T13:30:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "323;6;3",
-      "modelo_id": "323",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-06T07:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-06T13:30:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-324",
-    "resumo": "PROBLEMA: Saturação de CPU em relatórios - MG-01",
-    "tipo_issue": "Maior",
-    "tipo": "Problema",
-    "prioridade": "Medium",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-06T17:00:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "324;6;3",
-      "modelo_id": "324",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-06T17:15:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-323",
+//     "resumo": "ALERTA CRÍTICO: RAM 99% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-06T06:50:00.000-0300",
+//       "resolucao": "2025-12-06T13:30:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "323;6;3",
+//       "modelo_id": "323",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-06T07:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-06T13:30:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-324",
+//     "resumo": "PROBLEMA: Saturação de CPU em relatórios - MG-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Problema",
+//     "prioridade": "Medium",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-06T17:00:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "324;6;3",
+//       "modelo_id": "324",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-06T17:15:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
 
-  // ===================== 07/12/2025 =====================
-  {
-    "chave": "MOCK-325",
-    "resumo": "ALERTA: CPU 87% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-07T09:10:00.000-0300",
-      "resolucao": "2025-12-07T10:30:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "325;1;1",
-      "modelo_id": "325",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-07T09:20:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-07T10:30:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-326",
-    "resumo": "ALERTA: Disco 93% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-07T13:40:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "326;1;1",
-      "modelo_id": "326",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-07T13:55:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
+//   // ===================== 07/12/2025 =====================
+//   {
+//     "chave": "MOCK-325",
+//     "resumo": "ALERTA: CPU 87% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-07T09:10:00.000-0300",
+//       "resolucao": "2025-12-07T10:30:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "325;1;1",
+//       "modelo_id": "325",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-07T09:20:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-07T10:30:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-326",
+//     "resumo": "ALERTA: Disco 93% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-07T13:40:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "326;1;1",
+//       "modelo_id": "326",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-07T13:55:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-327",
-    "resumo": "ALERTA: RAM 86% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Closed",
-    "datas": {
-      "criacao": "2025-12-07T08:00:00.000-0300",
-      "resolucao": "2025-12-07T08:30:00.000-0300"
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "327;2;1",
-      "modelo_id": "327",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-07T08:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-07T08:30:00.000-0300", "de": "In Progress", "para": "Closed" }
-    ]
-  },
-  {
-    "chave": "MOCK-328",
-    "resumo": "ALERTA: CPU 84% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-07T11:15:00.000-0300",
-      "resolucao": "2025-12-07T11:45:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "328;2;1",
-      "modelo_id": "328",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-07T11:20:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-07T11:45:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-327",
+//     "resumo": "ALERTA: RAM 86% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Closed",
+//     "datas": {
+//       "criacao": "2025-12-07T08:00:00.000-0300",
+//       "resolucao": "2025-12-07T08:30:00.000-0300"
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "327;2;1",
+//       "modelo_id": "327",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-07T08:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-07T08:30:00.000-0300", "de": "In Progress", "para": "Closed" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-328",
+//     "resumo": "ALERTA: CPU 84% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-07T11:15:00.000-0300",
+//       "resolucao": "2025-12-07T11:45:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "328;2;1",
+//       "modelo_id": "328",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-07T11:20:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-07T11:45:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-329",
-    "resumo": "ALERTA CRÍTICO: CPU 100% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-07T07:20:00.000-0300",
-      "resolucao": "2025-12-07T14:50:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "329;6;3",
-      "modelo_id": "329",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-07T07:35:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-07T14:50:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-330",
-    "resumo": "PROBLEMA: Falhas recorrentes de disco - MG-01",
-    "tipo_issue": "Maior",
-    "tipo": "Problema",
-    "prioridade": "Medium",
-    "status": "Aberto",
-    "datas": {
-      "criacao": "2025-12-07T18:40:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "330;6;3",
-      "modelo_id": "330",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": []
-  },
+//   {
+//     "chave": "MOCK-329",
+//     "resumo": "ALERTA CRÍTICO: CPU 100% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-07T07:20:00.000-0300",
+//       "resolucao": "2025-12-07T14:50:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "329;6;3",
+//       "modelo_id": "329",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-07T07:35:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-07T14:50:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-330",
+//     "resumo": "PROBLEMA: Falhas recorrentes de disco - MG-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Problema",
+//     "prioridade": "Medium",
+//     "status": "Aberto",
+//     "datas": {
+//       "criacao": "2025-12-07T18:40:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "330;6;3",
+//       "modelo_id": "330",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": []
+//   },
 
-  // ===================== 08/12/2025 =====================
-  {
-    "chave": "MOCK-331",
-    "resumo": "ALERTA: CPU 89% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-08T08:05:00.000-0300",
-      "resolucao": "2025-12-08T09:15:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "331;1;1",
-      "modelo_id": "331",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-08T08:15:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-08T09:15:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
-  {
-    "chave": "MOCK-332",
-    "resumo": "ALERTA: RAM 92% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-08T15:10:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "332;1;1",
-      "modelo_id": "332",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-08T15:20:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
+//   // ===================== 08/12/2025 =====================
+//   {
+//     "chave": "MOCK-331",
+//     "resumo": "ALERTA: CPU 89% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-08T08:05:00.000-0300",
+//       "resolucao": "2025-12-08T09:15:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "331;1;1",
+//       "modelo_id": "331",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-08T08:15:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-08T09:15:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-332",
+//     "resumo": "ALERTA: RAM 92% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-08T15:10:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "332;1;1",
+//       "modelo_id": "332",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-08T15:20:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-333",
-    "resumo": "ALERTA: GPU 87% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Concluído",
-    "datas": {
-      "criacao": "2025-12-08T09:00:00.000-0300",
-      "resolucao": "2025-12-08T09:35:00.000-0300"
-    },
-    "labels": ["gpu"],
-    "identificador": {
-      "valor_bruto": "333;2;1",
-      "modelo_id": "333",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-08T09:05:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-08T09:35:00.000-0300", "de": "In Progress", "para": "Concluído" }
-    ]
-  },
-  {
-    "chave": "MOCK-334",
-    "resumo": "ALERTA: CPU 83% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-08T14:30:00.000-0300",
-      "resolucao": "2025-12-08T14:55:00.000-0300"
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "334;2;1",
-      "modelo_id": "334",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-08T14:35:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-08T14:55:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-333",
+//     "resumo": "ALERTA: GPU 87% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Concluído",
+//     "datas": {
+//       "criacao": "2025-12-08T09:00:00.000-0300",
+//       "resolucao": "2025-12-08T09:35:00.000-0300"
+//     },
+//     "labels": ["gpu"],
+//     "identificador": {
+//       "valor_bruto": "333;2;1",
+//       "modelo_id": "333",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-08T09:05:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-08T09:35:00.000-0300", "de": "In Progress", "para": "Concluído" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-334",
+//     "resumo": "ALERTA: CPU 83% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-08T14:30:00.000-0300",
+//       "resolucao": "2025-12-08T14:55:00.000-0300"
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "334;2;1",
+//       "modelo_id": "334",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-08T14:35:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-08T14:55:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  {
-    "chave": "MOCK-335",
-    "resumo": "ALERTA CRÍTICO: RAM 99% em banco - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "Em andamento",
-    "datas": {
-      "criacao": "2025-12-08T07:50:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "335;6;3",
-      "modelo_id": "335",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-08T08:00:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-336",
-    "resumo": "ALERTA: Disco 96% - MG-01",
-    "tipo_issue": "Maior",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Done",
-    "datas": {
-      "criacao": "2025-12-08T10:15:00.000-0300",
-      "resolucao": "2025-12-08T17:05:00.000-0300"
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "336;6;3",
-      "modelo_id": "336",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-08T10:30:00.000-0300", "de": "Open", "para": "In Progress" },
-      { "data": "2025-12-08T17:05:00.000-0300", "de": "In Progress", "para": "Done" }
-    ]
-  },
+//   {
+//     "chave": "MOCK-335",
+//     "resumo": "ALERTA CRÍTICO: RAM 99% em banco - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "Em andamento",
+//     "datas": {
+//       "criacao": "2025-12-08T07:50:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "335;6;3",
+//       "modelo_id": "335",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-08T08:00:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-336",
+//     "resumo": "ALERTA: Disco 96% - MG-01",
+//     "tipo_issue": "Maior",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Done",
+//     "datas": {
+//       "criacao": "2025-12-08T10:15:00.000-0300",
+//       "resolucao": "2025-12-08T17:05:00.000-0300"
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "336;6;3",
+//       "modelo_id": "336",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-08T10:30:00.000-0300", "de": "Open", "para": "In Progress" },
+//       { "data": "2025-12-08T17:05:00.000-0300", "de": "In Progress", "para": "Done" }
+//     ]
+//   },
 
-  // ===================== 09/12/2025 (HOJE) =====================
-  {
-    "chave": "MOCK-337",
-    "resumo": "ALERTA: CPU 88% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "In Progress",
-    "datas": {
-      "criacao": "2025-12-09T08:20:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "337;1;1",
-      "modelo_id": "337",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": [
-      { "data": "2025-12-09T08:30:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-338",
-    "resumo": "ALERTA: RAM 90% - SP-01",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Open",
-    "datas": {
-      "criacao": "2025-12-09T10:45:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["ram"],
-    "identificador": {
-      "valor_bruto": "338;1;1",
-      "modelo_id": "338",
-      "zona_id": "1",
-      "empresa_id": "1",
-      "zona_nome": "SP-01"
-    },
-    "zona": "SP-01",
-    "historico_status": []
-  },
+//   // ===================== 09/12/2025 (HOJE) =====================
+//   {
+//     "chave": "MOCK-337",
+//     "resumo": "ALERTA: CPU 88% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "In Progress",
+//     "datas": {
+//       "criacao": "2025-12-09T08:20:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "337;1;1",
+//       "modelo_id": "337",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": [
+//       { "data": "2025-12-09T08:30:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-338",
+//     "resumo": "ALERTA: RAM 90% - SP-01",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Open",
+//     "datas": {
+//       "criacao": "2025-12-09T10:45:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["ram"],
+//     "identificador": {
+//       "valor_bruto": "338;1;1",
+//       "modelo_id": "338",
+//       "zona_id": "1",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-01"
+//     },
+//     "zona": "SP-01",
+//     "historico_status": []
+//   },
 
-  {
-    "chave": "MOCK-339",
-    "resumo": "ALERTA: CPU 86% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "In Progress",
-    "datas": {
-      "criacao": "2025-12-09T09:05:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "339;2;1",
-      "modelo_id": "339",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": [
-      { "data": "2025-12-09T09:15:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-340",
-    "resumo": "ALERTA: Disco 91% - SP-02",
-    "tipo_issue": "Médio",
-    "tipo": "Incidente",
-    "prioridade": "Medium",
-    "status": "Open",
-    "datas": {
-      "criacao": "2025-12-09T11:30:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["disco"],
-    "identificador": {
-      "valor_bruto": "340;2;1",
-      "modelo_id": "340",
-      "zona_id": "2",
-      "empresa_id": "1",
-      "zona_nome": "SP-02"
-    },
-    "zona": "SP-02",
-    "historico_status": []
-  },
+//   {
+//     "chave": "MOCK-339",
+//     "resumo": "ALERTA: CPU 86% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "In Progress",
+//     "datas": {
+//       "criacao": "2025-12-09T09:05:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "339;2;1",
+//       "modelo_id": "339",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": [
+//       { "data": "2025-12-09T09:15:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-340",
+//     "resumo": "ALERTA: Disco 91% - SP-02",
+//     "tipo_issue": "Médio",
+//     "tipo": "Incidente",
+//     "prioridade": "Medium",
+//     "status": "Open",
+//     "datas": {
+//       "criacao": "2025-12-09T11:30:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["disco"],
+//     "identificador": {
+//       "valor_bruto": "340;2;1",
+//       "modelo_id": "340",
+//       "zona_id": "2",
+//       "empresa_id": "1",
+//       "zona_nome": "SP-02"
+//     },
+//     "zona": "SP-02",
+//     "historico_status": []
+//   },
 
-  {
-    "chave": "MOCK-341",
-    "resumo": "ALERTA CRÍTICO: CPU 100% - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Incidente",
-    "prioridade": "High",
-    "status": "In Progress",
-    "datas": {
-      "criacao": "2025-12-09T07:10:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["cpu"],
-    "identificador": {
-      "valor_bruto": "341;6;3",
-      "modelo_id": "341",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": [
-      { "data": "2025-12-09T07:20:00.000-0300", "de": "Open", "para": "In Progress" }
-    ]
-  },
-  {
-    "chave": "MOCK-342",
-    "resumo": "PROBLEMA: Picos constantes de RAM e CPU - MG-01",
-    "tipo_issue": "Crítico",
-    "tipo": "Problema",
-    "prioridade": "High",
-    "status": "Aberto",
-    "datas": {
-      "criacao": "2025-12-09T12:20:00.000-0300",
-      "resolucao": null
-    },
-    "labels": ["ram", "cpu"],
-    "identificador": {
-      "valor_bruto": "342;6;3",
-      "modelo_id": "342",
-      "zona_id": "6",
-      "empresa_id": "3",
-      "zona_nome": "MG-01"
-    },
-    "zona": "MG-01",
-    "historico_status": []
-  }
-];
+//   {
+//     "chave": "MOCK-341",
+//     "resumo": "ALERTA CRÍTICO: CPU 100% - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Incidente",
+//     "prioridade": "High",
+//     "status": "In Progress",
+//     "datas": {
+//       "criacao": "2025-12-09T07:10:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["cpu"],
+//     "identificador": {
+//       "valor_bruto": "341;6;3",
+//       "modelo_id": "341",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": [
+//       { "data": "2025-12-09T07:20:00.000-0300", "de": "Open", "para": "In Progress" }
+//     ]
+//   },
+//   {
+//     "chave": "MOCK-342",
+//     "resumo": "PROBLEMA: Picos constantes de RAM e CPU - MG-01",
+//     "tipo_issue": "Crítico",
+//     "tipo": "Problema",
+//     "prioridade": "High",
+//     "status": "Aberto",
+//     "datas": {
+//       "criacao": "2025-12-09T12:20:00.000-0300",
+//       "resolucao": null
+//     },
+//     "labels": ["ram", "cpu"],
+//     "identificador": {
+//       "valor_bruto": "342;6;3",
+//       "modelo_id": "342",
+//       "zona_id": "6",
+//       "empresa_id": "3",
+//       "zona_nome": "MG-01"
+//     },
+//     "zona": "MG-01",
+//     "historico_status": []
+//   }
+// ];
 
 
 
