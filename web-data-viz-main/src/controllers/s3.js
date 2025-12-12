@@ -9,19 +9,23 @@ const s3 = new AWS.S3({
 
 async function lerArquivo(req, res) {
   try {
-    const fileKey = req.params.pasta
+    var fileKey = req.params.pasta
       ? `${req.params.arquivo}/${req.params.pasta}`
       : `${req.params.arquivo}`;
-    console.log("Buscando arquivo S3:", fileKey);
+    if (fileKey == "Latest.json/dados_monitoramento") {
+      fileKey = "dados_monitoramento/Latest.json";
+    }
     const params = {
       Bucket: process.env.S3_BUCKET,
       Key: fileKey,
     };
     const data = await s3.getObject(params).promise();
     const text = data.Body.toString("utf-8").trim();
+    console.log(JSON.parse(text));
     res.json(JSON.parse(text));
     return;
   } catch (err) {
+    console.log(err)
     try {
       res.json({
         empresas: [

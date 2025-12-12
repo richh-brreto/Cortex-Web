@@ -56,7 +56,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  zoom: 66%;
+  zoom: 65%;
 }
 
 /* ============================================================================
@@ -90,7 +90,7 @@ body {
 .empresa-name {
   display: block;
   margin-top: 4px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--accent);
 }
@@ -104,7 +104,7 @@ body {
   border: 1px solid var(--border-subtle);
   background: var(--accent);
   color: #ffffff;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -176,7 +176,7 @@ body {
 
 .help-text {
   flex: 1;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-secondary);
 }
 
@@ -190,7 +190,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-primary);
 }
 
@@ -283,14 +283,14 @@ body {
 
 .component-title h3 {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .component-title .context {
   margin: 4px 0 0;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-muted);
   line-height: 1;
 }
@@ -309,7 +309,7 @@ body {
   right: 14px;
   border-radius: var(--radius-pill);
   padding: 4px 10px;
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 600;
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -382,7 +382,7 @@ body {
 
 .stat-label {
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 2px;
 }
@@ -397,7 +397,7 @@ body {
 
 .stat-context {
   display: block;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
   line-height: 1.3;
 }
@@ -478,13 +478,13 @@ body {
 }
 
 .zone-count {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 4px;
 }
 
 .zone-context {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-muted);
   line-height: 1.3;
 }
@@ -493,7 +493,7 @@ body {
    LEGEND
    ============================================================================ */
 .legend {
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
   display: flex;
   flex-wrap: wrap;
@@ -524,7 +524,7 @@ body {
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 12.5px;
 }
 
 .data-table th,
@@ -541,7 +541,7 @@ body {
 .data-table th {
   font-weight: 600;
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 12.5px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -563,7 +563,7 @@ body {
 }
 
 .cell-main {
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -585,7 +585,7 @@ body {
 
 
 .cell-sub {
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
   margin-top: 2px;
 }
@@ -618,13 +618,13 @@ body {
 }
 
 .metric-value {
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .metric-sla {
-  font-size: 9px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -635,7 +635,7 @@ body {
   display: inline-block;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 700;
   text-align: center;
 }
@@ -699,14 +699,14 @@ body {
 }
 
 .alert-header strong {
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-primary);
 }
 
 .alert-badge {
   border-radius: var(--radius-pill);
   padding: 3px 8px;
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.7);
   color: var(--text-secondary);
@@ -715,7 +715,7 @@ body {
 .alert-details {
   display: flex;
   gap: 10px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
   margin-bottom: 4px;
   flex-wrap: wrap;
@@ -728,7 +728,7 @@ body {
 }
 
 .alert-context {
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-secondary);
   line-height: 1.3;
 }
@@ -736,7 +736,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 20px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
 }
 
@@ -747,7 +747,7 @@ body {
   display: inline-block;
   padding: 3px 8px;
   border-radius: var(--radius-pill);
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
@@ -773,7 +773,7 @@ body {
 .actions-list {
   margin: 0;
   padding-left: 20px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-secondary);
   display: flex;
   flex-direction: column;
@@ -794,7 +794,7 @@ body {
 .actions-list .context {
   display: block;
   margin-top: 2px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-muted);
 }
 
@@ -856,7 +856,7 @@ body {
 }
 
 .chat-header span {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -896,7 +896,7 @@ body {
   border-radius: 12px;
   max-width: 85%;
   line-height: 1.4;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .chat-msg.user {
@@ -928,7 +928,7 @@ body {
   border-radius: 999px;
   padding: 8px 14px;
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 13px;
   transition: all 0.15s ease;
 }
 
@@ -943,7 +943,7 @@ body {
   border: none;
   border-radius: 999px;
   padding: 8px 16px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   color: #ffffff;
@@ -973,7 +973,7 @@ body {
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
   padding: 10px 16px;
-  font-size: 15px;
+  font-size: 12.5px;
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -998,7 +998,20 @@ body {
 /* ============================================================================
    NAVBAR OVERRIDE
    ============================================================================ */
-
+.barra-lateral {
+  width: 70px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0 20px 10px;
+  position: relative;
+  z-index: 100;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  overflow-y: auto;
+}
 
 
 

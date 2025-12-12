@@ -1,6 +1,6 @@
 const CONFIG = {
   API_URL: "http://localhost:8080",
-  DATA_PATH: "/s3Route/dados/Latest.json",
+  DATA_PATH: "/s3Route/dados/Latest.json/dados_monitoramento",
   AI_URL: "http://localhost:8080/ai/actions",
 };
 
@@ -144,9 +144,9 @@ const ComponentTemplates = {
       </div>
       <div class="stats-grid">
         <div class="stat-card ${
-          data.zonesCount > 80
+          data.slaGlobal > 80
             ? "ok"
-            : data.zonesCount > 60
+            : data.slaGlobal > 60
             ? "warning"
             : "critical"
         }">
@@ -157,7 +157,13 @@ const ComponentTemplates = {
           </div>
           <span class="stat-context">% de medições de CPU, RAM, GPU e Disco dentro do limite configurado em SLA de cada modelo junto.</span>
         </div>
-        <div class="stat-card critical">
+        <div class="stat-card ${
+          data.criticalCount == 0
+            ? "ok"
+            : data.criticalCount < 7
+            ? "warning"
+            : "critical"
+        }">
           <div class="stat-icon">🚨</div>
           <div class="stat-content">
             <span class="stat-label">Modelos Críticos</span>
@@ -165,7 +171,13 @@ const ComponentTemplates = {
           </div>
           <span class="stat-context">Saude < 60% ou violações graves de SLA do modelo.</span>
         </div>
-        <div class="stat-card warning">
+        <div class="stat-card ${
+          data.warningCount == 0
+            ? "ok"
+            : data.warningCount < 7
+            ? "warning"
+            : "critical"
+        }">
           <div class="stat-icon">⚠️</div>
           <div class="stat-content">
             <span class="stat-label">Modelos em Atenção</span>
